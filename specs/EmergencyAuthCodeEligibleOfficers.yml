@@ -1,0 +1,228 @@
+openapi: '3.0.2'
+info:
+  title: Companies House Internal Oracle Query API
+  version: '1.0'
+servers:
+  - url: http://localhost:18XXX
+tags:
+  - name: emergency-auth-code-officers
+    description: company officers eligible for emergency auth code delivery
+paths:
+  /emergency-auth-code/company/{company_number}/eligible-officers:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - emergency-auth-code-officers
+      operationId: listCompanyOfficers
+      summary: Get a list of the companies officers that are eligible for emergency auth code delivery
+      responses:
+        '200':
+          description: A list of eligible officers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/companyOfficers'
+        '401':
+          description: Unauthorised
+        '404':
+          description: No eligible officers found
+  /emergency-auth-code/company/{company_number}/eligible-officers/{officer_id}:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+      - $ref: '#/components/parameters/officerId'
+    get:
+      tags:
+        - emergency-auth-code-officers
+      operationId: getCompanyOfficer
+      summary: Get a specific company officer that is eligible for emergency auth code delivery
+      responses:
+        '200':
+          description: An eligible officer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/companyOfficer'
+        '401':
+          description: Unauthorised
+        '404':
+          description: Not found
+components:
+  schemas:
+    companyOfficer:
+      type: object
+      required:
+        - id
+        - forename
+        - surname
+        - officer_role
+        - date_of_birth
+        - appointed_on
+        - nationality
+        - country_of_residence
+        - occupation
+        - usual_residential_address
+      properties:
+        id:
+          type: string
+          description: The id of the user
+          readOnly: true
+          example: abc123
+        forename:
+          type: string
+          description: The officers forename
+          example: Joe
+        surname:
+          type: string
+          description: The officers surname
+          example: Bloggs
+        officer_role:
+          type: string
+          enum:
+            - "director"
+          description: The officers role within the company. enum values may be expanded to a subset of `officer_role` mappings here https://github.com/companieshouse/api-enumerations/blob/master/constants.yml
+          example: director
+        date_of_birth:
+          type: object
+          description: The officers date of birth details
+          $ref: '#/components/schemas/officerDOB'
+        appointed_on:
+          type: string
+          format: date
+          description: The date the officer was appointed to the company
+          example: 2020-05-05
+        nationality:
+          type: string
+          description: The officers nationality
+          example: British
+        country_of_residence:
+          type: string
+          description: The officers country of residence
+          example: United Kingdom
+        occupation:
+          type: string
+          description: The officers occupation
+          example: Chartered Accountant
+        usual_residential_address:
+          type: object
+          description: The officers URA
+          $ref: '#/components/schemas/officerURA'
+    officerDOB:
+      type: object
+      readOnly: true
+      required:
+        - month
+        - year
+      properties:
+        month:
+          type: string
+          description: The officers month of birth
+          readOnly: true
+          example: "01"
+        year:
+          type: string
+          description: The officers year of birth
+          readOnly: true
+          example: "1999"
+    officerURA:
+      type: object
+      readOnly: true
+      required:
+        - id
+        - premises
+        - address_line_1
+        - locality
+        - postcode
+      properties:
+        id:
+          type: string
+          description: The internal id of the URA
+          readOnly: true
+          example: "24681012"
+        po_box:
+          type: string
+          description: The  post-office box number
+          readOnly: true
+          example: "10"
+        premises:
+          type: string
+          description: The property name or number
+          readOnly: true
+          example: "10"
+        address_line_1:
+          type: string
+          description: The first line of the address
+          readOnly: true
+          example: "Crown Way"
+        address_line_2:
+          type: string
+          description: The second line of the address
+          readOnly: true
+          example: "Maindy"
+        locality:
+          type: string
+          description: The locality
+          readOnly: true
+          example: "Cardiff"
+        region:
+          type: string
+          description: The region
+          readOnly: true
+          example: "Glamorgan"
+        country:
+          type: string
+          description: The country
+          readOnly: true
+          example: "Wales"
+        postcode:
+          type: string
+          description: The postal code
+          readOnly: true
+          example: "CF143UZ"
+    companyOfficers:
+      type: object
+      required:
+        - items_per_page
+        - start_index
+        - total_results
+        - items
+      properties:
+        items_per_page:
+          type: integer
+          format: int64
+          description: Number of items per page returned in this list
+          readOnly: true
+          example: 10
+        start_index:
+          type: integer
+          format: int64
+          description: The offset into the entire list that this page starts at. Zero indexed
+          readOnly: true
+          example: 0
+        total_results:
+          type: integer
+          format: int64
+          description: The total number of items in the list
+          readOnly: true
+          example: 0
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/companyOfficer'
+  parameters:
+    companyNumber:
+      name: 'company_number'
+      description: The company number
+      in: 'path'
+      required: true
+      schema:
+        type: string
+      example: "12345678"
+    officerId:
+      name: 'officer_id'
+      description: The id of the officer
+      in: 'path'
+      required: true
+      schema:
+        type: string
+      example: "9876543210"
