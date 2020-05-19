@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class EmergencyOfficersController {
 
-    @GetMapping("/emergency-auth-code/company/{company_number}/eligible-officers")
+    @GetMapping("/emergency-auth-code/company/{companyNumber}/eligible-officers")
     public ResponseEntity getListOfEligibleCompanyOfficers(
-            @PathVariable String company_number) {
+            @PathVariable String companyNumber) {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("/emergency-auth-code/company/{company_number}/eligible-officers/{officer_id}")
+    @GetMapping("/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}")
     public ResponseEntity getCompanyOfficer(
-            @PathVariable String company_number,
-            @PathVariable String officer_id) {
+            @PathVariable String companyNumber,
+            @PathVariable String officerId) {
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
