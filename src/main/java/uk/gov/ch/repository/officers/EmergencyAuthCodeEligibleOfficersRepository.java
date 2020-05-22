@@ -19,6 +19,6 @@ public interface EmergencyAuthCodeEligibleOfficersRepository extends PagingAndSo
             "and od.OFFICER_DISQUALIFICATION_IND = 'N' " +
             "and o.CORPORATE_OFFICER_IND = 'N'",
             nativeQuery = true)
-    public List<CorporateBodyAppointmentDataModel> findEligibleOfficersEmergencyAuthCode(
+    List<CorporateBodyAppointmentDataModel> findEligibleOfficersEmergencyAuthCode(
             String incorporationNumber);
 }

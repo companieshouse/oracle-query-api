@@ -37,7 +37,6 @@ public class EmergencyOfficersControllerTest {
         when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER)).thenReturn(null);
 
         ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER);
-        CorporateBodyAppointments body = returnedEligibleOfficers.getBody();
         assertEquals(HttpStatus.NOT_FOUND, returnedEligibleOfficers.getStatusCode());
     }
 
@@ -47,7 +46,6 @@ public class EmergencyOfficersControllerTest {
         when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER)).thenReturn(corporateBodyAppointmentsNoOfficers());
 
         ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER);
-        CorporateBodyAppointments body = returnedEligibleOfficers.getBody();
         assertEquals(HttpStatus.NOT_FOUND, returnedEligibleOfficers.getStatusCode());
     }
 
