@@ -1,4 +1,4 @@
-package uk.gov.ch.model.emergency_auth_code.jsonDataModels;
+package uk.gov.ch.model.emergencyauthcode.jsondatamodels;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

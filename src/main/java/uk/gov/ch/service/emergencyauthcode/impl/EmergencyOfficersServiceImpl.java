@@ -1,13 +1,14 @@
-package uk.gov.ch.service.emergency_auth_code.impl;
+package uk.gov.ch.service.emergencyauthcode.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
-import uk.gov.ch.service.emergency_auth_code.EmergencyOfficersService;
-import uk.gov.ch.transformers.emergency_auth_code.EmergencyOfficersTransformer;
+import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
+import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -38,5 +39,18 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
         corporateBodyAppointments.setItems(corporateBodyAppointmentList);
 
         return corporateBodyAppointments;
+    }
+
+    public CorporateBodyAppointment getEligibleOfficer(String incorporationNumber, String officerId) {
+
+        LOGGER.info("Calling repository to retrieve officer " + officerId + " for company number " + incorporationNumber);
+
+        CorporateBodyAppointmentDataModel eligibleOfficersDataModel = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficer(incorporationNumber, officerId);
+
+        if (eligibleOfficersDataModel == null) {
+            return null;
+        }
+
+        return emergencyOfficersTransformer.convert(eligibleOfficersDataModel);
     }
 }

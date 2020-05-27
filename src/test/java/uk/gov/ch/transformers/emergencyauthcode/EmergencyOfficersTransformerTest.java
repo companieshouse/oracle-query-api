@@ -1,4 +1,4 @@
-package uk.gov.ch.transformers.emergency_auth_code;
+package uk.gov.ch.transformers.emergencyauthcode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.DisplayName;
@@ -7,10 +7,10 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.CorporateBodyAppointmentDataModel;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.OfficerDetailDataModel;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.UsualResidentialAddressDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.OfficerDetailDataModel;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.UsualResidentialAddressDataModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

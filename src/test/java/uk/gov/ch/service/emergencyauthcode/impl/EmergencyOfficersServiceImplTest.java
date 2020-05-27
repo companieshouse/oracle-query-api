@@ -1,6 +1,7 @@
-package uk.gov.ch.service.emergency_auth_code.impl;
+package uk.gov.ch.service.emergencyauthcode.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,11 +10,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
-import uk.gov.ch.transformers.emergency_auth_code.EmergencyOfficersTransformer;
+import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class EmergencyOfficersServiceImplTest {
     EmergencyOfficersServiceImpl service;
 
     private static final String INCORPORATION_NUMBER = "12345678";
+    private static final String OFFICER_ID = "87654321";
 
     @Test
     @DisplayName("Get eligible officers for emergency-auth-code from repository")
@@ -46,6 +48,35 @@ public class EmergencyOfficersServiceImplTest {
         assertEquals(2, returnedCorporateBodyAppointments.getTotalResults());
         assertEquals(0, returnedCorporateBodyAppointments.getStartIndex());
         assertEquals(2, returnedCorporateBodyAppointments.getItemsPerPage());
+    }
+
+    @Test
+    @DisplayName("Get eligible officer returns null from repository")
+    public void testGetEligibleOfficerReturnsNull() {
+        when(mockRepo.findEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(null);
+
+        CorporateBodyAppointment returnedCorporateBodyAppointment = service.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID);
+        assertNull(returnedCorporateBodyAppointment);
+    }
+
+    @Test
+    @DisplayName("Get eligible officer for emergency-auth-code from repository")
+    public void testGetEligibleOfficerFromRepository() {
+        CorporateBodyAppointmentDataModel mockRepoResponse = new CorporateBodyAppointmentDataModel() {{
+            setCorporateBodyAppointmentId(123L);
+            setOccupationDescription("description");
+        }};
+        when(mockRepo.findEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(mockRepoResponse);
+
+        CorporateBodyAppointment mockTransformerResponse = new CorporateBodyAppointment() {{
+            setId("123");
+            setOccupation("description");
+        }};
+        when(mockTransformer.convert(mockRepoResponse)).thenReturn(mockTransformerResponse);
+
+        CorporateBodyAppointment returnedCorporateBodyAppointment = service.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID);
+        assertEquals("123", returnedCorporateBodyAppointment.getId());
+        assertEquals("description", returnedCorporateBodyAppointment.getOccupation());
     }
 
     private List<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {

@@ -1,4 +1,4 @@
-package uk.gov.ch.controller.emergency_auth_code;
+package uk.gov.ch.controller.emergencyauthcode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.service.emergency_auth_code.EmergencyOfficersService;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,7 @@ public class EmergencyOfficersControllerTest {
     EmergencyOfficersController controller;
 
     private static final String INCORPORATION_NUMBER = "12345678";
+    private static final String OFFICER_ID = "87654321";
 
     @Test
     @DisplayName("Get list of eligible officers - no company not found")
@@ -59,6 +60,25 @@ public class EmergencyOfficersControllerTest {
         CorporateBodyAppointments body = returnedEligibleOfficers.getBody();
         assertEquals(HttpStatus.OK, returnedEligibleOfficers.getStatusCode());
         assertEquals(2, body.getTotalResults());
+    }
+
+    @Test
+    @DisplayName("Get eligible officer - no eligible officer found")
+    public void testGetEligibleOfficerNoOfficerFound() {
+        when(mockEmergencyOfficersService.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(null);
+
+        ResponseEntity<CorporateBodyAppointment> returnedEligibleOfficer = controller.getCompanyOfficer(INCORPORATION_NUMBER, OFFICER_ID);
+        assertEquals(HttpStatus.NOT_FOUND, returnedEligibleOfficer.getStatusCode());
+    }
+
+    @Test
+    @DisplayName(("Get eligible officer - success path"))
+    public void testGetEligibleOfficerSuccess() {
+
+        when(mockEmergencyOfficersService.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(new CorporateBodyAppointment());
+
+        ResponseEntity<CorporateBodyAppointment> returnedEligibleOfficer = controller.getCompanyOfficer(INCORPORATION_NUMBER, OFFICER_ID);
+        assertEquals(HttpStatus.OK, returnedEligibleOfficer.getStatusCode());
     }
 
     private CorporateBodyAppointments corporateBodyAppointments() {

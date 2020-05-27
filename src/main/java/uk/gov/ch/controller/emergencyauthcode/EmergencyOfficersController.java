@@ -1,4 +1,4 @@
-package uk.gov.ch.controller.emergency_auth_code;
+package uk.gov.ch.controller.emergencyauthcode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.service.emergency_auth_code.EmergencyOfficersService;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -40,6 +41,15 @@ public class EmergencyOfficersController {
             @PathVariable String companyNumber,
             @PathVariable String officerId) {
 
-        return ResponseEntity.status(HttpStatus.OK).build();
+        LOGGER.info("Calling service to retrieve officer " + officerId + " for company number " + companyNumber);
+        CorporateBodyAppointment eligibleOfficer = emergencyOfficersService.getEligibleOfficer(companyNumber, officerId);
+
+        if (eligibleOfficer == null) {
+            LOGGER.info("No valid company director found for officer_id " + officerId + " on company number " + companyNumber);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        LOGGER.info("Returning details for officer " + officerId + " on company " + companyNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(eligibleOfficer);
     }
 }
