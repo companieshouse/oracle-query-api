@@ -1,4 +1,4 @@
-package uk.gov.ch.controller.emergency_auth_code;
+package uk.gov.ch.controller.emergencyauthcode;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.service.emergency_auth_code.EmergencyOfficersService;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 

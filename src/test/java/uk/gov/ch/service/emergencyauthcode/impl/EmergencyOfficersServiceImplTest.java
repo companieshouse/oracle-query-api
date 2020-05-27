@@ -1,4 +1,4 @@
-package uk.gov.ch.service.emergency_auth_code.impl;
+package uk.gov.ch.service.emergencyauthcode.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -10,11 +10,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.sqlDataModels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
-import uk.gov.ch.transformers.emergency_auth_code.EmergencyOfficersTransformer;
+import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 
 import java.util.ArrayList;
 import java.util.List;

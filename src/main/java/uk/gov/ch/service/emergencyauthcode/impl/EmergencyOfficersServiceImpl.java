@@ -1,14 +1,14 @@
-package uk.gov.ch.service.emergency_auth_code.impl;
+package uk.gov.ch.service.emergencyauthcode.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.sqlDataModels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
-import uk.gov.ch.service.emergency_auth_code.EmergencyOfficersService;
-import uk.gov.ch.transformers.emergency_auth_code.EmergencyOfficersTransformer;
+import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
+import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 

@@ -2,7 +2,7 @@ package uk.gov.ch.repository.officers;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.sqlDataModels.CorporateBodyAppointmentDataModel;
 
 import java.util.List;
 

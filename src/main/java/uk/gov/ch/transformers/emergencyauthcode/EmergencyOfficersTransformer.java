@@ -1,11 +1,11 @@
-package uk.gov.ch.transformers.emergency_auth_code;
+package uk.gov.ch.transformers.emergencyauthcode;
 
 import org.springframework.stereotype.Component;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointmentDateOfBirth;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointmentURA;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.CorporateBodyAppointmentDataModel;
-import uk.gov.ch.model.emergency_auth_code.sqlDataModels.UsualResidentialAddressDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointmentDateOfBirth;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointmentURA;
+import uk.gov.ch.model.emergencyauthcode.sqlDataModels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.sqlDataModels.UsualResidentialAddressDataModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

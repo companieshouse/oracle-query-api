@@ -1,4 +1,4 @@
-package uk.gov.ch.controller.emergency_auth_code;
+package uk.gov.ch.controller.emergencyauthcode;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -11,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergency_auth_code.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.service.emergency_auth_code.EmergencyOfficersService;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 
 import java.util.ArrayList;
 import java.util.List;
