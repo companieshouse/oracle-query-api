@@ -11,8 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
 import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 
 import java.util.ArrayList;

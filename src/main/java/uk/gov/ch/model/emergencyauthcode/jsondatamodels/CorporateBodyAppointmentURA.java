@@ -1,48 +1,44 @@
-package uk.gov.ch.model.emergencyauthcode.sqlDataModels;
+package uk.gov.ch.model.emergencyauthcode.jsondatamodels;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-@Table(name = "USUAL_RESIDENTIAL_ADDRESS")
-public class UsualResidentialAddressDataModel {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class CorporateBodyAppointmentURA {
 
-    @Id
-    @Column(name = "USUAL_RESIDENTIAL_ADDRESS_ID")
-    private Long usualResidentialAddressId;
+    @JsonProperty("id")
+    private String id;
 
-    @Column(name = "PO_BOX")
+    @JsonProperty("po_box")
     private String poBox;
 
-    @Column(name = "HOUSE_NAME_NUMBER")
+    @JsonProperty("premises")
     private String premises;
 
-    @Column(name = "ADDRESS_LINE_1")
+    @JsonProperty("address_line_1")
     private String addressLine1;
 
-    @Column(name = "AREA")
+    @JsonProperty("address_line_2")
     private String addressLine2;
 
-    @Column(name = "POST_TOWN")
+    @JsonProperty("locality")
     private String locality;
 
-    @Column(name = "REGION")
+    @JsonProperty("region")
     private String region;
 
-    @Column(name = "COUNTRY_NAME")
+    @JsonProperty("country")
     private String country;
 
-    @Column(name = "POST_CODE")
-    private String postCode;
+    @JsonProperty("postcode")
+    private String postcode;
 
-    public Long getUsualResidentialAddressId() {
-        return usualResidentialAddressId;
+    public String getId() {
+        return id;
     }
 
-    public void setUsualResidentialAddressId(Long usualResidentialAddressId) {
-        this.usualResidentialAddressId = usualResidentialAddressId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getPoBox() {
@@ -101,11 +97,11 @@ public class UsualResidentialAddressDataModel {
         this.country = country;
     }
 
-    public String getPostCode() {
-        return postCode;
+    public String getPostcode() {
+        return postcode;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 }

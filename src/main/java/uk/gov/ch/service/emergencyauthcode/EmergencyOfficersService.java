@@ -1,7 +1,7 @@
 package uk.gov.ch.service.emergencyauthcode;
 
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
 
 public interface EmergencyOfficersService {
 

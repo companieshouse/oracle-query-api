@@ -10,9 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointments;
-import uk.gov.ch.model.emergencyauthcode.sqlDataModels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
 import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 

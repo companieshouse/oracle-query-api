@@ -1,4 +1,4 @@
-package uk.gov.ch.model.emergencyauthcode.sqlDataModels;
+package uk.gov.ch.model.emergencyauthcode.sqldatamodels;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

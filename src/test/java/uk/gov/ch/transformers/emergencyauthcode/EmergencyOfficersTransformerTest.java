@@ -7,10 +7,10 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.model.emergencyauthcode.jsonDataModels.CorporateBodyAppointment;
-import uk.gov.ch.model.emergencyauthcode.sqlDataModels.CorporateBodyAppointmentDataModel;
-import uk.gov.ch.model.emergencyauthcode.sqlDataModels.OfficerDetailDataModel;
-import uk.gov.ch.model.emergencyauthcode.sqlDataModels.UsualResidentialAddressDataModel;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.OfficerDetailDataModel;
+import uk.gov.ch.model.emergencyauthcode.sqldatamodels.UsualResidentialAddressDataModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
