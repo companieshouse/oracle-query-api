@@ -29,6 +29,7 @@ public class EmergencyOfficersControllerTest {
     EmergencyOfficersController controller;
 
     private static final String INCORPORATION_NUMBER = "12345678";
+    private static final String OFFICER_ID = "87654321";
 
     @Test
     @DisplayName("Get list of eligible officers - no company not found")
@@ -59,6 +60,25 @@ public class EmergencyOfficersControllerTest {
         CorporateBodyAppointments body = returnedEligibleOfficers.getBody();
         assertEquals(HttpStatus.OK, returnedEligibleOfficers.getStatusCode());
         assertEquals(2, body.getTotalResults());
+    }
+
+    @Test
+    @DisplayName("Get eligible officer - no eligible officer found")
+    public void testGetEligibleOfficerNoOfficerFound() {
+        when(mockEmergencyOfficersService.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(null);
+
+        ResponseEntity<CorporateBodyAppointment> returnedEligibleOfficer = controller.getCompanyOfficer(INCORPORATION_NUMBER, OFFICER_ID);
+        assertEquals(HttpStatus.NOT_FOUND, returnedEligibleOfficer.getStatusCode());
+    }
+
+    @Test
+    @DisplayName(("Get eligible officer - success path"))
+    public void testGetEligibleOfficerSuccess() {
+
+        when(mockEmergencyOfficersService.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(new CorporateBodyAppointment());
+
+        ResponseEntity<CorporateBodyAppointment> returnedEligibleOfficer = controller.getCompanyOfficer(INCORPORATION_NUMBER, OFFICER_ID);
+        assertEquals(HttpStatus.OK, returnedEligibleOfficer.getStatusCode());
     }
 
     private CorporateBodyAppointments corporateBodyAppointments() {
