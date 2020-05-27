@@ -14,8 +14,6 @@ import java.util.List;
 @Component
 public class EmergencyOfficersTransformer {
 
-    private static final String NULL_VALUE = "null";
-
     public CorporateBodyAppointment convert(CorporateBodyAppointmentDataModel appointmentDataModel) {
         CorporateBodyAppointment appointment = new CorporateBodyAppointment();
 
@@ -57,19 +55,19 @@ public class EmergencyOfficersTransformer {
         CorporateBodyAppointmentURA corporateBodyUra = new CorporateBodyAppointmentURA();
 
         corporateBodyUra.setId(uraDataModel.getUsualResidentialAddressId().toString());
-        if (uraDataModel.getPoBox() != NULL_VALUE) {
+        if (uraDataModel.getPoBox() != null) {
             corporateBodyUra.setPoBox(uraDataModel.getPoBox());
         }
         corporateBodyUra.setPremises(uraDataModel.getPremises());
         corporateBodyUra.setAddressLine1(uraDataModel.getAddressLine1());
-        if (uraDataModel.getAddressLine2() != NULL_VALUE) {
+        if (uraDataModel.getAddressLine2() != null) {
             corporateBodyUra.setAddressLine2(uraDataModel.getAddressLine2());
         }
         corporateBodyUra.setLocality(uraDataModel.getLocality());
-        if (uraDataModel.getRegion() != NULL_VALUE) {
+        if (uraDataModel.getRegion() != null) {
             corporateBodyUra.setRegion(uraDataModel.getRegion());
         }
-        if (uraDataModel.getCountry() != NULL_VALUE) {
+        if (uraDataModel.getCountry() != null) {
             corporateBodyUra.setCountry(uraDataModel.getCountry());
         }
         corporateBodyUra.setPostcode(uraDataModel.getPostCode());
