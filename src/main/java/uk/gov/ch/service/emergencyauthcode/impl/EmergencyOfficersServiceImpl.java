@@ -33,7 +33,7 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
 
         CorporateBodyAppointments corporateBodyAppointments = new CorporateBodyAppointments();
 
-        corporateBodyAppointments.setItemsPerPage(corporateBodyAppointmentList.size());
+        corporateBodyAppointments.setItemsPerPage(15);
         corporateBodyAppointments.setTotalResults(corporateBodyAppointmentList.size());
         corporateBodyAppointments.setStartIndex(0);
         corporateBodyAppointments.setItems(corporateBodyAppointmentList);
