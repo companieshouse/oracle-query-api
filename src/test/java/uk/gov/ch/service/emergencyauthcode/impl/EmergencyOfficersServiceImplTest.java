@@ -47,7 +47,7 @@ public class EmergencyOfficersServiceImplTest {
         CorporateBodyAppointments returnedCorporateBodyAppointments = service.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER);
         assertEquals(2, returnedCorporateBodyAppointments.getTotalResults());
         assertEquals(0, returnedCorporateBodyAppointments.getStartIndex());
-        assertEquals(2, returnedCorporateBodyAppointments.getItemsPerPage());
+        assertEquals(15, returnedCorporateBodyAppointments.getItemsPerPage());
     }
 
     @Test
