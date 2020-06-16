@@ -11,6 +11,8 @@ paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
+      - $ref: '#/components/parameters/startIndex'
+      - $ref: '#/components/parameters/itemsPerPage'
     get:
       tags:
         - emergency-auth-code-officers
@@ -221,3 +223,21 @@ components:
       schema:
         type: string
       example: "9876543210"
+    startIndex:
+      name: 'start_index'
+      description: The offset into the entire list that this page starts at. Zero indexed
+      in: 'query'
+      required: false
+      schema:
+        type: integer
+        format: int64
+      example: "0"
+    itemsPerPage:
+      name: 'items_per_page'
+      description: Number of items per page returned in this list
+      in: 'query'
+      required: false
+      schema:
+        type: integer
+        format: int64
+      example: "10"
