@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
 import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
 import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
@@ -52,5 +53,17 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
         }
 
         return emergencyOfficersTransformer.convert(eligibleOfficersDataModel);
+    }
+
+    public CorporateBodyEFilingStatus checkIfEFiledLastThirtyDays(String incorporationNumber) {
+
+        LOGGER.info("Checking if the company has filed in the last thirty days: " + incorporationNumber);
+
+        Boolean eFilingStatus = emergencyAuthCodeEligibleOfficersRepository.findEFilingsInLastThirtyDays(incorporationNumber) > 0L;
+
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = new CorporateBodyEFilingStatus();
+        corporateBodyEFilingStatus.setEfilingFoundInPeriod(eFilingStatus);
+
+        return corporateBodyEFilingStatus;
     }
 }

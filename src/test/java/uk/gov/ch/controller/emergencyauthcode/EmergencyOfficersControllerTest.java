@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
 import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 
 import java.util.ArrayList;
@@ -79,6 +80,30 @@ public class EmergencyOfficersControllerTest {
 
         ResponseEntity<CorporateBodyAppointment> returnedEligibleOfficer = controller.getCompanyOfficer(INCORPORATION_NUMBER, OFFICER_ID);
         assertEquals(HttpStatus.OK, returnedEligibleOfficer.getStatusCode());
+    }
+
+    @Test
+    @DisplayName(("Get filing history - has not filed in past 30 days"))
+    public void testGetFilingHistoryHasNotFiled() {
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = new CorporateBodyEFilingStatus();
+        corporateBodyEFilingStatus.setEfilingFoundInPeriod(false);
+        when(mockEmergencyOfficersService.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(corporateBodyEFilingStatus);
+
+        ResponseEntity<CorporateBodyEFilingStatus> returnedFilingHistory = controller.getHasFiledLastThirtyDays(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.OK, returnedFilingHistory.getStatusCode());
+        assertEquals(false, returnedFilingHistory.getBody().getEfilingFoundInPeriod());
+    }
+
+    @Test
+    @DisplayName(("Get filing history - has filed in past 30 days"))
+    public void testGetFilingHistoryHasFiled() {
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = new CorporateBodyEFilingStatus();
+        corporateBodyEFilingStatus.setEfilingFoundInPeriod(true);
+        when(mockEmergencyOfficersService.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(corporateBodyEFilingStatus);
+
+        ResponseEntity<CorporateBodyEFilingStatus> returnedFilingHistory = controller.getHasFiledLastThirtyDays(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.OK, returnedFilingHistory.getStatusCode());
+        assertEquals(true, returnedFilingHistory.getBody().getEfilingFoundInPeriod());
     }
 
     private CorporateBodyAppointments corporateBodyAppointments() {
