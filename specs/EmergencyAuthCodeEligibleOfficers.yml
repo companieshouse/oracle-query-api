@@ -7,6 +7,8 @@ servers:
 tags:
   - name: emergency-auth-code-officers
     description: company officers eligible for emergency auth code delivery
+  - name: emergency-auth-code-efiling-status
+    description: company efiling status determines whether the company has efiled within a predefined period (e.g 1 calendar month)
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
     parameters:
@@ -45,6 +47,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/companyOfficer'
+        '401':
+          description: Unauthorised
+        '404':
+          description: Not found
+  /emergency-auth-code/company/{company_number}/efiling-status:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - emergency-auth-code-efiling-status
+      operationId: getCompanyEFilingStatus
+      summary: Get the status fo the eFiling status to determine whether a company is eligible for emergency auth code delivery
+      responses:
+        '200':
+          description: The company eFiling status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/companyEFilingStatus'
         '401':
           description: Unauthorised
         '404':
@@ -206,6 +227,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/companyOfficer'
+    companyEFilingStatus:
+      type: object
+      readOnly: true
+      required:
+        - efiling_found_in_period
+      properties:
+        efiling_found_in_period:
+          type: boolean
+          description: Whether or not the company has eFiled any documents within the predefined period
+          readOnly: true
+          example: true
   parameters:
     companyNumber:
       name: 'company_number'
