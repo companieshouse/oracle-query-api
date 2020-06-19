@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
 import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
 import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
@@ -77,6 +78,24 @@ public class EmergencyOfficersServiceImplTest {
         CorporateBodyAppointment returnedCorporateBodyAppointment = service.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID);
         assertEquals("123", returnedCorporateBodyAppointment.getId());
         assertEquals("description", returnedCorporateBodyAppointment.getOccupation());
+    }
+
+    @Test
+    @DisplayName("Get filing history for company returns filing in past 30 days")
+    public void testGetFilingHistoryReturnsFiling() {
+        when(mockRepo.findEFilingsInLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(1L);
+
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = service.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER);
+        assertEquals(corporateBodyEFilingStatus.getEfilingFoundInPeriod(), true);
+    }
+
+    @Test
+    @DisplayName("Get filing history for company returns no filing in past 30 days")
+    public void testGetFilingHistoryReturnsNoFiling() {
+        when(mockRepo.findEFilingsInLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(0L);
+
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = service.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER);
+        assertEquals(corporateBodyEFilingStatus.getEfilingFoundInPeriod(), false);
     }
 
     private List<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {

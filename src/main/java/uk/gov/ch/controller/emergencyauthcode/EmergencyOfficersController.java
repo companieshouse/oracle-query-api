@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
+import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
 import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
@@ -52,4 +53,15 @@ public class EmergencyOfficersController {
         LOGGER.info("Returning details for officer " + officerId + " on company " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(eligibleOfficer);
     }
+
+    @GetMapping("/emergency-auth-code/company/{companyNumber}/efiling-status")
+    public ResponseEntity getHasFiledLastThirtyDays(
+            @PathVariable String companyNumber) {
+        LOGGER.info("Calling service to check if company has filed in the past thirty days: " + companyNumber);
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = emergencyOfficersService.checkIfEFiledLastThirtyDays(companyNumber);
+
+        LOGGER.info("Returning details for corporations eFiling status " + companyNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(corporateBodyEFilingStatus);
+    }
+
 }

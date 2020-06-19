@@ -37,4 +37,13 @@ public interface EmergencyAuthCodeEligibleOfficersRepository extends PagingAndSo
             nativeQuery = true)
     CorporateBodyAppointmentDataModel findEligibleOfficer(
             String incorporationNumber, String officerId);
+
+    @Query(value = "select count(*) " +
+            "from corporate_body cb, transaction tr " +
+            "where cb.incorporation_number = ?1 " +
+            "and tr.CORPORATE_BODY_ID = cb.CORPORATE_BODY_ID " +
+            "and tr.SUBMISSION_TYPE_ID in (1, 2, 13, 14) " +
+            "and tr.DATE_RECD_TIMESTAMP > sysdate-30",
+            nativeQuery = true)
+    Long findEFilingsInLastThirtyDays(String incorporationNumber);
 }
