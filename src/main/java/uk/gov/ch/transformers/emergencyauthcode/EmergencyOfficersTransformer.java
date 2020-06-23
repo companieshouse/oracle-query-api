@@ -1,5 +1,6 @@
 package uk.gov.ch.transformers.emergencyauthcode;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointmentDateOfBirth;
@@ -31,11 +32,12 @@ public class EmergencyOfficersTransformer {
         return appointment;
     }
 
-    public List<CorporateBodyAppointment> convert(List<CorporateBodyAppointmentDataModel> appointmentsDataModel) {
+    public List<CorporateBodyAppointment> convert(
+            Page<CorporateBodyAppointmentDataModel> appointmentsDataModel) {
 
         List<CorporateBodyAppointment> appointmentsJsonModelList = new ArrayList<>();
 
-        for (CorporateBodyAppointmentDataModel appointmentDataModel : appointmentsDataModel) {
+        for (CorporateBodyAppointmentDataModel appointmentDataModel : appointmentsDataModel.toList()) {
             appointmentsJsonModelList.add(convert(appointmentDataModel));
         }
 
