@@ -27,16 +27,8 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{incorporationNumber}/eligible-officers")
     public ResponseEntity getListOfEligibleCompanyOfficers(@PathVariable String incorporationNumber,
-            @RequestParam(name = "start_index", required = false) Integer startIndex,
-            @RequestParam(name = "items_per_page", required = false) Integer itemsPerPage) {
-
-        if (startIndex == null) {
-            startIndex = 0;
-        }
-
-        if(itemsPerPage == null) {
-            itemsPerPage = 15;
-        }
+            @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
+            @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
         Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
 
