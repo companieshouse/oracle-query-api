@@ -12,7 +12,7 @@ public interface EmergencyAuthCodeEligibleOfficersRepository extends PagingAndSo
             "from CORPORATE_BODY cb, CORPORATE_BODY_APPOINTMENT cba, OFFICER o, OFFICER_DETAIL od " +
             "where cb.INCORPORATION_NUMBER = ?1 " +
             "and cb.CORPORATE_BODY_ID = cba.CORPORATE_BODY_ID " +
-            "and cba.OFFICER_ID = od.OFFICER_ID " +
+            "and cba.OFFICER_DETAIL_ID = od.OFFICER_DETAIL_ID " +
             "and cba.OFFICER_ID = o.OFFICER_ID " +
             "and cba.APPOINTMENT_TYPE_ID IN (2, 3, 4) " +
             "and cba.RESIGNATION_IND = 'N' " +
@@ -36,7 +36,7 @@ public interface EmergencyAuthCodeEligibleOfficersRepository extends PagingAndSo
             "from CORPORATE_BODY cb, CORPORATE_BODY_APPOINTMENT cba, OFFICER o, OFFICER_DETAIL od " +
             "where cb.INCORPORATION_NUMBER = ?1 " +
             "and cb.CORPORATE_BODY_ID = cba.CORPORATE_BODY_ID " +
-            "and cba.OFFICER_ID = od.OFFICER_ID " +
+            "and cba.OFFICER_DETAIL_ID = od.OFFICER_DETAIL_ID " +
             "and cba.OFFICER_ID = o.OFFICER_ID " +
             "and cba.APPOINTMENT_TYPE_ID IN (2, 3, 4) " +
             "and cba.RESIGNATION_IND = 'N' " +
