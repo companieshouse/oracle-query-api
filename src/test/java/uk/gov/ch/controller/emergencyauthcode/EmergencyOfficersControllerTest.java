@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
@@ -31,23 +33,27 @@ public class EmergencyOfficersControllerTest {
 
     private static final String INCORPORATION_NUMBER = "12345678";
     private static final String OFFICER_ID = "87654321";
+    private static final int START_INDEX = 0;
+    private static final int ITEMS_PER_PAGE = 15;
+
+    Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
 
     @Test
     @DisplayName("Get list of eligible officers - no company not found")
     public void testGetEligibleOfficersNoCompanyFound() {
 
-        when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER)).thenReturn(null);
+        when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(null);
 
-        ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER);
+        ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER, START_INDEX, ITEMS_PER_PAGE);
         assertEquals(HttpStatus.NOT_FOUND, returnedEligibleOfficers.getStatusCode());
     }
 
     @Test
     @DisplayName("Get list of eligible officers - no eligible officers found")
     public void testGetEligibleOfficersNoOfficersFound() {
-        when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER)).thenReturn(corporateBodyAppointmentsNoOfficers());
+        when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(corporateBodyAppointmentsNoOfficers());
 
-        ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER);
+        ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER, START_INDEX, ITEMS_PER_PAGE);
         assertEquals(HttpStatus.NOT_FOUND, returnedEligibleOfficers.getStatusCode());
     }
 
@@ -55,9 +61,9 @@ public class EmergencyOfficersControllerTest {
     @DisplayName("Get list of eligible officers - success path")
     public void testGetEligibleOfficersForCompanySuccess() {
 
-        when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER)).thenReturn(corporateBodyAppointments());
+        when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(corporateBodyAppointments());
 
-        ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER);
+        ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER, START_INDEX, ITEMS_PER_PAGE);
         CorporateBodyAppointments body = returnedEligibleOfficers.getBody();
         assertEquals(HttpStatus.OK, returnedEligibleOfficers.getStatusCode());
         assertEquals(2, body.getTotalResults());
