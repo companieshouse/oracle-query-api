@@ -7,6 +7,10 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.model.emergencyauthcode.sqldatamodels.OfficerDetailDataModel;
@@ -19,6 +23,11 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class EmergencyOfficersTransformerTest {
+
+    private static final int START_INDEX = 0;
+    private static final int ITEMS_PER_PAGE = 15;
+
+    Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
 
     @InjectMocks
     EmergencyOfficersTransformer transformer;
@@ -34,7 +43,7 @@ public class EmergencyOfficersTransformerTest {
         assertEquals("1990", convertedResult.get(0).getDateOfBirth().getYear());
     }
 
-    private List<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {
+    private Page<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {
         List<CorporateBodyAppointmentDataModel> corporateBodyAppointments = new ArrayList<>();
         corporateBodyAppointments.add(new CorporateBodyAppointmentDataModel() {{
             setCorporateBodyAppointmentId(Long.parseLong("123"));
@@ -60,6 +69,6 @@ public class EmergencyOfficersTransformerTest {
             }});
         }});
 
-        return corporateBodyAppointments;
+        return new PageImpl<>(corporateBodyAppointments, pageable, 1);
     }
 }

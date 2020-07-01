@@ -1,6 +1,8 @@
 package uk.gov.ch.service.emergencyauthcode.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
@@ -26,17 +28,20 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
     @Autowired
     private EmergencyOfficersTransformer emergencyOfficersTransformer;
 
-    public CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(String incorporationNumber) {
+    public CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(String incorporationNumber, Pageable pageable) {
 
         LOGGER.info("Calling repository to retrieve eligible officers for " + incorporationNumber);
+
+        Page officersPage = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficersEmergencyAuthCode(incorporationNumber, pageable);
+
         List<CorporateBodyAppointment> corporateBodyAppointmentList =
-                emergencyOfficersTransformer.convert(emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficersEmergencyAuthCode(incorporationNumber));
+                emergencyOfficersTransformer.convert(officersPage);
 
         CorporateBodyAppointments corporateBodyAppointments = new CorporateBodyAppointments();
 
-        corporateBodyAppointments.setItemsPerPage(50);
-        corporateBodyAppointments.setTotalResults(corporateBodyAppointmentList.size());
-        corporateBodyAppointments.setStartIndex(0);
+        corporateBodyAppointments.setItemsPerPage(officersPage.getSize());
+        corporateBodyAppointments.setTotalResults((int) officersPage.getTotalElements());
+        corporateBodyAppointments.setStartIndex(officersPage.getNumber());
         corporateBodyAppointments.setItems(corporateBodyAppointmentList);
 
         return corporateBodyAppointments;

@@ -10,6 +10,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
@@ -35,20 +39,24 @@ public class EmergencyOfficersServiceImplTest {
 
     private static final String INCORPORATION_NUMBER = "12345678";
     private static final String OFFICER_ID = "87654321";
+    private static final int START_INDEX = 0;
+    private static final int ITEMS_PER_PAGE = 15;
+
+    Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
 
     @Test
     @DisplayName("Get eligible officers for emergency-auth-code from repository")
     public void testGetEligibleOfficersFromRepository() {
-        List<CorporateBodyAppointmentDataModel> mockRepoResponse = getMockEmergencyAuthCodeRepo();
-        when(mockRepo.findEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER)).thenReturn(mockRepoResponse);
+        Page<CorporateBodyAppointmentDataModel> mockRepoResponse = getMockEmergencyAuthCodeRepo();
+        when(mockRepo.findEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(mockRepoResponse);
 
         List<CorporateBodyAppointment> mockTransformerResponse = getMockEmergencyAuthCodeTransformer();
         when(mockTransformer.convert(mockRepoResponse)).thenReturn(mockTransformerResponse);
 
-        CorporateBodyAppointments returnedCorporateBodyAppointments = service.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER);
+        CorporateBodyAppointments returnedCorporateBodyAppointments = service.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable);
         assertEquals(2, returnedCorporateBodyAppointments.getTotalResults());
         assertEquals(0, returnedCorporateBodyAppointments.getStartIndex());
-        assertEquals(50, returnedCorporateBodyAppointments.getItemsPerPage());
+        assertEquals(15, returnedCorporateBodyAppointments.getItemsPerPage());
     }
 
     @Test
@@ -98,12 +106,12 @@ public class EmergencyOfficersServiceImplTest {
         assertEquals(corporateBodyEFilingStatus.getEfilingFoundInPeriod(), false);
     }
 
-    private List<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {
+    private Page<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {
         List<CorporateBodyAppointmentDataModel> corporateBodyAppointments = new ArrayList<>();
         corporateBodyAppointments.add(new CorporateBodyAppointmentDataModel());
         corporateBodyAppointments.add(new CorporateBodyAppointmentDataModel());
 
-        return corporateBodyAppointments;
+        return new PageImpl<>(corporateBodyAppointments, pageable, 2);
     }
 
     private List<CorporateBodyAppointment> getMockEmergencyAuthCodeTransformer() {
