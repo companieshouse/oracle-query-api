@@ -20,6 +20,13 @@ Method    | Path                                                     | Descripti
 **GET**   | `/company/{companyNumber}/eligible-officers/{officerId}` | Calls service to retrieve officer for company number
 **GET**   | `/company/{companyNumber}/efiling-status`                | Calls service to check if company has filed in the past thirty days
 
+### Query parameters
+Query parameter  | Description
+:----------------|:-----------
+`items_per_page` | Number of items per page returned in this list
+`start_index`    | Zero indexed, the offset into the entire list that this page starts at
+
+
 ### Configuration
 
 Key                | Description
