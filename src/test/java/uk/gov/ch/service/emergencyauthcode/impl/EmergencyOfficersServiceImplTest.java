@@ -1,7 +1,6 @@
 package uk.gov.ch.service.emergencyauthcode.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,7 +93,7 @@ public class EmergencyOfficersServiceImplTest {
         when(mockRepo.findEFilingsInLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(1L);
 
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = service.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER);
-        assertEquals(corporateBodyEFilingStatus.getEfilingFoundInPeriod(), true);
+        assertTrue(corporateBodyEFilingStatus.getEfilingFoundInPeriod());
     }
 
     @Test
@@ -103,7 +102,7 @@ public class EmergencyOfficersServiceImplTest {
         when(mockRepo.findEFilingsInLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(0L);
 
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = service.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER);
-        assertEquals(corporateBodyEFilingStatus.getEfilingFoundInPeriod(), false);
+        assertFalse(corporateBodyEFilingStatus.getEfilingFoundInPeriod());
     }
 
     private Page<CorporateBodyAppointmentDataModel> getMockEmergencyAuthCodeRepo() {
