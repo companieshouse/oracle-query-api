@@ -42,7 +42,8 @@ public interface EmergencyAuthCodeEligibleOfficersRepository extends PagingAndSo
             "and cba.RESIGNATION_IND = 'N' " +
             "and od.OFFICER_DISQUALIFICATION_IND = 'N' " +
             "and o.CORPORATE_OFFICER_IND = 'N' " +
-            "and od.OFFICER_DETAIL_ID = ?2",
+            "and od.OFFICER_DETAIL_ID = ?2 " +
+            "and rownum=1",
             nativeQuery = true)
     CorporateBodyAppointmentDataModel findEligibleOfficer(
             String incorporationNumber, String officerId);
