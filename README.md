@@ -14,11 +14,12 @@ In order to run the API locally you'll need the following installed on your mach
 
 ### Endpoints
 
-Method    | Path                                                     | Description
-:---------|:---------------------------------------------------------|:-----------
-**GET**   | `/company/{incorporationNumber}/eligible-officers`       | Calls service to retrieve eligible officers for company number
-**GET**   | `/company/{companyNumber}/eligible-officers/{officerId}` | Calls service to retrieve officer for company number
-**GET**   | `/company/{companyNumber}/efiling-status`                | Calls service to check if company has filed in the past thirty days
+Method    | Path                                                                         | Description
+:---------|:-----------------------------------------------------------------------------|:-----------
+**GET**   | `/emergency-auth-code/company/{incorporationNumber}/eligible-officers`       | Calls service to retrieve eligible officers for company number
+**GET**   | `/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}` | Calls service to retrieve officer for company number
+**GET**   | `/emergency-auth-code/company/{companyNumber}/efiling-status`                | Calls service to check if company has filed in the past thirty days
+**GET**   | `/company/{companyNumber}/action-code`                                       | Calls service to retrieve the current action code set against the company
 
 ### Query parameters
 Query parameter  | Description

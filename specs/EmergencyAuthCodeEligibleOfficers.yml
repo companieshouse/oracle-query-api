@@ -3,12 +3,15 @@ info:
   title: Companies House Internal Oracle Query API
   version: '1.0'
 servers:
-  - url: http://localhost:18XXX
+  - url: http://localhost:18565
 tags:
   - name: emergency-auth-code-officers
     description: company officers eligible for emergency auth code delivery
   - name: emergency-auth-code-efiling-status
     description: company efiling status determines whether the company has efiled within a predefined period (e.g 1 calendar month)
+  - name: company-action-code
+    description: current action code set against the company
+    
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
     parameters:
@@ -66,6 +69,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/companyEFilingStatus'
+        '401':
+          description: Unauthorised
+        '404':
+          description: Not found
+  /company/{company_number}/action-code:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - corporate-body-action-code
+      operationId: getCompanyActionCode
+      summary: Get the action code for the company
+      responses:
+        '200':
+          description: The action code
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/actionCode'
         '401':
           description: Unauthorised
         '404':
@@ -238,6 +260,17 @@ components:
           description: Whether or not the company has eFiled any documents within the predefined period
           readOnly: true
           example: true
+    actionCode:
+      type: object
+      readOnly: true
+      required:
+        - action_code
+      properties:
+        action_code:
+          type: integer
+          description: The current action code for the company
+          readOnly: true
+          example: 5000
   parameters:
     companyNumber:
       name: 'company_number'
