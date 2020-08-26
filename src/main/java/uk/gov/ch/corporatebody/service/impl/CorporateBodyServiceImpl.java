@@ -18,9 +18,8 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
     @Autowired
     private CorporateBodyDao corporateBodyDao;
 
-
     @Override
-    public int getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
+    public long getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
         LOGGER.info("Calling DAO to retrieve action code for company number " + companyNumber);
 
         return corporateBodyDao.getActionCode(companyNumber);

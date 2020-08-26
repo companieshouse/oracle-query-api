@@ -33,7 +33,7 @@ public class CorporateBodyDaoTest {
     @Test
     @DisplayName("Get action code - company not found")
     public void testGetActionCodeNoCompanyFound() throws CorporateBodyNotFoundException {
-        when(jdbcTemplate.queryForObject(any(String.class), eq(Integer.class), eq(INCORPORATION_NUMBER))).thenThrow(new EmptyResultDataAccessException(1));
+        when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenThrow(new EmptyResultDataAccessException(1));
 
         Assertions.assertThrows(CorporateBodyNotFoundException.class, () -> {
             dao.getActionCode(INCORPORATION_NUMBER);
@@ -43,11 +43,11 @@ public class CorporateBodyDaoTest {
     @Test
     @DisplayName("Get action code - company was found")
     public void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
-        final int dummyActionCode = 99;
+        final long dummyActionCode = 99;
         
-        when(jdbcTemplate.queryForObject(any(String.class), eq(Integer.class), eq(INCORPORATION_NUMBER))).thenReturn(dummyActionCode);
+        when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenReturn(dummyActionCode);
 
-        int response = dao.getActionCode(INCORPORATION_NUMBER);
+        long response = dao.getActionCode(INCORPORATION_NUMBER);
         assertEquals(dummyActionCode, response);
     }
 

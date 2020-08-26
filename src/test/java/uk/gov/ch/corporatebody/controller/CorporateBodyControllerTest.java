@@ -41,11 +41,11 @@ public class CorporateBodyControllerTest {
     @Test
     @DisplayName("Get action code - company was found")
     public void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
-        final int dummyActionCode = 99;
+        final long dummyActionCode = 99;
         
         when(corporateBodyService.getActionCode(INCORPORATION_NUMBER)).thenReturn(dummyActionCode);
 
-        ResponseEntity<Integer> response = controller.getActionCode(INCORPORATION_NUMBER);
+        ResponseEntity<Long> response = controller.getActionCode(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(dummyActionCode, response.getBody());
     }

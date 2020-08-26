@@ -20,10 +20,9 @@ public class CorporateBodyDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    
-    public int getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
+    public long getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
         try {
-            int actionCode = jdbcTemplate.queryForObject(GET_ACTION_CODE_SQL, Integer.class, companyNumber);
+            long actionCode = jdbcTemplate.queryForObject(GET_ACTION_CODE_SQL, Long.class, companyNumber);
             
             LOGGER.info("Returning action code " + actionCode + " for company number " + companyNumber);
             

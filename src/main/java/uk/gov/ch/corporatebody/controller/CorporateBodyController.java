@@ -21,14 +21,13 @@ public class CorporateBodyController {
     @Autowired
     private CorporateBodyService corporateBodyService;
 
-    
     @GetMapping("/company/{companyNumber}/action-code")
     public ResponseEntity getActionCode(@PathVariable String companyNumber) {
 
         LOGGER.info("Calling service to retrieve action code for company number " + companyNumber);
 
         try {
-            int actionCode = corporateBodyService.getActionCode(companyNumber);
+            long actionCode = corporateBodyService.getActionCode(companyNumber);
     
             LOGGER.info("Returning action code " + actionCode + " for company " + companyNumber);
 
