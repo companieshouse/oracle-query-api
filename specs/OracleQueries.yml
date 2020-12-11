@@ -95,16 +95,17 @@ paths:
         '404':
           description: Not found
   /officer-search/scottish-bankrupt-officers:
-    parameters:
-      - $ref: '#/components/parameters/forename'
-      - $ref: '#/components/parameters/surname'
-      - $ref: '#/components/parameters/dateOfBirth'
-      - $ref: '#/components/parameters/postcode'
-    get:
+    post:
       tags:
         - scottish-bankrupt-officer-search
       operationId: searchScottishBankruptOfficer
       summary: Search for a Scottish bankrupt officer
+      requestBody:
+        description: The body of the requestBody
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scottishBankruptOfficerSearch'
       responses:
         '200':
           description: List of Scottish bankrupt officers.
@@ -293,6 +294,22 @@ components:
           description: The current action code for the company
           readOnly: true
           example: 5000
+    scottishBankruptOfficerSearch:
+      type: object
+      properties:
+        forename1:
+          type: string
+          description: The officers' first name.
+        surname:
+          type: string
+          description: The officers' surname.
+        date_of_birth:
+          type: string
+          description: The officers' date of birth.
+          example: "2020-01-01"
+        postcode:
+          type: string
+          description: The postcode for the address.   
     scottishBankruptOfficer:
       type: object
       required:
@@ -437,32 +454,3 @@ components:
         type: integer
         format: int64
       example: "10"
-    forename:
-      name: 'forename'
-      description: The officers' first name.
-      in: 'query'
-      required: false
-      schema:
-        type: string
-    surname:
-      name: 'surname'
-      description: The officers' surname.
-      in: 'query'
-      required: false
-      schema:
-        type: string
-    dateOfBirth:
-      name: 'dateOfBirth'
-      description: The officers' date of birth.
-      in: 'query'
-      required: false
-      schema:
-        type: string
-      example: "2020-01-01"
-    postcode:
-      name: 'postcode'
-      description: The postcode for the address.
-      in: 'query'
-      required: false
-      schema:
-        type: string
