@@ -13,8 +13,6 @@ tags:
     description: current action code set against the company
   - name: scottish-bankrupt-officer-search
     description: search for a Scottish bankrupt officer
-  - name: scottish-bankrupt-officer-details
-    description: view details for a Scottish bankrupt officer
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -111,23 +109,6 @@ paths:
                 $ref: '#/components/schemas/scottishBankruptOfficers'
         '404':
           description: No Scottish bankrupt officers found
-  /officer-search/scottish-bankrupt-officers/{officer_id}:
-    parameters:
-      - $ref: '#/components/parameters/officerId'
-    get:
-      tags:
-        - scottish-bankrupt-officer-details
-      operationId: viewScottishBankruptOfficer
-      summary: View details for a Scottish bankrupt officer
-      responses:
-        '200':
-          description: The details of the Scottish bankrupt officer
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/scottishBankruptOfficer'
-        '404':
-          description: Scottish bankrupt officer not found
 components:
   schemas:
     companyOfficer:
