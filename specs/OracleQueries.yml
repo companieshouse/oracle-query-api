@@ -11,6 +11,10 @@ tags:
     description: company efiling status determines whether the company has efiled within a predefined period (e.g 1 calendar month)
   - name: company-action-code
     description: current action code set against the company
+  - name: scottish-bankrupt-officer-search
+    description: search for a Scottish bankrupt officer
+  - name: scottish-bankrupt-officer-details
+    description: view details for a Scottish bankrupt officer
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -92,6 +96,38 @@ paths:
           description: Unauthorised
         '404':
           description: Not found
+  /officer-search/scottish-bankrupt-officers:
+    get:
+      tags:
+        - scottish-bankrupt-officer-search
+      operationId: searchScottishBankruptOfficer
+      summary: Search for a Scottish bankrupt officer
+      responses:
+        '200':
+          description: List of Scottish bankrupt officers.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scottishBankruptOfficers'
+        '404':
+          description: No Scottish bankrupt officers found
+  /officer-search/scottish-bankrupt-officers/{officer_id}:
+    parameters:
+      - $ref: '#/components/parameters/officerId'
+    get:
+      tags:
+        - scottish-bankrupt-officer-details
+      operationId: viewScottishBankruptOfficer
+      summary: View details for a Scottish bankrupt officer
+      responses:
+        '200':
+          description: The details of the Scottish bankrupt officer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scottishBankruptOfficer'
+        '404':
+          description: Scottish bankrupt officer not found
 components:
   schemas:
     companyOfficer:
@@ -271,6 +307,132 @@ components:
           description: The current action code for the company
           readOnly: true
           example: 5000
+    scottishBankruptOfficer:
+      type: object
+      required:
+        - id
+        - forename1
+        - forename2
+        - alias
+        - surname
+        - date_of_birth
+        - address_line_1
+        - address_line_2
+        - address_line_3
+        - town
+        - county
+        - postcode
+        - case_reference
+        - case_type
+        - bankruptcy_type
+        - start_date
+        - debtor_discharge_date
+        - trustee_discharge_date
+      properties:
+        id:
+          type: string
+          description: The id of the user
+          readOnly: true
+        forename1:
+          type: string
+          description: The officers' first name
+          example: 
+        forename2:
+          type: string
+          description: The officers' other forenames
+          example: 
+        alias:
+          type: string
+          description: The officers' alias/other name
+          example: 
+        surname:
+          type: string
+          description: The officers' surname
+          example: 
+        date_of_birth:
+          type: string
+          format: date
+          description: The officers' date of birth details
+          example: 2020-01-01
+        address_line_1:
+          type: string
+          description: 
+          example: 
+        address_line_2:
+          type: string
+          description: 
+          example: 
+        address_line_3:
+          type: string
+          description: 
+          example: 
+        town:
+          type: string
+          description: 
+          example: 
+        county:
+          type: string
+          description: 
+          example: 
+        postcode:
+          type: string
+          description: 
+          example: 
+        case_reference: 
+          type: string
+          description: 
+          example: 
+        case_type: 
+          type: string
+          description: 
+          example: 
+        bankruptcy_type: 
+          type: string
+          description: 
+          example: 
+        start_date: 
+          type: string
+          format: date
+          description: 
+          example: 2020-01-01
+        debtor_dischargeDate: 
+          type: string
+          description: 
+          example: 
+        trustee_dischargeDate: 
+          type: string
+          description: 
+          example: 
+    scottishBankruptOfficers:
+      type: object
+      required:
+        - items_per_page
+        - start_index
+        - total_results
+        - items
+      properties:
+        items_per_page:
+          type: integer
+          format: int64
+          description: Number of items per page returned in this list
+          readOnly: true
+          example: 10
+        start_index:
+          type: integer
+          format: int64
+          description: The offset into the entire list that this page starts at. Zero indexed
+          readOnly: true
+          example: 0
+        total_results:
+          type: integer
+          format: int64
+          description: The total number of items in the list
+          readOnly: true
+          example: 0
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/scottishBankruptOfficer'
   parameters:
     companyNumber:
       name: 'company_number'
