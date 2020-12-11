@@ -95,6 +95,11 @@ paths:
         '404':
           description: Not found
   /officer-search/scottish-bankrupt-officers:
+    parameters:
+      - $ref: '#/components/parameters/forename'
+      - $ref: '#/components/parameters/surname'
+      - $ref: '#/components/parameters/dateOfBirth'
+      - $ref: '#/components/parameters/postcode'
     get:
       tags:
         - scottish-bankrupt-officer-search
@@ -291,7 +296,6 @@ components:
     scottishBankruptOfficer:
       type: object
       required:
-        - id
         - forename1
         - forename2
         - alias
@@ -310,80 +314,64 @@ components:
         - debtor_discharge_date
         - trustee_discharge_date
       properties:
-        id:
-          type: string
-          description: The id of the user
-          readOnly: true
         forename1:
           type: string
-          description: The officers' first name
-          example: 
+          description: The officers' first name.
         forename2:
           type: string
-          description: The officers' other forenames
-          example: 
+          description: The officers' other forenames.
         alias:
           type: string
-          description: The officers' alias/other name
-          example: 
+          description: The officers' alias/other name.
         surname:
           type: string
-          description: The officers' surname
-          example: 
+          description: The officers' surname.
         date_of_birth:
           type: string
-          format: date
-          description: The officers' date of birth details
-          example: 2020-01-01
+          description: The officers' date of birth.
+          example: "2020-01-01"
         address_line_1:
           type: string
-          description: 
-          example: 
+          description: The first line of the address.
         address_line_2:
           type: string
-          description: 
-          example: 
+          description: The second line of the address.
         address_line_3:
           type: string
-          description: 
-          example: 
+          description: The third line of the address.
         town:
           type: string
-          description: 
-          example: 
+          description: The town the bankrupt officer lives in.
         county:
           type: string
-          description: 
-          example: 
+          description: The county the bankrupt officer lives in.
         postcode:
           type: string
-          description: 
-          example: 
+          description: The postcode for the address.
         case_reference: 
           type: string
-          description: 
-          example: 
+          description: Unique ID for the insolvency or trust deed. This could be supplied in any format.
         case_type: 
           type: string
-          description: 
-          example: 
+          enum:
+            - "Insolvency"
+            - "Trust Deed"
+          description: Whether it is an insolvency or trust deed.
         bankruptcy_type: 
           type: string
-          description: 
-          example: 
+          description: The sub-type of insolvency. This will not exist for trust deeds.
         start_date: 
           type: string
-          format: date
-          description: 
-          example: 2020-01-01
-        debtor_dischargeDate: 
+          description: Date which the insolvency/trust deed begins.
+          example: "2020-01-01"
+        debtor_discharge_date: 
           type: string
-          description: 
-          example: 
-        trustee_dischargeDate: 
+          description: Date the restrictions are lifted from the bankrupt officer.
+          example: "2020-01-01"
+        trustee_discharge_date: 
           type: string
-          description: 
-          example: 
+          description: Date the insolvency/trust deed is fully discharged.
+          example: "2020-01-01"
     scottishBankruptOfficers:
       type: object
       required:
@@ -395,19 +383,19 @@ components:
         items_per_page:
           type: integer
           format: int64
-          description: Number of items per page returned in this list
+          description: Number of items per page returned in this list.
           readOnly: true
           example: 10
         start_index:
           type: integer
           format: int64
-          description: The offset into the entire list that this page starts at. Zero indexed
+          description: The offset into the entire list that this page starts at. Zero indexed.
           readOnly: true
           example: 0
         total_results:
           type: integer
           format: int64
-          description: The total number of items in the list
+          description: The total number of items in the list.
           readOnly: true
           example: 0
         items:
@@ -449,3 +437,32 @@ components:
         type: integer
         format: int64
       example: "10"
+    forename:
+      name: 'forename'
+      description: The officers' first name.
+      in: 'query'
+      required: false
+      schema:
+        type: string
+    surname:
+      name: 'surname'
+      description: The officers' surname.
+      in: 'query'
+      required: false
+      schema:
+        type: string
+    dateOfBirth:
+      name: 'dateOfBirth'
+      description: The officers' date of birth.
+      in: 'query'
+      required: false
+      schema:
+        type: string
+      example: "2020-01-01"
+    postcode:
+      name: 'postcode'
+      description: The postcode for the address.
+      in: 'query'
+      required: false
+      schema:
+        type: string
