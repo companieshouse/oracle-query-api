@@ -326,7 +326,6 @@ components:
         - postcode
         - case_reference
         - case_type
-        - bankruptcy_type
         - start_date
         - debtor_discharge_date
         - trustee_discharge_date
