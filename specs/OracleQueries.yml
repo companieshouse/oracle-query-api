@@ -446,6 +446,11 @@ components:
           description: Whether it is an insolvency or trust deed.
         bankruptcy_type: 
           type: string
+          enum:
+            - "Entity Full Administration"
+            - "Full Administration"
+            - "MAP"
+            - "Sequestration"
           description: The sub-type of insolvency. This will not exist for trust deeds.
         start_date: 
           type: string
