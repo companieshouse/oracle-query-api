@@ -501,7 +501,7 @@ components:
       example: "10"
     ephemeralOfficerKey:
       name: 'ephemeral_officer_key'
-      description: The ephemeral key for a bankrupt officer. This is a disposable key which only lasts until the next daily upload.
+      description: "The ephemeral key for a bankrupt officer. Note: This is a disposable key which may change when the data is refreshed."
       in: 'path'
       required: true
       schema:
