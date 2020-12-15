@@ -1,19 +1,10 @@
 package uk.gov.ch.model.officer.bankrupt;
 
+
 import java.time.LocalDate;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-/**
- * A class to represent the results of a Scottish
- * bankrupt officer search.
- */
-@Entity
-public class ScottishBankruptOfficerSearchDataModel {
-
-    @Id
+public class ScottishBankruptOfficerSearchResult {
     private String ephemeralKey;
     private String forename1;
     private String forename2;
@@ -26,12 +17,13 @@ public class ScottishBankruptOfficerSearchDataModel {
     private String postcode;
     private LocalDate dateOfBirth;
 
-    public void setEphemeralKey(String ephemeralKey) {
-        this.ephemeralKey = ephemeralKey;
-    }
 
     public String getEphemeralKey() {
         return ephemeralKey;
+    }
+
+    public void setEphemeralKey(String ephemeralKey) {
+        this.ephemeralKey = ephemeralKey;
     }
 
     public String getForename1() {
@@ -105,7 +97,6 @@ public class ScottishBankruptOfficerSearchDataModel {
     public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
-
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;

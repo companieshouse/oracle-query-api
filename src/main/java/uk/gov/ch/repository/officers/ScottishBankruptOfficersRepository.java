@@ -1,5 +1,6 @@
 package uk.gov.ch.repository.officers;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.data.domain.Page;
@@ -29,14 +30,14 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      * @param postcode Postcode filter
      * @return page A {@link Page} containing the search results and the pagination data
      */
-    @Query(value = "select sbo.EPHEMERAL_KEY, sbo.FORENAME1, sbo.FORENAME2, sbo.SURNAME, sbo.DATE_OF_BIRTH, sbo.ADDRESS_LINE_1, "
+    @Query(value = "select sbo.EPHEMERAL_KEY, sbo.FORENAME_1, sbo.FORENAME_2, sbo.SURNAME, sbo.DATE_OF_BIRTH, sbo.ADDRESS_LINE_1, "
                  + "sbo.ADDRESS_LINE_2, sbo.ADDRESS_LINE_3, sbo.ADDRESS_TOWN, sbo.ADDRESS_COUNTY, sbo.ADDRESS_POSTCODE "
                  + "from SCOTTISH_BANKRUPT_OFFICER sbo "
-                 + "where (:forename is null or sbo.FORENAME1 = :forename) "
+                 + "where (:forename is null or sbo.FORENAME_1 = :forename) "
                  + "and (:surname is null or sbo.SURNAME = :surname) "
-                 + "and (:dob is null or sbo.DATE_OF_BIRTH = :dob) "
+//                 + "and (:dob is null or sbo.DATE_OF_BIRTH = :dob) "
                  + "and (:postcode is null or sbo.ADDRESS_POSTCODE = :postcode) "
                  + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE)",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerSearchDataModel> findScottishBankruptOfficers(String forename, String surname, Date dob, String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerSearchDataModel> findScottishBankruptOfficers(String forename, String surname, String postcode, Pageable pageable);
 }
