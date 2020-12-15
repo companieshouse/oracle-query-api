@@ -376,7 +376,7 @@ components:
       properties:
         ephemeral_officer_key:
           type: string
-          description: The ephemeral UUID of the officer.
+          description: The ephemeral GUID of the officer.
           example: "B67053D91CC750DEE05400144FFBDD12"
         forename1:
           type: string
@@ -506,5 +506,5 @@ components:
       required: true
       schema:
         type: string
-        format: uuid
+        format: guid
       example: "B67053D91CC750DEE05400144FFBDD12"
