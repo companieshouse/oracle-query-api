@@ -17,7 +17,7 @@ public class ScottishBankruptOfficerController {
     private ScottishBankruptOfficerService scottishBankruptOfficerService;
 
     @PostMapping("/officer-search/scottish-bankrupt-officers")
-        public ResponseEntity search(@RequestBody ScottishBankruptOfficerSearch scottishBankruptOfficerSearch){
+        public ResponseEntity<ScottishBankruptOfficerSearchResults> search(@RequestBody ScottishBankruptOfficerSearch scottishBankruptOfficerSearch){
        ScottishBankruptOfficerSearchResults results =   scottishBankruptOfficerService.getScottishBankruptOfficers(scottishBankruptOfficerSearch);
        if (results.getItems().isEmpty()){
            return new ResponseEntity(HttpStatus.NOT_FOUND);

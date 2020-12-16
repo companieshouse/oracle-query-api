@@ -1,6 +1,7 @@
 package uk.gov.ch.transformers.officer.bankrupt;
 
 import org.springframework.data.domain.Page;
+
 import org.springframework.stereotype.Component;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
