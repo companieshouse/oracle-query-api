@@ -1,8 +1,8 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import java.time.LocalDate;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -14,17 +14,38 @@ import javax.persistence.Id;
 public class ScottishBankruptOfficerSearchDataModel {
 
     @Id
+    @Column(name = "EPHEMERAL_KEY")
     private String ephemeralKey;
+
+    @Column(name = "FORENAME_1")
     private String forename1;
+
+    @Column(name = "FORENAME_2")
     private String forename2;
+
+    @Column(name = "SURNAME")
     private String surname;
+
+    @Column(name = "ADDRESS_LINE_1")
     private String addressLine1;
+
+    @Column(name = "ADDRESS_LINE_2")
     private String addressLine2;
+
+    @Column(name = "ADDRESS_LINE_3")
     private String addressLine3;
-    private String town;
-    private String county;
-    private String postcode;
-    private LocalDate dateOfBirth;
+
+    @Column(name = "ADDRESS_TOWN")
+    private String addressTown;
+
+    @Column(name = "ADDRESS_COUNTY")
+    private String addressCounty;
+
+    @Column(name = "ADDRESS_POSTCODE")
+    private String addressPostcode;
+
+    @Column(name = "DATE_OF_BIRTH")
+    private Date dateOfBirth;
 
     public void setEphemeralKey(String ephemeralKey) {
         this.ephemeralKey = ephemeralKey;
@@ -82,36 +103,36 @@ public class ScottishBankruptOfficerSearchDataModel {
         this.addressLine3 = addressLine3;
     }
 
-    public String getTown() {
-        return town;
+    public String getAddressTown() {
+        return addressTown;
     }
 
-    public void setTown(String town) {
-        this.town = town;
+    public void setAddressTown(String town) {
+        this.addressTown = town;
     }
 
-    public String getCounty() {
-        return county;
+    public String getAddressCounty() {
+        return addressCounty;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
+    public void setAddressCounty(String county) {
+        this.addressCounty = county;
     }
 
-    public String getPostcode() {
-        return postcode;
+    public String getAddressPostcode() {
+        return addressPostcode;
     }
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setAddressPostcode(String postcode) {
+        this.addressPostcode = postcode;
     }
 
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 }
