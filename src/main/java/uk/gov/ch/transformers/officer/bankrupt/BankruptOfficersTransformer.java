@@ -19,12 +19,12 @@ public class BankruptOfficersTransformer {
         scottishBankruptOfficerResult.setForename2(scottishBankruptOfficerSearchDataModel.getForename2());
         scottishBankruptOfficerResult.setSurname(scottishBankruptOfficerSearchDataModel.getSurname());
         scottishBankruptOfficerResult.setDateOfBirth(scottishBankruptOfficerSearchDataModel.getDateOfBirth());
-        scottishBankruptOfficerResult.setPostcode(scottishBankruptOfficerSearchDataModel.getPostcode());
+        scottishBankruptOfficerResult.setPostcode(scottishBankruptOfficerSearchDataModel.getAddressPostcode());
         scottishBankruptOfficerResult.setAddressLine1(scottishBankruptOfficerSearchDataModel.getAddressLine1());
         scottishBankruptOfficerResult.setAddressLine2(scottishBankruptOfficerSearchDataModel.getAddressLine2());
         scottishBankruptOfficerResult.setAddressLine3(scottishBankruptOfficerSearchDataModel.getAddressLine3());
-        scottishBankruptOfficerResult.setCounty(scottishBankruptOfficerSearchDataModel.getCounty());
-        scottishBankruptOfficerResult.setTown(scottishBankruptOfficerSearchDataModel.getTown());
+        scottishBankruptOfficerResult.setCounty(scottishBankruptOfficerSearchDataModel.getAddressCounty());
+        scottishBankruptOfficerResult.setTown(scottishBankruptOfficerSearchDataModel.getAddressTown());
         scottishBankruptOfficerResult.setEphemeralKey(scottishBankruptOfficerSearchDataModel.getEphemeralKey());
         return scottishBankruptOfficerResult;
     }
