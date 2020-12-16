@@ -1,8 +1,5 @@
 package uk.gov.ch.repository.officers;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -35,9 +32,9 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                  + "from SCOTTISH_BANKRUPT_OFFICER sbo "
                  + "where (:forename is null or sbo.FORENAME_1 = :forename) "
                  + "and (:surname is null or sbo.SURNAME = :surname) "
-//                 + "and (:dob is null or sbo.DATE_OF_BIRTH = :dob) "
+                 + "and (:dob is null or sbo.DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
                  + "and (:postcode is null or sbo.ADDRESS_POSTCODE = :postcode) "
-                 + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE)",
+                 + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerSearchDataModel> findScottishBankruptOfficers(String forename, String surname, String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerSearchDataModel> findScottishBankruptOfficers(String forename, String surname, String dob, String postcode, Pageable pageable);
 }

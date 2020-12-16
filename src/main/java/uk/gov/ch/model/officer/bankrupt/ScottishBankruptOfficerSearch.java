@@ -1,16 +1,15 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import org.springframework.stereotype.Component;
-
-import java.time.LocalDate;
 import java.util.Date;
+
+import org.springframework.stereotype.Component;
 
 @Component
 public class ScottishBankruptOfficerSearch {
 
     private String forename1;
     private String surname;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
     private String postcode;
 
 
@@ -30,12 +29,11 @@ public class ScottishBankruptOfficerSearch {
         this.surname = surname;
     }
 
-
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
