@@ -14,13 +14,14 @@ import org.springframework.http.ResponseEntity;
 import uk.gov.ch.controller.officer.bankrupt.ScottishBankruptOfficerController;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerService;
 
 import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
-public class ScottishBankruptOfficerDetailsControllerTest {
+public class ScottishBankruptOfficerControllerTest {
 
     @Mock
    private ScottishBankruptOfficerService service;
@@ -28,11 +29,9 @@ public class ScottishBankruptOfficerDetailsControllerTest {
     @InjectMocks
     private ScottishBankruptOfficerController controller;
 
-
-
     @Test
     @DisplayName("No officers found")
-    public void testNoOfficerFound(){
+    public void testNoOfficersFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
         results.setItems(new ArrayList<>());
@@ -44,11 +43,11 @@ public class ScottishBankruptOfficerDetailsControllerTest {
 
     @Test
     @DisplayName("Officers found")
-    public void testOfficerFound(){
+    public void testOfficersFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
-        ArrayList<ScottishBankruptOfficerDetails> listOfOfficers = new ArrayList<>();
-        ScottishBankruptOfficerDetails officer = new ScottishBankruptOfficerDetails();
+        ArrayList<ScottishBankruptOfficerSearchResult> listOfOfficers = new ArrayList<>();
+        ScottishBankruptOfficerSearchResult officer = new ScottishBankruptOfficerSearchResult();
         listOfOfficers.add(officer);
         results.setItems(listOfOfficers);
         when(service.getScottishBankruptOfficers(search)).thenReturn(results);
@@ -63,7 +62,29 @@ public class ScottishBankruptOfficerDetailsControllerTest {
     @Test
     @DisplayName("Officer found by id")
     public void testOfficerFoundById(){
+        ScottishBankruptOfficerDetails search = new ScottishBankruptOfficerDetails();
+        ScottishBankruptOfficerDetails result = new ScottishBankruptOfficerDetails();
+
+        when(service.getScottishBankruptOfficer(search.getEphemeralKey())).thenReturn(result);
+        ResponseEntity<ScottishBankruptOfficerDetails> response = controller.getOfficerById(search.getEphemeralKey());
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
 
     }
+
+    @Test
+    @DisplayName("No Officer found by id")
+    public void testNoOfficerFoundById(){
+        ScottishBankruptOfficerDetails search = new ScottishBankruptOfficerDetails();
+
+
+        when(service.getScottishBankruptOfficer(search.getEphemeralKey())).thenReturn(null);
+        ResponseEntity<ScottishBankruptOfficerDetails> response = controller.getOfficerById(search.getEphemeralKey());
+
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+
+    }
+
+
 
 }

@@ -58,6 +58,7 @@ public class BankruptOfficersTransformer {
     public ScottishBankruptOfficerSearchResult convertToSearchResult(ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
         ScottishBankruptOfficerSearchResult details = new ScottishBankruptOfficerSearchResult();
 
+        details.setEphemeralKey(scottishBankruptOfficerDetailsDataModel.getEphemeralKey());
         details.setForename1(scottishBankruptOfficerDetailsDataModel.getForename1());
         details.setForename2(scottishBankruptOfficerDetailsDataModel.getForename2());
         details.setSurname(scottishBankruptOfficerDetailsDataModel.getSurname());
