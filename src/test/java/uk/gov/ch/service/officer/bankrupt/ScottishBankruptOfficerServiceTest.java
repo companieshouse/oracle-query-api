@@ -15,8 +15,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
-import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchFilters;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.repository.officers.ScottishBankruptOfficersRepository;
@@ -24,7 +24,7 @@ import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerService;
 import uk.gov.ch.transformers.officer.bankrupt.BankruptOfficersTransformer;
 
 @ExtendWith(MockitoExtension.class)
-public class ScottishBankruptOfficerServiceTest {
+public class ScottishBankruptOfficerDetailsServiceTest {
 
     @Mock
     private ScottishBankruptOfficersRepository repo;
@@ -33,7 +33,7 @@ public class ScottishBankruptOfficerServiceTest {
     private BankruptOfficersTransformer transformer;
 
     @Mock
-    private Page<ScottishBankruptOfficerSearchDataModel> page;
+    private Page<ScottishBankruptOfficerDataModel> page;
 
     @InjectMocks
     private ScottishBankruptOfficerService service;

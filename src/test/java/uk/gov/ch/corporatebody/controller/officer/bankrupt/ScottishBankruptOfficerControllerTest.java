@@ -12,16 +12,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.ch.controller.officer.bankrupt.ScottishBankruptOfficerController;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
-import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class ScottishBankruptOfficerControllerTest {
+public class ScottishBankruptOfficerDetailsControllerTest {
 
     @Mock
    private ScottishBankruptOfficerService service;
@@ -32,7 +31,7 @@ public class ScottishBankruptOfficerControllerTest {
 
 
     @Test
-    @DisplayName("No officer found")
+    @DisplayName("No officers found")
     public void testNoOfficerFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
@@ -44,12 +43,12 @@ public class ScottishBankruptOfficerControllerTest {
     }
 
     @Test
-    @DisplayName("Officer found")
+    @DisplayName("Officers found")
     public void testOfficerFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
-        ArrayList<ScottishBankruptOfficerSearchResult> listOfOfficers = new ArrayList<>();
-        ScottishBankruptOfficerSearchResult officer = new ScottishBankruptOfficerSearchResult();
+        ArrayList<ScottishBankruptOfficerDetails> listOfOfficers = new ArrayList<>();
+        ScottishBankruptOfficerDetails officer = new ScottishBankruptOfficerDetails();
         listOfOfficers.add(officer);
         results.setItems(listOfOfficers);
         when(service.getScottishBankruptOfficers(search)).thenReturn(results);
@@ -61,5 +60,10 @@ public class ScottishBankruptOfficerControllerTest {
         assertEquals(officer,results.getItems().get(0));
     }
 
+    @Test
+    @DisplayName("Officer found by id")
+    public void testOfficerFoundById(){
+
+    }
 
 }

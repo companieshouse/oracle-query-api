@@ -5,12 +5,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
+
 
 /**
  * Repository for querying the Scottish bankrupt officers table
  */
-public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepository<ScottishBankruptOfficerSearchDataModel, String> {
+public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepository<ScottishBankruptOfficerDataModel, String> {
 
     /**
      * Search the Scottish bankrupt officer database for officers matching the supplied filters.
@@ -27,8 +28,7 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      * @param postcode Postcode filter
      * @return page A {@link Page} containing the search results and the pagination data
      */
-    @Query(value = "select EPHEMERAL_KEY, FORENAME_1, FORENAME_2, SURNAME, DATE_OF_BIRTH, ADDRESS_LINE_1, "
-                 + "ADDRESS_LINE_2, ADDRESS_LINE_3, ADDRESS_TOWN, ADDRESS_COUNTY, ADDRESS_POSTCODE "
+    @Query(value = "select * "
                  + "from SCOTTISH_BANKRUPT_OFFICER "
                  + "where (:forename is null or FORENAME_1 = :forename) "
                  + "and (:surname is null or SURNAME = :surname) "
@@ -43,5 +43,5 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                    + "and (:postcode is null or ADDRESS_POSTCODE = :postcode) "
                    + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerSearchDataModel> findScottishBankruptOfficers(String forename, String surname, String dob, String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(String forename, String surname, String dob, String postcode, Pageable pageable);
 }

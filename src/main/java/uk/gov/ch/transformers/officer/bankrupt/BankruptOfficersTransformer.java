@@ -3,7 +3,8 @@ package uk.gov.ch.transformers.officer.bankrupt;
 import org.springframework.data.domain.Page;
 
 import org.springframework.stereotype.Component;
-import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 
@@ -13,29 +14,13 @@ import java.util.List;
 @Component
 public class BankruptOfficersTransformer {
 
-    public ScottishBankruptOfficerSearchResult convert(ScottishBankruptOfficerSearchDataModel scottishBankruptOfficerSearchDataModel) {
-        ScottishBankruptOfficerSearchResult scottishBankruptOfficerResult = new ScottishBankruptOfficerSearchResult();
 
-        scottishBankruptOfficerResult.setForename1(scottishBankruptOfficerSearchDataModel.getForename1());
-        scottishBankruptOfficerResult.setForename2(scottishBankruptOfficerSearchDataModel.getForename2());
-        scottishBankruptOfficerResult.setSurname(scottishBankruptOfficerSearchDataModel.getSurname());
-        scottishBankruptOfficerResult.setDateOfBirth(scottishBankruptOfficerSearchDataModel.getDateOfBirth());
-        scottishBankruptOfficerResult.setPostcode(scottishBankruptOfficerSearchDataModel.getAddressPostcode());
-        scottishBankruptOfficerResult.setAddressLine1(scottishBankruptOfficerSearchDataModel.getAddressLine1());
-        scottishBankruptOfficerResult.setAddressLine2(scottishBankruptOfficerSearchDataModel.getAddressLine2());
-        scottishBankruptOfficerResult.setAddressLine3(scottishBankruptOfficerSearchDataModel.getAddressLine3());
-        scottishBankruptOfficerResult.setCounty(scottishBankruptOfficerSearchDataModel.getAddressCounty());
-        scottishBankruptOfficerResult.setTown(scottishBankruptOfficerSearchDataModel.getAddressTown());
-        scottishBankruptOfficerResult.setEphemeralKey(scottishBankruptOfficerSearchDataModel.getEphemeralKey());
-        return scottishBankruptOfficerResult;
-    }
-
-    public ScottishBankruptOfficerSearchResults convert(Page<ScottishBankruptOfficerSearchDataModel> scottishBankruptOfficerSearchPage) {
+    public ScottishBankruptOfficerSearchResults convertToSearchResults(Page<ScottishBankruptOfficerDataModel> scottishBankruptOfficerSearchPage) {
 
         List<ScottishBankruptOfficerSearchResult> results = new ArrayList<>();
 
-        for (ScottishBankruptOfficerSearchDataModel scottishBankruptOfficerSearchDataModel : scottishBankruptOfficerSearchPage.toList()) {
-            results.add(convert(scottishBankruptOfficerSearchDataModel));
+        for (ScottishBankruptOfficerDataModel scottishBankruptOfficerSearchDataModel : scottishBankruptOfficerSearchPage.toList()) {
+            results.add(convertToSearchResult(scottishBankruptOfficerSearchDataModel));
         }
         ScottishBankruptOfficerSearchResults scottishBankruptOfficerSearchResults = new ScottishBankruptOfficerSearchResults();
         scottishBankruptOfficerSearchResults.setItems(results);
@@ -46,4 +31,45 @@ public class BankruptOfficersTransformer {
         return scottishBankruptOfficerSearchResults;
 
     }
+
+    public ScottishBankruptOfficerDetails convertToDetails(ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
+        ScottishBankruptOfficerDetails details = new ScottishBankruptOfficerDetails();
+
+        details.setForename1(scottishBankruptOfficerDetailsDataModel.getForename1());
+        details.setForename2(scottishBankruptOfficerDetailsDataModel.getForename2());
+        details.setSurname(scottishBankruptOfficerDetailsDataModel.getSurname());
+        details.setDateOfBirth(scottishBankruptOfficerDetailsDataModel.getDateOfBirth());
+        details.setPostcode(scottishBankruptOfficerDetailsDataModel.getAddressPostcode());
+        details.setAddressLine1(scottishBankruptOfficerDetailsDataModel.getAddressLine1());
+        details.setAddressLine2(scottishBankruptOfficerDetailsDataModel.getAddressLine2());
+        details.setAddressLine3(scottishBankruptOfficerDetailsDataModel.getAddressLine3());
+        details.setCounty(scottishBankruptOfficerDetailsDataModel.getAddressCounty());
+        details.setTown(scottishBankruptOfficerDetailsDataModel.getAddressTown());
+        details.setAlias(scottishBankruptOfficerDetailsDataModel.getAlias());
+        details.setCaseReference(scottishBankruptOfficerDetailsDataModel.getCaseReference());
+        details.setCaseType(scottishBankruptOfficerDetailsDataModel.getCaseType());
+        details.setBankruptcyType(scottishBankruptOfficerDetailsDataModel.getBankruptcyType());
+        details.setStartDate(scottishBankruptOfficerDetailsDataModel.getStartDate());
+        details.setDebtorDischargeDate(scottishBankruptOfficerDetailsDataModel.getDebtorDischargeDate());
+        details.setTrusteeDischargeDate(scottishBankruptOfficerDetailsDataModel.getTrusteeDischargeDate());
+        details.setEphemeralKey(scottishBankruptOfficerDetailsDataModel.getEphemeralKey());
+        return details;
+    }
+    public ScottishBankruptOfficerSearchResult convertToSearchResult(ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
+        ScottishBankruptOfficerSearchResult details = new ScottishBankruptOfficerSearchResult();
+
+        details.setForename1(scottishBankruptOfficerDetailsDataModel.getForename1());
+        details.setForename2(scottishBankruptOfficerDetailsDataModel.getForename2());
+        details.setSurname(scottishBankruptOfficerDetailsDataModel.getSurname());
+        details.setDateOfBirth(scottishBankruptOfficerDetailsDataModel.getDateOfBirth());
+        details.setPostcode(scottishBankruptOfficerDetailsDataModel.getAddressPostcode());
+        details.setAddressLine1(scottishBankruptOfficerDetailsDataModel.getAddressLine1());
+        details.setAddressLine2(scottishBankruptOfficerDetailsDataModel.getAddressLine2());
+        details.setAddressLine3(scottishBankruptOfficerDetailsDataModel.getAddressLine3());
+        details.setCounty(scottishBankruptOfficerDetailsDataModel.getAddressCounty());
+        details.setTown(scottishBankruptOfficerDetailsDataModel.getAddressTown());
+
+        return details;
+    }
+
 }
