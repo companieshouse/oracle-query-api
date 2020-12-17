@@ -1,47 +1,39 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import java.util.Date;
-
 import org.springframework.stereotype.Component;
 
+/**
+ * Criteria for searching for bankrupt officers
+ * (filtering and pagination).
+ */
 @Component
 public class ScottishBankruptOfficerSearch {
 
-    private String forename1;
-    private String surname;
-    private String dateOfBirth;
-    private String postcode;
+    private int startIndex;
+    private int itemsPerPage;
+    private ScottishBankruptOfficerSearchFilters filters;
 
-
-    public String getForename1() {
-        return forename1;
+    public int getStartIndex() {
+        return startIndex;
     }
 
-    public void setForename1(String forename1) {
-        this.forename1 = forename1;
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
     }
 
-    public String getSurname() {
-        return surname;
+    public int getItemsPerPage() {
+        return itemsPerPage;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setItemsPerPage(int itemsPerPage) {
+        this.itemsPerPage = itemsPerPage;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public ScottishBankruptOfficerSearchFilters getFilters() {
+        return filters;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getPostcode() {
-        return postcode;
-    }
-
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
+    public void setFilters(ScottishBankruptOfficerSearchFilters filters) {
+        this.filters = filters;
     }
 }

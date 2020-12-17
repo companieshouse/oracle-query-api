@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchFilters;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.repository.officers.ScottishBankruptOfficersRepository;
 import uk.gov.ch.service.officer.bankrupt.BankruptOfficerService;
@@ -24,9 +25,11 @@ public class ScottishBankruptOfficerService implements BankruptOfficerService {
 
     @Override
     public ScottishBankruptOfficerSearchResults getScottishBankruptOfficers(ScottishBankruptOfficerSearch search) {
-        Pageable page =  PageRequest.of(0,10);
+        Pageable page =  PageRequest.of(search.getStartIndex(), search.getItemsPerPage());
+
+        ScottishBankruptOfficerSearchFilters filters = search.getFilters();
         Page<ScottishBankruptOfficerSearchDataModel> dataModel = scottishBankruptOfficersRepository.findScottishBankruptOfficers(
-             search.getForename1(), search.getSurname(), search.getDateOfBirth(), search.getPostcode(), page);
+            filters.getForename1(), filters.getSurname(), filters.getDateOfBirth(), filters.getPostcode(), page);
 
         return bankruptOfficersTransformer.convert(dataModel);
     }
