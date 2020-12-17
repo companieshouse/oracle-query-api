@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerService;
 
@@ -23,6 +26,15 @@ public class ScottishBankruptOfficerController {
            return new ResponseEntity(HttpStatus.NOT_FOUND);
        }
        return new ResponseEntity(results, HttpStatus.OK);
+    }
+
+    @GetMapping("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")
+    public ResponseEntity<ScottishBankruptOfficerSearchResult> getOfficerById(@PathVariable("ephemeral_officer_key") String ephemeralId){
+        ScottishBankruptOfficerSearchResult officer = scottishBankruptOfficerService.getScottishBankruptOfficer(ephemeralId);
+        if (officer == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(officer);
     }
 
 }

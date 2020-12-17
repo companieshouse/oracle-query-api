@@ -10,7 +10,7 @@ import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
 /**
  * Repository for querying the Scottish bankrupt officers table
  */
-public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepository<ScottishBankruptOfficerSearchDataModel, Long> {
+public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepository<ScottishBankruptOfficerSearchDataModel, String> {
 
     /**
      * Search the Scottish bankrupt officer database for officers matching the supplied filters.

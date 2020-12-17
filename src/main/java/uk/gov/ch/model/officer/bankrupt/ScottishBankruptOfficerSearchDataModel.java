@@ -5,12 +5,14 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * A class to represent the results of a Scottish
  * bankrupt officer search.
  */
 @Entity
+@Table(name = "SCOTTISH_BANKRUPT_OFFICER")
 public class ScottishBankruptOfficerSearchDataModel {
 
     @Id

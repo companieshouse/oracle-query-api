@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchFilters;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.repository.officers.ScottishBankruptOfficersRepository;
 import uk.gov.ch.service.officer.bankrupt.BankruptOfficerService;
 import uk.gov.ch.transformers.officer.bankrupt.BankruptOfficersTransformer;
+
+import java.util.Optional;
 
 @Service
 public class ScottishBankruptOfficerService implements BankruptOfficerService {
@@ -33,5 +36,17 @@ public class ScottishBankruptOfficerService implements BankruptOfficerService {
 
         return bankruptOfficersTransformer.convert(dataModel);
     }
+
+    public ScottishBankruptOfficerSearchResult getScottishBankruptOfficer(String ephemeralId){
+
+       Optional<ScottishBankruptOfficerSearchDataModel> officerModel = scottishBankruptOfficersRepository.findById(ephemeralId);
+
+       if (!officerModel.isPresent()) {
+           return null;
+       }
+
+       return bankruptOfficersTransformer.convert(officerModel.get());
+    }
+
 
 }
