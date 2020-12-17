@@ -2,8 +2,11 @@ package uk.gov.ch.model.officer.bankrupt;
 
 
 import java.time.LocalDate;
-import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+@JsonInclude(Include.NON_NULL)
 public class ScottishBankruptOfficerSearchResult {
     private String ephemeralKey;
     private String forename1;
@@ -16,7 +19,6 @@ public class ScottishBankruptOfficerSearchResult {
     private String county;
     private String postcode;
     private LocalDate dateOfBirth;
-
 
     public String getEphemeralKey() {
         return ephemeralKey;
