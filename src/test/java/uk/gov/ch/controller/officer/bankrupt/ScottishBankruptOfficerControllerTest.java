@@ -1,4 +1,4 @@
-package uk.gov.ch.corporatebody.controller.officer.bankrupt;
+package uk.gov.ch.controller.officer.bankrupt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -11,23 +11,26 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.gov.ch.controller.officer.bankrupt.ScottishBankruptOfficerController;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
-import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerService;
+import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerServiceImpl;
 
 import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
 public class ScottishBankruptOfficerControllerTest {
 
+    private static final String EPHEMERAL_KEY = "0123456";
+
     @Mock
-   private ScottishBankruptOfficerService service;
+   private ScottishBankruptOfficerServiceImpl service;
 
     @InjectMocks
     private ScottishBankruptOfficerController controller;
+
+
 
     @Test
     @DisplayName("No officers found")
@@ -62,13 +65,12 @@ public class ScottishBankruptOfficerControllerTest {
     @Test
     @DisplayName("Officer found by id")
     public void testOfficerFoundById(){
-        ScottishBankruptOfficerDetails search = new ScottishBankruptOfficerDetails();
         ScottishBankruptOfficerDetails result = new ScottishBankruptOfficerDetails();
 
-        when(service.getScottishBankruptOfficer(search.getEphemeralKey())).thenReturn(result);
-        ResponseEntity<ScottishBankruptOfficerDetails> response = controller.getOfficerById(search.getEphemeralKey());
+        when(service.getScottishBankruptOfficer(EPHEMERAL_KEY)).thenReturn(result);
+        ResponseEntity<ScottishBankruptOfficerDetails> response = controller.getOfficerById(EPHEMERAL_KEY);
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(result,response.getBody());
 
     }
 

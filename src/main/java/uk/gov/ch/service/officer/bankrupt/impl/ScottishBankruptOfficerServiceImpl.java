@@ -19,7 +19,7 @@ import uk.gov.ch.transformers.officer.bankrupt.BankruptOfficersTransformer;
 import java.util.Optional;
 
 @Service
-public class ScottishBankruptOfficerService implements BankruptOfficerService {
+public class ScottishBankruptOfficerServiceImpl implements BankruptOfficerService {
 
     @Autowired
     private ScottishBankruptOfficersRepository scottishBankruptOfficersRepository;
