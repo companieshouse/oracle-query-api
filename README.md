@@ -1,5 +1,5 @@
 # Oracle query API Service
-API service wrapper for CHIPS Oracle DB queries that cannot be done in other languages e.g. golang due to driver or environment constraints. This application is written using the [Spring Boot](http://projects.spring.io/spring-boot/) Java framework.
+API service wrapper for CHIPS Oracle DB queries. This API should be used for all queries from CHS to the CHIPS database. This application is written using the [Spring Boot](http://projects.spring.io/spring-boot/) Java framework.
 
 ## Requirements
 In order to run the API locally you'll need the following installed on your machine:
