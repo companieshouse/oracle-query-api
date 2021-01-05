@@ -30,17 +30,17 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      */
     @Query(value = "select * "
                  + "from SCOTTISH_BANKRUPT_OFFICER "
-                 + "where (:forename is null or lower(FORENAME_1) = lower(:forename)) "
-                 + "and (:surname is null or lower(SURNAME) = lower(:surname)) "
+                 + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
+                 + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
                  + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                 + "and (:postcode is null or lower(ADDRESS_POSTCODE) = (:postcode)) "
+                 + "and (:postcode is null or upper(ADDRESS_POSTCODE) = upper(:postcode)) "
                  + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            countQuery = "select COUNT(*) "
                    + "from SCOTTISH_BANKRUPT_OFFICER "
-                   + "where (:forename is null or lower(FORENAME_1) = lower(:forename)) "
-                   + "and (:surname is null or lower(SURNAME) = lower(:surname)) "
+                   + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
+                   + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
                    + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                   + "and (:postcode is null or lower(ADDRESS_POSTCODE) = lower(:postcode)) "
+                   + "and (:postcode is null or upper(ADDRESS_POSTCODE) = upper(:postcode)) "
                    + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            nativeQuery = true)
     Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(String forename, String surname, String dob, String postcode, Pageable pageable);
