@@ -33,14 +33,14 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                  + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                  + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
                  + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                 + "and (:postcode is null or upper(ADDRESS_POSTCODE) = upper(:postcode)) "
+                 + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) "
                  + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            countQuery = "select COUNT(*) "
                    + "from SCOTTISH_BANKRUPT_OFFICER "
                    + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                    + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
                    + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                   + "and (:postcode is null or upper(ADDRESS_POSTCODE) = upper(:postcode)) "
+                   + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) "
                    + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            nativeQuery = true)
     Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(String forename, String surname, String dob, String postcode, Pageable pageable);
