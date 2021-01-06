@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import org.springframework.data.repository.query.Param;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
 
 
@@ -43,5 +44,5 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                    + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) "
                    + "and trunc(DEBTOR_DISCHARGE_DATE) >= trunc(SYSDATE) ",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(String forename, String surname, String dob, String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("dob") String dob, @Param("postcode") String postcode, Pageable pageable);
 }

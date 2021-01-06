@@ -20,7 +20,7 @@ import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerServiceImp
 import java.util.ArrayList;
 
 @ExtendWith(MockitoExtension.class)
-public class ScottishBankruptOfficerControllerTest {
+class ScottishBankruptOfficerControllerTest {
 
     private static final String EPHEMERAL_KEY = "0123456";
 
@@ -34,7 +34,7 @@ public class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("No officers found")
-    public void testNoOfficersFound(){
+    void testNoOfficersFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
         results.setItems(new ArrayList<>());
@@ -46,7 +46,7 @@ public class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("Officers found")
-    public void testOfficersFound(){
+    void testOfficersFound(){
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
         ScottishBankruptOfficerSearchResults results = new ScottishBankruptOfficerSearchResults();
         ArrayList<ScottishBankruptOfficerSearchResult> listOfOfficers = new ArrayList<>();
@@ -64,7 +64,7 @@ public class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("Officer found by id")
-    public void testOfficerFoundById(){
+    void testOfficerFoundById(){
         ScottishBankruptOfficerDetails result = new ScottishBankruptOfficerDetails();
 
         when(service.getScottishBankruptOfficer(EPHEMERAL_KEY)).thenReturn(result);
@@ -76,7 +76,7 @@ public class ScottishBankruptOfficerControllerTest {
 
     @Test
     @DisplayName("No Officer found by id")
-    public void testNoOfficerFoundById(){
+    void testNoOfficerFoundById(){
         ScottishBankruptOfficerDetails search = new ScottishBankruptOfficerDetails();
 
 

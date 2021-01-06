@@ -23,9 +23,9 @@ public class ScottishBankruptOfficerController {
         public ResponseEntity<ScottishBankruptOfficerSearchResults> search(@RequestBody ScottishBankruptOfficerSearch scottishBankruptOfficerSearch){
        ScottishBankruptOfficerSearchResults results =   scottishBankruptOfficerServiceImpl.getScottishBankruptOfficers(scottishBankruptOfficerSearch);
        if (results.getItems().isEmpty()){
-           return new ResponseEntity(HttpStatus.NOT_FOUND);
+           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        }
-       return new ResponseEntity(results, HttpStatus.OK);
+       return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     @GetMapping("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")

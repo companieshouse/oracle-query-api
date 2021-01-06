@@ -29,8 +29,7 @@ import uk.gov.ch.transformers.officer.bankrupt.BankruptOfficersTransformer;
 
 import java.util.Optional;
 
-@ExtendWith(MockitoExtension.class)
-public class ScottishBankruptOfficerServiceImplTest {
+@ExtendWith(MockitoExtension.class) class ScottishBankruptOfficerServiceImplTest {
 
     @Mock
     private ScottishBankruptOfficersRepository repo;
@@ -54,7 +53,7 @@ public class ScottishBankruptOfficerServiceImplTest {
 
     @Test
     @DisplayName("Search for bankrupt officers")
-    public void testScottishBankruptSearch() {
+    void testScottishBankruptSearch() {
         when(repo.findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(DATE_OF_BIRTH), eq(POSTCODE), any(Pageable.class))).thenReturn(page);
 
         ScottishBankruptOfficerSearchResults expectedResults = new ScottishBankruptOfficerSearchResults();
@@ -83,7 +82,7 @@ public class ScottishBankruptOfficerServiceImplTest {
 
     @Test
     @DisplayName("Search for bankrupt officer by id")
-    public void testScottishBankruptSearchByID() {
+    void testScottishBankruptSearchByID() {
         ScottishBankruptOfficerDataModel mockRepoResponse = new ScottishBankruptOfficerDataModel() {{
             setEphemeralKey(EPHEMERAL_KEY);
         }};
@@ -102,7 +101,7 @@ public class ScottishBankruptOfficerServiceImplTest {
 
     @Test
     @DisplayName("No officer found with get by ID")
-    public void noOfficerFoundByID(){
+    void noOfficerFoundByID(){
        when(repo.findById(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
 
        ScottishBankruptOfficerDetails details = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
