@@ -17,7 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BankruptOfficersTransformerTest {
+ class BankruptOfficersTransformerTest {
 
 
     private BankruptOfficersTransformer transformer;
@@ -50,7 +50,7 @@ public class BankruptOfficersTransformerTest {
 
     @Test
     @DisplayName("Convert officer result")
-    public void testConvertOfficerResult() {
+    void testConvertOfficerResult() {
         ScottishBankruptOfficerDataModel newOfficer = createOfficer();
         ScottishBankruptOfficerSearchResult convertedOfficer = transformer.convertToSearchResult(newOfficer);
 
@@ -70,7 +70,7 @@ public class BankruptOfficersTransformerTest {
 
     @Test
     @DisplayName("Convert officer details")
-    public void testConvertOfficerDetails() {
+    void testConvertOfficerDetails() {
         ScottishBankruptOfficerDataModel newOfficer = createOfficer();
         ScottishBankruptOfficerDetails convertedOfficer = transformer.convertToDetails(newOfficer);
         assertEquals(EPHEMERAL_KEY, convertedOfficer.getEphemeralKey());
@@ -98,7 +98,7 @@ public class BankruptOfficersTransformerTest {
 
     @Test
     @DisplayName("Convert multiple officers")
-    public void testConvertMultipleOfficers() {
+    void testConvertMultipleOfficers() {
         List<ScottishBankruptOfficerDataModel> dataModelList = new ArrayList<>();
 
         dataModelList.add(createOfficer());
