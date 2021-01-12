@@ -115,8 +115,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/scottishBankruptOfficerSearchResults'
-        '401':
-          description: Unauthorised
         '404':
           description: No Scottish bankrupt officers found
   /officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}:
@@ -134,8 +132,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/scottishBankruptOfficer'
-        '401':
-          description: Unauthorised
         '404':
           description: Scottish bankrupt officer not found
 components:
