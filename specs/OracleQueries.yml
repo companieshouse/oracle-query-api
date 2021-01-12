@@ -316,6 +316,19 @@ components:
     scottishBankruptOfficerSearch:
       type: object
       properties:
+        startIndex:
+          type: integer
+          description: The offset of the first page to return. Zero indexed.
+        itemsPerPage:
+          type: integer
+          description: Number of items to return per page. Must be greater than 0.
+        filters:
+          type: object
+          description: The filters to match when searching (exact match only).
+          $ref: '#/components/schemas/scottishBankruptOfficerSearchFilters'
+    scottishBankruptOfficerSearchFilters:
+      type: object
+      properties:
         forename1:
           type: string
           description: The officers' first name.
