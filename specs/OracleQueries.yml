@@ -13,6 +13,8 @@ tags:
     description: current action code set against the company
   - name: scottish-bankrupt-officer-search
     description: search for a Scottish bankrupt officer
+  - name: scottish-bankrupt-officer-details
+    description: view details for a Scottish bankrupt officer
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -95,25 +97,43 @@ paths:
         '404':
           description: Not found
   /officer-search/scottish-bankrupt-officers:
-    parameters:
-      - $ref: '#/components/parameters/forename'
-      - $ref: '#/components/parameters/surname'
-      - $ref: '#/components/parameters/dateOfBirth'
-      - $ref: '#/components/parameters/postcode'
-    get:
+    post:
       tags:
         - scottish-bankrupt-officer-search
       operationId: searchScottishBankruptOfficer
       summary: Search for a Scottish bankrupt officer
+      requestBody:
+        description: The body of the requestBody
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scottishBankruptOfficerSearch'
       responses:
         '200':
           description: List of Scottish bankrupt officers.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/scottishBankruptOfficers'
+                $ref: '#/components/schemas/scottishBankruptOfficerSearchResults'
         '404':
           description: No Scottish bankrupt officers found
+  /officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}:
+    parameters:
+      - $ref: '#/components/parameters/ephemeralOfficerKey'
+    get:
+      tags:
+        - scottish-bankrupt-officer-details
+      operationId: viewScottishBankruptOfficer
+      summary: View details for a Scottish bankrupt officer
+      responses:
+        '200':
+          description: The details of the Scottish bankrupt officer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scottishBankruptOfficer'
+        '404':
+          description: Scottish bankrupt officer not found
 components:
   schemas:
     companyOfficer:
@@ -293,36 +313,25 @@ components:
           description: The current action code for the company
           readOnly: true
           example: 5000
-    scottishBankruptOfficer:
+    scottishBankruptOfficerSearch:
       type: object
-      required:
-        - forename1
-        - forename2
-        - alias
-        - surname
-        - date_of_birth
-        - address_line_1
-        - address_line_2
-        - address_line_3
-        - town
-        - county
-        - postcode
-        - case_reference
-        - case_type
-        - bankruptcy_type
-        - start_date
-        - debtor_discharge_date
-        - trustee_discharge_date
+      properties:
+        startIndex:
+          type: integer
+          description: The offset of the first page to return. Zero indexed.
+        itemsPerPage:
+          type: integer
+          description: Number of items to return per page. Must be greater than 0.
+        filters:
+          type: object
+          description: The filters to match when searching (exact match only).
+          $ref: '#/components/schemas/scottishBankruptOfficerSearchFilters'
+    scottishBankruptOfficerSearchFilters:
+      type: object
       properties:
         forename1:
           type: string
           description: The officers' first name.
-        forename2:
-          type: string
-          description: The officers' other forenames.
-        alias:
-          type: string
-          description: The officers' alias/other name.
         surname:
           type: string
           description: The officers' surname.
@@ -330,49 +339,10 @@ components:
           type: string
           description: The officers' date of birth.
           example: "2020-01-01"
-        address_line_1:
-          type: string
-          description: The first line of the address.
-        address_line_2:
-          type: string
-          description: The second line of the address.
-        address_line_3:
-          type: string
-          description: The third line of the address.
-        town:
-          type: string
-          description: The town the bankrupt officer lives in.
-        county:
-          type: string
-          description: The county the bankrupt officer lives in.
         postcode:
           type: string
           description: The postcode for the address.
-        case_reference: 
-          type: string
-          description: Unique ID for the insolvency or trust deed. This could be supplied in any format.
-        case_type: 
-          type: string
-          enum:
-            - "Insolvency"
-            - "Trust Deed"
-          description: Whether it is an insolvency or trust deed.
-        bankruptcy_type: 
-          type: string
-          description: The sub-type of insolvency. This will not exist for trust deeds.
-        start_date: 
-          type: string
-          description: Date which the insolvency/trust deed begins.
-          example: "2020-01-01"
-        debtor_discharge_date: 
-          type: string
-          description: Date the restrictions are lifted from the bankrupt officer.
-          example: "2020-01-01"
-        trustee_discharge_date: 
-          type: string
-          description: Date the insolvency/trust deed is fully discharged.
-          example: "2020-01-01"
-    scottishBankruptOfficers:
+    scottishBankruptOfficerSearchResults:
       type: object
       required:
         - items_per_page
@@ -401,7 +371,112 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/scottishBankruptOfficer'
+            $ref: '#/components/schemas/scottishBankruptOfficerSearchResult' 
+    scottishBankruptOfficerSearchResult:
+      type: object
+      required:
+        - ephemeral_officer_key
+        - forename1
+        - forename2
+        - surname
+        - date_of_birth
+        - address_line_1
+        - address_line_2
+        - address_line_3
+        - town
+        - county
+        - postcode
+      properties:
+        ephemeral_officer_key:
+          type: string
+          description: The ephemeral ID of the officer.
+          example: "B67053D91CC750DEE05400144FFBDD12"
+        forename1:
+          type: string
+          description: The officers' first name.
+        forename2:
+          type: string
+          description: The officers' other forenames.
+        surname:
+          type: string
+          description: The officers' surname.
+        date_of_birth:
+          type: string
+          description: The officers' date of birth.
+          example: "2020-01-01"
+        address_line_1:
+          type: string
+          description: The first line of the address.
+        address_line_2:
+          type: string
+          description: The second line of the address.
+        address_line_3:
+          type: string
+          description: The third line of the address.
+        town:
+          type: string
+          description: The town the bankrupt officer lives in.
+        county:
+          type: string
+          description: The county the bankrupt officer lives in.
+        postcode:
+          type: string
+          description: The postcode for the address.
+    scottishBankruptOfficer:
+      allOf:
+        - $ref: '#/components/schemas/scottishBankruptOfficerSearchResult'
+        - type: object
+      required:
+          - ephemeral_officer_key
+          - forename1
+          - forename2
+          - alias
+          - surname
+          - date_of_birth
+          - address_line_1
+          - address_line_2
+          - address_line_3
+          - town
+          - county
+          - postcode
+          - case_reference
+          - case_type
+          - start_date
+          - debtor_discharge_date
+          - trustee_discharge_date
+      properties:
+        alias:
+          type: string
+          description: The officers' alias/other name.
+        case_reference: 
+          type: string
+          description: Unique ID for the insolvency or trust deed. This could be supplied in any format.
+        case_type: 
+          type: string
+          enum:
+            - "Insolvency"
+            - "Trust Deed"
+          description: Whether it is an insolvency or trust deed.
+        bankruptcy_type: 
+          type: string
+          enum:
+            - "Entity Full Administration"
+            - "Full Administration"
+            - "MAP"
+            - "Sequestration"
+          description: The sub-type of insolvency. This will not exist for trust deeds.
+        start_date: 
+          type: string
+          description: Date which the insolvency/trust deed begins.
+          example: "2020-01-01"
+        debtor_discharge_date: 
+          type: string
+          description: Date the restrictions are lifted from the bankrupt officer.
+          example: "2020-01-01"
+        trustee_discharge_date: 
+          type: string
+          description: Date the insolvency/trust deed is fully discharged.
+          example: "2020-01-01"
   parameters:
     companyNumber:
       name: 'company_number'
@@ -437,32 +512,11 @@ components:
         type: integer
         format: int64
       example: "10"
-    forename:
-      name: 'forename'
-      description: The officers' first name.
-      in: 'query'
-      required: false
+    ephemeralOfficerKey:
+      name: 'ephemeral_officer_key'
+      description: "The ephemeral key for a bankrupt officer. Note: This is a disposable key which may change when the data is refreshed."
+      in: 'path'
+      required: true
       schema:
         type: string
-    surname:
-      name: 'surname'
-      description: The officers' surname.
-      in: 'query'
-      required: false
-      schema:
-        type: string
-    dateOfBirth:
-      name: 'dateOfBirth'
-      description: The officers' date of birth.
-      in: 'query'
-      required: false
-      schema:
-        type: string
-      example: "2020-01-01"
-    postcode:
-      name: 'postcode'
-      description: The postcode for the address.
-      in: 'query'
-      required: false
-      schema:
-        type: string
+      example: "B67053D91CC750DEE05400144FFBDD12"
