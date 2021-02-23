@@ -1,6 +1,7 @@
 package uk.gov.ch.transformers.officer.bankrupt;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -40,6 +41,7 @@ import java.util.List;
     private static final LocalDate DEBTOR_DISCHARGE = LocalDate.now();
     private static final LocalDate TRUSTEE_DISCHARGE_DATE = LocalDate.now();
     private static final LocalDate DATE_OF_BIRTH = LocalDate.now();
+    private static final LocalDate DEBTOR_DISCHARGE_END_OF_TIME = LocalDate.of(9999, 12, 31);
 
 
     @BeforeEach
@@ -51,7 +53,7 @@ import java.util.List;
     @Test
     @DisplayName("Convert officer result")
     void testConvertOfficerResult() {
-        ScottishBankruptOfficerDataModel newOfficer = createOfficer();
+        ScottishBankruptOfficerDataModel newOfficer = createOfficer(DEBTOR_DISCHARGE);
         ScottishBankruptOfficerSearchResult convertedOfficer = transformer.convertToSearchResult(newOfficer);
 
         assertEquals(EPHEMERAL_KEY, convertedOfficer.getEphemeralKey());
@@ -71,7 +73,7 @@ import java.util.List;
     @Test
     @DisplayName("Convert officer details")
     void testConvertOfficerDetails() {
-        ScottishBankruptOfficerDataModel newOfficer = createOfficer();
+        ScottishBankruptOfficerDataModel newOfficer = createOfficer(DEBTOR_DISCHARGE);
         ScottishBankruptOfficerDetails convertedOfficer = transformer.convertToDetails(newOfficer);
         assertEquals(EPHEMERAL_KEY, convertedOfficer.getEphemeralKey());
         assertEquals(FORENAME1, convertedOfficer.getForename1());
@@ -101,11 +103,11 @@ import java.util.List;
     void testConvertMultipleOfficers() {
         List<ScottishBankruptOfficerDataModel> dataModelList = new ArrayList<>();
 
-        dataModelList.add(createOfficer());
-        dataModelList.add(createOfficer());
-        dataModelList.add(createOfficer());
-        dataModelList.add(createOfficer());
-        dataModelList.add(createOfficer());
+        dataModelList.add(createOfficer(DEBTOR_DISCHARGE));
+        dataModelList.add(createOfficer(DEBTOR_DISCHARGE));
+        dataModelList.add(createOfficer(DEBTOR_DISCHARGE));
+        dataModelList.add(createOfficer(DEBTOR_DISCHARGE));
+        dataModelList.add(createOfficer(DEBTOR_DISCHARGE));
         Page<ScottishBankruptOfficerDataModel> page = new PageImpl<ScottishBankruptOfficerDataModel>(dataModelList);
         ScottishBankruptOfficerSearchResults convertedPage = transformer.convertToSearchResults(page);
         assertEquals(5, convertedPage.getItems().size());
@@ -113,9 +115,58 @@ import java.util.List;
         assertEquals(0, convertedPage.getStartIndex());
         assertEquals(5, convertedPage.getItemsPerPage());
     }
+
+     @Test
+     @DisplayName("Convert officer details with a null debtor discharge date")
+     void testConvertOfficerDetailsWithANullDebtorDischargeDate() {
+         ScottishBankruptOfficerDataModel newOfficer = createOfficer(null);
+         ScottishBankruptOfficerDetails convertedOfficer = transformer.convertToDetails(newOfficer);
+         assertEquals(EPHEMERAL_KEY, convertedOfficer.getEphemeralKey());
+         assertEquals(FORENAME1, convertedOfficer.getForename1());
+         assertEquals(FORENAME2, convertedOfficer.getForename2());
+         assertEquals(SURNAME, convertedOfficer.getSurname());
+         assertEquals(ADDRESS_LINE1, convertedOfficer.getAddressLine1());
+         assertEquals(ADDRESS_LINE2, convertedOfficer.getAddressLine2());
+         assertEquals(ADDRESS_LINE3, convertedOfficer.getAddressLine3());
+         assertEquals(ADDRESS_TOWN, convertedOfficer.getTown());
+         assertEquals(ADDRESS_COUNTY, convertedOfficer.getCounty());
+         assertEquals(ADDRESS_POSTCODE, convertedOfficer.getPostcode());
+         assertEquals(DATE_OF_BIRTH, convertedOfficer.getDateOfBirth());
+         assertEquals(ALIAS, convertedOfficer.getAlias());
+         assertEquals(CASE_REFERENCE, convertedOfficer.getCaseReference());
+         assertEquals(CASE_TYPE, convertedOfficer.getCaseType());
+         assertEquals(BANKRUPTCY_TYPE, convertedOfficer.getBankruptcyType());
+         assertEquals(START_DATE, convertedOfficer.getStartDate());
+         assertNull(convertedOfficer.getDebtorDischargeDate());
+         assertEquals(TRUSTEE_DISCHARGE_DATE, convertedOfficer.getTrusteeDischargeDate());
+     }
+     @Test
+     @DisplayName("Convert officer details with end of time debtor discharge date")
+     void testConvertOfficerDetailsWithEndOfTimeDebtorDischargeDate() {
+         ScottishBankruptOfficerDataModel newOfficer = createOfficer(DEBTOR_DISCHARGE_END_OF_TIME);
+         ScottishBankruptOfficerDetails convertedOfficer = transformer.convertToDetails(newOfficer);
+         assertEquals(EPHEMERAL_KEY, convertedOfficer.getEphemeralKey());
+         assertEquals(FORENAME1, convertedOfficer.getForename1());
+         assertEquals(FORENAME2, convertedOfficer.getForename2());
+         assertEquals(SURNAME, convertedOfficer.getSurname());
+         assertEquals(ADDRESS_LINE1, convertedOfficer.getAddressLine1());
+         assertEquals(ADDRESS_LINE2, convertedOfficer.getAddressLine2());
+         assertEquals(ADDRESS_LINE3, convertedOfficer.getAddressLine3());
+         assertEquals(ADDRESS_TOWN, convertedOfficer.getTown());
+         assertEquals(ADDRESS_COUNTY, convertedOfficer.getCounty());
+         assertEquals(ADDRESS_POSTCODE, convertedOfficer.getPostcode());
+         assertEquals(DATE_OF_BIRTH, convertedOfficer.getDateOfBirth());
+         assertEquals(ALIAS, convertedOfficer.getAlias());
+         assertEquals(CASE_REFERENCE, convertedOfficer.getCaseReference());
+         assertEquals(CASE_TYPE, convertedOfficer.getCaseType());
+         assertEquals(BANKRUPTCY_TYPE, convertedOfficer.getBankruptcyType());
+         assertEquals(START_DATE, convertedOfficer.getStartDate());
+         assertNull(convertedOfficer.getDebtorDischargeDate());
+         assertEquals(TRUSTEE_DISCHARGE_DATE, convertedOfficer.getTrusteeDischargeDate());
+     }
     
 
-    private ScottishBankruptOfficerDataModel createOfficer() {
+    private ScottishBankruptOfficerDataModel createOfficer(LocalDate debtorDischargeDate) {
 
         ScottishBankruptOfficerDataModel dataModel = new ScottishBankruptOfficerDataModel();
 
@@ -135,11 +186,10 @@ import java.util.List;
         dataModel.setCaseType(CASE_TYPE);
         dataModel.setBankruptcyType(BANKRUPTCY_TYPE);
         dataModel.setStartDate(START_DATE);
-        dataModel.setDebtorDischargeDate(DEBTOR_DISCHARGE);
+        dataModel.setDebtorDischargeDate(debtorDischargeDate);
         dataModel.setTrusteeDischargeDate(TRUSTEE_DISCHARGE_DATE);
 
         return dataModel;
-
 
     }
 

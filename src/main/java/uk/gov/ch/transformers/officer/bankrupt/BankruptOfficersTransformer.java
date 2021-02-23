@@ -1,5 +1,6 @@
 package uk.gov.ch.transformers.officer.bankrupt;
 
+import java.time.LocalDate;
 import org.springframework.data.domain.Page;
 
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.List;
 @Component
 public class BankruptOfficersTransformer {
 
+    private static final LocalDate END_OF_TIME = LocalDate.of(9999, 12, 31);
 
     public ScottishBankruptOfficerSearchResults convertToSearchResults(Page<ScottishBankruptOfficerDataModel> scottishBankruptOfficerSearchPage) {
 
@@ -50,9 +52,15 @@ public class BankruptOfficersTransformer {
         details.setCaseType(scottishBankruptOfficerDetailsDataModel.getCaseType());
         details.setBankruptcyType(scottishBankruptOfficerDetailsDataModel.getBankruptcyType());
         details.setStartDate(scottishBankruptOfficerDetailsDataModel.getStartDate());
-        details.setDebtorDischargeDate(scottishBankruptOfficerDetailsDataModel.getDebtorDischargeDate());
         details.setTrusteeDischargeDate(scottishBankruptOfficerDetailsDataModel.getTrusteeDischargeDate());
         details.setEphemeralKey(scottishBankruptOfficerDetailsDataModel.getEphemeralKey());
+
+        LocalDate debtorDischargeDate = scottishBankruptOfficerDetailsDataModel.getDebtorDischargeDate();
+
+        if (debtorDischargeDate != null && !END_OF_TIME.isEqual(debtorDischargeDate)) {
+            details.setDebtorDischargeDate(debtorDischargeDate);
+        }
+
         return details;
     }
     public ScottishBankruptOfficerSearchResult convertToSearchResult(ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
