@@ -10,10 +10,10 @@ public class Shareholder {
     private String forename1;
     private String forename2;
     private String surname;
-    private int addressId;
-    private int shares;
-    private int shareClassTypeId;
-    private int currencyTypeId;
+    private Long addressId;
+    private Long shares;
+    private Long shareClassTypeId;
+    private Long currencyTypeId;
 
     public String getForename1() {
         return forename1;
@@ -39,35 +39,35 @@ public class Shareholder {
         this.surname = surname;
     }
 
-    public int getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(int addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 
-    public int getShares() {
+    public Long getShares() {
         return shares;
     }
 
-    public void setShares(int shares) {
+    public void setShares(Long shares) {
         this.shares = shares;
     }
 
-    public int getShareClassTypeId() {
+    public Long getShareClassTypeId() {
         return shareClassTypeId;
     }
 
-    public void setShareClassTypeId(int shareClassTypeId) {
+    public void setShareClassTypeId(Long shareClassTypeId) {
         this.shareClassTypeId = shareClassTypeId;
     }
 
-    public int getCurrencyTypeId() {
+    public Long getCurrencyTypeId() {
         return currencyTypeId;
     }
 
-    public void setCurrencyTypeId(int currencyTypeId) {
+    public void setCurrencyTypeId(Long currencyTypeId) {
         this.currencyTypeId = currencyTypeId;
     }
 
