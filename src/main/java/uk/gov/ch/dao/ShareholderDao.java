@@ -27,9 +27,13 @@ public class ShareholderDao {
         List<Shareholder> list = jdbcTemplate.query(getCompanyShareholdersSql(corporateBodyId),
                 new BeanPropertyRowMapper<>(Shareholder.class));
 
+        LOGGER.info("Returned " + list.size() + " shareholders from SHAREHOLDER tables.");
+
         if (list.isEmpty()) {
             list = jdbcTemplate.query(getCompanyShareholdersElectedSql(corporateBodyId),
                     new BeanPropertyRowMapper<>(Shareholder.class));
+
+            LOGGER.info("Returned " + list.size() + " shareholders from SHAREHOLDER_ELECTED tables.");
         }
 
         return list;
@@ -38,8 +42,10 @@ public class ShareholderDao {
     public int getShareholderCount(String corporateBodyId) {
         int count;
         count = jdbcTemplate.queryForObject(SHAREHOLDER_COUNT_SQL, Integer.class, corporateBodyId);
+        LOGGER.info("Returned shareholders count of" + count + " shareholders from SHAREHOLDER tables.");
         if (count == 0) {
             count = jdbcTemplate.queryForObject(SHAREHOLDER_ELECTED_COUNT_SQL, Integer.class, corporateBodyId);
+            LOGGER.info("Returned shareholders count of" + count + " shareholders from SHAREHOLDER_ELECTED tables.");
         }
 
         return count;
