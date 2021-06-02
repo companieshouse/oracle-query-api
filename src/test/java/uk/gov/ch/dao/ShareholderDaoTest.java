@@ -24,7 +24,7 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import uk.gov.ch.model.Shareholder;
 
 @ExtendWith(MockitoExtension.class)
-public class ShareholderDaoTest {
+class ShareholderDaoTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
@@ -36,7 +36,7 @@ public class ShareholderDaoTest {
 
     @Test
     @DisplayName("Get shareholders - company with shareholders")
-    public void getShareholdersFromShareholdersTableTest() {
+    void getShareholdersFromShareholdersTableTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
@@ -53,7 +53,7 @@ public class ShareholderDaoTest {
 
     @Test
     @DisplayName("Get shareholders - company with elected shareholders")
-    public void getShareholdersFromShareholdersElectedTableTest() {
+    void getShareholdersFromShareholdersElectedTableTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
@@ -69,7 +69,7 @@ public class ShareholderDaoTest {
 
     @Test
     @DisplayName("Get shareholders - company with neither shareholders nor elected shareholders")
-    public void getShareholdersForCorporateBodyWithNoneTest() {
+    void getShareholdersForCorporateBodyWithNoneTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
 
         when(jdbcTemplate.query(anyString(), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
@@ -82,7 +82,7 @@ public class ShareholderDaoTest {
 
     @Test
     @DisplayName("Get shareholders count - company with shareholders")
-    public void getShareholderCountFromShareholdersTableTest() {
+    void getShareholderCountFromShareholdersTableTest() {
         when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
                 eq(COMPANY_NUMBER))).thenReturn(1);
 
@@ -93,7 +93,7 @@ public class ShareholderDaoTest {
 
     @Test
     @DisplayName("Get shareholders count - company with elected shareholders")
-    public void getShareholderCountFromShareholdersElectedTableTest() {
+    void getShareholderCountFromShareholdersElectedTableTest() {
         when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
                 eq(COMPANY_NUMBER))).thenReturn(0);
 
@@ -107,7 +107,7 @@ public class ShareholderDaoTest {
 
     @Test
     @DisplayName("Get shareholders count - company with neither shareholders nor elected shareholders")
-    public void getShareholderCountForCorporateBodyWithNoneTest() {
+    void getShareholderCountForCorporateBodyWithNoneTest() {
         when(jdbcTemplate.queryForObject(any(), eq(Integer.class), eq(COMPANY_NUMBER))).thenReturn(0);
 
         int result = dao.getShareholderCount(COMPANY_NUMBER);
