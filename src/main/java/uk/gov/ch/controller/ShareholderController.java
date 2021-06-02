@@ -23,23 +23,23 @@ public class ShareholderController {
     @Autowired
     private ShareholderService shareholderService;
 
-    @GetMapping("/shareholders/{corporateBodyId}/count")
-    public ResponseEntity getShareholdersCount(@PathVariable String corporateBodyId) {
+    @GetMapping("/company/{companyNumber}/shareholders/count")
+    public ResponseEntity getShareholdersCount(@PathVariable String companyNumber) {
 
-        LOGGER.info("Calling service to retrieve shareholder count for corporate body ID " + corporateBodyId);
-        int response = shareholderService.getShareholderCount(corporateBodyId);
+        LOGGER.info("Calling service to retrieve shareholder count for corporate body ID " + companyNumber);
+        int response = shareholderService.getShareholderCount(companyNumber);
 
-        LOGGER.info("Returning shareholder count ("+ response +") for company " + corporateBodyId);
+        LOGGER.info("Returning shareholder count ("+ response +") for company " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/shareholders/{corporateBodyId}/list")
-    public ResponseEntity getShareholders(@PathVariable String corporateBodyId) {
+    @GetMapping("/company/{companyNumber}/shareholders")
+    public ResponseEntity getShareholders(@PathVariable String companyNumber) {
         
-        LOGGER.info("Calling service to retrieve the list of shareholders for corporate body ID " + corporateBodyId);
-        List<Shareholder> response = shareholderService.getShareholders(corporateBodyId);
+        LOGGER.info("Calling service to retrieve the list of shareholders for corporate body ID " + companyNumber);
+        List<Shareholder> response = shareholderService.getShareholders(companyNumber);
 
-        LOGGER.info("Returning "+ response.size() +"shareholders for company " + corporateBodyId);
+        LOGGER.info("Returning "+ response.size() +"shareholders for company " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);        
     }
     

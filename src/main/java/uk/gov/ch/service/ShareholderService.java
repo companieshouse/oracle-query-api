@@ -5,7 +5,7 @@ import uk.gov.ch.model.Shareholder;
 
 public interface ShareholderService {
 
-    int getShareholderCount(String corporateBodyId);
+    int getShareholderCount(String incorporationNumber);
 
-    List<Shareholder> getShareholders(String corporateBodyId);
+    List<Shareholder> getShareholders(String incorporationNumber);
 }

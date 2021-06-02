@@ -41,12 +41,12 @@ public class ShareholderDaoTest {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getCompanyShareholdersSql(CORPORATE_BODY_ID)),
+        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(CORPORATE_BODY_ID)),
                 any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
         List<Shareholder> resultList = dao.getShareholders(CORPORATE_BODY_ID);
 
-        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.getCompanyShareholdersElectedSql(CORPORATE_BODY_ID)),
+        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.getShareholdersElectedSql(CORPORATE_BODY_ID)),
                 any(BeanPropertyRowMapper.class));
 
         assertEquals(expectedList, resultList);
@@ -60,10 +60,10 @@ public class ShareholderDaoTest {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getCompanyShareholdersSql(CORPORATE_BODY_ID)),
+        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(CORPORATE_BODY_ID)),
                 any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getCompanyShareholdersElectedSql(CORPORATE_BODY_ID)),
+        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersElectedSql(CORPORATE_BODY_ID)),
                 any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
         List<Shareholder> resultList = dao.getShareholders(CORPORATE_BODY_ID);

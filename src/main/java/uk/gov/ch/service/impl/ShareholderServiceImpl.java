@@ -16,13 +16,13 @@ public class ShareholderServiceImpl implements ShareholderService {
     private ShareholderDao shareholderDao;
 
     @Override
-    public int getShareholderCount(String corporateBodyId) {  
-        return shareholderDao.getShareholderCount(corporateBodyId);
+    public int getShareholderCount(String incorporationNumber) {  
+        return shareholderDao.getShareholderCount(incorporationNumber);
     }
 
     @Override
-    public List<Shareholder> getShareholders(String corporateBodyId) {  
-        return shareholderDao.getShareholders(corporateBodyId);
+    public List<Shareholder> getShareholders(String incorporationNumber) {  
+        return shareholderDao.getShareholders(incorporationNumber);
     }
     
 }
