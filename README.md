@@ -21,6 +21,7 @@ Method    | Path                                                                
 **GET**   | `/emergency-auth-code/company/{companyNumber}/efiling-status`                | Calls service to check if company has filed in the past thirty days
 **GET**   | `/company/{companyNumber}/action-code`                                       | Calls service to retrieve the current action code set against the company
 **GET**   | `/company/{companyNumber}/gaz2-requested`                                    | Calls service to check if a gaz2 is requested for the company
+**GET**   | `/company/{companyNumber}/traded-status`                                     | Calls service to retrieve the current traded status for the company
 **GET**   | `/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}`         | Calls service to view the details for a Scottish bankrupt officer
 **POST**  | `/officer-search/scottish-bankrupt-officers`                                 | Calls service to search for a Scottish bankrupt officer    
 
