@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 
 import uk.gov.ch.model.Shareholder;
 
@@ -39,13 +40,11 @@ public class ShareholderDaoTest {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(COMPANY_NUMBER)),
-                any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
+        when(jdbcTemplate.query(eq(ShareholderDao.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
         List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
 
-        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.getShareholdersElectedSql(COMPANY_NUMBER)),
-                any(BeanPropertyRowMapper.class));
+        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class));
 
         assertEquals(expectedList, resultList);
         assertEquals(1, resultList.size());
@@ -58,11 +57,9 @@ public class ShareholderDaoTest {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(COMPANY_NUMBER)),
-                any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
+        when(jdbcTemplate.query(eq(ShareholderDao.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersElectedSql(COMPANY_NUMBER)),
-                any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
+        when(jdbcTemplate.query(eq(ShareholderDao.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
         List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
 
@@ -75,7 +72,7 @@ public class ShareholderDaoTest {
     public void getShareholdersForCorporateBodyWithNoneTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
 
-        when(jdbcTemplate.query(anyString(), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
+        when(jdbcTemplate.query(anyString(), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
         List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
 
