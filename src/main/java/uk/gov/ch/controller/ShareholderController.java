@@ -26,7 +26,7 @@ public class ShareholderController {
     @GetMapping("/company/{companyNumber}/shareholders/count")
     public ResponseEntity<Integer> getShareholdersCount(@PathVariable String companyNumber) {
 
-        LOGGER.info("Calling service to retrieve shareholder count for corporate body ID " + companyNumber);
+        LOGGER.info("Calling service to retrieve shareholder count for company number " + companyNumber);
         int response = shareholderService.getShareholderCount(companyNumber);
 
         LOGGER.info("Returning shareholder count ("+ response +") for company " + companyNumber);
@@ -36,7 +36,7 @@ public class ShareholderController {
     @GetMapping("/company/{companyNumber}/shareholders")
     public ResponseEntity<List<Shareholder>> getShareholders(@PathVariable String companyNumber) {
         
-        LOGGER.info("Calling service to retrieve the list of shareholders for corporate body ID " + companyNumber);
+        LOGGER.info("Calling service to retrieve the list of shareholders for company number " + companyNumber);
         List<Shareholder> response = shareholderService.getShareholders(companyNumber);
 
         LOGGER.info("Returning "+ response.size() +"shareholders for company " + companyNumber);
