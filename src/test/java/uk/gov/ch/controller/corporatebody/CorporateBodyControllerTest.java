@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CorporateBodyControllerTest {
+class CorporateBodyControllerTest {
 
     @Mock
     CorporateBodyService corporateBodyService;
@@ -29,7 +29,7 @@ public class CorporateBodyControllerTest {
 
     @Test
     @DisplayName("Get action code - company not found")
-    public void testGetActionCodeNoCompanyFound() throws CorporateBodyNotFoundException {
+    void testGetActionCodeNoCompanyFound() throws CorporateBodyNotFoundException {
 
         when(corporateBodyService.getActionCode(INCORPORATION_NUMBER)).thenThrow(new CorporateBodyNotFoundException("No company found"));
 
@@ -39,7 +39,7 @@ public class CorporateBodyControllerTest {
 
     @Test
     @DisplayName("Get action code - company was found")
-    public void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
+    void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
         final long dummyActionCode = 99;
 
         when(corporateBodyService.getActionCode(INCORPORATION_NUMBER)).thenReturn(dummyActionCode);

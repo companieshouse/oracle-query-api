@@ -31,7 +31,7 @@ public class CorporateBodyRepositoryTest {
 
     @Test
     @DisplayName("Get action code - company not found")
-    public void testGetActionCodeNoCompanyFound() throws CorporateBodyNotFoundException {
+    void testGetActionCodeNoCompanyFound() throws CorporateBodyNotFoundException {
         when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenThrow(new EmptyResultDataAccessException(1));
 
         Assertions.assertThrows(CorporateBodyNotFoundException.class, () -> {
@@ -41,7 +41,7 @@ public class CorporateBodyRepositoryTest {
 
     @Test
     @DisplayName("Get action code - company was found")
-    public void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
+    void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
         final long dummyActionCode = 99;
 
         when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenReturn(dummyActionCode);
