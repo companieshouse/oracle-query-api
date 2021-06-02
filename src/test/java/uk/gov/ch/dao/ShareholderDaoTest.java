@@ -33,20 +33,20 @@ public class ShareholderDaoTest {
     @InjectMocks
     ShareholderDao dao;
 
-    private static final String CORPORATE_BODY_ID = "12345678";
+    private static final String COMPANY_NUMBER = "12345678";
 
     @Test
-    @DisplayName("Get shareholders - corporate body with shareholders")
+    @DisplayName("Get shareholders - company with shareholders")
     public void getShareholdersFromShareholdersTableTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(CORPORATE_BODY_ID)),
+        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(COMPANY_NUMBER)),
                 any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
-        List<Shareholder> resultList = dao.getShareholders(CORPORATE_BODY_ID);
+        List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
 
-        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.getShareholdersElectedSql(CORPORATE_BODY_ID)),
+        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.getShareholdersElectedSql(COMPANY_NUMBER)),
                 any(BeanPropertyRowMapper.class));
 
         assertEquals(expectedList, resultList);
@@ -55,67 +55,67 @@ public class ShareholderDaoTest {
     }
 
     @Test
-    @DisplayName("Get shareholders - corporate body with elected shareholders")
+    @DisplayName("Get shareholders - company with elected shareholders")
     public void getShareholdersFromShareholdersElectedTableTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(CORPORATE_BODY_ID)),
+        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersSql(COMPANY_NUMBER)),
                 any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersElectedSql(CORPORATE_BODY_ID)),
+        when(jdbcTemplate.query(eq(ShareholderDao.getShareholdersElectedSql(COMPANY_NUMBER)),
                 any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
-        List<Shareholder> resultList = dao.getShareholders(CORPORATE_BODY_ID);
+        List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
 
         assertEquals(expectedList, resultList);
         assertEquals(1, resultList.size());
     }
 
     @Test
-    @DisplayName("Get shareholders - corporate body with neither shareholders nor elected shareholders")
+    @DisplayName("Get shareholders - company with neither shareholders nor elected shareholders")
     public void getShareholdersForCorporateBodyWithNoneTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
 
         when(jdbcTemplate.query(anyString(), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
-        List<Shareholder> resultList = dao.getShareholders(CORPORATE_BODY_ID);
+        List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
 
         assertEquals(expectedList, resultList);
         assertEquals(0, resultList.size());
     }
 
     @Test
-    @DisplayName("Get shareholders count - corporate body with shareholders")
+    @DisplayName("Get shareholders count - company with shareholders")
     public void getShareholderCountFromShareholdersTableTest() {
         when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
-                eq(CORPORATE_BODY_ID))).thenReturn(1);
+                eq(COMPANY_NUMBER))).thenReturn(1);
 
-        int result = dao.getShareholderCount(CORPORATE_BODY_ID);
+        int result = dao.getShareholderCount(COMPANY_NUMBER);
 
         assertEquals(1, result);
     }
 
     @Test
-    @DisplayName("Get shareholders count - corporate body with elected shareholders")
+    @DisplayName("Get shareholders count - company with elected shareholders")
     public void getShareholderCountFromShareholdersElectedTableTest() {
         when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
-                eq(CORPORATE_BODY_ID))).thenReturn(0);
+                eq(COMPANY_NUMBER))).thenReturn(0);
 
         when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_ELECTED_COUNT_SQL), eq(Integer.class),
-                eq(CORPORATE_BODY_ID))).thenReturn(2);
+                eq(COMPANY_NUMBER))).thenReturn(2);
 
-        int result = dao.getShareholderCount(CORPORATE_BODY_ID);
+        int result = dao.getShareholderCount(COMPANY_NUMBER);
 
         assertEquals(2, result);
     }
 
     @Test
-    @DisplayName("Get shareholders count - corporate body with neither shareholders nor elected shareholders")
+    @DisplayName("Get shareholders count - company with neither shareholders nor elected shareholders")
     public void getShareholderCountForCorporateBodyWithNoneTest() {
-        when(jdbcTemplate.queryForObject(any(), eq(Integer.class), eq(CORPORATE_BODY_ID))).thenReturn(0);
+        when(jdbcTemplate.queryForObject(any(), eq(Integer.class), eq(COMPANY_NUMBER))).thenReturn(0);
 
-        int result = dao.getShareholderCount(CORPORATE_BODY_ID);
+        int result = dao.getShareholderCount(COMPANY_NUMBER);
 
         assertEquals(0, result);
     }
