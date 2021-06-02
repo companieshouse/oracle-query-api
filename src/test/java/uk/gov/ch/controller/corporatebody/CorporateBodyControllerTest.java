@@ -1,7 +1,4 @@
-package uk.gov.ch.corporatebody.controller;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+package uk.gov.ch.controller.corporatebody;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -12,9 +9,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import uk.gov.ch.exception.CorporateBodyNotFoundException;
+import uk.gov.ch.service.corporatebody.CorporateBodyService;
 
-import uk.gov.ch.corporatebody.exception.CorporateBodyNotFoundException;
-import uk.gov.ch.corporatebody.service.CorporateBodyService;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -34,7 +33,7 @@ public class CorporateBodyControllerTest {
 
         when(corporateBodyService.getActionCode(INCORPORATION_NUMBER)).thenThrow(new CorporateBodyNotFoundException("No company found"));
 
-        ResponseEntity<Integer> response = controller.getActionCode(INCORPORATION_NUMBER);
+        ResponseEntity<Long> response = controller.getActionCode(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
@@ -42,11 +41,33 @@ public class CorporateBodyControllerTest {
     @DisplayName("Get action code - company was found")
     public void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
         final long dummyActionCode = 99;
-        
+
         when(corporateBodyService.getActionCode(INCORPORATION_NUMBER)).thenReturn(dummyActionCode);
 
         ResponseEntity<Long> response = controller.getActionCode(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(dummyActionCode, response.getBody());
+    }
+
+    @Test
+    @DisplayName("Get traded status - company not found")
+    void testGetTradedStatusNoCompanyFound() throws CorporateBodyNotFoundException {
+
+        when(corporateBodyService.getTradedStatus(INCORPORATION_NUMBER)).thenThrow(new CorporateBodyNotFoundException("No company found"));
+
+        ResponseEntity<Long> response = controller.getTradedStatus(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Get traded status - company was found")
+    void testGetTradedStatusCompanyFound() throws CorporateBodyNotFoundException {
+        final Long dummyTradedStatus = 99L;
+
+        when(corporateBodyService.getTradedStatus(INCORPORATION_NUMBER)).thenReturn(dummyTradedStatus);
+
+        ResponseEntity<Long> response = controller.getTradedStatus(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(dummyTradedStatus, response.getBody());
     }
 }

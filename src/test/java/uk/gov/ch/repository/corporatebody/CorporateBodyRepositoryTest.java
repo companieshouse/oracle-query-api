@@ -1,4 +1,4 @@
-package uk.gov.ch.corporatebody.dao;
+package uk.gov.ch.repository.corporatebody;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,23 +10,22 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import uk.gov.ch.exception.CorporateBodyNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
-import uk.gov.ch.corporatebody.exception.CorporateBodyNotFoundException;
-
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class CorporateBodyDaoTest {
+public class CorporateBodyRepositoryTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
-    CorporateBodyDao dao;
+    private CorporateBodyRepository repository;
 
     private static final String INCORPORATION_NUMBER = "12345678";
 
@@ -36,18 +35,39 @@ public class CorporateBodyDaoTest {
         when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenThrow(new EmptyResultDataAccessException(1));
 
         Assertions.assertThrows(CorporateBodyNotFoundException.class, () -> {
-            dao.getActionCode(INCORPORATION_NUMBER);
-          });
+            repository.getActionCode(INCORPORATION_NUMBER);
+        });
     }
 
     @Test
     @DisplayName("Get action code - company was found")
     public void testGetActionCodeCompanyFound() throws CorporateBodyNotFoundException {
         final long dummyActionCode = 99;
+
+        when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenReturn(dummyActionCode);
+
+        long response = repository.getActionCode(INCORPORATION_NUMBER);
+        assertEquals(dummyActionCode, response);
+    }
+
+    @Test
+    @DisplayName("Get traded status - company not found")
+    void testGetTradedStatusNoCompanyFound() {
+        when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenThrow(new EmptyResultDataAccessException(1));
+
+        Assertions.assertThrows(CorporateBodyNotFoundException.class, () -> {
+            repository.getTradedStatus(INCORPORATION_NUMBER);
+          });
+    }
+
+    @Test
+    @DisplayName("Get traded status - company was found")
+    void testGetTradedStatusCompanyFound() throws CorporateBodyNotFoundException {
+        final long dummyActionCode = 99;
         
         when(jdbcTemplate.queryForObject(any(String.class), eq(Long.class), eq(INCORPORATION_NUMBER))).thenReturn(dummyActionCode);
 
-        long response = dao.getActionCode(INCORPORATION_NUMBER);
+        long response = repository.getTradedStatus(INCORPORATION_NUMBER);
         assertEquals(dummyActionCode, response);
     }
 
