@@ -29,7 +29,7 @@ public class ShareholderController {
         LOGGER.info("Calling service to retrieve shareholder count for company number " + companyNumber);
         int response = shareholderService.getShareholderCount(companyNumber);
 
-        LOGGER.info("Returning shareholder count ("+ response +") for company " + companyNumber);
+        LOGGER.info("Returning shareholder count ("+ response +") for company numnber " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -39,7 +39,7 @@ public class ShareholderController {
         LOGGER.info("Calling service to retrieve the list of shareholders for company number " + companyNumber);
         List<Shareholder> response = shareholderService.getShareholders(companyNumber);
 
-        LOGGER.info("Returning "+ response.size() +"shareholders for company " + companyNumber);
+        LOGGER.info("Returning "+ response.size() +" shareholders for company number " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);        
     }
     
