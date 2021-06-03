@@ -30,7 +30,7 @@ class ShareholderDaoTest {
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
-    ShareholderDao dao;
+    private ShareholderDao dao;
 
     private static final String COMPANY_NUMBER = "12345678";
 

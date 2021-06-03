@@ -22,10 +22,10 @@ import uk.gov.ch.service.ShareholderService;
 class ShareholderControllerTest {
 
     @InjectMocks
-    ShareholderController controller;
+    private ShareholderController controller;
 
     @Mock
-    ShareholderService service;
+    private ShareholderService service;
 
     private static final String COMPANY_NUMBER = "12345678";
 
