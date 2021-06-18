@@ -25,8 +25,6 @@ public class ShareholderDao {
 
     static final String SHAREHOLDER_COUNT_SQL = "SELECT COUNT(*) FROM shareholder sh INNER JOIN shareholding shd ON sh.shareholding_id = shd.shareholding_id JOIN corporate_body cb on cb.corporate_body_id = shd.corporate_body_id WHERE cb.incorporation_number = ?";
     
-    static final String SHAREHOLDER_ELECTED_COUNT_SQL = "SELECT COUNT(*) FROM shareholder_elected sh JOIN sholdingelc_sholderelc_link shl ON sh.shareholder_elected_id = shl.shareholder_elected_id  INNER JOIN shareholding_elected shd ON shd.shareholding_elected_id = shl.shareholding_elected_id JOIN corporate_body cb on cb.corporate_body_id = shd.corporate_body_id WHERE cb.incorporation_number = ?";
-    
     static final String SHAREHOLDER_LIST_SQL = "SELECT sh.shareholder_forename_1 as forename1, sh.shareholder_forename_2 as forename2, sh.shareholder_surname as surname, "
         + "sh.address_id as addressId, shd.number_of_shares as shares, shd.share_class_type_id as shareClassTypeId, shd.currency_type_id as currencyTypeId "
         + "FROM shareholder sh INNER JOIN shareholding shd ON sh.shareholding_id = shd.shareholding_id "
@@ -56,12 +54,6 @@ public class ShareholderDao {
         int count = jdbcTemplate.queryForObject(SHAREHOLDER_COUNT_SQL, Integer.class, incorporationNumber);
         
         LOGGER.info("Returned shareholders count of " + count + " shareholders from SHAREHOLDER tables.");
-        
-        if (count == 0) {
-            count = jdbcTemplate.queryForObject(SHAREHOLDER_ELECTED_COUNT_SQL, Integer.class, incorporationNumber);
-            
-            LOGGER.info("Returned shareholders count of " + count + " shareholders from SHAREHOLDER_ELECTED tables.");
-        }
 
         return count;
     }
