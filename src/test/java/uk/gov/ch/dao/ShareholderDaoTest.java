@@ -95,9 +95,6 @@ class ShareholderDaoTest {
     @DisplayName("Get shareholders count - company with elected shareholders")
     void getShareholderCountFromShareholdersElectedTableTest() {
         when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
-                eq(COMPANY_NUMBER))).thenReturn(0);
-
-        when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_ELECTED_COUNT_SQL), eq(Integer.class),
                 eq(COMPANY_NUMBER))).thenReturn(2);
 
         int result = dao.getShareholderCount(COMPANY_NUMBER);
