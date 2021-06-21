@@ -1,7 +1,7 @@
-package uk.gov.ch.service;
+package uk.gov.ch.service.shareholder;
 import java.util.List;
 
-import uk.gov.ch.model.Shareholder;
+import uk.gov.ch.model.shareholder.Shareholder;
 
 public interface ShareholderService {
 

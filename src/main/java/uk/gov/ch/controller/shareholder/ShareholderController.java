@@ -1,4 +1,4 @@
-package uk.gov.ch.controller;
+package uk.gov.ch.controller.shareholder;
 
 import java.util.List;
 
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.Shareholder;
-import uk.gov.ch.service.ShareholderService;
+import uk.gov.ch.model.shareholder.Shareholder;
+import uk.gov.ch.service.shareholder.ShareholderService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 

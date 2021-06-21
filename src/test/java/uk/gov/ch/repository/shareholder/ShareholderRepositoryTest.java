@@ -1,4 +1,4 @@
-package uk.gov.ch.dao;
+package uk.gov.ch.repository.shareholder;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -21,16 +21,16 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
-import uk.gov.ch.model.Shareholder;
+import uk.gov.ch.model.shareholder.Shareholder;
 
 @ExtendWith(MockitoExtension.class)
-class ShareholderDaoTest {
+class ShareholderRepositoryTest {
 
     @Mock
     private JdbcTemplate jdbcTemplate;
 
     @InjectMocks
-    private ShareholderDao dao;
+    private ShareholderRepository shareholderRepository;
 
     private static final String COMPANY_NUMBER = "12345678";
 
@@ -40,11 +40,11 @@ class ShareholderDaoTest {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
+        when(jdbcTemplate.query(eq(ShareholderRepository.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
-        List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
+        List<Shareholder> resultList = shareholderRepository.getShareholders(COMPANY_NUMBER);
 
-        verify(jdbcTemplate, times(0)).query(eq(ShareholderDao.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class));
+        verify(jdbcTemplate, times(0)).query(eq(ShareholderRepository.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class));
 
         assertEquals(expectedList, resultList);
         assertEquals(1, resultList.size());
@@ -57,11 +57,11 @@ class ShareholderDaoTest {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
         expectedList.add(new Shareholder());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
+        when(jdbcTemplate.query(eq(ShareholderRepository.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
 
-        when(jdbcTemplate.query(eq(ShareholderDao.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
+        when(jdbcTemplate.query(eq(ShareholderRepository.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
-        List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
+        List<Shareholder> resultList = shareholderRepository.getShareholders(COMPANY_NUMBER);
 
         assertEquals(expectedList, resultList);
         assertEquals(1, resultList.size());
@@ -74,7 +74,7 @@ class ShareholderDaoTest {
 
         when(jdbcTemplate.query(anyString(), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
 
-        List<Shareholder> resultList = dao.getShareholders(COMPANY_NUMBER);
+        List<Shareholder> resultList = shareholderRepository.getShareholders(COMPANY_NUMBER);
 
         assertEquals(expectedList, resultList);
         assertEquals(0, resultList.size());
@@ -83,10 +83,10 @@ class ShareholderDaoTest {
     @Test
     @DisplayName("Get shareholders count - company with shareholders")
     void getShareholderCountFromShareholdersTableTest() {
-        when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
+        when(jdbcTemplate.queryForObject(eq(ShareholderRepository.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
                 eq(COMPANY_NUMBER))).thenReturn(1);
 
-        int result = dao.getShareholderCount(COMPANY_NUMBER);
+        int result = shareholderRepository.getShareholderCount(COMPANY_NUMBER);
 
         assertEquals(1, result);
     }
@@ -94,10 +94,10 @@ class ShareholderDaoTest {
     @Test
     @DisplayName("Get shareholders count - company with elected shareholders")
     void getShareholderCountFromShareholdersElectedTableTest() {
-        when(jdbcTemplate.queryForObject(eq(ShareholderDao.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
+        when(jdbcTemplate.queryForObject(eq(ShareholderRepository.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
                 eq(COMPANY_NUMBER))).thenReturn(2);
 
-        int result = dao.getShareholderCount(COMPANY_NUMBER);
+        int result = shareholderRepository.getShareholderCount(COMPANY_NUMBER);
 
         assertEquals(2, result);
     }
@@ -107,7 +107,7 @@ class ShareholderDaoTest {
     void getShareholderCountForCorporateBodyWithNoneTest() {
         when(jdbcTemplate.queryForObject(any(), eq(Integer.class), eq(COMPANY_NUMBER))).thenReturn(0);
 
-        int result = dao.getShareholderCount(COMPANY_NUMBER);
+        int result = shareholderRepository.getShareholderCount(COMPANY_NUMBER);
 
         assertEquals(0, result);
     }

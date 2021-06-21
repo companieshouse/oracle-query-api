@@ -1,4 +1,4 @@
-package uk.gov.ch.dao;
+package uk.gov.ch.repository.shareholder;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,12 +11,12 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.Shareholder;
+import uk.gov.ch.model.shareholder.Shareholder;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
 @Repository
-public class ShareholderDao {
+public class ShareholderRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 

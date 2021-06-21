@@ -1,4 +1,4 @@
-package uk.gov.ch.model;
+package uk.gov.ch.model.shareholder;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
