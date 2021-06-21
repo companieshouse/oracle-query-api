@@ -15,8 +15,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import uk.gov.ch.model.Shareholder;
-import uk.gov.ch.service.ShareholderService;
+import uk.gov.ch.controller.shareholder.ShareholderController;
+import uk.gov.ch.model.shareholder.Shareholder;
+import uk.gov.ch.service.shareholder.ShareholderService;
 
 @ExtendWith(MockitoExtension.class)
 class ShareholderControllerTest {

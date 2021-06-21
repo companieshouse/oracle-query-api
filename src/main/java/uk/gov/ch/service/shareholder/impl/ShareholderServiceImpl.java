@@ -1,28 +1,28 @@
-package uk.gov.ch.service.impl;
+package uk.gov.ch.service.shareholder.impl;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import uk.gov.ch.dao.ShareholderDao;
-import uk.gov.ch.model.Shareholder;
-import uk.gov.ch.service.ShareholderService;
+import uk.gov.ch.repository.shareholder.ShareholderRepository;
+import uk.gov.ch.model.shareholder.Shareholder;
+import uk.gov.ch.service.shareholder.ShareholderService;
 
 @Service
 public class ShareholderServiceImpl implements ShareholderService {
 
     @Autowired
-    private ShareholderDao shareholderDao;
+    private ShareholderRepository shareholderRepository;
 
     @Override
     public int getShareholderCount(String incorporationNumber) {  
-        return shareholderDao.getShareholderCount(incorporationNumber);
+        return shareholderRepository.getShareholderCount(incorporationNumber);
     }
 
     @Override
     public List<Shareholder> getShareholders(String incorporationNumber) {  
-        return shareholderDao.getShareholders(incorporationNumber);
+        return shareholderRepository.getShareholders(incorporationNumber);
     }
     
 }
