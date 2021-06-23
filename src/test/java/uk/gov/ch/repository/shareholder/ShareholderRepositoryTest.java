@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -44,31 +42,13 @@ class ShareholderRepositoryTest {
 
         List<Shareholder> resultList = shareholderRepository.getShareholders(COMPANY_NUMBER);
 
-        verify(jdbcTemplate, times(0)).query(eq(ShareholderRepository.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class));
-
         assertEquals(expectedList, resultList);
         assertEquals(1, resultList.size());
 
     }
 
     @Test
-    @DisplayName("Get shareholders - company with elected shareholders")
-    void getShareholdersFromShareholdersElectedTableTest() {
-        List<Shareholder> expectedList = new ArrayList<Shareholder>();
-        expectedList.add(new Shareholder());
-
-        when(jdbcTemplate.query(eq(ShareholderRepository.SHAREHOLDER_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(new ArrayList<Shareholder>());
-
-        when(jdbcTemplate.query(eq(ShareholderRepository.SHAREHOLDER_ELECTED_LIST_SQL), any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
-
-        List<Shareholder> resultList = shareholderRepository.getShareholders(COMPANY_NUMBER);
-
-        assertEquals(expectedList, resultList);
-        assertEquals(1, resultList.size());
-    }
-
-    @Test
-    @DisplayName("Get shareholders - company with neither shareholders nor elected shareholders")
+    @DisplayName("Get shareholders - company with no shareholders")
     void getShareholdersForCorporateBodyWithNoneTest() {
         List<Shareholder> expectedList = new ArrayList<Shareholder>();
 
@@ -92,18 +72,7 @@ class ShareholderRepositoryTest {
     }
 
     @Test
-    @DisplayName("Get shareholders count - company with elected shareholders")
-    void getShareholderCountFromShareholdersElectedTableTest() {
-        when(jdbcTemplate.queryForObject(eq(ShareholderRepository.SHAREHOLDER_COUNT_SQL), eq(Integer.class),
-                eq(COMPANY_NUMBER))).thenReturn(2);
-
-        int result = shareholderRepository.getShareholderCount(COMPANY_NUMBER);
-
-        assertEquals(2, result);
-    }
-
-    @Test
-    @DisplayName("Get shareholders count - company with neither shareholders nor elected shareholders")
+    @DisplayName("Get shareholders count - company with no shareholders")
     void getShareholderCountForCorporateBodyWithNoneTest() {
         when(jdbcTemplate.queryForObject(any(), eq(Integer.class), eq(COMPANY_NUMBER))).thenReturn(0);
 
