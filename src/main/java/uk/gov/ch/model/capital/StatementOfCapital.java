@@ -7,6 +7,9 @@ public class StatementOfCapital {
     @JsonProperty("id")
     private String id;
 
+    @JsonProperty("class_of_shares")
+    private String classOfShares;
+
     @JsonProperty("currency")
     private String currency;
 
@@ -31,6 +34,14 @@ public class StatementOfCapital {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getClassOfShares() {
+        return classOfShares;
+    }
+
+    public void setClassOfShares(String classOfShares) {
+        this.classOfShares = classOfShares;
     }
 
     public String getCurrency() {
