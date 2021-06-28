@@ -20,7 +20,7 @@ public class StatementOfCapital {
     private int aggregateNominalValue;
 
     @JsonProperty("prescribed_particulars")
-    private int prescribedParticulars;
+    private String prescribedParticulars;
 
     @JsonProperty("total_currency")
     private String totalCurrency;
@@ -71,11 +71,11 @@ public class StatementOfCapital {
         this.aggregateNominalValue = aggregateNominalValue;
     }
 
-    public int getPrescribedParticulars() {
+    public String getPrescribedParticulars() {
         return prescribedParticulars;
     }
 
-    public void setPrescribedParticulars(int prescribedParticulars) {
+    public void setPrescribedParticulars(String prescribedParticulars) {
         this.prescribedParticulars = prescribedParticulars;
     }
 
