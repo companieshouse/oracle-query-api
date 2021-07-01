@@ -6,7 +6,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 import uk.gov.ch.model.capital.StatementOfCapital;
-import uk.gov.ch.model.shareholder.Shareholder;
 
 import java.util.List;
 
@@ -30,8 +29,7 @@ public class StatementOfCapitalRepository {
     private JdbcTemplate jdbcTemplate;
 
     public List<StatementOfCapital> getStatementOfCapital(String incorporationNumber) {
-        List<StatementOfCapital> statementOfCapitalList = jdbcTemplate.query(STATEMENT_OF_CAPITAL_SQL, getParam(incorporationNumber), new BeanPropertyRowMapper<>(StatementOfCapital.class));
-        return statementOfCapitalList;
+        return jdbcTemplate.query(STATEMENT_OF_CAPITAL_SQL, getParam(incorporationNumber), new BeanPropertyRowMapper<>(StatementOfCapital.class));
     }
 
     private PreparedStatementSetter getParam(String param) {
