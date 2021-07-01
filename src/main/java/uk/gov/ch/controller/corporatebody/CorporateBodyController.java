@@ -12,6 +12,8 @@ import uk.gov.ch.service.corporatebody.CorporateBodyService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
+import java.util.List;
+
 @RestController
 public class CorporateBodyController {
 
