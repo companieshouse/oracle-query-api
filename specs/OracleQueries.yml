@@ -134,6 +134,25 @@ paths:
                 $ref: '#/components/schemas/scottishBankruptOfficer'
         '404':
           description: Scottish bankrupt officer not found
+  /company/{company_number}/statement-of-capital:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - statement-of-capital
+      operationId: getStatementOfCapital
+      summary: Get a single object containing statement of capital data for the company specified
+      responses:
+        '200':
+          description: The company statement of capital data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/statementOfCapital'
+        '401':
+          description: Unauthorised
+        '404':
+          description: No statement of capital data found
 components:
   schemas:
     companyOfficer:
@@ -477,6 +496,46 @@ components:
           type: string
           description: Date the insolvency/trust deed is fully discharged.
           example: "2020-01-01"
+    statementOfCapital:
+      type: object
+      required:
+        - classOfShares
+        - currency
+        - numberAllotted
+        - aggregateNominalValue
+        - prescribedParticulars
+        - totalCurrency
+        - totalNumberOfShares
+        - totalAggregateNominalValue
+        - totalAmountUnpaidForCurrency
+      properties:
+        classOfShares:
+          type: string
+          description: The class of shares.
+        currency:
+          type: string
+          description: The currency the shares are held in.
+        numberAllotted:
+          type: integer
+          description: The number of shares allotted.
+        aggregateNominalValue:
+          type: integer
+          description: The aggregate nominal value.
+        prescribedParticulars:
+          type: string
+          description: The description of rights.
+        totalCurrency:
+          type: string
+          description: The currency the shares are held in.
+        totalNumberOfShares:
+          type: integer
+          description: The number of shares allotted.
+        totalAggregateNominalValue:
+          type: integer
+          description: The total aggregate nominal value.
+        totalAmountUnpaidForCurrency:
+          type: integer
+          description: The total amount unpaid.
   parameters:
     companyNumber:
       name: 'company_number'

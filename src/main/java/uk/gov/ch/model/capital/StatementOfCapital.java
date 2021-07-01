@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class StatementOfCapital {
 
-    @JsonProperty("id")
-    private String id;
-
     @JsonProperty("class_of_shares")
     private String classOfShares;
 
@@ -33,14 +30,6 @@ public class StatementOfCapital {
 
     @JsonProperty("total_amount_unpaid_for_currency")
     private Integer totalAmountUnpaidForCurrency;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getClassOfShares() {
         return classOfShares;
