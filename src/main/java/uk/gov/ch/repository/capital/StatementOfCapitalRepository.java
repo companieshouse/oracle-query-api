@@ -13,12 +13,11 @@ import java.util.List;
 @Repository
 public class StatementOfCapitalRepository {
 
-    static final String STATEMENT_OF_CAPITAL_SQL = "SELECT "
-            + "sct.share_class_type_desc as classOfShares, ctp.currency_type_code as currency, "
-            + "ssce.number_of_shares_allotted as numberAllotted, ssce.aggregate_nominal_value as aggregateNominalValue, "
-            + "ssce.desc_of_rights as prescribedParticulars, ct.tot_number_shares_for_currency as totalNumberOfShares, "
+    static final String STATEMENT_OF_CAPITAL_SQL = "SELECT coalesce(ssc.non_standard_share_class,sct.share_class_type_desc) as classOfShares, ctp.currency_type_code as currency,"
+            + "ssce.number_of_shares_allotted as numberAllotted, ssce.aggregate_nominal_value as aggregateNominalValue,"
+            + "ssce.desc_of_rights as prescribedParticulars, ct.tot_number_shares_for_currency as totalNumberOfShares,"
             + "ct.tot_agg_nom_value_for_currency as totalAggregateNominalValue, ct.agg_amount_unpaid_for_currency as totalAmountUnpaidForCurrency "
-            + "FROM corporate_body cb  "
+            + "FROM corporate_body cb "
             + "LEFT JOIN statement_of_capital soc ON cb.corporate_body_id = soc.corporate_body_id "
             + "LEFT JOIN soc_currency_totals ct ON soc.statement_of_capital_id = ct.statement_of_capital_id "
             + "LEFT JOIN currency_type ctp ON ct.currency_type_id = ctp.currency_type_id "
