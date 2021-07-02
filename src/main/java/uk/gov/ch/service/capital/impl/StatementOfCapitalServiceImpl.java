@@ -17,7 +17,7 @@ import java.util.List;
 public class StatementOfCapitalServiceImpl implements StatementOfCapitalService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-    private static final String NOT_FOUND_MESSSAGE = "Statement of capital result was returned but empty";
+    private static final String NOT_FOUND_MESSAGE = "Statement of capital result was returned but empty";
 
     @Autowired
     private StatementOfCapitalRepository statementOfCapitalRepository;
@@ -32,8 +32,8 @@ public class StatementOfCapitalServiceImpl implements StatementOfCapitalService 
            if (size != 0) {
                throw new ServiceException("Single result not returned");
            } else {
-               LOGGER.error(NOT_FOUND_MESSSAGE);
-               throw new StatementOfCapitalNotFoundException(NOT_FOUND_MESSSAGE);
+               LOGGER.error(NOT_FOUND_MESSAGE);
+               throw new StatementOfCapitalNotFoundException(NOT_FOUND_MESSAGE);
            }
         }
     }
