@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -58,4 +60,14 @@ class StatementOfCapitalRepositoryTest {
         assertEquals(0, resultList.size());
     }
 
+    @Test
+    @DisplayName("Get statement of capital empty data access result")
+    void getStatementOfCapitalTestEmptyDataAccessResult() throws StatementOfCapitalNotFoundException {
+        List<StatementOfCapital> expectedList = new ArrayList<StatementOfCapital>();
+
+        when(jdbcTemplate.query(eq(StatementOfCapitalRepository.STATEMENT_OF_CAPITAL_SQL),
+                any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenThrow(EmptyResultDataAccessException.class);
+
+        assertThrows(StatementOfCapitalNotFoundException.class, () -> statementOfCapitalRepository.getStatementOfCapital(COMPANY_NUMBER));
+    }
 }
