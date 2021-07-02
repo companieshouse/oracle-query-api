@@ -153,6 +153,8 @@ paths:
           description: Unauthorised
         '404':
           description: No statement of capital data found
+        '500':
+          description: More than one statement of capital data result found
 components:
   schemas:
     companyOfficer:
