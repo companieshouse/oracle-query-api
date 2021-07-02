@@ -13,8 +13,6 @@ import uk.gov.ch.service.capital.StatementOfCapitalService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
-import java.util.List;
-
 @RestController
 public class StatementOfCapitalController {
 

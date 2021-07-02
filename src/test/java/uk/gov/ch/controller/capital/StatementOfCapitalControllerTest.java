@@ -12,9 +12,6 @@ import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
 import uk.gov.ch.service.capital.StatementOfCapitalService;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -32,7 +29,7 @@ class StatementOfCapitalControllerTest {
 
     @Test
     @DisplayName("Get statement of capital code")
-    void testGetStatementofCapital() throws StatementOfCapitalNotFoundException {
+    void testGetStatementOfCapital() throws StatementOfCapitalNotFoundException {
         StatementOfCapital statementOfCapital = new StatementOfCapital();
         when(statementOfCapitalService.getStatementOfCapital(COMPANY_NUMBER)).thenReturn(statementOfCapital);
 
@@ -43,7 +40,7 @@ class StatementOfCapitalControllerTest {
 
     @Test
     @DisplayName("Get statement of capital code - not found")
-    void testGetStatementofCapitalNotFound() throws StatementOfCapitalNotFoundException {
+    void testGetStatementOfCapitalNotFound() throws StatementOfCapitalNotFoundException {
 
         when(statementOfCapitalService.getStatementOfCapital(COMPANY_NUMBER)).thenThrow(new StatementOfCapitalNotFoundException("Test"));
 

@@ -49,7 +49,7 @@ class StatementOfCapitalRepositoryTest {
 
     @Test
     @DisplayName("Get statement of capital no results")
-    void getStatementOfCapitalTestWithNoReults() throws StatementOfCapitalNotFoundException {
+    void getStatementOfCapitalTestWithNoResults() throws StatementOfCapitalNotFoundException {
         List<StatementOfCapital> expectedList = new ArrayList<StatementOfCapital>();
 
         when(jdbcTemplate.query(eq(StatementOfCapitalRepository.STATEMENT_OF_CAPITAL_SQL),
