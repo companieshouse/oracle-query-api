@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
 import uk.gov.ch.repository.capital.StatementOfCapitalRepository;
@@ -28,7 +29,7 @@ class StatementOfCapitalServiceImplTest {
     StatementOfCapitalRepository statementOfCapitalRepository;
 
     @Test
-    void testGetStatementOfCapital() throws StatementOfCapitalNotFoundException {
+    void testGetStatementOfCapital() throws StatementOfCapitalNotFoundException, ServiceException {
         List<StatementOfCapital> socList = new ArrayList<StatementOfCapital>();
         socList.add(new StatementOfCapital());
         when(statementOfCapitalRepository.getStatementOfCapital(COMPANY_NUMBER)).thenReturn(socList);
@@ -45,12 +46,12 @@ class StatementOfCapitalServiceImplTest {
     }
 
     @Test
-    void testGetStatementOfCapitalSingleResultNotFoundMoreThanOne()  throws StatementOfCapitalNotFoundException {
+    void testGetStatementOfCapitalSingleResultNotFoundMoreThanOne() throws StatementOfCapitalNotFoundException {
         List<StatementOfCapital> socList = new ArrayList<StatementOfCapital>();
         socList.add(new StatementOfCapital());
         socList.add(new StatementOfCapital());
         when(statementOfCapitalRepository.getStatementOfCapital(COMPANY_NUMBER)).thenReturn(socList);
-        assertThrows(StatementOfCapitalNotFoundException.class, () ->
+        assertThrows(ServiceException.class, () ->
                 statementOfCapitalServiceImpl.getStatementOfCapital(COMPANY_NUMBER));
     }
 

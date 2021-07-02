@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
 import uk.gov.ch.service.capital.StatementOfCapitalService;
@@ -29,7 +30,7 @@ class StatementOfCapitalControllerTest {
 
     @Test
     @DisplayName("Get statement of capital code")
-    void testGetStatementOfCapital() throws StatementOfCapitalNotFoundException {
+    void testGetStatementOfCapital() throws StatementOfCapitalNotFoundException, ServiceException {
         StatementOfCapital statementOfCapital = new StatementOfCapital();
         when(statementOfCapitalService.getStatementOfCapital(COMPANY_NUMBER)).thenReturn(statementOfCapital);
 
@@ -40,11 +41,21 @@ class StatementOfCapitalControllerTest {
 
     @Test
     @DisplayName("Get statement of capital code - not found")
-    void testGetStatementOfCapitalNotFound() throws StatementOfCapitalNotFoundException {
+    void testGetStatementOfCapitalNotFound() throws StatementOfCapitalNotFoundException, ServiceException {
 
         when(statementOfCapitalService.getStatementOfCapital(COMPANY_NUMBER)).thenThrow(new StatementOfCapitalNotFoundException("Test"));
 
         ResponseEntity<StatementOfCapital> response =  statementOfCapitalController.getStatementOfCapital(COMPANY_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Get statement of capital code - too many results found")
+    void testGetStatementOfCapitalTooManyFound() throws StatementOfCapitalNotFoundException, ServiceException {
+
+        when(statementOfCapitalService.getStatementOfCapital(COMPANY_NUMBER)).thenThrow(new ServiceException("Test"));
+
+        ResponseEntity<StatementOfCapital> response = statementOfCapitalController.getStatementOfCapital(COMPANY_NUMBER);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
 import uk.gov.ch.service.capital.StatementOfCapitalService;
@@ -31,6 +32,9 @@ public class StatementOfCapitalController {
         } catch(StatementOfCapitalNotFoundException e) {
             LOGGER.error("No statement of capital data could be found for company " + companyNumber, e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch(ServiceException e) {
+            LOGGER.error("More than one statement of capital data result found for company " + companyNumber, e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }
