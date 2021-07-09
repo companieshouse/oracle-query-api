@@ -1,48 +1,22 @@
 package uk.gov.ch.model.officer.active;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class ActiveOfficerDetails {
 
-    @JsonProperty("service_address_line_1")
-    private String serviceAddressLine1;
-
-    @JsonProperty("service_address_post_town")
-    private String serviceAddressPostTown;
-
-    @JsonProperty("service_address_post_code")
-    private String serviceAddressPostCode;
-
-    @JsonProperty("address_line_1")
-    private String residentialAddressLine1;
-
-    @JsonProperty("post_town")
-    private String residentialAddressPostTown;
-
-    @JsonProperty("post_code")
-    private String residentialAddressPostCode;
-
-    @JsonProperty("officer_forename_1")
     private String foreName1;
-
-    @JsonProperty("officer_forename_2")
     private String foreName2;
-
-    @JsonProperty("officer_surname")
     private String surname;
-
-    @JsonProperty("occupation_desc")
     private String occupation;
-
-    @JsonProperty("officer_nationality")
     private String nationality;
-
-    @JsonProperty("officer_date_of_birth")
     private String dateOfBirth;
-
-    @JsonProperty("secure_director_service_ind")
+    private String serviceAddressLine1;
+    private String serviceAddressPostTown;
+    private String serviceAddressPostCode;
+    private String residentialAddressLine1;
+    private String residentialAddressPostTown;
+    private String residentialAddressPostCode;
     private String secureIndicator;
 
     public String getServiceAddressLine1() {
@@ -70,7 +44,7 @@ public class ActiveOfficerDetails {
     }
 
     public String getResidentialAddressLine1() {
-        return residentialAddressLine1;
+        return isSecure() ? null : residentialAddressLine1;
     }
 
     public void setResidentialAddressLine1(String residentialAddressLine1) {
@@ -78,7 +52,7 @@ public class ActiveOfficerDetails {
     }
 
     public String getResidentialAddressPostTown() {
-        return residentialAddressPostTown;
+        return isSecure() ? null : residentialAddressPostTown;
     }
 
     public void setResidentialAddressPostTown(String residentialAddressPostTown) {
@@ -86,7 +60,7 @@ public class ActiveOfficerDetails {
     }
 
     public String getResidentialAddressPostCode() {
-        return residentialAddressPostCode;
+        return isSecure() ? null : residentialAddressPostCode;
     }
 
     public void setResidentialAddressPostCode(String residentialAddressPostCode) {
@@ -147,6 +121,10 @@ public class ActiveOfficerDetails {
 
     public void setSecureIndicator(String secureIndicator) {
         this.secureIndicator = secureIndicator;
+    }
+
+    private boolean isSecure() {
+        return this.secureIndicator.equals("Y");
     }
 
 }

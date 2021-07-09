@@ -23,7 +23,8 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/gaz2-requested`                                    | Calls service to check if a gaz2 is requested for the company
 **GET**   | `/company/{companyNumber}/traded-status`                                     | Calls service to retrieve the current traded status for the company
 **GET**   | `/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}`         | Calls service to view the details for a Scottish bankrupt officer
-**POST**  | `/officer-search/scottish-bankrupt-officers`                                 | Calls service to search for a Scottish bankrupt officer    
+**POST**  | `/officer-search/scottish-bankrupt-officers`                                 | Calls service to search for a Scottish bankrupt officer
+**GET**   | `/company/{companyNumber}/officer/active`                                    | Calls service to retrieve the company active director details
 **GET**   | `/company/{companyNumber}/shareholders/count`                                | Calls service to retrieve the number of active company shareholders
 **GET**   | `/company/{companyNumber}/shareholders`                                      | Calls service to retrieve the list of all active company shareholders
 

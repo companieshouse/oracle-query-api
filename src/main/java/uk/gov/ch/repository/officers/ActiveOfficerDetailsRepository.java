@@ -1,7 +1,11 @@
 package uk.gov.ch.repository.officers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
 import uk.gov.ch.OracleQueryApplication;
@@ -17,17 +21,32 @@ public class ActiveOfficerDetailsRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    private final String OFFICER_DETAILS_SQL = "SELECT cba.occupation_desc, cba.officer_forename_1, cba.officer_forename_2, cba.officer_surname, cba.service_address_line_1, cba.service_address_post_town, cba.service_address_post_code, ura.address_line_1, ura.post_town, ura.post_code, od.officer_nationality, od.officer_date_of_birth, od.secure_director_service_ind "
-            + "FROM USUAL_RESIDENTIAL_ADDRESS ura LEFT JOIN OFFICER_DETAIL od on ura.USUAL_RESIDENTIAL_ADDRESS_ID = od.USUAL_RESIDENTIAL_ADDRESS_IDJOIN CORPORATE_BODY_APPOINTMENT cba ON cba.OFFICER_DETAIL_ID = od.officer_detail_id "
-            + "WHERE cba.corporate_body_id IN( select corporate_body_id from corporate_body where incorporation_number = ?) "
-            + "AND cba.resignation_ind = N";
+    static final String OFFICER_DETAILS_SQL = "SELECT "
+            + "cba.officer_forename_1 AS foreName1, "
+            + "cba.officer_forename_2 AS foreName2, "
+            + "cba.officer_surname AS surname, "
+            + "cba.occupation_desc AS occupation, "
+            + "od.officer_nationality AS nationality, "
+            + "od.officer_date_of_birth AS dateOfBirth, "
+            + "cba.service_address_line_1 AS serviceAddressLine1, "
+            + "cba.service_address_post_town AS serviceAddressPostTown, "
+            + "cba.service_address_post_code AS serviceAddressPostCode, "
+            + "ura.address_line_1 AS residentialAddressLine1, "
+            + "ura.post_town AS residentialAddressPostTown, "
+            + "ura.post_code AS residentialAddressPostCode, "
+            + "od.secure_director_service_ind AS secureIndicator "
+            + "FROM usual_residential_address ura LEFT JOIN officer_detail od on ura.usual_residential_address_id = od.usual_residential_address_id JOIN corporate_body_appointment cba ON cba.officer_detail_id = od.officer_detail_id "
+            + "WHERE cba.corporate_body_id IN( select corporate_body_id from corporate_body where incorporation_number = ?) AND cba.resignation_ind = 'N'";
 
     public ActiveOfficerDetails getActiveOfficerDetails(String incorporationNumber) {
-        ActiveOfficerDetails details = jdbcTemplate.queryForObject(OFFICER_DETAILS_SQL, ActiveOfficerDetails.class,
-                incorporationNumber);
+        List<ActiveOfficerDetails> list = jdbcTemplate.query(OFFICER_DETAILS_SQL, getParam(incorporationNumber),
+                new BeanPropertyRowMapper<>(ActiveOfficerDetails.class));
 
         LOGGER.info("Returned Active Officer Details for company: " + incorporationNumber);
+        return list.get(0);
+    }
 
-        return details;
+    private PreparedStatementSetter getParam(String param) {
+        return preparedStatement -> preparedStatement.setString(1, param);
     }
 }
