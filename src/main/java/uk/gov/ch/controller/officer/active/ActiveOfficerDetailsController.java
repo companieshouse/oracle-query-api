@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.exception.NoActiveOfficersFoundException;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 import uk.gov.ch.service.officer.active.ActiveOfficerDetailsService;
 import uk.gov.companieshouse.logging.Logger;
@@ -24,10 +25,17 @@ public class ActiveOfficerDetailsController {
     public ResponseEntity<ActiveOfficerDetails> getActiveOfficerDetails(@PathVariable String companyNumber) {
 
         LOGGER.info("Calling service to retrieve active director for company number " + companyNumber);
-        ActiveOfficerDetails details = service.getActiveOfficerDetails(companyNumber);
 
-        LOGGER.info("Returning active director for company number " + companyNumber);
+        try {
+            ActiveOfficerDetails details = service.getActiveOfficerDetails(companyNumber);
 
-        return ResponseEntity.status(HttpStatus.OK).body(details);
+            LOGGER.info("Returning active director for company number " + companyNumber);
+
+            return ResponseEntity.status(HttpStatus.OK).body(details);
+        } catch (NoActiveOfficersFoundException e) {
+            LOGGER.info("No active director could be found for company number " + companyNumber);
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

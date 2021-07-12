@@ -14,9 +14,9 @@ public class ActiveOfficerDetails {
     private String serviceAddressLine1;
     private String serviceAddressPostTown;
     private String serviceAddressPostCode;
-    private String residentialAddressLine1;
-    private String residentialAddressPostTown;
-    private String residentialAddressPostCode;
+    private String uraLine1;
+    private String uraPostTown;
+    private String uraPostCode;
     private String secureIndicator;
 
     public String getServiceAddressLine1() {
@@ -43,28 +43,28 @@ public class ActiveOfficerDetails {
         this.serviceAddressPostCode = serviceAddressPostCode;
     }
 
-    public String getResidentialAddressLine1() {
-        return isSecure() ? null : residentialAddressLine1;
+    public String getUraLine1() {
+        return uraLine1;
     }
 
-    public void setResidentialAddressLine1(String residentialAddressLine1) {
-        this.residentialAddressLine1 = residentialAddressLine1;
+    public void setUraLine1(String uraLine1) {
+        this.uraLine1 = uraLine1;
     }
 
-    public String getResidentialAddressPostTown() {
-        return isSecure() ? null : residentialAddressPostTown;
+    public String getUraPostTown() {
+        return uraPostTown;
     }
 
-    public void setResidentialAddressPostTown(String residentialAddressPostTown) {
-        this.residentialAddressPostTown = residentialAddressPostTown;
+    public void setUraPostTown(String uraPostTown) {
+        this.uraPostTown = uraPostTown;
     }
 
-    public String getResidentialAddressPostCode() {
-        return isSecure() ? null : residentialAddressPostCode;
+    public String getUraPostCode() {
+        return uraPostCode;
     }
 
-    public void setResidentialAddressPostCode(String residentialAddressPostCode) {
-        this.residentialAddressPostCode = residentialAddressPostCode;
+    public void setUraPostCode(String uraPostCode) {
+        this.uraPostCode = uraPostCode;
     }
 
     public String getForeName1() {
@@ -121,10 +121,6 @@ public class ActiveOfficerDetails {
 
     public void setSecureIndicator(String secureIndicator) {
         this.secureIndicator = secureIndicator;
-    }
-
-    private boolean isSecure() {
-        return this.secureIndicator.equals("Y");
     }
 
 }
