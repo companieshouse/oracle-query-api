@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.NoActiveOfficersFoundException;
+import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 import uk.gov.ch.service.officer.active.ActiveOfficerDetailsService;
 import uk.gov.companieshouse.logging.Logger;
@@ -28,14 +29,14 @@ public class ActiveOfficerDetailsController {
 
         try {
             ActiveOfficerDetails details = service.getActiveOfficerDetails(companyNumber);
-
-            LOGGER.info("Returning active director for company number " + companyNumber);
-
+            LOGGER.info("Returning active officer for company number " + companyNumber);
             return ResponseEntity.status(HttpStatus.OK).body(details);
         } catch (NoActiveOfficersFoundException e) {
-            LOGGER.info("No active director could be found for company number " + companyNumber);
-
+            LOGGER.info("No active officer could be found for company number " + companyNumber);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch ( ServiceException e) {
+            LOGGER.info("More than one active officer could be found for company number " + companyNumber);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 }

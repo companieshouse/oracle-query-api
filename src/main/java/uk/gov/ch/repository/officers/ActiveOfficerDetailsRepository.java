@@ -3,6 +3,7 @@ package uk.gov.ch.repository.officers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
@@ -39,15 +40,16 @@ public class ActiveOfficerDetailsRepository {
             + "FROM usual_residential_address ura RIGHT JOIN officer_detail od on ura.usual_residential_address_id = od.usual_residential_address_id JOIN corporate_body_appointment cba ON cba.officer_detail_id = od.officer_detail_id "
             + "WHERE cba.corporate_body_id IN( select corporate_body_id from corporate_body where incorporation_number = ?) AND cba.resignation_ind = 'N'";
 
-    public ActiveOfficerDetails getActiveOfficerDetails(String incorporationNumber) throws NoActiveOfficersFoundException {
-        List<ActiveOfficerDetails> list = jdbcTemplate.query(OFFICER_DETAILS_SQL, getParam(incorporationNumber),
-                new BeanPropertyRowMapper<>(ActiveOfficerDetails.class));
-        if (list.isEmpty()) {
+    public List<ActiveOfficerDetails> getActiveOfficerDetails(String incorporationNumber) throws NoActiveOfficersFoundException {
+        try {
+            List<ActiveOfficerDetails> list = jdbcTemplate.query(OFFICER_DETAILS_SQL, getParam(incorporationNumber),
+                    new BeanPropertyRowMapper<>(ActiveOfficerDetails.class));
+            LOGGER.info("Returned Active Officer Details for company: " + incorporationNumber);
+            return list;
+        } catch (EmptyResultDataAccessException e) {
             LOGGER.error("No results were found when getting Active Officers for company number " + incorporationNumber);
-            throw new NoActiveOfficersFoundException("No Active Officers Found");
+            throw new NoActiveOfficersFoundException(e.getMessage());
         }
-        LOGGER.info("Returned Active Officer Details for company: " + incorporationNumber);
-        return list.get(0);
     }
 
     private PreparedStatementSetter getParam(String param) {
