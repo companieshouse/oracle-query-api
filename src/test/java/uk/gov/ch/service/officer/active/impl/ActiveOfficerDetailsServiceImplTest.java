@@ -6,8 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.exception.NoActiveOfficersFoundException;
-import uk.gov.ch.exception.ServiceException;
+import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 import uk.gov.ch.repository.officers.ActiveOfficerDetailsRepository;
 
@@ -30,7 +29,7 @@ class ActiveOfficerDetailsServiceImplTest {
     private ActiveOfficerDetailsServiceImpl activeOfficerDetailsService;
 
     @Test
-    void getActiveOfficerDetailsSingleOfficerCompanyTest() throws NoActiveOfficersFoundException, ServiceException {
+    void getActiveOfficerDetailsSingleOfficerCompanyTest() throws InvalidActiveOfficersCountFoundException {
         List<ActiveOfficerDetails> expectedList = new ArrayList<>();
         ActiveOfficerDetails mockOfficer = new ActiveOfficerDetails();
         expectedList.add(mockOfficer);
@@ -41,24 +40,24 @@ class ActiveOfficerDetailsServiceImplTest {
     }
 
     @Test
-    void getActiveOfficerDetailsMultiOfficerCompanyTest() throws NoActiveOfficersFoundException {
+    void getActiveOfficerDetailsMultiOfficerCompanyTest() throws InvalidActiveOfficersCountFoundException {
         List<ActiveOfficerDetails> expectedList = new ArrayList<>();
         ActiveOfficerDetails mockOfficer = new ActiveOfficerDetails();
         expectedList.add(mockOfficer);
         expectedList.add(new ActiveOfficerDetails());
 
         when(activeOfficerDetailsRepository.getActiveOfficerDetails(any())).thenReturn(expectedList);
-        Assertions.assertThrows(ServiceException.class, () -> {
+        Assertions.assertThrows(InvalidActiveOfficersCountFoundException.class, () -> {
             activeOfficerDetailsService.getActiveOfficerDetails(COMPANY_NUMBER);
         });
     }
 
     @Test
-    void getActiveOfficerDetailsZeroOfficerCompanyTest() throws NoActiveOfficersFoundException {
+    void getActiveOfficerDetailsZeroOfficerCompanyTest() throws InvalidActiveOfficersCountFoundException {
         List<ActiveOfficerDetails> expectedList = new ArrayList<>();
 
         when(activeOfficerDetailsRepository.getActiveOfficerDetails(any())).thenReturn(expectedList);
-        Assertions.assertThrows(NoActiveOfficersFoundException.class, () -> {
+        Assertions.assertThrows(InvalidActiveOfficersCountFoundException.class, () -> {
             activeOfficerDetailsService.getActiveOfficerDetails(COMPANY_NUMBER);
         });
     }

@@ -10,7 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
-import uk.gov.ch.exception.NoActiveOfficersFoundException;
+import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ class ActiveOfficerDetailsRepositoryTest {
 
     @Test
     @DisplayName("Get Active Officer - Company With Active Officers")
-    void getActiveOfficerDetailsTest() throws NoActiveOfficersFoundException {
+    void getActiveOfficerDetailsTest() throws InvalidActiveOfficersCountFoundException {
         List<ActiveOfficerDetails> expectedList = new ArrayList<>();
         expectedList.add(new ActiveOfficerDetails());
         when(jdbcTemplate.query(eq(ActiveOfficerDetailsRepository.OFFICER_DETAILS_SQL), any(PreparedStatementSetter.class),
@@ -46,7 +46,7 @@ class ActiveOfficerDetailsRepositoryTest {
 
     @Test
     @DisplayName("Get Active Officer - Company With No Active Officers")
-    void getActiveOfficerDetailsOfCompanyWithNoneTest() throws NoActiveOfficersFoundException {
+    void getActiveOfficerDetailsOfCompanyWithNoneTest() throws InvalidActiveOfficersCountFoundException {
         List<ActiveOfficerDetails> expectedList = new ArrayList<>();
         when(jdbcTemplate.query(eq(ActiveOfficerDetailsRepository.OFFICER_DETAILS_SQL), any(PreparedStatementSetter.class),
                 any(BeanPropertyRowMapper.class))).thenReturn(expectedList);
@@ -59,6 +59,6 @@ class ActiveOfficerDetailsRepositoryTest {
     void getActiveOfficerDetailsEmptyDataSetTest() {
         when(jdbcTemplate.query(eq(ActiveOfficerDetailsRepository.OFFICER_DETAILS_SQL), any(PreparedStatementSetter.class),
                 any(BeanPropertyRowMapper.class))).thenThrow(EmptyResultDataAccessException.class);
-        assertThrows(NoActiveOfficersFoundException.class, () -> activeOfficerDetailsRepository.getActiveOfficerDetails(COMPANY_NUMBER));
+        assertThrows(InvalidActiveOfficersCountFoundException.class, () -> activeOfficerDetailsRepository.getActiveOfficerDetails(COMPANY_NUMBER));
     }
 }
