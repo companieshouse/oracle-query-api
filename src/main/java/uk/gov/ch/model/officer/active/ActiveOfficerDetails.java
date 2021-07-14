@@ -1,5 +1,7 @@
 package uk.gov.ch.model.officer.active;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonInclude(JsonInclude.Include.ALWAYS)
@@ -10,7 +12,7 @@ public class ActiveOfficerDetails {
     private String surname;
     private String occupation;
     private String nationality;
-    private String dateOfBirth;
+    private Date dateOfBirth;
     private String serviceAddressLine1;
     private String serviceAddressPostTown;
     private String serviceAddressPostCode;
@@ -107,11 +109,11 @@ public class ActiveOfficerDetails {
         this.nationality = nationality;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

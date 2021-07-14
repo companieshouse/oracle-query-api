@@ -155,6 +155,25 @@ paths:
           description: No statement of capital data found
         '500':
           description: More than one statement of capital data result found
+  /company/{companyNumber}/officer/active:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - active-officer-details
+      operationId: getActiveOfficerDetails
+      summary: Get a single object containing the data of the active officer for the company
+      responses:
+        '200':
+          description: The company active officer data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/activeOfficerDetails'
+        '404':
+          description: No active officer data found
+
+
 components:
   schemas:
     companyOfficer:
@@ -538,6 +557,62 @@ components:
         totalAmountUnpaidForCurrency:
           type: integer
           description: The total amount unpaid.
+    activeOfficerDetails:
+      type: object
+      required:
+        - foreName1
+        - foreName2
+        - surname
+        - occupation
+        - nationality
+        - dateOfBirth
+        - serviceAddressLine1
+        - serviceAddressPostTown
+        - serviceAddressPostCode
+        - uraLine1
+        - uraPostTown
+        - uraPostCode
+        - secureIndicator
+      properties:
+        foreName1:
+          type: string
+          description: The first name of the active officer
+        foreName2:
+          type: string
+          description: The middle name of the active officer
+        surname:
+          type: string
+          description: The surname of the active officer
+        occupation:
+          type: string
+          description: The occupation of the active officer
+        nationality:
+          type: string
+          description: The nationality of the active officer
+        dateOfBirth:
+          type: date-time
+          description: The full date of birth of the active officer
+        serviceAddressLine1:
+          type: string
+          description: The first line of the service address (house name/number and street)
+        serviceAddressPostTown:
+          type: string
+          description: The service address post town
+        serviceAddressPostCode:
+          type: string
+          description: The service address postcode
+        uraLine1:
+          type: string
+          description: The first line of the usual residential address (house name/number and street)
+        uraPostTown:
+          type: string
+          description: The usual residential address post town
+        uraPostCode:
+          type: string
+          description: The usual residential address postcode
+        secureIndicator:
+          type: string
+          description: Flag to show whether the active officer is a secure officer
   parameters:
     companyNumber:
       name: 'company_number'
