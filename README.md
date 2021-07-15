@@ -27,6 +27,7 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/officer/active`                                    | Calls service to retrieve the active officer details of single active officer company
 **GET**   | `/company/{companyNumber}/shareholders/count`                                | Calls service to retrieve the number of active company shareholders
 **GET**   | `/company/{companyNumber}/shareholders`                                      | Calls service to retrieve the list of all active company shareholders
+**GET**   | `/company/{companyNumber}/statement-of-capital`                              | Calls service to retrieve the statement of capital data for the company
 
 ### Query parameters
 Query parameter  | Description
