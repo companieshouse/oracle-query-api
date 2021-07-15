@@ -1,5 +1,7 @@
 package uk.gov.ch.model.officer.active;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,7 +16,7 @@ public class ActiveOfficerDetails {
     private String occupation;
     private String nationality;
     @JsonProperty("date_of_birth")
-    private Date dateOfBirth;
+    private String dateOfBirth;
     @JsonProperty("service_address_line_1")
     private String serviceAddressLine1;
     @JsonProperty("service_address_post_town")
@@ -55,6 +57,9 @@ public class ActiveOfficerDetails {
     }
 
     public String getUraLine1() {
+        if (getSecureIndicator().equals("Y")) {
+            return null;
+        }
         return uraLine1;
     }
 
@@ -63,6 +68,9 @@ public class ActiveOfficerDetails {
     }
 
     public String getUraPostTown() {
+        if (getSecureIndicator().equals("Y")) {
+            return null;
+        }
         return uraPostTown;
     }
 
@@ -71,6 +79,9 @@ public class ActiveOfficerDetails {
     }
 
     public String getUraPostCode() {
+        if (getSecureIndicator().equals("Y")) {
+            return null;
+        }
         return uraPostCode;
     }
 
@@ -118,11 +129,18 @@ public class ActiveOfficerDetails {
         this.nationality = nationality;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getDateOfBirth() throws ParseException {
+        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
+        Date dob = formatFrom.parse(dateOfBirth);
+        String pattern = "dd MMMMM yyyy";
+        if (getSecureIndicator().equals("Y")) {
+            pattern = "MMMMM yyyy";
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        return simpleDateFormat.format(dob);
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
