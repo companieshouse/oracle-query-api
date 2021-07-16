@@ -57,7 +57,7 @@ public class ActiveOfficerDetails {
     }
 
     public String getUraLine1() {
-        if (getSecureIndicator().equals("Y")) {
+        if (isSecureOfficer()) {
             return null;
         }
         return uraLine1;
@@ -68,7 +68,7 @@ public class ActiveOfficerDetails {
     }
 
     public String getUraPostTown() {
-        if (getSecureIndicator().equals("Y")) {
+        if (isSecureOfficer()) {
             return null;
         }
         return uraPostTown;
@@ -79,7 +79,7 @@ public class ActiveOfficerDetails {
     }
 
     public String getUraPostCode() {
-        if (getSecureIndicator().equals("Y")) {
+        if (isSecureOfficer()) {
             return null;
         }
         return uraPostCode;
@@ -133,7 +133,7 @@ public class ActiveOfficerDetails {
         SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
         Date dob = formatFrom.parse(dateOfBirth);
         String pattern = "dd MMMMM yyyy";
-        if (getSecureIndicator().equals("Y")) {
+        if (isSecureOfficer()) {
             pattern = "MMMMM yyyy";
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -150,6 +150,10 @@ public class ActiveOfficerDetails {
 
     public void setSecureIndicator(String secureIndicator) {
         this.secureIndicator = secureIndicator;
+    }
+
+    public boolean isSecureOfficer() {
+        return getSecureIndicator().equals("Y");
     }
 
 }
