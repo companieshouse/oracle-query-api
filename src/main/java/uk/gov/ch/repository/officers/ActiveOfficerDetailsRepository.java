@@ -38,7 +38,8 @@ public class ActiveOfficerDetailsRepository {
             + "ura.post_code AS uraPostCode, "
             + "od.secure_director_service_ind AS secureIndicator "
             + "FROM usual_residential_address ura RIGHT JOIN officer_detail od on ura.usual_residential_address_id = od.usual_residential_address_id JOIN corporate_body_appointment cba ON cba.officer_detail_id = od.officer_detail_id "
-            + "WHERE cba.corporate_body_id IN( select corporate_body_id from corporate_body where incorporation_number = ?) AND cba.resignation_ind = 'N'"
+            + "WHERE cba.corporate_body_id IN( select corporate_body_id from corporate_body where incorporation_number = ?)"
+            + "AND cba.resignation_ind = 'N' AND cba.appointment_type_id = 2"
             + "AND cba.corporate_body_id in (SELECT corporate_body_id FROM corporate_body_appointment WHERE resignation_ind = 'N' GROUP BY corporate_body_id HAVING COUNT(corporate_body_id) = 1)";
 
     public List<ActiveOfficerDetails> getActiveOfficerDetails(String incorporationNumber) throws InvalidActiveOfficersCountFoundException {

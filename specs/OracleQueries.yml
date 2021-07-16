@@ -590,7 +590,7 @@ components:
           type: string
           description: The nationality of the active officer
         dateOfBirth:
-          type: date-time
+          type: string
           description: The full date of birth of the active officer
         serviceAddressLine1:
           type: string
