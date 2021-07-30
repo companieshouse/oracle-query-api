@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PersonsWithSignificantControlServiceImplTest {
+class PersonsWithSignificantControlServiceImplTest {
 
     private static final String COMPANY_NUMBER = "12345678";
     private static final int START_INDEX = 0;
