@@ -1,0 +1,92 @@
+package uk.gov.ch.repository.psc;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Repository;
+import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.exception.ServiceException;
+import uk.gov.ch.model.psc.PersonWithSignificantControl;
+import uk.gov.companieshouse.logging.Logger;
+import uk.gov.companieshouse.logging.LoggerFactory;
+
+import java.util.List;
+
+@Repository
+public class PersonsWithSignificantControlRepository {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+
+    private static final String PSC_SQL = "select " +
+            "CBA.OFFICER_FORENAME_1, " +
+            "CBA.OFFICER_FORENAME_2, " +
+            "CBA.APPOINTMENT_TYPE_ID, " +
+            "CBA.SERVICE_ADDRESS_LINE_1, " +
+            "CBA.SERVICE_ADDRESS_POST_CODE, " +
+            "CBA.SERVICE_ADDRESS_POST_TOWN, " +
+            "CBA.SUPER_SECURE_PSC_IND, " +
+            "OD.OFFICER_NATIONALITY, " +
+            "OD.OFFICER_DATE_OF_BIRTH, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.HOUSE_NAME_NUMBER end HOUSE_NAME_NUMBER, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.STREET end STREET, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.AREA end  AREA, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.POST_TOWN end POST_TOWN, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.POST_CODE end POST_CODE, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.REGION end  REGION, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.COUNTRY_NAME end  COUNTRY_NAME, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.SUPPLIED_COMPANY_NAME end  SUPPLIED_COMPANY_NAME, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.PO_BOX end  PO_BOX, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
+            "else  URA.ADDRESS_LINE_1 end  ADDRESS_LINE_1, " +
+            "listagg(noct.DESCRIPTION, +'; ') within group (order by NOC.NATURE_OF_CONTROL_TYPE_ID )    nature_of_control " +
+            "from CORPORATE_BODY_APPOINTMENT CBA " +
+            "inner join OFFICER_DETAIL OD on OD.OFFICER_DETAIL_ID=CBA.OFFICER_DETAIL_ID " +
+            "inner join  USUAL_RESIDENTIAL_ADDRESS URA on OD.USUAL_RESIDENTIAL_ADDRESS_ID = URA.USUAL_RESIDENTIAL_ADDRESS_ID " +
+            "left outer join CORPORATE_BODY_APPT_NOC_LINK noc on NOC.CORPORATE_BODY_APPOINTMENT_ID=CBA.CORPORATE_BODY_APPOINTMENT_ID " +
+            "left outer join nature_of_control_type noct on NOCT.NATURE_OF_CONTROL_TYPE_ID=NOC.NATURE_OF_CONTROL_TYPE_ID " +
+            "where " +
+            "CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?) " +
+            "AND CBA.RESIGNATION_IND = 'N' " +
+            "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) " +
+            "group by CBA.OFFICER_FORENAME_1, CBA.OFFICER_FORENAME_2, CBA.OFFICER_SURNAME, CBA.APPOINTMENT_TYPE_ID, CBA.SERVICE_ADDRESS_LINE_1, " +
+            "CBA.SERVICE_ADDRESS_POST_CODE, CBA.SERVICE_ADDRESS_POST_TOWN, CBA.SUPER_SECURE_PSC_IND, OD.OFFICER_NATIONALITY, OD.OFFICER_DATE_OF_BIRTH, " +
+            "       case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.HOUSE_NAME_NUMBER end, " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.STREET end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.AREA end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.POST_TOWN end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.POST_CODE end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.REGION end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.COUNTRY_NAME end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.SUPPLIED_COMPANY_NAME end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.PO_BOX end  , " +
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.ADDRESS_LINE_1 end";
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber) throws ServiceException {
+        try {
+            List<PersonWithSignificantControl> pscList = jdbcTemplate.query(PSC_SQL, getParam(companyNumber), new BeanPropertyRowMapper<>(PersonWithSignificantControl.class));
+            LOGGER.info("Returned psc list " + pscList.size() + " for company number " + companyNumber);
+            return pscList;
+        } catch(EmptyResultDataAccessException e) {
+            LOGGER.error("No results were found when getting pscs for company number " + companyNumber, e);
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    private PreparedStatementSetter getParam(String param) {
+        return preparedStatement -> preparedStatement.setString(1, param);
+    }
+}
