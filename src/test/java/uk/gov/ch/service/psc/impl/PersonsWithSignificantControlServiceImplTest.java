@@ -42,7 +42,7 @@ class PersonsWithSignificantControlServiceImplTest {
         when(personsWithSignificantControlRepository
                 .findPersonsWithSignificantControl(COMPANY_NUMBER, pageable))
                 .thenReturn(testPscPagess);
-        List<PersonWithSignificantControl> response = personsWithSignificantControlServiceImpl.getPersonsWithSignificantControl(COMPANY_NUMBER);
+        List<PersonWithSignificantControl> response = personsWithSignificantControlServiceImpl.getPersonsWithSignificantControl(COMPANY_NUMBER, pageable);
         assertFalse(response.isEmpty());
         assertEquals(3, response.size());
     }

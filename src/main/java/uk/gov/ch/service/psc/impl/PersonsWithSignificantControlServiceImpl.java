@@ -2,7 +2,6 @@ package uk.gov.ch.service.psc.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.model.psc.PersonWithSignificantControl;
@@ -18,9 +17,8 @@ public class PersonsWithSignificantControlServiceImpl implements PersonsWithSign
     private PersonsWithSignificantControlRepository personsWithSignificantControlRepository;
 
     @Override
-    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber) {
-        Pageable pageable = PageRequest.of(0, 10);
-        Page<PersonWithSignificantControl> pscPage = personsWithSignificantControlRepository
+    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber, Pageable pageable) {
+         Page<PersonWithSignificantControl> pscPage = personsWithSignificantControlRepository
                 .findPersonsWithSignificantControl(companyNumber, pageable);
         return pscPage.getContent();
     }
