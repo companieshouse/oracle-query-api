@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.model.psc.PersonWithSignificantControl;
 import uk.gov.ch.repository.psc.PersonsWithSignificantControlRepository;
 import uk.gov.ch.service.psc.PersonsWithSignificantControlService;
@@ -19,11 +18,10 @@ public class PersonsWithSignificantControlServiceImpl implements PersonsWithSign
     private PersonsWithSignificantControlRepository personsWithSignificantControlRepository;
 
     @Override
-    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber) throws ServiceException {
+    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber) {
         Pageable pageable = PageRequest.of(0, 10);
         Page<PersonWithSignificantControl> pscPage = personsWithSignificantControlRepository
                 .findPersonsWithSignificantControl(companyNumber, pageable);
-
         return pscPage.getContent();
     }
 }
