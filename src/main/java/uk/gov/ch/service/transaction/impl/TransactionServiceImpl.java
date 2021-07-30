@@ -1,5 +1,6 @@
 package uk.gov.ch.service.transaction.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.repository.transaction.TransactionRepository;
 import uk.gov.ch.service.transaction.TransactionService;
+import uk.gov.ch.transformers.transaction.TransactionTransformer;
+import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -29,18 +32,22 @@ public class TransactionServiceImpl implements TransactionService {
 	private TransactionRepository transactionRepository;
 
 	@Override
-	public List<FilingHistoryTransaction> getTransactions(String companyNumber) {
+	public List<FilingApi> getTransactions(String companyNumber) {
 		LOGGER.info("Calling package for transaction history for " + companyNumber);
 		String result = transactionRepository.getTransactionJson(companyNumber);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Map<String, Object> logMap = new HashMap<>();
 		List<FilingHistoryTransaction> filingHistoryTransactions = null;
+		List<FilingApi> response = new ArrayList<>();
 		try {
 			JsonNode filingHistoryJson = objectMapper.readValue(result, JsonNode.class);
 			JsonNode filingHistoryNode = filingHistoryJson.get("filing_history");
 			filingHistoryTransactions = objectMapper.convertValue(
 					filingHistoryNode, new TypeReference<List<FilingHistoryTransaction>>() {});
 			logMap.put("transaction-history", filingHistoryTransactions);
+			for(FilingHistoryTransaction fht : filingHistoryTransactions) {
+				response.add(TransactionTransformer.convert(fht));
+			}
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,7 +56,7 @@ public class TransactionServiceImpl implements TransactionService {
 			e.printStackTrace();
 		}
 		LOGGER.info("Result of the call : ", logMap);
-		return filingHistoryTransactions;
+		return response;
 	}
 
 }

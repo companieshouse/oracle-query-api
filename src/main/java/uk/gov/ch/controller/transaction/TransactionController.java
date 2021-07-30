@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.service.transaction.TransactionService;
+import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -24,9 +25,9 @@ public class TransactionController {
 	private TransactionService transactionService;
 	
 	@GetMapping("/company/{companyNumber}/transaction-history")
-	public ResponseEntity<List<FilingHistoryTransaction>> getTransactionHistory(@PathVariable String companyNumber) {
+	public ResponseEntity<List<FilingApi>> getTransactionHistory(@PathVariable String companyNumber) {
 		LOGGER.info("Getting transaction history for " + companyNumber);
-		List<FilingHistoryTransaction> filingHistoryTransactions = transactionService.getTransactions(companyNumber);
+		List<FilingApi> filingHistoryTransactions = transactionService.getTransactions(companyNumber);
 		return ResponseEntity.status(HttpStatus.OK).body(filingHistoryTransactions);
 	}
 
