@@ -1,27 +1,18 @@
 package uk.gov.ch.repository.psc;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
-import org.springframework.stereotype.Repository;
-import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.exception.ServiceException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.psc.PersonWithSignificantControl;
-import uk.gov.companieshouse.logging.Logger;
-import uk.gov.companieshouse.logging.LoggerFactory;
 
-import java.util.List;
+public interface PersonsWithSignificantControlRepository extends PagingAndSortingRepository<PersonWithSignificantControl, Long> {
 
-@Repository
-public class PersonsWithSignificantControlRepository {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-
-    private static final String PSC_SQL = "select " +
+    @Query(value = "select " +
+            "CBA.CORPORATE_BODY_APPOINTMENT_ID," +
             "CBA.OFFICER_FORENAME_1, " +
             "CBA.OFFICER_FORENAME_2, " +
+            "CBA.OFFICER_SURNAME, " +
             "CBA.APPOINTMENT_TYPE_ID, " +
             "CBA.SERVICE_ADDRESS_LINE_1, " +
             "CBA.SERVICE_ADDRESS_POST_CODE, " +
@@ -40,9 +31,9 @@ public class PersonsWithSignificantControlRepository {
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
             "else  URA.POST_CODE end POST_CODE, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
-            "else  URA.REGION end  REGION, " +
+            "else  URA.REGION end REGION, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
-            "else  URA.COUNTRY_NAME end  COUNTRY_NAME, " +
+            "else  URA.COUNTRY_NAME end COUNTRY_NAME, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
             "else  URA.SUPPLIED_COMPANY_NAME end  SUPPLIED_COMPANY_NAME, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
@@ -59,7 +50,7 @@ public class PersonsWithSignificantControlRepository {
             "CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?) " +
             "AND CBA.RESIGNATION_IND = 'N' " +
             "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) " +
-            "group by CBA.OFFICER_FORENAME_1, CBA.OFFICER_FORENAME_2, CBA.OFFICER_SURNAME, CBA.APPOINTMENT_TYPE_ID, CBA.SERVICE_ADDRESS_LINE_1, " +
+            "group by CBA.CORPORATE_BODY_APPOINTMENT_ID, CBA.OFFICER_FORENAME_1, CBA.OFFICER_FORENAME_2, CBA.OFFICER_SURNAME, CBA.APPOINTMENT_TYPE_ID, CBA.SERVICE_ADDRESS_LINE_1, " +
             "CBA.SERVICE_ADDRESS_POST_CODE, CBA.SERVICE_ADDRESS_POST_TOWN, CBA.SUPER_SECURE_PSC_IND, OD.OFFICER_NATIONALITY, OD.OFFICER_DATE_OF_BIRTH, " +
             "       case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.HOUSE_NAME_NUMBER end, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.STREET end  , " +
@@ -70,23 +61,6 @@ public class PersonsWithSignificantControlRepository {
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.COUNTRY_NAME end  , " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.SUPPLIED_COMPANY_NAME end  , " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.PO_BOX end  , " +
-            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.ADDRESS_LINE_1 end";
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber) throws ServiceException {
-        try {
-            List<PersonWithSignificantControl> pscList = jdbcTemplate.query(PSC_SQL, getParam(companyNumber), new BeanPropertyRowMapper<>(PersonWithSignificantControl.class));
-            LOGGER.info("Returned psc list " + pscList.size() + " for company number " + companyNumber);
-            return pscList;
-        } catch(EmptyResultDataAccessException e) {
-            LOGGER.error("No results were found when getting pscs for company number " + companyNumber, e);
-            throw new ServiceException(e.getMessage());
-        }
-    }
-
-    private PreparedStatementSetter getParam(String param) {
-        return preparedStatement -> preparedStatement.setString(1, param);
-    }
+            "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.ADDRESS_LINE_1 end", nativeQuery = true)
+    Page<PersonWithSignificantControl> findPersonsWithSignificantControl(String companyNumber, Pageable pageable);
 }

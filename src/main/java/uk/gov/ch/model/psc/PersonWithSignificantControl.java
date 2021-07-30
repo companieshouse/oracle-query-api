@@ -1,51 +1,65 @@
 package uk.gov.ch.model.psc;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class PersonWithSignificantControl {
 
-    @JsonProperty("OFFICER_FORENAME1")
+    @Id
+    @Column(name = "CORPORATE_BODY_APPOINTMENT_ID")
+    private Long corporateBodyAppointmentId;
+    @Column(name = "OFFICER_FORENAME_1")
     private String officerForename1;
-    @JsonProperty("OFFICER_FORENAME2")
+    @Column(name = "OFFICER_FORENAME_2")
     private String officerForename2;
-    @JsonProperty("OFFICER_SURNAME")
+    @Column(name = "OFFICER_SURNAME")
     private String officerSurname;
-    @JsonProperty("APPOINTMENT_TYPE_ID")
+    @Column(name = "APPOINTMENT_TYPE_ID")
     private String appointmentTypeId;
-    @JsonProperty("SERVICE_ADDRESS_LINE1")
+    @Column(name = "SERVICE_ADDRESS_LINE_1")
     private String serviceAddressLine1;
-    @JsonProperty("SERVICE_ADDRESS_POST_CODE")
+    @Column(name = "SERVICE_ADDRESS_POST_CODE")
     private String serviceAddressPostCode;
-    @JsonProperty("SERVICE_ADDRESS_POST_TOWN")
+    @Column(name = "SERVICE_ADDRESS_POST_TOWN")
     private String serviceAddressPostTown;
-    @JsonProperty("SUPER_SECURE_PSC_IND")
+    @Column(name = "SUPER_SECURE_PSC_IND")
     private String superSecurePscInd;
-    @JsonProperty("OFFICER_NATIONALITY")
+    @Column(name = "OFFICER_NATIONALITY")
     private String officerNationality;
-    @JsonProperty("OFFICER_DATE_OF_BIRTH")
+    @Column(name = "OFFICER_DATE_OF_BIRTH")
     private String officerDateOfBirth;
-    @JsonProperty("HOUSE_NAME_NUMBER")
+    @Column(name = "HOUSE_NAME_NUMBER")
     private String houseNameNumber;
-    @JsonProperty("STREET")
+    @Column(name = "STREET")
     private String street;
-    @JsonProperty("AREA")
+    @Column(name = "AREA")
     private String area;
-    @JsonProperty("POST_TOWN")
+    @Column(name = "POST_TOWN")
     private String postTown;
-    @JsonProperty("POST_CODE")
+    @Column(name = "POST_CODE")
     private String postCode;
-    @JsonProperty("REGION")
+    @Column(name = "REGION")
     private String region;
-    @JsonProperty("COUNTY_NAME")
+    @Column(name = "COUNTRY_NAME")
     private String countryName;
-    @JsonProperty("SUPPLIED_COMPANY_NAME")
+    @Column(name = "SUPPLIED_COMPANY_NAME")
     private String suppliedCompanyName;
-    @JsonProperty("PO_BOX")
+    @Column(name = "PO_BOX")
     private String poBox;
-    @JsonProperty("ADDRESS_LINE1")
+    @Column(name = "ADDRESS_LINE_1")
     private String addressLine1;
-    @JsonProperty("NATURE_OF_CONTROL")
+    @Column(name = "NATURE_OF_CONTROL")
     private String natureOfControl;
+
+    public Long getCorporateBodyAppointmentId() {
+        return corporateBodyAppointmentId;
+    }
+
+    public void setCorporateBodyAppointmentId(Long corporateBodyAppointmentId) {
+        this.corporateBodyAppointmentId = corporateBodyAppointmentId;
+    }
 
     public String getOfficerForename1() {
         return officerForename1;
