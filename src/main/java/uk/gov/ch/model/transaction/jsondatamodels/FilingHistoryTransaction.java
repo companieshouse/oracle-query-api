@@ -7,92 +7,92 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FilingHistoryTransaction {
-	
-	@JsonProperty("entity_id")
-	private Long entityId;
-	
-	@JsonProperty("receive_date")
-	private String receiveDate;
-	
-	@JsonProperty("description")
-	private String description;
-	
-	@JsonProperty("barcode")
-	private String barcode;
-	
-	@JsonProperty("document_id")
-	private String documentId;
-	
-	@JsonProperty("form_type")
-	private String formType;
-	
-	@JsonProperty("category")
-	private String category;
-	
-	@JsonProperty("child")
-	private List<FilingHistoryTransaction> child;
 
-	public Long getEntityId() {
-		return entityId;
-	}
+    @JsonProperty("entity_id")
+    private Long entityId;
 
-	public void setEntityId(Long entityId) {
-		this.entityId = entityId;
-	}
+    @JsonProperty("receive_date")
+    private String receiveDate;
 
-	public String getReceiveDate() {
-		return receiveDate;
-	}
+    @JsonProperty("description")
+    private String description;
 
-	public void setReceiveDate(String receiveDate) {
-		this.receiveDate = receiveDate;
-	}
+    @JsonProperty("barcode")
+    private String barcode;
 
-	public String getDescription() {
-		return description;
-	}
+    @JsonProperty("document_id")
+    private String documentId;
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @JsonProperty("form_type")
+    private String formType;
 
-	public String getBarcode() {
-		return barcode;
-	}
+    @JsonProperty("category")
+    private String category;
 
-	public void setBarcode(String barcode) {
-		this.barcode = barcode;
-	}
+    @JsonProperty("child")
+    private List<FilingHistoryTransaction> child;
 
-	public String getDocumentId() {
-		return documentId;
-	}
+    public Long getEntityId() {
+        return entityId;
+    }
 
-	public void setDocumentId(String documentId) {
-		this.documentId = documentId;
-	}
+    public void setEntityId(Long entityId) {
+        this.entityId = entityId;
+    }
 
-	public String getFormType() {
-		return formType;
-	}
+    public String getReceiveDate() {
+        return receiveDate;
+    }
 
-	public void setFormType(String formType) {
-		this.formType = formType;
-	}
+    public void setReceiveDate(String receiveDate) {
+        this.receiveDate = receiveDate;
+    }
 
-	public String getCategory() {
-		return category;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setCategory(String category) {
-		this.category = category;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public List<FilingHistoryTransaction> getChild() {
-		return child;
-	}
+    public String getBarcode() {
+        return barcode;
+    }
 
-	public void setChild(List<FilingHistoryTransaction> child) {
-		this.child = child;
-	}
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    public String getFormType() {
+        return formType;
+    }
+
+    public void setFormType(String formType) {
+        this.formType = formType;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<FilingHistoryTransaction> getChild() {
+        return child;
+    }
+
+    public void setChild(List<FilingHistoryTransaction> child) {
+        this.child = child;
+    }
 }
