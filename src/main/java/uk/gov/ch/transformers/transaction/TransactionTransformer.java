@@ -24,30 +24,30 @@ public class TransactionTransformer {
 
         return gaz2Transaction;
     }
-    
+
     public FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
-    	FilingApi filingApi = new FilingApi();
-    	filingApi.setBarcode(filingHistoryTransaction.getBarcode());
-    	filingApi.setDescription(filingHistoryTransaction.getDescription());
-    	filingApi.setTransactionId(filingHistoryTransaction.getEntityId().toString());
-    	filingApi.setType(filingHistoryTransaction.getFormType());
-    	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-    	LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
-    	filingApi.setCategory(TransactionCategory.fromString(filingHistoryTransaction.getCategory()).getDescription());
-    	filingApi.setActionDate(receivedDate);
-    	if(filingHistoryTransaction.getChild() != null) {
-    		List<AssociatedFilingsApi> associatedFilings = new ArrayList<>();
-    		for(FilingHistoryTransaction fht : filingHistoryTransaction.getChild()) {
-    			AssociatedFilingsApi associatedFiling = new AssociatedFilingsApi();
-    			associatedFiling.setDescription(fht.getDescription());
-    			associatedFiling.setType(fht.getFormType());
-    			LocalDate actionDate = LocalDate.parse(fht.getReceiveDate(), dateTimeFormatter);
-    			associatedFiling.setDate(actionDate);
-    			associatedFiling.setCategory(TransactionCategory.fromString(fht.getCategory()).getDescription());
-    			associatedFilings.add(associatedFiling);
-    		}
-    		filingApi.setAssociatedFilings(associatedFilings);
-    	}
-    	return filingApi;
+        FilingApi filingApi = new FilingApi();
+        filingApi.setBarcode(filingHistoryTransaction.getBarcode());
+        filingApi.setDescription(filingHistoryTransaction.getDescription());
+        filingApi.setTransactionId(filingHistoryTransaction.getEntityId().toString());
+        filingApi.setType(filingHistoryTransaction.getFormType());
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
+        LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
+        filingApi.setCategory(TransactionCategory.fromString(filingHistoryTransaction.getCategory()).getDescription());
+        filingApi.setActionDate(receivedDate);
+        if (filingHistoryTransaction.getChild() != null) {
+            List<AssociatedFilingsApi> associatedFilings = new ArrayList<>();
+            for (FilingHistoryTransaction fht : filingHistoryTransaction.getChild()) {
+                AssociatedFilingsApi associatedFiling = new AssociatedFilingsApi();
+                associatedFiling.setDescription(fht.getDescription());
+                associatedFiling.setType(fht.getFormType());
+                LocalDate actionDate = LocalDate.parse(fht.getReceiveDate(), dateTimeFormatter);
+                associatedFiling.setDate(actionDate);
+                associatedFiling.setCategory(TransactionCategory.fromString(fht.getCategory()).getDescription());
+                associatedFilings.add(associatedFiling);
+            }
+            filingApi.setAssociatedFilings(associatedFilings);
+        }
+        return filingApi;
     }
 }

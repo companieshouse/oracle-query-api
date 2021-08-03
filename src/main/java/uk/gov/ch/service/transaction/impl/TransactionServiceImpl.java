@@ -27,51 +27,51 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-	@Autowired
-	private TransactionRepository transactionRepository;
-	
-	@Autowired
-	private TransactionTransformer transactionTransformer;
-	
-	@Autowired
-	private ObjectMapper objectMapper;
+    @Autowired
+    private TransactionRepository transactionRepository;
 
-	@Override
-	public List<FilingApi> getTransactions(String companyNumber) throws TransactionMappingException {
-		Map<String, Object> logMap = new HashMap<>();
-		logMap.put("company_number", companyNumber);
-		LOGGER.info("Calling package for transaction history", logMap);
-		String result = transactionRepository.getTransactionJson(companyNumber);
-		List<FilingApi> response = new ArrayList<>();
-		if(result == null || result.isEmpty()) {
-			logMap.remove("message");
-			LOGGER.info("Null or empty response from repository", logMap);
-			return response;
-		}
-		List<FilingHistoryTransaction> filingHistoryTransactions = null;
-		
-		try {
-			JsonNode filingHistoryJson = objectMapper.readValue(result, JsonNode.class);
-			JsonNode filingHistoryNode = filingHistoryJson.get("filing_history");
-			filingHistoryTransactions = objectMapper.convertValue(
-					filingHistoryNode, new TypeReference<List<FilingHistoryTransaction>>() {});
-			logMap.put("transaction-history", filingHistoryTransactions);
-			for(FilingHistoryTransaction fht : filingHistoryTransactions) {
-				response.add(transactionTransformer.convert(fht));
-			}
-		} catch (JsonMappingException e) {
-			logMap.remove("message");
-			LOGGER.info("JSON Mapping Exception on response", logMap);
-			throw new TransactionMappingException(e.getOriginalMessage());
-		} catch (JsonProcessingException e) {
-			logMap.remove("message");
-			LOGGER.info("JSON Processing Exception on response", logMap);
-			throw new TransactionMappingException(e.getOriginalMessage());
-		}
-		return response;
-	}
-	
+    @Autowired
+    private TransactionTransformer transactionTransformer;
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Override
+    public List<FilingApi> getTransactions(String companyNumber) throws TransactionMappingException {
+        Map<String, Object> logMap = new HashMap<>();
+        logMap.put("company_number", companyNumber);
+        LOGGER.info("Calling package for transaction history", logMap);
+        String result = transactionRepository.getTransactionJson(companyNumber);
+        List<FilingApi> response = new ArrayList<>();
+        if (result == null || result.isEmpty()) {
+            logMap.remove("message");
+            LOGGER.info("Null or empty response from repository", logMap);
+            return response;
+        }
+        List<FilingHistoryTransaction> filingHistoryTransactions = null;
+
+        try {
+            JsonNode filingHistoryJson = objectMapper.readValue(result, JsonNode.class);
+            JsonNode filingHistoryNode = filingHistoryJson.get("filing_history");
+            filingHistoryTransactions = objectMapper.convertValue(filingHistoryNode,
+                    new TypeReference<List<FilingHistoryTransaction>>() {
+                    });
+            logMap.put("transaction-history", filingHistoryTransactions);
+            for (FilingHistoryTransaction fht : filingHistoryTransactions) {
+                response.add(transactionTransformer.convert(fht));
+            }
+        } catch (JsonMappingException e) {
+            logMap.remove("message");
+            LOGGER.info("JSON Mapping Exception on response", logMap);
+            throw new TransactionMappingException(e.getOriginalMessage());
+        } catch (JsonProcessingException e) {
+            logMap.remove("message");
+            LOGGER.info("JSON Processing Exception on response", logMap);
+            throw new TransactionMappingException(e.getOriginalMessage());
+        }
+        return response;
+    }
 
 }

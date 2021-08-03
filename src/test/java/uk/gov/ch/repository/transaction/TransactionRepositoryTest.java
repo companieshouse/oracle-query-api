@@ -13,23 +13,23 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 @ExtendWith(MockitoExtension.class)
 public class TransactionRepositoryTest {
-	
-	@Mock
-	JdbcTemplate jdbcTemplate;
-	
-	@InjectMocks
-	TransactionRepository transactionRepository;
-	
-	@Test
-	@DisplayName("Get Transaction Json string is returned")
-	void testGetTransactionJson() {
-		String companyNumber = "12345678";
-		String query = "SELECT PKG_CHS_GET_DATA.f_get_filing_history(?) from dual";
-		String queryResponse = "query response";
-		
-		when(jdbcTemplate.queryForObject(query, String.class, companyNumber)).thenReturn(queryResponse);
-		String response = transactionRepository.getTransactionJson(companyNumber);
-		assertEquals(queryResponse, response);
-	}
+
+    @Mock
+    JdbcTemplate jdbcTemplate;
+
+    @InjectMocks
+    TransactionRepository transactionRepository;
+
+    @Test
+    @DisplayName("Get Transaction Json string is returned")
+    void testGetTransactionJson() {
+        String companyNumber = "12345678";
+        String query = "SELECT PKG_CHS_GET_DATA.f_get_filing_history(?) from dual";
+        String queryResponse = "query response";
+
+        when(jdbcTemplate.queryForObject(query, String.class, companyNumber)).thenReturn(queryResponse);
+        String response = transactionRepository.getTransactionJson(companyNumber);
+        assertEquals(queryResponse, response);
+    }
 
 }
