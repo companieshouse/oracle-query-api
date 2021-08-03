@@ -104,16 +104,38 @@ class TransactionServiceImplTest {
     }
 
     private String getResponseJson() {
-        return "{" + "\"filing_history\": [" + "{" + "\"entity_id\": \"3123724769\", "
-                + "\"receive_date\": \"20210102121314\", " + "\"category\": \"2\", " + "\"form_type\": \"AP01\", "
-                + "\"barcode\": \"AA1111AA\", " + "\"description\": \"DIRECTOR APPOINTED NAME GOES HERE\", "
-                + "\"document_id\": \"123456789012345\" " + "}, " + "{ " + "\"entity_id\": \"345678912\", "
-                + "\"receive_date\": \"20210203121314\", " + "\"category\": \"1\", " + "\"form_type\": \"AR01\", "
-                + "\"barcode\": \"BB2222BB\", " + "\"description\": \"01/02/12 FULL LIST\", "
-                + "\"document_id\": \"000X424FB3V5834\", " + "\"child\": [ " + "{" + "\"entity_id\": \"345678912\", "
-                + "\"receive_date\": \"20210203121314\", " + "\"category\": \"1\", " + "\"form_type\": \"SH01\", "
-                + "\"barcode\": \"CC3333CC\", " + "\"description\": \"01/02/03 STATEMENT OF CAPITAL;GBP LOTS\", "
-                + "\"document_id\": \"234567890123456\" " + "} " + "] " + "}]}";
+        return "{" + 
+                    "\"filing_history\": [" + 
+                        "{" + 
+                            "\"entity_id\": \"3123724769\", "
+                          + "\"receive_date\": \"20210102121314\", " 
+                          + "\"category\": \"2\", " 
+                          + "\"form_type\": \"AP01\", "
+                          + "\"barcode\": \"AA1111AA\", " 
+                          + "\"description\": \"DIRECTOR APPOINTED NAME GOES HERE\", "
+                          + "\"document_id\": \"123456789012345\" " 
+                     + "}, " 
+                     + "{ " 
+                         + "\"entity_id\": \"345678912\", "
+                         + "\"receive_date\": \"20210203121314\", " 
+                         + "\"category\": \"1\", " 
+                         + "\"form_type\": \"AR01\", "
+                         + "\"barcode\": \"BB2222BB\", " 
+                         + "\"description\": \"01/02/12 FULL LIST\", "
+                         + "\"document_id\": \"000X424FB3V5834\", " 
+                         + "\"child\": [ " 
+                             + "{" + "\"entity_id\": \"345678912\", "
+                                   + "\"receive_date\": \"20210203121314\", " 
+                                   + "\"category\": \"1\", " 
+                                   + "\"form_type\": \"SH01\", "
+                                   + "\"barcode\": \"CC3333CC\", " 
+                                   + "\"description\": \"01/02/03 STATEMENT OF CAPITAL;GBP LOTS\", "
+                                   + "\"document_id\": \"234567890123456\" " 
+                             + "} " 
+                          + "] " 
+                    + "}"
+                + "]"
+            + "}";
     }
 
     private List<FilingHistoryTransaction> getFilingHistoryTransactionList() {
