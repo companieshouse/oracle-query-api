@@ -31,7 +31,7 @@ import uk.gov.ch.transformers.transaction.TransactionTransformer;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
 
 @ExtendWith(MockitoExtension.class)
-public class TransactionServiceImplTest {
+class TransactionServiceImplTest {
 
     @Mock
     TransactionRepository transactionRepository;

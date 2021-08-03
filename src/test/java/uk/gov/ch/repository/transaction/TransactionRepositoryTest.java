@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 @ExtendWith(MockitoExtension.class)
-public class TransactionRepositoryTest {
+class TransactionRepositoryTest {
 
     @Mock
     JdbcTemplate jdbcTemplate;

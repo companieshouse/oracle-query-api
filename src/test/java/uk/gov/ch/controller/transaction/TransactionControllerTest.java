@@ -21,7 +21,7 @@ import uk.gov.ch.service.transaction.TransactionService;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
 
 @ExtendWith(MockitoExtension.class)
-public class TransactionControllerTest {
+class TransactionControllerTest {
 
     @Mock
     TransactionService transactionService;

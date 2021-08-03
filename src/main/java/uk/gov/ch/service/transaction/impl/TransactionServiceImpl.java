@@ -28,6 +28,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class TransactionServiceImpl implements TransactionService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final String MESSAGE = "message";
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -46,7 +47,7 @@ public class TransactionServiceImpl implements TransactionService {
         String result = transactionRepository.getTransactionJson(companyNumber);
         List<FilingApi> response = new ArrayList<>();
         if (result == null || result.isEmpty()) {
-            logMap.remove("message");
+            logMap.remove(MESSAGE);
             LOGGER.info("Null or empty response from repository", logMap);
             return response;
         }
@@ -63,11 +64,11 @@ public class TransactionServiceImpl implements TransactionService {
                 response.add(transactionTransformer.convert(fht));
             }
         } catch (JsonMappingException e) {
-            logMap.remove("message");
+            logMap.remove(MESSAGE);
             LOGGER.info("JSON Mapping Exception on response", logMap);
             throw new TransactionMappingException(e.getOriginalMessage());
         } catch (JsonProcessingException e) {
-            logMap.remove("message");
+            logMap.remove(MESSAGE);
             LOGGER.info("JSON Processing Exception on response", logMap);
             throw new TransactionMappingException(e.getOriginalMessage());
         }
