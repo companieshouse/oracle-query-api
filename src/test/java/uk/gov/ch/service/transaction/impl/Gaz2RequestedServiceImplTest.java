@@ -1,25 +1,21 @@
 package uk.gov.ch.service.transaction.impl;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import uk.gov.ch.controller.transaction.Gaz2RequestedController;
-import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
-import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
-import uk.gov.ch.repository.transaction.Gaz2TransactionRepository;
-import uk.gov.ch.service.transaction.Gaz2RequestedService;
-import uk.gov.ch.transformers.transaction.TransactionTransformer;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
+import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
+import uk.gov.ch.repository.transaction.Gaz2TransactionRepository;
+import uk.gov.ch.transformers.transaction.TransactionTransformer;
 
 @ExtendWith(MockitoExtension.class)
 class Gaz2RequestedServiceImplTest {
@@ -49,7 +45,7 @@ class Gaz2RequestedServiceImplTest {
         Gaz2TransactionDataModel gaz2TransactionDataModel = gaz2TransactionDataModel();
         Gaz2Transaction gaz2Transaction = gaz2Transaction();
         when(gaz2TransactionRepository.findRequestedGaz2(COMPANY_NUMBER)).thenReturn(gaz2TransactionDataModel);
-        when(transactionTransformer.convert(any())).thenReturn(gaz2Transaction);
+        when(transactionTransformer.convert(any(Gaz2TransactionDataModel.class))).thenReturn(gaz2Transaction);
         Gaz2Transaction serviceResult = gaz2RequestedService.getRequestedGaz2(COMPANY_NUMBER);
         assertEquals(gaz2Transaction, serviceResult);
     }

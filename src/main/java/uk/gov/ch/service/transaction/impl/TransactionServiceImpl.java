@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.repository.transaction.TransactionRepository;
 import uk.gov.ch.service.transaction.TransactionService;
@@ -30,15 +31,27 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Autowired
 	private TransactionRepository transactionRepository;
+	
+	@Autowired
+	private TransactionTransformer transactionTransformer;
+	
+	@Autowired
+	private ObjectMapper objectMapper;
 
 	@Override
-	public List<FilingApi> getTransactions(String companyNumber) {
-		LOGGER.info("Calling package for transaction history for " + companyNumber);
-		String result = transactionRepository.getTransactionJson(companyNumber);
-		ObjectMapper objectMapper = new ObjectMapper();
+	public List<FilingApi> getTransactions(String companyNumber) throws TransactionMappingException {
 		Map<String, Object> logMap = new HashMap<>();
-		List<FilingHistoryTransaction> filingHistoryTransactions = null;
+		logMap.put("company_number", companyNumber);
+		LOGGER.info("Calling package for transaction history", logMap);
+		String result = transactionRepository.getTransactionJson(companyNumber);
 		List<FilingApi> response = new ArrayList<>();
+		if(result == null || result.isEmpty()) {
+			logMap.remove("message");
+			LOGGER.info("Null or empty response from repository", logMap);
+			return response;
+		}
+		List<FilingHistoryTransaction> filingHistoryTransactions = null;
+		
 		try {
 			JsonNode filingHistoryJson = objectMapper.readValue(result, JsonNode.class);
 			JsonNode filingHistoryNode = filingHistoryJson.get("filing_history");
@@ -46,17 +59,19 @@ public class TransactionServiceImpl implements TransactionService {
 					filingHistoryNode, new TypeReference<List<FilingHistoryTransaction>>() {});
 			logMap.put("transaction-history", filingHistoryTransactions);
 			for(FilingHistoryTransaction fht : filingHistoryTransactions) {
-				response.add(TransactionTransformer.convert(fht));
+				response.add(transactionTransformer.convert(fht));
 			}
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logMap.remove("message");
+			LOGGER.info("JSON Mapping Exception on response", logMap);
+			throw new TransactionMappingException(e.getOriginalMessage());
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logMap.remove("message");
+			LOGGER.info("JSON Processing Exception on response", logMap);
+			throw new TransactionMappingException(e.getOriginalMessage());
 		}
-		LOGGER.info("Result of the call : ", logMap);
 		return response;
 	}
+	
 
 }

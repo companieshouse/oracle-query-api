@@ -25,7 +25,7 @@ public class TransactionTransformer {
         return gaz2Transaction;
     }
     
-    public static FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
+    public FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
     	FilingApi filingApi = new FilingApi();
     	filingApi.setBarcode(filingHistoryTransaction.getBarcode());
     	filingApi.setDescription(filingHistoryTransaction.getDescription());

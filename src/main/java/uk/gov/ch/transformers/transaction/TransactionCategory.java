@@ -4,16 +4,14 @@ public enum TransactionCategory {
 	
 	ACCOUNTS("0", "Accounts"),
 	ANNUAL_RETURN("1", "Annual Return"),
-	TWO("2","two 2"),
-	THREE("3", "three 3"),
+	APPOINTMENT("2","Appointment"),
+	REGISTERED_OFFICE("3", "Registered Office"),
 	MORTGAGE("4", "Mortgage"),
 	LIQUIDATION("5", "Liquidation"),
-	INCORPORATION("6", "Incorporation"),
-	CHANGE_OF_NAME("7", "Change of name"),
+	INCORPORATION("6", "New Incorporation"),
+	CHANGE_OF_NAME("7", "Change Of Name"),
 	CAPITAL("8","Capital"),
-	NINE("9", "Nine 9"),
-	TEN("10", "Ten 10"),
-	ELEVEN("11", "Eleven 11");
+	MISCELLANEOUS("9", "Miscellaneous");
 	
 	TransactionCategory(String id, String description){
 		this.id = id;
