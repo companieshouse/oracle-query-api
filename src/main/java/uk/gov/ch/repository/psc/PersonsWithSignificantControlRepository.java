@@ -17,7 +17,6 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "CBA.SERVICE_ADDRESS_LINE_1, " +
             "CBA.SERVICE_ADDRESS_POST_CODE, " +
             "CBA.SERVICE_ADDRESS_POST_TOWN, " +
-            "CBA.SUPER_SECURE_PSC_IND, " +
             "OD.OFFICER_NATIONALITY, " +
             "OD.OFFICER_DATE_OF_BIRTH, " +
             "CAD.PSC_REGISTRATION_NUMBER, " +
@@ -54,6 +53,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "where " +
             "CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?) " +
             "AND CBA.RESIGNATION_IND = 'N' " +
+            "AND CBA.SUPER_SECURE_PSC_IND = 'N' " +
             "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) " +
             "group by CBA.CORPORATE_BODY_APPOINTMENT_ID, CBA.OFFICER_FORENAME_1, CBA.OFFICER_FORENAME_2, CBA.OFFICER_SURNAME, CBA.APPOINTMENT_TYPE_ID, CBA.SERVICE_ADDRESS_LINE_1, " +
             "CBA.SERVICE_ADDRESS_POST_CODE, CBA.SERVICE_ADDRESS_POST_TOWN, CBA.SUPER_SECURE_PSC_IND, OD.OFFICER_NATIONALITY, OD.OFFICER_DATE_OF_BIRTH, " +

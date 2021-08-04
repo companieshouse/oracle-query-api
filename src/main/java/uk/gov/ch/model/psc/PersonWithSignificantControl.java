@@ -24,8 +24,6 @@ public class PersonWithSignificantControl {
     private String serviceAddressPostCode;
     @Column(name = "SERVICE_ADDRESS_POST_TOWN")
     private String serviceAddressPostTown;
-    @Column(name = "SUPER_SECURE_PSC_IND")
-    private String superSecurePscInd;
     @Column(name = "OFFICER_NATIONALITY")
     private String officerNationality;
     @Column(name = "OFFICER_DATE_OF_BIRTH")
@@ -123,14 +121,6 @@ public class PersonWithSignificantControl {
 
     public void setServiceAddressPostTown(String serviceAddressPostTown) {
         this.serviceAddressPostTown = serviceAddressPostTown;
-    }
-
-    public String getSuperSecurePscInd() {
-        return superSecurePscInd;
-    }
-
-    public void setSuperSecurePscInd(String superSecurePscInd) {
-        this.superSecurePscInd = superSecurePscInd;
     }
 
     public String getOfficerNationality() {
