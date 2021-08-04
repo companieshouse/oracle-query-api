@@ -19,6 +19,10 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "CBA.SERVICE_ADDRESS_POST_TOWN, " +
             "OD.OFFICER_NATIONALITY, " +
             "OD.OFFICER_DATE_OF_BIRTH, " +
+            "CAD.PSC_REGISTRATION_NUMBER, " +
+            "CAD.PSC_LAW_GOVERNED, " +
+            "CAD.PSC_LEGAL_FORM, " +
+            "CAD.PSC_COUNTRY, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
             "else  URA.HOUSE_NAME_NUMBER end HOUSE_NAME_NUMBER, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null " +
@@ -45,6 +49,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "inner join  USUAL_RESIDENTIAL_ADDRESS URA on OD.USUAL_RESIDENTIAL_ADDRESS_ID = URA.USUAL_RESIDENTIAL_ADDRESS_ID " +
             "left outer join CORPORATE_BODY_APPT_NOC_LINK noc on NOC.CORPORATE_BODY_APPOINTMENT_ID=CBA.CORPORATE_BODY_APPOINTMENT_ID " +
             "left outer join nature_of_control_type noct on NOCT.NATURE_OF_CONTROL_TYPE_ID=NOC.NATURE_OF_CONTROL_TYPE_ID " +
+            "left outer join CORPORATE_APPT_DETAIL CAD on CAD.CORPORATE_APPT_DETAIL_ID=CBA.CORPORATE_APPT_DETAIL_ID " +
             "where " +
             "CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?) " +
             "AND CBA.RESIGNATION_IND = 'N' " +
@@ -52,6 +57,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) " +
             "group by CBA.CORPORATE_BODY_APPOINTMENT_ID, CBA.OFFICER_FORENAME_1, CBA.OFFICER_FORENAME_2, CBA.OFFICER_SURNAME, CBA.APPOINTMENT_TYPE_ID, CBA.SERVICE_ADDRESS_LINE_1, " +
             "CBA.SERVICE_ADDRESS_POST_CODE, CBA.SERVICE_ADDRESS_POST_TOWN, OD.OFFICER_NATIONALITY, OD.OFFICER_DATE_OF_BIRTH, " +
+            "CAD.PSC_REGISTRATION_NUMBER, CAD.PSC_LAW_GOVERNED, CAD.PSC_LEGAL_FORM, CAD.PSC_COUNTRY, " +
             "       case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.HOUSE_NAME_NUMBER end, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.STREET end  , " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.AREA end  , " +

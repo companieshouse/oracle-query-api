@@ -50,6 +50,14 @@ public class PersonWithSignificantControl {
     private String addressLine1;
     @Column(name = "NATURE_OF_CONTROL")
     private String natureOfControl;
+    @Column(name = "PSC_REGISTRATION_NUMBER")
+    private String registrationNumber;
+    @Column(name = "PSC_LAW_GOVERNED")
+    private String lawGoverned;
+    @Column(name = "PSC_LEGAL_FORM")
+    private String legalForm;
+    @Column(name = "PSC_COUNTRY")
+    private String countryOfResidence;
 
     public Long getCorporateBodyAppointmentId() {
         return corporateBodyAppointmentId;
@@ -217,5 +225,37 @@ public class PersonWithSignificantControl {
 
     public void setNatureOfControl(String natureOfControl) {
         this.natureOfControl = natureOfControl;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String registrationNumber) {
+        this.registrationNumber = registrationNumber;
+    }
+
+    public String getLawGoverned() {
+        return lawGoverned;
+    }
+
+    public void setLawGoverned(String lawGoverned) {
+        this.lawGoverned = lawGoverned;
+    }
+
+    public String getLegalForm() {
+        return legalForm;
+    }
+
+    public void setLegalForm(String legalForm) {
+        this.legalForm = legalForm;
+    }
+
+    public String getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    public void setCountryOfResidence(String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
     }
 }
