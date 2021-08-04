@@ -26,7 +26,7 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("/company/{companyNumber}/transaction-history")
+    @GetMapping("/company/{companyNumber}/filing-history")
     public ResponseEntity<List<FilingApi>> getTransactionHistory(@PathVariable String companyNumber) {
         Map<String, Object> logMap = new HashMap<>();
         logMap.put("company_number", companyNumber);
