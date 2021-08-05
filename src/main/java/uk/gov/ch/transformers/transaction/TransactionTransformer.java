@@ -27,14 +27,17 @@ public class TransactionTransformer {
 
     public FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
         FilingApi filingApi = new FilingApi();
-        filingApi.setBarcode(filingHistoryTransaction.getBarcode());
         filingApi.setDescription(filingHistoryTransaction.getDescription());
-        filingApi.setTransactionId(filingHistoryTransaction.getEntityId().toString());
         filingApi.setType(filingHistoryTransaction.getFormType());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
-        filingApi.setCategory(TransactionCategory.fromString(filingHistoryTransaction.getCategory()).getDescription());
         filingApi.setActionDate(receivedDate);
+        // if the barcode starts with an X OR the 4th character in the document id is an X then it is
+        // electronically filed
+        if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")
+                && filingHistoryTransaction.getDocumentId().charAt(3) != 'X')) {
+            filingApi.setPaperFiled(true);
+        }
         if (filingHistoryTransaction.getChild() != null) {
             List<AssociatedFilingsApi> associatedFilings = new ArrayList<>();
             for (FilingHistoryTransaction fht : filingHistoryTransaction.getChild()) {
@@ -43,7 +46,6 @@ public class TransactionTransformer {
                 associatedFiling.setType(fht.getFormType());
                 LocalDate actionDate = LocalDate.parse(fht.getReceiveDate(), dateTimeFormatter);
                 associatedFiling.setDate(actionDate);
-                associatedFiling.setCategory(TransactionCategory.fromString(fht.getCategory()).getDescription());
                 associatedFilings.add(associatedFiling);
             }
             filingApi.setAssociatedFilings(associatedFilings);

@@ -28,6 +28,7 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/shareholders/count`                                | Calls service to retrieve the number of active company shareholders
 **GET**   | `/company/{companyNumber}/shareholders`                                      | Calls service to retrieve the list of all active company shareholders
 **GET**   | `/company/{companyNumber}/statement-of-capital`                              | Calls service to retrieve the statement of capital data for the company
+**GET**   | `/company/{companyNumber}/filing-history`                                | Calls service to retrieve the filing history transactions
 
 ### Query parameters
 Query parameter  | Description
