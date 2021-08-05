@@ -81,7 +81,7 @@ class ActiveOfficerDetailsTest {
     void getDateOfBirthSecureOfficer() throws ParseException {
         officer.setSecureIndicator("Y");
         String result = officer.getDateOfBirth();
-        assertEquals(secureDOB, result);
+        assertEquals(nonSecureDOB, result);
     }
 
 }
