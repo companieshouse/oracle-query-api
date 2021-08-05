@@ -35,7 +35,7 @@ public class TransactionTransformer {
         // if the barcode starts with an X OR the 4th character in the document id is an X then it is
         // electronically filed
         if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")
-                && !(filingHistoryTransaction.getDocumentId().charAt(3) == 'X'))) {
+                && filingHistoryTransaction.getDocumentId().charAt(3) != 'X')) {
             filingApi.setPaperFiled(true);
         }
         if (filingHistoryTransaction.getChild() != null) {
