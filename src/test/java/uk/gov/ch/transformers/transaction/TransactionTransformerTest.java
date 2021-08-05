@@ -1,7 +1,9 @@
 package uk.gov.ch.transformers.transaction;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ class TransactionTransformerTest {
     TransactionTransformer transactionTransformer;
 
     @Test
+    @DisplayName("Test the successful conversion of a Gaz2TransactionDataModel to Gaz2Transaction")
     void convertTest() {
         Gaz2TransactionDataModel gaz2TransactionDataModel = new Gaz2TransactionDataModel();
         gaz2TransactionDataModel.setTransactionId(1234L);
@@ -43,7 +46,7 @@ class TransactionTransformerTest {
     void convertFilingHistoryTestWithoutChildTransaction() {
         FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
         FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
-        assertFilingHistoryApi(filingHistoryTransaction, filingApi, TransactionCategory.INCORPORATION);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertNull(filingApi.getAssociatedFilings());
     }
 
@@ -52,7 +55,7 @@ class TransactionTransformerTest {
     void convertFilingHistoryWithChildTransaction() {
         FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(true);
         FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
-        assertFilingHistoryApi(filingHistoryTransaction, filingApi, TransactionCategory.INCORPORATION);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         List<AssociatedFilingsApi> associatedFilings = filingApi.getAssociatedFilings();
         AssociatedFilingsApi associatedFiling = associatedFilings.get(0);
         FilingHistoryTransaction childTransaction = filingHistoryTransaction.getChild().get(0);
@@ -62,15 +65,63 @@ class TransactionTransformerTest {
         assertEquals(2021, associatedFiling.getDate().getYear());
         assertEquals(1, associatedFiling.getDate().getMonth().getValue());
         assertEquals(22, associatedFiling.getDate().getDayOfMonth());
-        assertEquals(TransactionCategory.CHANGE_OF_NAME.getDescription(), associatedFiling.getCategory());
+    }
+    
+    @Test
+    @DisplayName("Transform the where the Barcode is null defaults to paper_filed false")
+    void convertFilingHistoryWithNullBarcode() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        filingHistoryTransaction.setBarcode(null);
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
+        assertTrue(filingApi.isPaperFiled());
+    }
+    
+    @Test
+    @DisplayName("Transform the FilingApi when barcode and document id indicate an electronic filing so paper_filed is false")
+    void convertFilingHistoryWithAnElectronicFiling() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        filingHistoryTransaction.setBarcode("X1234567");
+        filingHistoryTransaction.setDocumentId("000X1234567ABCD");
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
+        assertFalse(filingApi.isPaperFiled());
+    }
+    
+    @Test
+    @DisplayName("Transform the FilingApi when barcode could be electronic filed but document id cannot")
+    void convertFilingHistoryWithElectronicFiledBarcodeReturnsPaperFiled() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        filingHistoryTransaction.setBarcode("X1234567");
+        filingHistoryTransaction.setDocumentId("000A1234567ABCD");
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
+        assertFalse(filingApi.isPaperFiled());
+    }
+    
+    @Test
+    @DisplayName("Transform the FilingApi when document id could be electronic filed but barcode cannot")
+    void convertFilingHistoryWithElectronicFiledDocumentIdReturnsPaperFiled() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        filingHistoryTransaction.setBarcode("A1234567");
+        filingHistoryTransaction.setDocumentId("000X1234567ABCD");
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
+        assertFalse(filingApi.isPaperFiled());
+    }
+    
+    @Test
+    @DisplayName("Transform the FilingApi when barcode and document id indicate paper filed")
+    void convertFilingHistoryWithPaperFiledBarcodeAndDocumentIdReturnsPaperFiled() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
+        assertTrue(filingApi.isPaperFiled());
     }
 
-    private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi,
-            TransactionCategory tc) {
-        assertEquals(filingHistoryTransaction.getBarcode(), filingApi.getBarcode());
+    private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi) {
+        assertEquals(filingHistoryTransaction.getFormType(), filingApi.getType());
         assertEquals(filingHistoryTransaction.getDescription(), filingApi.getDescription());
-        assertEquals(filingHistoryTransaction.getEntityId().toString(), filingApi.getTransactionId());
-        assertEquals(tc.getDescription(), filingApi.getCategory());
         assertEquals(2021, filingApi.getActionDate().getYear());
         assertEquals(1, filingApi.getActionDate().getMonth().getValue());
         assertEquals(22, filingApi.getActionDate().getDayOfMonth());
