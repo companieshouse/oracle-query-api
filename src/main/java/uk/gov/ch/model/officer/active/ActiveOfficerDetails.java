@@ -132,11 +132,7 @@ public class ActiveOfficerDetails {
     public String getDateOfBirth() throws ParseException {
         SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
         Date dob = formatFrom.parse(dateOfBirth);
-        String pattern = "dd MMMMM yyyy";
-        if (isSecureOfficer()) {
-            pattern = "MMMMM yyyy";
-        }
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
         return simpleDateFormat.format(dob);
     }
 
