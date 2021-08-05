@@ -1,7 +1,6 @@
 package uk.gov.ch.transformers.transaction;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +33,9 @@ public class TransactionTransformer {
         LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
         filingApi.setActionDate(receivedDate);
         // if the barcode starts with an X OR the 4th character in the document id is an X then it is
-        // electronically filed and paper filed is false
-        if (filingHistoryTransaction.getBarcode() != null && (filingHistoryTransaction.getBarcode().startsWith("X")
-                || (filingHistoryTransaction.getDocumentId().charAt(3) == 'X'))) {
-            filingApi.setPaperFiled(false);
-        } else {
+        // electronically filed
+        if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")
+                && !(filingHistoryTransaction.getDocumentId().charAt(3) == 'X'))) {
             filingApi.setPaperFiled(true);
         }
         if (filingHistoryTransaction.getChild() != null) {
