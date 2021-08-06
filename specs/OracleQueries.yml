@@ -155,23 +155,23 @@ paths:
           description: No statement of capital data found
         '500':
           description: More than one statement of capital data result found
-  /company/{companyNumber}/officer/active:
+  /company/{companyNumber}/director/active:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
     get:
       tags:
         - active-officer-details
-      operationId: getActiveOfficerDetails
-      summary: Get a single object containing the data of the active officer for the company
+      operationId: getActiveDirectorDetails
+      summary: Get a single object containing the data of the active director for the company
       responses:
         '200':
-          description: The company active officer data
+          description: The company active directors data
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/activeOfficerDetails'
+                $ref: '#/components/schemas/activeDirectorDetails'
         '404':
-          description: No active officer data found
+          description: No active director data found
 
 
 components:
@@ -557,7 +557,7 @@ components:
         totalAmountUnpaidForCurrency:
           type: integer
           description: The total amount unpaid.
-    activeOfficerDetails:
+    activeDirectorDetails:
       type: object
       required:
         - foreName1
@@ -576,22 +576,22 @@ components:
       properties:
         foreName1:
           type: string
-          description: The first name of the active officer
+          description: The first name of the active director
         foreName2:
           type: string
-          description: The middle name of the active officer
+          description: The middle name of the active director
         surname:
           type: string
-          description: The surname of the active officer
+          description: The surname of the active director
         occupation:
           type: string
-          description: The occupation of the active officer
+          description: The occupation of the active director
         nationality:
           type: string
-          description: The nationality of the active officer
+          description: The nationality of the active director
         dateOfBirth:
           type: string
-          description: The full date of birth of the active officer
+          description: The full date of birth of the active director
         serviceAddressLine1:
           type: string
           description: The first line of the service address (house name/number and street)
@@ -612,7 +612,7 @@ components:
           description: The usual residential address postcode
         secureIndicator:
           type: string
-          description: Flag to show whether the active officer is a secure officer
+          description: Flag to show whether the active director is a secure officer
   parameters:
     companyNumber:
       name: 'company_number'

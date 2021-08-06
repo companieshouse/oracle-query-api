@@ -1,35 +1,44 @@
 package uk.gov.ch.model.officer.active;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class ActiveOfficerDetails {
 
-    @JsonProperty("fore_name_1")
+    @Id //TODO: Get an actual unique identifier!!
+    @Column(name = "fore_name_1")
     private String foreName1;
-    @JsonProperty("fore_name_2")
+    @Column(name = "fore_name_2")
     private String foreName2;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "occupation")
     private String occupation;
+    @Column(name = "nationality")
     private String nationality;
-    @JsonProperty("date_of_birth")
+    @Column(name = "date_of_birth")
     private String dateOfBirth;
-    @JsonProperty("service_address_line_1")
+    @Column(name = "service_address_line_1")
     private String serviceAddressLine1;
-    @JsonProperty("service_address_post_town")
+    @Column(name = "service_address_post_town")
     private String serviceAddressPostTown;
-    @JsonProperty("service_address_post_code")
+    @Column(name = "service_address_post_code")
     private String serviceAddressPostCode;
-    @JsonProperty("ura_line_1")
+    @Column(name = "ura_line_1")
     private String uraLine1;
-    @JsonProperty("ura_post_town")
+    @Column(name = "ura_post_town")
     private String uraPostTown;
-    @JsonProperty("ura_post_code")
+    @Column(name = "ura_post_code")
     private String uraPostCode;
-    @JsonProperty("secure_indicator")
+    @Column(name = "secure_indicator")
     private String secureIndicator;
 
     public String getServiceAddressLine1() {
@@ -130,10 +139,8 @@ public class ActiveOfficerDetails {
     }
 
     public String getDateOfBirth() throws ParseException {
-        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
-        Date dob = formatFrom.parse(dateOfBirth);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
-        return simpleDateFormat.format(dob);
+        Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+        return new SimpleDateFormat("dd MMMMM yyyy").format(dob);
     }
 
     public void setDateOfBirth(String dateOfBirth) {
@@ -148,8 +155,37 @@ public class ActiveOfficerDetails {
         this.secureIndicator = secureIndicator;
     }
 
-    public boolean isSecureOfficer() {
+    private boolean isSecureOfficer() {
         return getSecureIndicator().equals("Y");
     }
+
+//    class ActiveOfficerDetailJson {
+//        @JsonProperty("fore_name_1")
+//        private String foreName1;
+//        @JsonProperty("fore_name_2")
+//        private String foreName2;
+//        private String surname;
+//        private String occupation;
+//        private String nationality;
+//        @JsonProperty("date_of_birth")
+//        private String dateOfBirth;
+//        @JsonProperty("service_address_line_1")
+//        private String serviceAddressLine1;
+//        @JsonProperty("service_address_post_town")
+//        private String serviceAddressPostTown;
+//        @JsonProperty("service_address_post_code")
+//        private String serviceAddressPostCode;
+//        @JsonProperty("ura_line_1")
+//        private String uraLine1;
+//        @JsonProperty("ura_post_town")
+//        private String uraPostTown;
+//        @JsonProperty("ura_post_code")
+//        private String uraPostCode;
+//
+//        public ActiveOfficerDetailJson(ActiveOfficerDetails director) {
+//            this.foreName1 = director.foreName1;
+//            this.foreName2 = director.foreName2;
+//        }
+//    }
 
 }

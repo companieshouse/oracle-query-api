@@ -1,10 +1,13 @@
 package uk.gov.ch.controller.officer.active;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
@@ -22,12 +25,16 @@ public class ActiveOfficerDetailsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @GetMapping("/company/{companyNumber}/officer/active")
-    public ResponseEntity<ActiveOfficerDetails> getActiveOfficerDetails(@PathVariable String companyNumber) {
+    public ResponseEntity<ActiveOfficerDetails> getActiveOfficerDetails(@PathVariable String companyNumber,
+            @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
+            @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
+
+        Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
 
         LOGGER.info("Calling service to retrieve active officer for company number " + companyNumber);
 
         try {
-            ActiveOfficerDetails details = service.getActiveOfficerDetails(companyNumber);
+            ActiveOfficerDetails details = service.getActiveOfficerDetails(companyNumber, pageable);
             LOGGER.info("Returning active officer for company number " + companyNumber);
             return ResponseEntity.status(HttpStatus.OK).body(details);
         } catch (InvalidActiveOfficersCountFoundException e) {

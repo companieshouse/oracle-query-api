@@ -1,6 +1,8 @@
 package uk.gov.ch.service.officer.active.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import uk.gov.ch.OracleQueryApplication;
@@ -24,8 +26,8 @@ public class ActiveOfficerDetailsServiceImpl implements ActiveOfficerDetailsServ
     private ActiveOfficerDetailsRepository activeOfficerDetailsRepository;
 
     @Override
-    public ActiveOfficerDetails getActiveOfficerDetails(String companyNumber) throws InvalidActiveOfficersCountFoundException {
-        List<ActiveOfficerDetails> list =  activeOfficerDetailsRepository.getActiveOfficerDetails(companyNumber);
+    public ActiveOfficerDetails getActiveOfficerDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException {
+        List<ActiveOfficerDetails> list =  activeOfficerDetailsRepository.getActiveOfficerDetails(companyNumber, pageable).toList();
         if (list.size() == 1 ) {
             return list.get(0);
         } else {
