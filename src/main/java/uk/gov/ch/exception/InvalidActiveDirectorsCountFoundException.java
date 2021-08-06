@@ -1,7 +1,7 @@
 package uk.gov.ch.exception;
 
-public class InvalidActiveOfficersCountFoundException extends Exception{
-    public InvalidActiveOfficersCountFoundException(String message){
+public class InvalidActiveDirectorsCountFoundException extends Exception{
+    public InvalidActiveDirectorsCountFoundException(String message){
         super(message);
     }
 }

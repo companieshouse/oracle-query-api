@@ -9,9 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-class ActiveOfficerDetailsTest {
+class ActiveDirectorDetailsTest {
 
-    ActiveOfficerDetails officer;
+    ActiveDirectorDetails officer;
     String uraLine1 = "123 Street";
     String uraPostTown = "Town";
     String uraPostCode = "POST CODE";
@@ -21,7 +21,7 @@ class ActiveOfficerDetailsTest {
 
     @BeforeEach
     void beforeEach(){
-        officer = new ActiveOfficerDetails();
+        officer = new ActiveDirectorDetails();
         officer.setDateOfBirth(dob);
         officer.setUraLine1(uraLine1);
         officer.setUraPostTown(uraPostTown);

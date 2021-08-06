@@ -1,9 +1,9 @@
 package uk.gov.ch.service.officer.active;
 
 import org.springframework.data.domain.Pageable;
-import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
-import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
+import uk.gov.ch.exception.InvalidActiveDirectorsCountFoundException;
+import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 
-public interface ActiveOfficerDetailsService {
-    ActiveOfficerDetails getActiveOfficerDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException;
+public interface ActiveDirectorDetailsService {
+    ActiveDirectorDetails getActiveDirectorDetails(String companyNumber, Pageable pageable) throws InvalidActiveDirectorsCountFoundException;
 }

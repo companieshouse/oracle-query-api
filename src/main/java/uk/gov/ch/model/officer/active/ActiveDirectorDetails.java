@@ -1,7 +1,5 @@
 package uk.gov.ch.model.officer.active;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,9 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class ActiveOfficerDetails {
+public class ActiveDirectorDetails {
 
-    @Id //TODO: Get an actual unique identifier!!
+    @Id
     @Column(name = "fore_name_1")
     private String foreName1;
     @Column(name = "fore_name_2")
@@ -158,34 +156,5 @@ public class ActiveOfficerDetails {
     private boolean isSecureOfficer() {
         return getSecureIndicator().equals("Y");
     }
-
-//    class ActiveOfficerDetailJson {
-//        @JsonProperty("fore_name_1")
-//        private String foreName1;
-//        @JsonProperty("fore_name_2")
-//        private String foreName2;
-//        private String surname;
-//        private String occupation;
-//        private String nationality;
-//        @JsonProperty("date_of_birth")
-//        private String dateOfBirth;
-//        @JsonProperty("service_address_line_1")
-//        private String serviceAddressLine1;
-//        @JsonProperty("service_address_post_town")
-//        private String serviceAddressPostTown;
-//        @JsonProperty("service_address_post_code")
-//        private String serviceAddressPostCode;
-//        @JsonProperty("ura_line_1")
-//        private String uraLine1;
-//        @JsonProperty("ura_post_town")
-//        private String uraPostTown;
-//        @JsonProperty("ura_post_code")
-//        private String uraPostCode;
-//
-//        public ActiveOfficerDetailJson(ActiveOfficerDetails director) {
-//            this.foreName1 = director.foreName1;
-//            this.foreName2 = director.foreName2;
-//        }
-//    }
 
 }
