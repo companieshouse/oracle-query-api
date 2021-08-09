@@ -572,7 +572,6 @@ components:
         - uraLine1
         - uraPostTown
         - uraPostCode
-        - secureIndicator
       properties:
         foreName1:
           type: string
@@ -610,9 +609,6 @@ components:
         uraPostCode:
           type: string
           description: The usual residential address postcode
-        secureIndicator:
-          type: string
-          description: Flag to show whether the active director is a secure officer
   parameters:
     companyNumber:
       name: 'company_number'
