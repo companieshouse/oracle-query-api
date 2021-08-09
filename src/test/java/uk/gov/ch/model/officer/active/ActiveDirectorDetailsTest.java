@@ -1,87 +1,90 @@
 package uk.gov.ch.model.officer.active;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
+import org.springframework.context.annotation.Description;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ActiveDirectorDetailsTest {
 
-    ActiveDirectorDetails officer;
-    String uraLine1 = "123 Street";
-    String uraPostTown = "Town";
-    String uraPostCode = "POST CODE";
-    String dob = "1962-01-29 00:00:00.0";
-    String secureDOB = "January 1962";
-    String nonSecureDOB = "29 January 1962";
+    ActiveDirectorDetails director;
+    String URA_LINE_1 = "123 Street";
+    String URA_POST_TOWN = "Town";
+    String URA_POST_CODE = "POST CODE";
+    String UNFORMATTED_DOB = "1962-01-29 00:00:00.0";
+    String FORMATTED_DOB = "29 January 1962";
+    String SECURE_DIRECTOR_URA_LINE_1 = "Companies House Cannot Disclose this Home Address";
 
     @BeforeEach
-    void beforeEach(){
-        officer = new ActiveDirectorDetails();
-        officer.setDateOfBirth(dob);
-        officer.setUraLine1(uraLine1);
-        officer.setUraPostTown(uraPostTown);
-        officer.setUraPostCode(uraPostCode);
+    void beforeEach() {
+        director = new ActiveDirectorDetails();
+        director.setOfficerDetailId(001);
+        director.setForeName1("JOHN");
+        director.setForeName2("MiddleName");
+        director.setSurname("DOE");
+        director.setOccupation("singer");
+        director.setNationality("British");
+        director.setDateOfBirth(UNFORMATTED_DOB);
+        director.setServiceAddressLine1("Diddly squat farm shop");
+        director.setServiceAddressPostTown("Chadlington");
+        director.setServiceAddressPostCode("OX7 3PE");
+        director.setUraLine1(URA_LINE_1);
+        director.setUraPostTown(URA_POST_TOWN);
+        director.setUraPostCode(URA_POST_CODE);
     }
 
     @Test
-    void getUraLine1NonSecureOfficer(){
-        officer.setSecureIndicator("N");
-        String result = officer.getUraLine1();
-        assertEquals(uraLine1, result);
+    @Description("Should return the non-secure director's formatted full date of birth")
+    void nonSecureActiveDirectorDetailsDobTest() {
+        director.setSecureIndicator("N");
+        assertEquals( FORMATTED_DOB, director.getDateOfBirth());
     }
 
     @Test
-    void getUraLine1SecureOfficer(){
-        officer.setSecureIndicator("Y");
-        String result = officer.getUraLine1();
-        assertNull(result);
+    @Description("Should return the secure director's formatted full date of birth")
+    void secureActiveDirectorDetailsDobTest() {
+        director.setSecureIndicator("Y");
+        assertEquals( FORMATTED_DOB, director.getDateOfBirth());
     }
 
     @Test
-    void getUraPostTownNonSecureOfficer(){
-        officer.setSecureIndicator("N");
-        String result = officer.getUraPostTown();
-        assertEquals(uraPostTown, result);
+    @Description("Should return the non-secure director's URA")
+    void nonSecureActiveDirectorDetailsUraTest() {
+        director.setSecureIndicator("N");
+        assertEquals(URA_LINE_1, director.getUraLine1());
+        assertEquals(URA_POST_TOWN, director.getUraPostTown());
+        assertEquals(URA_POST_CODE, director.getUraPostCode());
     }
 
     @Test
-    void getUraPostTownSecureOfficer(){
-        officer.setSecureIndicator("Y");
-        String result = officer.getUraPostTown();
-        assertNull(result);
+    @Description("Should NOT return the secure director's URA but just a message in line 1")
+    void secureActiveDirectorDetailsUraTest() {
+        director.setSecureIndicator("Y");
+        assertEquals(SECURE_DIRECTOR_URA_LINE_1, director.getUraLine1());
+        assertEquals( null, director.getUraPostTown());
+        assertEquals(null, director.getUraPostCode());
     }
 
     @Test
-    void getUraPostCodeNonSecureOfficer(){
-        officer.setSecureIndicator("N");
-        String result = officer.getUraPostCode();
-        assertEquals(uraPostCode, result);
+    @Description("Should not contain the secure indicator in the json of a non-secure director")
+    void nonSecureActiveDirectorDetailsSecureIndicatorTest() throws JsonProcessingException {
+        director.setSecureIndicator("N");
+        String json = new ObjectMapper().writeValueAsString(director);
+        assertFalse(json.contains("secure"));
+        assertFalse(json.contains("\"N\""));
     }
 
     @Test
-    void getUraPostCodeSecureOfficer(){
-        officer.setSecureIndicator("Y");
-        String result = officer.getUraPostCode();
-        assertNull(result);
-    }
-
-    @Test
-    void getDateOfBirthNonSecureOfficer() throws ParseException {
-        officer.setSecureIndicator("N");
-        String result = officer.getDateOfBirth();
-        assertEquals(nonSecureDOB, result);
-    }
-
-    @Test
-    void getDateOfBirthSecureOfficer() throws ParseException {
-        officer.setSecureIndicator("Y");
-        String result = officer.getDateOfBirth();
-        assertEquals(nonSecureDOB, result);
+    @Description("Should not contain the secure indicator in the json of a secure director")
+    void secureActiveDirectorDetailsSecureIndicatorTest() throws JsonProcessingException {
+        director.setSecureIndicator("Y");
+        String json = new ObjectMapper().writeValueAsString(director);
+        assertFalse(json.contains("secure"));
+        assertFalse(json.contains("\"Y\""));
     }
 
 }

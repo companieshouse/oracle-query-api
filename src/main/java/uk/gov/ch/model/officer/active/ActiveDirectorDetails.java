@@ -55,6 +55,7 @@ public class ActiveDirectorDetails {
     @JsonProperty("ura_post_code")
     private String uraPostCode;
     @Column(name = "secure_indicator")
+    @JsonIgnore
     private String secureIndicator;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
@@ -93,7 +94,7 @@ public class ActiveDirectorDetails {
 
     public String getUraLine1() {
         if (isSecureOfficer()) {
-            return null;
+            return "Companies House Cannot Disclose this Home Address";
         }
         return uraLine1;
     }
