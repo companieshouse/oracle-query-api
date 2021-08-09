@@ -24,7 +24,7 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/traded-status`                                     | Calls service to retrieve the current traded status for the company
 **GET**   | `/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}`         | Calls service to view the details for a Scottish bankrupt officer
 **POST**  | `/officer-search/scottish-bankrupt-officers`                                 | Calls service to search for a Scottish bankrupt officer
-**GET**   | `/company/{companyNumber}/officer/active`                                    | Calls service to retrieve the active officer details of single active officer company
+**GET**   | `/company/{companyNumber}/director/active`                                   | Calls service to retrieve the active director details of a company
 **GET**   | `/company/{companyNumber}/shareholders/count`                                | Calls service to retrieve the number of active company shareholders
 **GET**   | `/company/{companyNumber}/shareholders`                                      | Calls service to retrieve the list of all active company shareholders
 **GET**   | `/company/{companyNumber}/statement-of-capital`                              | Calls service to retrieve the statement of capital data for the company

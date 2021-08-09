@@ -1,36 +1,70 @@
 package uk.gov.ch.model.officer.active;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import uk.gov.ch.OracleQueryApplication;
+import uk.gov.companieshouse.logging.Logger;
+import uk.gov.companieshouse.logging.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-public class ActiveOfficerDetails {
+@Entity
+public class ActiveDirectorDetails {
 
+    @Id
+    @Column(name = "officer_detail_id")
+    @JsonIgnore
+    private int officerDetailId;
+    @Column(name = "fore_name_1")
     @JsonProperty("fore_name_1")
     private String foreName1;
+    @Column(name = "fore_name_2")
     @JsonProperty("fore_name_2")
     private String foreName2;
+    @Column(name = "surname")
     private String surname;
+    @Column(name = "occupation")
     private String occupation;
+    @Column(name = "nationality")
     private String nationality;
+    @Column(name = "date_of_birth")
     @JsonProperty("date_of_birth")
     private String dateOfBirth;
+    @Column(name = "service_address_line_1")
     @JsonProperty("service_address_line_1")
     private String serviceAddressLine1;
+    @Column(name = "service_address_post_town")
     @JsonProperty("service_address_post_town")
     private String serviceAddressPostTown;
+    @Column(name = "service_address_post_code")
     @JsonProperty("service_address_post_code")
     private String serviceAddressPostCode;
+    @Column(name = "ura_line_1")
     @JsonProperty("ura_line_1")
     private String uraLine1;
+    @Column(name = "ura_post_town")
     @JsonProperty("ura_post_town")
     private String uraPostTown;
+    @Column(name = "ura_post_code")
     @JsonProperty("ura_post_code")
     private String uraPostCode;
-    @JsonProperty("secure_indicator")
+    @Column(name = "secure_indicator")
+    @JsonIgnore
     private String secureIndicator;
+
+    public int getOfficerDetailId() {
+        return officerDetailId;
+    }
+
+    public void setOfficerDetailId(int officerDetailId) {
+        this.officerDetailId = officerDetailId;
+    }
 
     public String getServiceAddressLine1() {
         return serviceAddressLine1;
@@ -58,7 +92,7 @@ public class ActiveOfficerDetails {
 
     public String getUraLine1() {
         if (isSecureOfficer()) {
-            return null;
+            return "Companies House Cannot Disclose this Home Address";
         }
         return uraLine1;
     }
@@ -148,7 +182,7 @@ public class ActiveOfficerDetails {
         this.secureIndicator = secureIndicator;
     }
 
-    public boolean isSecureOfficer() {
+    private boolean isSecureOfficer() {
         return getSecureIndicator().equals("Y");
     }
 
