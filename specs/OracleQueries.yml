@@ -160,7 +160,7 @@ paths:
       - $ref: '#/components/parameters/companyNumber'
     get:
       tags:
-        - active-officer-details
+        - active-director-details
       operationId: getActiveDirectorDetails
       summary: Get a single object containing the data of the active director for the company
       responses:

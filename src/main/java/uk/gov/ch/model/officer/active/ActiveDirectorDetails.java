@@ -1,5 +1,11 @@
 package uk.gov.ch.model.officer.active;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import uk.gov.ch.OracleQueryApplication;
+import uk.gov.companieshouse.logging.Logger;
+import uk.gov.companieshouse.logging.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,9 +18,14 @@ import javax.persistence.Id;
 public class ActiveDirectorDetails {
 
     @Id
+    @Column(name = "officer_detail_id")
+    @JsonIgnore
+    private int officerDetailId;
     @Column(name = "fore_name_1")
+    @JsonProperty("fore_name_1")
     private String foreName1;
     @Column(name = "fore_name_2")
+    @JsonProperty("fore_name_2")
     private String foreName2;
     @Column(name = "surname")
     private String surname;
@@ -23,21 +34,38 @@ public class ActiveDirectorDetails {
     @Column(name = "nationality")
     private String nationality;
     @Column(name = "date_of_birth")
+    @JsonProperty("date_of_birth")
     private String dateOfBirth;
     @Column(name = "service_address_line_1")
+    @JsonProperty("service_address_line_1")
     private String serviceAddressLine1;
     @Column(name = "service_address_post_town")
+    @JsonProperty("service_address_post_town")
     private String serviceAddressPostTown;
     @Column(name = "service_address_post_code")
+    @JsonProperty("service_address_post_code")
     private String serviceAddressPostCode;
     @Column(name = "ura_line_1")
+    @JsonProperty("ura_line_1")
     private String uraLine1;
     @Column(name = "ura_post_town")
+    @JsonProperty("ura_post_town")
     private String uraPostTown;
     @Column(name = "ura_post_code")
+    @JsonProperty("ura_post_code")
     private String uraPostCode;
     @Column(name = "secure_indicator")
     private String secureIndicator;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+
+    public int getOfficerDetailId() {
+        return officerDetailId;
+    }
+
+    public void setOfficerDetailId(int officerDetailId) {
+        this.officerDetailId = officerDetailId;
+    }
 
     public String getServiceAddressLine1() {
         return serviceAddressLine1;
@@ -136,8 +164,14 @@ public class ActiveDirectorDetails {
         this.nationality = nationality;
     }
 
-    public String getDateOfBirth() throws ParseException {
-        Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+    public String getDateOfBirth() {
+        Date dob = null;
+        try {
+            dob = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+        }
         return new SimpleDateFormat("dd MMMMM yyyy").format(dob);
     }
 
@@ -155,6 +189,49 @@ public class ActiveDirectorDetails {
 
     private boolean isSecureOfficer() {
         return getSecureIndicator().equals("Y");
+    }
+
+    public String toJson() {
+        return new ActiveOfficerDetailJson().toString();
+    }
+
+    private class ActiveOfficerDetailJson {
+        @JsonProperty("fore_name_1")
+        private String foreName1;
+        @JsonProperty("fore_name_2")
+        private String foreName2;
+        private String surname;
+        private String occupation;
+        private String nationality;
+        @JsonProperty("date_of_birth")
+        private String dateOfBirth;
+        @JsonProperty("service_address_line_1")
+        private String serviceAddressLine1;
+        @JsonProperty("service_address_post_town")
+        private String serviceAddressPostTown;
+        @JsonProperty("service_address_post_code")
+        private String serviceAddressPostCode;
+        @JsonProperty("ura_line_1")
+        private String uraLine1;
+        @JsonProperty("ura_post_town")
+        private String uraPostTown;
+        @JsonProperty("ura_post_code")
+        private String uraPostCode;
+
+        public ActiveOfficerDetailJson() {
+            this.foreName1 = getForeName1();
+            this.foreName2 = getForeName2();
+            this.surname = getSurname();
+            this.occupation = getOccupation();
+            this.nationality = getNationality();
+            this.dateOfBirth = getDateOfBirth();
+            this.serviceAddressLine1 = getServiceAddressLine1();
+            this.serviceAddressPostTown = getServiceAddressPostTown();
+            this.serviceAddressPostCode = getServiceAddressPostCode();
+            this.uraLine1 = getUraLine1();
+            this.uraPostTown = getUraPostTown();
+            this.uraPostCode = getUraPostCode();
+        }
     }
 
 }

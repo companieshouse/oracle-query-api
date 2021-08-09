@@ -9,6 +9,7 @@ import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 public interface ActiveDirectorDetailsRepository extends PagingAndSortingRepository<ActiveDirectorDetails, Long> {
 
     @Query(value = "SELECT "
+            + "cba.officer_detail_id, "
             + "cba.officer_forename_1 AS fore_name_1, "
             + "cba.officer_forename_2 AS fore_name_2, "
             + "cba.officer_surname AS surname, "
