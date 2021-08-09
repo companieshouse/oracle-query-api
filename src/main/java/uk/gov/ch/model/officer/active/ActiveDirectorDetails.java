@@ -58,8 +58,6 @@ public class ActiveDirectorDetails {
     @JsonIgnore
     private String secureIndicator;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-
     public int getOfficerDetailId() {
         return officerDetailId;
     }
