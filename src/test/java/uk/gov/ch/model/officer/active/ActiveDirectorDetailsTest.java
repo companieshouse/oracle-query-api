@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
 
+import java.text.ParseException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -39,14 +41,14 @@ class ActiveDirectorDetailsTest {
 
     @Test
     @Description("Should return the non-secure director's formatted full date of birth")
-    void nonSecureActiveDirectorDetailsDobTest() {
+    void nonSecureActiveDirectorDetailsDobTest() throws ParseException {
         director.setSecureIndicator("N");
         assertEquals( FORMATTED_DOB, director.getDateOfBirth());
     }
 
     @Test
     @Description("Should return the secure director's formatted full date of birth")
-    void secureActiveDirectorDetailsDobTest() {
+    void secureActiveDirectorDetailsDobTest() throws ParseException {
         director.setSecureIndicator("Y");
         assertEquals( FORMATTED_DOB, director.getDateOfBirth());
     }

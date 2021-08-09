@@ -165,14 +165,11 @@ public class ActiveDirectorDetails {
         this.nationality = nationality;
     }
 
-    public String getDateOfBirth() {
-        Date dob = null;
-        try {
-            dob = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
-        } catch (ParseException e) {
-            LOGGER.error(e.getMessage());
-        }
-        return new SimpleDateFormat("dd MMMMM yyyy").format(dob);
+    public String getDateOfBirth() throws ParseException {
+        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
+        Date dob = formatFrom.parse(dateOfBirth);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        return simpleDateFormat.format(dob);
     }
 
     public void setDateOfBirth(String dateOfBirth) {
