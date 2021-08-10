@@ -2,17 +2,13 @@ package uk.gov.ch.model.officer.active;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import uk.gov.ch.OracleQueryApplication;
-import uk.gov.companieshouse.logging.Logger;
-import uk.gov.companieshouse.logging.LoggerFactory;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 public class ActiveDirectorDetails {
@@ -20,7 +16,7 @@ public class ActiveDirectorDetails {
     @Id
     @Column(name = "officer_detail_id")
     @JsonIgnore
-    private int officerDetailId;
+    private Long officerDetailId;
     @Column(name = "fore_name_1")
     @JsonProperty("fore_name_1")
     private String foreName1;
@@ -58,11 +54,11 @@ public class ActiveDirectorDetails {
     @JsonIgnore
     private String secureIndicator;
 
-    public int getOfficerDetailId() {
+    public Long getOfficerDetailId() {
         return officerDetailId;
     }
 
-    public void setOfficerDetailId(int officerDetailId) {
+    public void setOfficerDetailId(Long officerDetailId) {
         this.officerDetailId = officerDetailId;
     }
 
