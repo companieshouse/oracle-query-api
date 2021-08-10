@@ -206,6 +206,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personsOfSignificantControl'
+  /company/{company_number}/shareholders:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - shareholders
+      operationId: getShareholders
+      summary: Get a list of shareholders for the company
+      responses:
+        '200':
+          description: The details of the shareholders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/shareholders'
 components:
   schemas:
     companyOfficer:
@@ -797,6 +812,42 @@ components:
           type: string
           description: Country rle is located in
           example: "ENGLAND"
+    shareholders:
+      type: object
+      required:
+        - foreName1
+        - foreName2
+        - surname
+        - addressId
+        - shares
+        - shareClassTypeId
+        - currencyTypeId
+      properties:
+        foreName1:
+          type: string
+          description: The first name of the shareholder
+        foreName2:
+          type: string
+          description: The middle name of the shareholder
+        surname:
+          type: string
+          description: The surname of the shareholder
+        addressId:
+          type: long
+          description: The numerical id for the address of the shareholder
+          example: "3063647053"
+        shares:
+          type: long
+          description: The number of shares held by the shareholder
+          example: "1000"
+        shareClassTypeId:
+          type: long
+          description: The numerical id for the class of share held by the shareholder
+          example: "1"
+        currencyTypeId:
+          type: long
+          description: The numerical id for the currency held by the shareholder
+          example: "826"
   parameters:
     companyNumber:
       name: 'company_number'
