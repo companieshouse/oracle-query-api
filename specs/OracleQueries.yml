@@ -15,6 +15,8 @@ tags:
     description: search for a Scottish bankrupt officer
   - name: scottish-bankrupt-officer-details
     description: view details for a Scottish bankrupt officer
+  - name: filing-history
+    description: filing history obtained from the transactions relating to the company
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -155,7 +157,7 @@ paths:
           description: No statement of capital data found
         '500':
           description: More than one statement of capital data result found
-  /company/{companyNumber}/officer/active:
+  /company/{company_number}/officer/active:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
     get:
@@ -172,6 +174,23 @@ paths:
                 $ref: '#/components/schemas/activeOfficerDetails'
         '404':
           description: No active officer data found
+  /company/{company_number}/filing-history:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - filing-history
+      operationId: getTransactionHistory
+      summary: Get a list of objects containing the data of transactions for the company
+      responses:
+        '200':
+          description: The filing history data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/filing-history'
+        '404':
+          description: No filing history found
 
 
 components:
@@ -613,6 +632,52 @@ components:
         secureIndicator:
           type: string
           description: Flag to show whether the active officer is a secure officer
+    filing-history:
+      type: object
+      required:
+        - description
+        - paper_filed
+        - action_date
+        - type
+      properties: 
+        description:
+          type: string
+          description: The description text for the transaction
+        paper_filed:
+          type: boolean
+          description: Indicator if the filing was made via paper
+          example: false
+        action_date:
+          type: string
+          description: The date the transaction was created
+          example: "2021-01-01"
+        type:
+          type: string
+          description: The type of filing history transaction
+          example: "AP01"
+        associated-filings:
+          type: array
+          items:
+            $ref: '#/components/schemas/associated-filing'
+    associated-filing:
+      type: object
+      required:
+        - date
+        - description
+        - type
+      properties:
+        date:
+          type: string
+          description: The date the transaction was created
+          example: "2021-01-01"
+        description:
+          type: string
+          description: The description text for the transaction
+        type:
+          type: string
+          description: The type of filing history transaction
+          example: "SH01"
+
   parameters:
     companyNumber:
       name: 'company_number'
