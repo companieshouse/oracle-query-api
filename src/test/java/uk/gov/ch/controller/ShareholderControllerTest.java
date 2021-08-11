@@ -12,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -30,15 +32,19 @@ class ShareholderControllerTest {
 
     private static final String COMPANY_NUMBER = "12345678";
 
+    private static final int START_INDEX = 0;
+    private static final int ITEMS_PER_PAGE = 10;
+    Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
+
     @Test
     @DisplayName(("Get shareholders - company with shareholders"))
     void testGetShareholdersFromCorporateBodyWithShareholders() {
         List<Shareholder> shareholders = new ArrayList<Shareholder>();
         shareholders.add(new Shareholder());
         
-        when(service.getShareholders(COMPANY_NUMBER)).thenReturn(shareholders);
+        when(service.getShareholders(COMPANY_NUMBER, pageable)).thenReturn(shareholders);
 
-        ResponseEntity<List<Shareholder>> responseEntity = controller.getShareholders(COMPANY_NUMBER);
+        ResponseEntity<List<Shareholder>> responseEntity = controller.getShareholders(COMPANY_NUMBER, START_INDEX, ITEMS_PER_PAGE);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(shareholders, responseEntity.getBody());
         List<Shareholder> sharers = responseEntity.getBody();
@@ -50,9 +56,9 @@ class ShareholderControllerTest {
     void testGetShareholdersFromCorporateBodyWithNoShareholders() {
         List<Shareholder> shareholders = new ArrayList<Shareholder>();
         
-        when(service.getShareholders(COMPANY_NUMBER)).thenReturn(shareholders);
+        when(service.getShareholders(COMPANY_NUMBER, pageable)).thenReturn(shareholders);
 
-        ResponseEntity<List<Shareholder>>  responseEntity = controller.getShareholders(COMPANY_NUMBER);
+        ResponseEntity<List<Shareholder>>  responseEntity = controller.getShareholders(COMPANY_NUMBER,START_INDEX, ITEMS_PER_PAGE);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(shareholders, responseEntity.getBody());
         List<Shareholder> sharers = responseEntity.getBody();
