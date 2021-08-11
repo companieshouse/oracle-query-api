@@ -38,21 +38,16 @@ class ShareholderServiceImplTest {
     @Test
     void getShareholderCount() {
         when(shareholderRepository.getShareholderCount(any())).thenReturn(3);
-
         int result = shareholderService.getShareholderCount(COMPANY_NUMBER);
-
         assertEquals(3, result);
     }
 
    @Test
     void getShareholders() {
-        Page<Shareholder> expectedList = getMockShareholderRepo(0);
-
+        Page<Shareholder> expectedList = getMockShareholderRepo(1);
         when(shareholderRepository.getShareholders(COMPANY_NUMBER, pageable)).thenReturn(expectedList);
-
         List<Shareholder> result = shareholderService.getShareholders(COMPANY_NUMBER, pageable);
-
-        assertEquals(expectedList, result);
+        assertEquals(expectedList.getContent(), result);
     }
 
     private Page<Shareholder> getMockShareholderRepo(int count) {

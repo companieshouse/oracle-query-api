@@ -10,17 +10,16 @@ public interface ShareholderRepository  extends PagingAndSortingRepository<Share
 
     @Query(value = "SELECT "
             + "sh.SHAREHOLDER_ID, "
-            + "sh.SHAREHOLDER_FORENAME_1 AS FORENAME_1, "
-            + "sh.SHAREHOLDER_FORENAME_2 AS FORENAME_2, "
-            + "sh.SHAREHOLDER_SURNAME AS SURNAME, "
-            + "shd.NUMBER_OF_SHARES, "
+            + "sh.SHAREHOLDER_FORENAME_1 AS fore_name_1, "
+            + "sh.SHAREHOLDER_FORENAME_2 AS fore_name_2, "
+            + "sh.SHAREHOLDER_SURNAME AS surname, "
+            + "shd.NUMBER_OF_SHARES AS shares, "
             + "shd.SHARE_CLASS_TYPE_ID, "
             + "shd.CURRENCY_TYPE_ID "
             + "FROM shareholder sh INNER JOIN shareholding shd ON sh.SHAREHOLDING_ID = shd.SHAREHOLDING_ID "
             + "JOIN corporate_body cb ON cb.CORPORATE_BODY_ID = shd.CORPORATE_BODY_ID "
             + "WHERE cb.INCORPORATION_NUMBER = ?", nativeQuery = true)
     Page<Shareholder> getShareholders(String incorporationNumber, Pageable pageable);
-
 
     @Query(value = "SELECT COUNT(*) "
             + "FROM shareholder sh INNER JOIN shareholding shd ON sh.SHAREHOLDING_ID = shd.SHAREHOLDING_ID "
