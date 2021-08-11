@@ -1,19 +1,41 @@
 package uk.gov.ch.model.shareholder;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-@JsonInclude(Include.ALWAYS)
+@Entity
 public class Shareholder {
 
+    @Id
+    @Column(name = "shareholder_id")
+    @JsonIgnore
+    private Long shareholderId;
+    @Column(name = "fore_name_1")
+    @JsonProperty("fore_name_1")
     private String forename1;
+    @Column(name = "fore_name_2")
+    @JsonProperty("fore_name_2")
     private String forename2;
+    @Column(name = "surname")
     private String surname;
-    private long addressId;
+    @Column(name = "shares")
     private long shares;
+    @Column(name = "share_class_type_id")
     private long shareClassTypeId;
+    @Column(name = "currency_type_id")
     private long currencyTypeId;
+
+    public Long getShareholderId() {
+        return shareholderId;
+    }
+
+    public void setShareholderId(Long shareholderId) {
+        this.shareholderId = shareholderId;
+    }
 
     public String getForename1() {
         return forename1;
@@ -37,14 +59,6 @@ public class Shareholder {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(long addressId) {
-        this.addressId = addressId;
     }
 
     public long getShares() {

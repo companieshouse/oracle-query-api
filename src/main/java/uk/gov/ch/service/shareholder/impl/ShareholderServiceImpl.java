@@ -3,6 +3,7 @@ package uk.gov.ch.service.shareholder.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import uk.gov.ch.repository.shareholder.ShareholderRepository;
@@ -20,9 +21,8 @@ public class ShareholderServiceImpl implements ShareholderService {
         return shareholderRepository.getShareholderCount(incorporationNumber);
     }
 
-    @Override
-    public List<Shareholder> getShareholders(String incorporationNumber) {  
-        return shareholderRepository.getShareholders(incorporationNumber);
+    public List<Shareholder> getShareholders(String incorporationNumber, Pageable pageable) {
+        return shareholderRepository.getShareholders(incorporationNumber, pageable).toList();
     }
     
 }
