@@ -82,6 +82,15 @@ class TransactionServiceImplTest {
         assertNotNull(response);
         assertTrue(response.isEmpty());
     }
+    
+    @Test
+    @DisplayName("Test get transaction returns Company Not Found string")
+    void testGetTransactionRepositoryCompanyNotFoundString() throws Exception {
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company Not Found");
+        List<FilingApi> response = transactionService.getTransactions(COMPANY_NUMBER);
+        assertNotNull(response);
+        assertTrue(response.isEmpty());
+    }
 
     @Test
     @DisplayName("Test get transaction mapper throws a JsonMappingException")
