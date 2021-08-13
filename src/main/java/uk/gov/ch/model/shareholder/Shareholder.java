@@ -25,8 +25,10 @@ public class Shareholder {
     @Column(name = "shares")
     private long shares;
     @Column(name = "share_class_type_id")
+    @JsonProperty("share_class_type_id")
     private long shareClassTypeId;
     @Column(name = "currency_type_id")
+    @JsonProperty("currency_type_id")
     private long currencyTypeId;
 
     public Long getShareholderId() {
