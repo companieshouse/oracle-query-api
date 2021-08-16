@@ -8,8 +8,8 @@ import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 
 public interface ActiveDirectorDetailsRepository extends PagingAndSortingRepository<ActiveDirectorDetails, Long> {
 
-    @Query(value = "SELECT "
-            + "cba.officer_detail_id, "
+    @Query(value = "select * from ("
+            + "SELECT cba.officer_detail_id, "
             + "cba.officer_forename_1 AS fore_name_1, "
             + "cba.officer_forename_2 AS fore_name_2, "
             + "cba.officer_surname AS surname, "
@@ -23,12 +23,14 @@ public interface ActiveDirectorDetailsRepository extends PagingAndSortingReposit
             + "ura.post_town AS ura_post_town, "
             + "ura.post_code AS ura_post_code, "
             + "od.secure_director_service_ind AS secure_indicator "
-            + "FROM usual_residential_address ura "
-            + "RIGHT JOIN officer_detail od on ura.usual_residential_address_id = od.usual_residential_address_id "
-            + "JOIN corporate_body_appointment cba ON cba.officer_detail_id = od.officer_detail_id "
-            + "WHERE cba.corporate_body_id IN( select corporate_body_id from corporate_body where incorporation_number = ?)"
-            + "AND cba.resignation_ind = 'N' "
-            + "AND cba.appointment_type_id = 2"
-            + "AND cba.corporate_body_id in (SELECT corporate_body_id FROM corporate_body_appointment WHERE resignation_ind = 'N' AND appointment_type_id = 2 GROUP BY corporate_body_id HAVING COUNT(corporate_body_id) = 1)", nativeQuery = true)
+            + "FROM corporate_body cb inner join corporate_body_appointment cba ON cba.corporate_body_id=cb.corporate_body_id "
+            + "inner join officer_detail od on od.officer_detail_id=cba.officer_detail_id"
+            + "inner join usual_residential_address ura  on ura.usual_residential_address_id = od.usual_residential_address_id "
+            + "WHERE cb.incorporation_number = ? AND cba.resignation_ind = 'N' AND cba.appointment_type_id = 2"
+            + "group by cba.officer_detail_id, cba.officer_forename_1, cba.officer_forename_2, cba.officer_surname, "
+            + "            cba.occupation_desc, od.officer_nationality, od.officer_date_of_birth, "
+            + "            cba.service_address_line_1, cba.service_address_post_town, cba.service_address_post_code, ura.address_line_1, ura.post_town, ura.post_code, "
+            + "            od.secure_director_service_ind"
+            + "having count(1)=1) where rownum <= 1", nativeQuery = true)
     Page<ActiveDirectorDetails> getActiveDirectorDetails(String incorporationNumber, Pageable pageable);
 }
