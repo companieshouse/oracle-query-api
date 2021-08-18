@@ -36,16 +36,16 @@ public class TransactionTransformer {
             }
             filingHistoryApi.setItems(filingApiList);
             filingHistoryApi.setItemsPerPage((long)filingApiList.size());
-            filingHistoryApi.setStartIndex(0l);
             filingHistoryApi.setFilingHistoryStatus("filing-history-available");
             filingHistoryApi.setTotalCount((long)filingApiList.size());
         } else {
             filingHistoryApi.setItems(filingApiList);
             filingHistoryApi.setItemsPerPage(0l);
-            filingHistoryApi.setStartIndex(0l);
             filingHistoryApi.setFilingHistoryStatus("filing-history-unavailable");
             filingHistoryApi.setTotalCount(0l);
         }
+        filingHistoryApi.setStartIndex(0l);
+        filingHistoryApi.setKind("filing-history");
         return filingHistoryApi;
     }
     

@@ -132,6 +132,7 @@ class TransactionTransformerTest {
     	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItemsPerPage());
     	assertEquals(0l, filingHistoryApi.getStartIndex());
     	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getTotalCount());
+    	assertEquals("filing-history", filingHistoryApi.getKind());
     }
     
     @Test
@@ -144,18 +145,19 @@ class TransactionTransformerTest {
     	assertEquals(0l, filingHistoryApi.getItemsPerPage());
     	assertEquals(0l, filingHistoryApi.getStartIndex());
     	assertEquals(0l, filingHistoryApi.getTotalCount());
+    	assertEquals("filing-history", filingHistoryApi.getKind());
     }
     
     @Test
     @DisplayName("Transform an null to return a completed FilingHistoryApi object")
     void convertFilingHistoryWithNullListOfFilingTransactions() {
-    	List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
     	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(null);
     	assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
     	assertEquals(0l, filingHistoryApi.getItems().size());
     	assertEquals(0l, filingHistoryApi.getItemsPerPage());
     	assertEquals(0l, filingHistoryApi.getStartIndex());
     	assertEquals(0l, filingHistoryApi.getTotalCount());
+    	assertEquals("filing-history", filingHistoryApi.getKind());
     }
 
     private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi) {
