@@ -188,7 +188,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/filing-history'
+                $ref: '#/components/schemas/filingHistoryList'
         '404':
           description: No filing history found
   /company/{company_number}/corporate-body-appointments/persons-of-significant-control:
@@ -656,7 +656,36 @@ components:
         uraPostCode:
           type: string
           description: The usual residential address postcode
-    filing-history:
+    filingHistoryList:
+      type: object
+      required:
+        - filing_history_status
+        - items_per_page
+        - start_index
+        - total_count
+      properties:
+        filing_history_status:
+          type: string
+          description: "The status of this filing history."
+          example: "filing-history-available"
+        items: 
+          type: array
+          items:
+            $ref: '#/components/schemas/filingHistoryItem'
+        items_per_page:
+          type: integer
+          description: "The number of filing history items returned per page."
+        start_index:
+          type: integer
+          description: "The index into the entire result set that this result page starts."
+        total_count:
+          type: integer
+          description: "The total number of filing history items for this company."
+        kind:
+          type: string
+          description: "Indicates this resource is a filing history."
+          example: "filing-history"
+    filingHistoryItem:
       type: object
       required:
         - description
