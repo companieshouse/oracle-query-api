@@ -12,6 +12,7 @@ import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
 import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
 import uk.gov.companieshouse.api.model.filinghistory.AssociatedFilingsApi;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
+import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 
 @Component
 public class TransactionTransformer {
@@ -25,6 +26,29 @@ public class TransactionTransformer {
         return gaz2Transaction;
     }
 
+    public FilingHistoryApi convertToFilingHistoryApi(List<FilingHistoryTransaction> filingHistoryTransactions) {
+        List<FilingApi> filingApiList = new ArrayList<>();
+        FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
+
+        if(filingHistoryTransactions != null && !filingHistoryTransactions.isEmpty()) {            
+            for(FilingHistoryTransaction fht : filingHistoryTransactions) {
+                filingApiList.add(convert(fht));
+            }
+            filingHistoryApi.setItems(filingApiList);
+            filingHistoryApi.setItemsPerPage((long)filingApiList.size());
+            filingHistoryApi.setStartIndex(0l);
+            filingHistoryApi.setFilingHistoryStatus("filing-history-available");
+            filingHistoryApi.setTotalCount((long)filingApiList.size());
+        } else {
+            filingHistoryApi.setItems(filingApiList);
+            filingHistoryApi.setItemsPerPage(0l);
+            filingHistoryApi.setStartIndex(0l);
+            filingHistoryApi.setFilingHistoryStatus("filing-history-unavailable");
+            filingHistoryApi.setTotalCount(0l);
+        }
+        return filingHistoryApi;
+    }
+    
     public FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
         FilingApi filingApi = new FilingApi();
         filingApi.setDescription(filingHistoryTransaction.getDescription());

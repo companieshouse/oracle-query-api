@@ -2,11 +2,12 @@ package uk.gov.ch.service.transaction.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.repository.transaction.TransactionRepository;
 import uk.gov.ch.transformers.transaction.TransactionTransformer;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
+import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 
 @ExtendWith(MockitoExtension.class)
 class TransactionServiceImplTest {
@@ -53,43 +55,45 @@ class TransactionServiceImplTest {
     @Test
     @DisplayName("Test get transactions returns successfully")
     void testGetTransactionReturnsSuccessfully() throws Exception {
+    	List<FilingHistoryTransaction> transactionList = getFilingHistoryTransactionList();
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(getResponseJson());
         when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenReturn(mockJsonNode);
         when(mockJsonNode.get("filing_history")).thenReturn(mockJsonNode);
         when(objectMapper.convertValue(any(JsonNode.class),
                 ArgumentMatchers.<TypeReference<List<FilingHistoryTransaction>>>any()))
-                        .thenReturn(getFilingHistoryTransactionList());
-        List<FilingApi> response = transactionService.getTransactions(COMPANY_NUMBER);
+                        .thenReturn(transactionList);
+        when(transactionTransformer.convertToFilingHistoryApi(transactionList)).thenReturn(getFilingHistoryApi());
+        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
-        assertEquals(1, response.size());
+        assertEquals(1, response.getItems().size());
 
     }
 
     @Test
     @DisplayName("Test get transaction returns empty list")
     void testGetTransactionRepositoryEmptyResponse() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("");
-        List<FilingApi> response = transactionService.getTransactions(COMPANY_NUMBER);
+    	when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("");
+        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
-        assertTrue(response.isEmpty());
+        assertNull(response.getItems());
     }
 
     @Test
     @DisplayName("Test get transaction returns null list")
     void testGetTransactionRepositoryNullResponse() throws Exception {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(null);
-        List<FilingApi> response = transactionService.getTransactions(COMPANY_NUMBER);
+        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
-        assertTrue(response.isEmpty());
+        assertNull(response.getItems());
     }
     
     @Test
     @DisplayName("Test get transaction returns Company Not Found string")
     void testGetTransactionRepositoryCompanyNotFoundString() throws Exception {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company Not Found");
-        List<FilingApi> response = transactionService.getTransactions(COMPANY_NUMBER);
+        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
-        assertTrue(response.isEmpty());
+        assertNull(response.getItems());
     }
 
     @Test
@@ -146,6 +150,12 @@ class TransactionServiceImplTest {
                 + "]"
             + "}";
     }
+    
+    private FilingHistoryApi getFilingHistoryApi() {
+    	FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
+    	filingHistoryApi.setItems(getFilingApiList());
+    	return filingHistoryApi;
+    }
 
     private List<FilingHistoryTransaction> getFilingHistoryTransactionList() {
         List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
@@ -159,5 +169,18 @@ class TransactionServiceImplTest {
         fht.setReceiveDate("20210102111213");
         filingHistoryTransactionList.add(fht);
         return filingHistoryTransactionList;
+    }
+    
+    private List<FilingApi> getFilingApiList() {
+        List<FilingApi> filingApiList = new ArrayList<>();
+        FilingApi filingApi = new FilingApi();
+        filingApi.setActionDate(LocalDate.of(2021, 8, 8));
+        filingApi.setDescription("DESCRIPTION");
+        filingApi.setPaperFiled(false);
+        filingApi.setBarcode("AAAAAAAA");
+        filingApi.setTransactionId("1234567890");
+        filingApi.setType("FORM_TYPE");
+        filingApiList.add(filingApi);
+        return filingApiList;
     }
 }
