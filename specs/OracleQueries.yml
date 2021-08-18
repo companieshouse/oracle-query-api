@@ -157,7 +157,7 @@ paths:
           description: No statement of capital data found
         '500':
           description: More than one statement of capital data result found
-  /company/{company_number}/officer/active:
+  /company/{company_number}/director/active:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
     get:
@@ -613,12 +613,8 @@ components:
         - occupation
         - nationality
         - dateOfBirth
-        - serviceAddressLine1
-        - serviceAddressPostTown
-        - serviceAddressPostCode
-        - uraLine1
-        - uraPostTown
-        - uraPostCode
+        - serviceAddress
+        - residentialAddress
       properties:
         foreName1:
           type: string
@@ -638,24 +634,12 @@ components:
         dateOfBirth:
           type: string
           description: The full date of birth of the active director
-        serviceAddressLine1:
-          type: string
-          description: The first line of the service address (house name/number and street)
-        serviceAddressPostTown:
-          type: string
-          description: The service address post town
-        serviceAddressPostCode:
-          type: string
-          description: The service address postcode
-        uraLine1:
-          type: string
-          description: The first line of the usual residential address (house name/number and street)
-        uraPostTown:
-          type: string
-          description: The usual residential address post town
-        uraPostCode:
-          type: string
-          description: The usual residential address postcode
+        serviceAddress:
+          type: Address
+          description: The service address of the active director
+        residentialAddress:
+          type: Address
+          description: The Usual Residential Address (URA) of the active director
     filing-history:
       type: object
       required:

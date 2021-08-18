@@ -31,12 +31,12 @@ class ActiveDirectorDetailsTest {
         director.setOccupation("singer");
         director.setNationality("British");
         director.setDateOfBirth(UNFORMATTED_DOB);
-        director.setServiceAddressLine1("Diddly squat farm shop");
-        director.setServiceAddressPostTown("Chadlington");
-        director.setServiceAddressPostCode("OX7 3PE");
-        director.setUraLine1(URA_LINE_1);
-        director.setUraPostTown(URA_POST_TOWN);
-        director.setUraPostCode(URA_POST_CODE);
+        
+        director.setResidentialAddressLine1(URA_LINE_1);
+        director.setResidentialAddressLine2("Crown Way");
+        director.setResidentialAddressCountry("Wales");
+        director.setResidentialAddressLocality(URA_POST_TOWN);
+        director.setResidentialAddressPostCode(URA_POST_CODE);
     }
 
     @Test
@@ -57,18 +57,18 @@ class ActiveDirectorDetailsTest {
     @Description("Should return the non-secure director's URA")
     void nonSecureActiveDirectorDetailsUraTest() {
         director.setSecureIndicator("N");
-        assertEquals(URA_LINE_1, director.getUraLine1());
-        assertEquals(URA_POST_TOWN, director.getUraPostTown());
-        assertEquals(URA_POST_CODE, director.getUraPostCode());
+        assertEquals(URA_LINE_1, director.getResidentialAddress().getAddressLine1());
+        assertEquals(URA_POST_TOWN, director.getResidentialAddress().getLocality());
+        assertEquals(URA_POST_CODE, director.getResidentialAddress().getPostalCode());
     }
 
     @Test
     @Description("Should NOT return the secure director's URA but just a message in line 1")
     void secureActiveDirectorDetailsUraTest() {
         director.setSecureIndicator("Y");
-        assertEquals(SECURE_DIRECTOR_URA_LINE_1, director.getUraLine1());
-        assertEquals( null, director.getUraPostTown());
-        assertEquals(null, director.getUraPostCode());
+        assertEquals(SECURE_DIRECTOR_URA_LINE_1, director.getResidentialAddress().getAddressLine1());
+        assertEquals( null, director.getResidentialAddress().getLocality());
+        assertEquals(null, director.getResidentialAddress().getPostalCode());
     }
 
     @Test
