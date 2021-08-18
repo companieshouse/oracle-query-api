@@ -19,6 +19,7 @@ import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
 import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
 import uk.gov.companieshouse.api.model.filinghistory.AssociatedFilingsApi;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
+import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 
 @ExtendWith(MockitoExtension.class)
 class TransactionTransformerTest {
@@ -117,6 +118,46 @@ class TransactionTransformerTest {
         FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertTrue(filingApi.isPaperFiled());
+    }
+    
+    @Test
+    @DisplayName("Transform a list of filing transactions to return a completed FilingHistoryApi object")
+    void convertFilingHistoryWithListOfFilingTransactions() {
+    	List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
+    	filingHistoryTransactionList.add(setUpFilingHistoryTransaction(false));
+    	filingHistoryTransactionList.add(setUpFilingHistoryTransaction(false));
+    	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactionList);
+    	assertEquals("filing-history-available", filingHistoryApi.getFilingHistoryStatus());
+    	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItems().size());
+    	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItemsPerPage());
+    	assertEquals(0l, filingHistoryApi.getStartIndex());
+    	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getTotalCount());
+    	assertEquals("filing-history", filingHistoryApi.getKind());
+    }
+    
+    @Test
+    @DisplayName("Transform an empty list of filing transactions to return a completed FilingHistoryApi object")
+    void convertFilingHistoryWithEmptyListOfFilingTransactions() {
+    	List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
+    	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactionList);
+    	assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
+    	assertEquals(0l, filingHistoryApi.getItems().size());
+    	assertEquals(0l, filingHistoryApi.getItemsPerPage());
+    	assertEquals(0l, filingHistoryApi.getStartIndex());
+    	assertEquals(0l, filingHistoryApi.getTotalCount());
+    	assertEquals("filing-history", filingHistoryApi.getKind());
+    }
+    
+    @Test
+    @DisplayName("Transform an null to return a completed FilingHistoryApi object")
+    void convertFilingHistoryWithNullListOfFilingTransactions() {
+    	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(null);
+    	assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
+    	assertEquals(0l, filingHistoryApi.getItems().size());
+    	assertEquals(0l, filingHistoryApi.getItemsPerPage());
+    	assertEquals(0l, filingHistoryApi.getStartIndex());
+    	assertEquals(0l, filingHistoryApi.getTotalCount());
+    	assertEquals("filing-history", filingHistoryApi.getKind());
     }
 
     private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi) {

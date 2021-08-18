@@ -15,6 +15,7 @@ import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.service.transaction.TransactionService;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
+import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -27,7 +28,7 @@ public class TransactionController {
     private TransactionService transactionService;
 
     @GetMapping("/company/{companyNumber}/filing-history")
-    public ResponseEntity<List<FilingApi>> getTransactionHistory(@PathVariable String companyNumber) {
+    public ResponseEntity<FilingHistoryApi> getTransactionHistory(@PathVariable String companyNumber) {
         Map<String, Object> logMap = new HashMap<>();
         logMap.put("company_number", companyNumber);
         LOGGER.info("Getting transaction history for " + companyNumber, logMap);
@@ -36,13 +37,13 @@ public class TransactionController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
         try {
-            List<FilingApi> filingHistoryTransactions = transactionService.getTransactions(companyNumber);
-            if (filingHistoryTransactions.isEmpty()) {
+            FilingHistoryApi filingHistory = transactionService.getTransactions(companyNumber);
+            if (filingHistory.getItems().isEmpty()) {
                 logProgess("No transactions found", logMap);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
             logProgess("Returning transactions for company", logMap);
-            return ResponseEntity.status(HttpStatus.OK).body(filingHistoryTransactions);
+            return ResponseEntity.status(HttpStatus.OK).body(filingHistory);
         } catch (TransactionMappingException e) {
             logProgess("Exception when mapping results", logMap);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
