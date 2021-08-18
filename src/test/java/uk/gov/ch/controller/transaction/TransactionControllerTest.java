@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.service.transaction.TransactionService;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
+import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 
 @ExtendWith(MockitoExtension.class)
 class TransactionControllerTest {
@@ -35,25 +36,27 @@ class TransactionControllerTest {
     @DisplayName("Get transaction history returns a 200 and a list of FilingApi")
     void testGetTransactionHistoryReturnsSuccessfully() throws Exception {
         List<FilingApi> filingApiList = new ArrayList<>();
+        FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
         filingApiList.add(new FilingApi());
-        when(transactionService.getTransactions(COMPANY_NUMBER)).thenReturn(filingApiList);
-        ResponseEntity<List<FilingApi>> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
+        filingHistoryApi.setItems(filingApiList);
+        when(transactionService.getTransactions(COMPANY_NUMBER)).thenReturn(filingHistoryApi);
+        ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(filingApiList.size(), response.getBody().size());
+        assertEquals(filingHistoryApi.getItems().size(), response.getBody().getItems().size());
     }
 
     @Test
     @DisplayName("Get transaction history with no company number returns a Http Bad Request")
     void testGetTransactionHistoryNullCompanyNumberReturnsBadRequest() {
-        ResponseEntity<List<FilingApi>> response = transactionController.getTransactionHistory(null);
+        ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(null);
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
     @Test
     @DisplayName("Get transaction history with no company number returns a Http Bad Request")
     void testGetTransactionHistoryEmptyCompanyNumberReturnsBadRequest() {
-        ResponseEntity<List<FilingApi>> response = transactionController.getTransactionHistory("");
+        ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory("");
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 
@@ -61,15 +64,18 @@ class TransactionControllerTest {
     @DisplayName("Get transaction history returns a Server Error if TransactionMappingException thrown")
     void testGetTransactionHistoryTransactionMappingExceptionReturnsServerError() throws Exception {
         when(transactionService.getTransactions(COMPANY_NUMBER)).thenThrow(TransactionMappingException.class);
-        ResponseEntity<List<FilingApi>> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
+        ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 
     @Test
     @DisplayName("Get transaction history no results found returns a Http Not Found")
     void testGetTransactionHistoryNoResultsReturnsNotFound() throws Exception {
-        when(transactionService.getTransactions(COMPANY_NUMBER)).thenReturn(new ArrayList<FilingApi>());
-        ResponseEntity<List<FilingApi>> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
+        List<FilingApi> filingApiList = new ArrayList<>();
+        FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
+        filingHistoryApi.setItems(filingApiList);
+        when(transactionService.getTransactions(COMPANY_NUMBER)).thenReturn(filingHistoryApi);
+        ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 }
