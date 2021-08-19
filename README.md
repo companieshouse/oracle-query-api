@@ -37,8 +37,7 @@ Query parameter          | Description
 :------------------------|:-----------
 `items_per_page`         | Number of items per page returned in this list
 `start_index`            | Zero indexed, the offset into the entire list that this page starts at
-`payment_period_due_date`| Specify date to search for against a specified company when verifying payment for confirmation statement 
-
+`payment_period_due_date`| The confirmation statement payment period due date to search for against a specified company when verifying payment for confirmation statement. Date must be ISO format yyyy-MM-dd e.g. 2019-03-31
 ### Configuration
 
 Key                | Description
