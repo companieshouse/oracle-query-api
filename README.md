@@ -34,7 +34,7 @@ Method    | Path                                                                
 
 ### Query parameters
 Query parameter          | Description
-:----------------------- |:-----------
+:------------------------|:-----------
 `items_per_page`         | Number of items per page returned in this list
 `start_index`            | Zero indexed, the offset into the entire list that this page starts at
 `payment_period_due_date`| Specify date to search for against a specified company when verifying payment for confirmation statement 
