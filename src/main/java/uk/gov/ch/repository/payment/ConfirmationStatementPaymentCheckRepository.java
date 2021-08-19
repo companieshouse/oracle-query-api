@@ -7,7 +7,6 @@ import uk.gov.ch.model.payment.ConfirmationStatementPayment;
 import java.sql.Date;
 import java.util.Optional;
 
-
 public interface ConfirmationStatementPaymentCheckRepository extends CrudRepository<ConfirmationStatementPayment, Long> {
 
     @Query(value = "select " +

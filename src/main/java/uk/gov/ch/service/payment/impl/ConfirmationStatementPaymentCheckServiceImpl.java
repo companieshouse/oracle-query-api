@@ -43,5 +43,4 @@ public class ConfirmationStatementPaymentCheckServiceImpl implements Confirmatio
         LOGGER.info("Confirmation statement payment query returned no result");
         return false;
     }
-
 }

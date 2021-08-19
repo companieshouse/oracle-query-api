@@ -31,7 +31,6 @@ class ConfirmationStatementPaymentCheckServiceImplTest {
     @Mock
     private ConfirmationStatementPaymentCheckRepository confirmationStatementPaymentCheckRepository;
 
-
     @Test
     void testIsConfirmationStatementPaid() {
         ConfirmationStatementPayment confirmationStatementPayment = new ConfirmationStatementPayment();
