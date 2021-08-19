@@ -16,8 +16,9 @@ public class ConfirmationStatementPaymentCheckController {
     private ConfirmationStatementPaymentCheckService confirmationStatementPaymentCheckService;
 
     @GetMapping("/company/{companyNumber}/confirmation-statement/paid")
-    public ResponseEntity<Boolean> isConfirmationStatementPaid(@PathVariable String companyNumber, @RequestParam("paymentPeriodDueDate") String dueDate) {
-        boolean isConfirmationStatementPaid = confirmationStatementPaymentCheckService.isConfirmationStatementPaid(companyNumber, dueDate);
+    public ResponseEntity<Boolean> isConfirmationStatementPaid(@PathVariable String companyNumber,
+                                                               @RequestParam(name = "payment_period_due_date", required = true) String paymentPeriodDueDate) {
+        boolean isConfirmationStatementPaid = confirmationStatementPaymentCheckService.isConfirmationStatementPaid(companyNumber, paymentPeriodDueDate);
         return ResponseEntity.status(HttpStatus.OK).body(isConfirmationStatementPaid);
     }
 }

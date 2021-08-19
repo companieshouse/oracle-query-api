@@ -30,14 +30,14 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/statement-of-capital`                                      | Calls service to retrieve the statement of capital data for the company
 **GET**   | `/company/{companyNumber}/filing-history`                                            | Calls service to retrieve the filing history transactions
 **GET**   | `/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control`| Calls service to retrieve the psc data for the company
+**GET**   | `/company/{companyNumber}/confirmation-statement/paid`                               | Calls service to verify confirmation statement payment has been made for company on due date
 
 ### Query parameters
-Query parameter  | Description
-:----------------|:-----------
-`items_per_page` | Number of items per page returned in this list
-`start_index`    | Zero indexed, the offset into the entire list that this page starts at
-
-
+Query parameter          | Description
+:------------------------|:-----------
+`items_per_page`         | Number of items per page returned in this list
+`start_index`            | Zero indexed, the offset into the entire list that this page starts at
+`payment_period_due_date`| The confirmation statement payment period due date to search for against a specified company when verifying payment for confirmation statement. Date must be ISO format yyyy-MM-dd e.g. 2019-03-31
 ### Configuration
 
 Key                | Description

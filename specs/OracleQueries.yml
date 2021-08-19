@@ -221,6 +221,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/shareholders'
+  /company/{company_number}/confirmation-statement/paid:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+      - $ref: '#/components/parameters/paymentPeriodDueDate'
+    get:
+      tags:
+        - paid
+      operationId: isConfirmationStatementPaid
+      summary: Flag to say whether a payment has been made or not for that period
+      responses:
+        '200':
+          description: Boolean flag
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/confirmationStatementPayment'
 components:
   schemas:
     companyOfficer:
@@ -861,6 +877,10 @@ components:
           type: long
           description: The numerical id for the currency held by the shareholder
           example: "826"
+    confirmationStatementPayment:
+      type: object
+      required:
+        - paidByTransactionId
   parameters:
     companyNumber:
       name: 'company_number'
@@ -904,3 +924,10 @@ components:
       schema:
         type: string
       example: "B67053D91CC750DEE05400144FFBDD12"
+    paymentPeriodDueDate:
+      name: 'payment_period_due_date'
+      description: 'Specifies when payment is due for a particular company'
+      in: 'query'
+      required: true
+      schema:
+        type: string
