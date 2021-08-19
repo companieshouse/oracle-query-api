@@ -1,11 +1,12 @@
 package uk.gov.ch.model.officer.active;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import uk.gov.companieshouse.api.model.common.Address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,7 +16,6 @@ public class ActiveDirectorDetails {
 
     @Id
     @Column(name = "officer_detail_id")
-    @JsonIgnore
     private Long officerDetailId;
     @Column(name = "fore_name_1")
     @JsonProperty("fore_name_1")
@@ -23,100 +23,60 @@ public class ActiveDirectorDetails {
     @Column(name = "fore_name_2")
     @JsonProperty("fore_name_2")
     private String foreName2;
-    @Column(name = "surname")
+    @Column(name = "SURNAME")
     private String surname;
-    @Column(name = "occupation")
+    @Column(name = "OCCUPATION")
     private String occupation;
-    @Column(name = "nationality")
+    @Column(name = "NATIONALITY")
     private String nationality;
-    @Column(name = "date_of_birth")
+    @Column(name = "DATE_OF_BIRTH")
     @JsonProperty("date_of_birth")
     private String dateOfBirth;
-    @Column(name = "service_address_line_1")
-    @JsonProperty("service_address_line_1")
+    @Column(name = "SERVICE_ADDRESS_LINE_1")
     private String serviceAddressLine1;
-    @Column(name = "service_address_post_town")
-    @JsonProperty("service_address_post_town")
-    private String serviceAddressPostTown;
-    @Column(name = "service_address_post_code")
-    @JsonProperty("service_address_post_code")
+    @Column(name = "SERVICE_ADDRESS_LINE_2")
+    private String serviceAddressLine2;
+    @Column(name = "SERVICE_ADDRESS_CARE_OF")
+    private String serviceAddressCareOf;
+    @Column(name = "SERVICE_ADDRESS_COUNTRY")
+    private String serviceAddressCountry;
+    @Column(name = "SERVICE_ADDRESS_LOCALITY")
+    private String serviceAddressLocality;
+    @Column(name = "SERVICE_ADDRESS_PO_BOX")
+    private String serviceAddressPoBox;
+    @Column(name = "SERVICE_ADDRESS_POST_CODE")
     private String serviceAddressPostCode;
-    @Column(name = "ura_line_1")
-    @JsonProperty("ura_line_1")
-    private String uraLine1;
-    @Column(name = "ura_post_town")
-    @JsonProperty("ura_post_town")
-    private String uraPostTown;
-    @Column(name = "ura_post_code")
-    @JsonProperty("ura_post_code")
-    private String uraPostCode;
-    @Column(name = "secure_indicator")
-    @JsonIgnore
+    @Column(name = "SERVICE_ADDRESS_REGION")
+    private String serviceAddressRegion;
+    @Column(name = "RESIDENTIAL_ADDRESS_LINE_1")
+    private String residentialAddressLine1;
+    @Column(name = "RESIDENTIAL_ADDRESS_LINE_2")
+    private String residentialAddressLine2;
+    @Column(name = "RESIDENTIAL_ADDRESS_CARE_OF")
+    private String residentialAddressCareOf;
+    @Column(name = "RESIDENTIAL_ADDRESS_COUNTRY")
+    private String residentialAddressCountry;
+    @Column(name = "RESIDENTIAL_ADDRESS_LOCALITY")
+    private String residentialAddressLocality;
+    @Column(name = "RESIDENTIAL_ADDRESS_PO_BOX")
+    private String residentialAddressPoBox;
+    @Column(name = "RESIDENTIAL_ADDRESS_POST_CODE")
+    private String residentialAddressPostCode;
+    @Column(name = "RESIDENTIAL_ADDRESS_REGION")
+    private String residentialAddressRegion;
+    @Column(name = "SECURE_INDICATOR")
     private String secureIndicator;
 
-    public Long getOfficerDetailId() {
-        return officerDetailId;
-    }
+    @Transient
+    @JsonProperty("service_address")
+    private Address serviceAddress;
+
+    @Transient
+    @JsonProperty("residential_address")
+    private Address residentialAddress;
 
     public void setOfficerDetailId(Long officerDetailId) {
         this.officerDetailId = officerDetailId;
-    }
-
-    public String getServiceAddressLine1() {
-        return serviceAddressLine1;
-    }
-
-    public void setServiceAddressLine1(String serviceAddressLine1) {
-        this.serviceAddressLine1 = serviceAddressLine1;
-    }
-
-    public String getServiceAddressPostTown() {
-        return serviceAddressPostTown;
-    }
-
-    public void setServiceAddressPostTown(String serviceAddressPostTown) {
-        this.serviceAddressPostTown = serviceAddressPostTown;
-    }
-
-    public String getServiceAddressPostCode() {
-        return serviceAddressPostCode;
-    }
-
-    public void setServiceAddressPostCode(String serviceAddressPostCode) {
-        this.serviceAddressPostCode = serviceAddressPostCode;
-    }
-
-    public String getUraLine1() {
-        if (isSecureOfficer()) {
-            return "Companies House Cannot Disclose this Home Address";
-        }
-        return uraLine1;
-    }
-
-    public void setUraLine1(String uraLine1) {
-        this.uraLine1 = uraLine1;
-    }
-
-    public String getUraPostTown() {
-        if (isSecureOfficer()) {
-            return null;
-        }
-        return uraPostTown;
-    }
-
-    public void setUraPostTown(String uraPostTown) {
-        this.uraPostTown = uraPostTown;
-    }
-
-    public String getUraPostCode() {
-        if (isSecureOfficer()) {
-            return null;
-        }
-        return uraPostCode;
-    }
-
-    public void setUraPostCode(String uraPostCode) {
-        this.uraPostCode = uraPostCode;
     }
 
     public String getForeName1() {
@@ -170,16 +130,105 @@ public class ActiveDirectorDetails {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getSecureIndicator() {
-        return secureIndicator;
-    }
-
     public void setSecureIndicator(String secureIndicator) {
         this.secureIndicator = secureIndicator;
     }
 
     private boolean isSecureOfficer() {
-        return getSecureIndicator().equals("Y");
+        return secureIndicator.equals("Y");
     }
 
+    public void setServiceAddressLine1(String serviceAddressLine1) {
+        this.serviceAddressLine1 = serviceAddressLine1;
+    }
+
+    public void setServiceAddressLine2(String serviceAddressLine2) {
+        this.serviceAddressLine2 = serviceAddressLine2;
+    }
+
+    public void setServiceAddressCareOf(String serviceAddressCareOf) {
+        this.serviceAddressCareOf = serviceAddressCareOf;
+    }
+
+    public void setServiceAddressCountry(String serviceAddressCountry) {
+        this.serviceAddressCountry = serviceAddressCountry;
+    }
+
+    public void setServiceAddressLocality(String serviceAddressLocality) {
+        this.serviceAddressLocality = serviceAddressLocality;
+    }
+
+    public void setServiceAddressPoBox(String serviceAddressPoBox) {
+        this.serviceAddressPoBox = serviceAddressPoBox;
+    }
+
+    public void setServiceAddressPostCode(String serviceAddressPostCode) {
+        this.serviceAddressPostCode = serviceAddressPostCode;
+    }
+
+    public void setServiceAddressRegion(String serviceAddressRegion) {
+        this.serviceAddressRegion = serviceAddressRegion;
+    }
+
+    public void setResidentialAddressLine1(String residentialAddressLine1) {
+        this.residentialAddressLine1 = residentialAddressLine1;
+    }
+
+    public void setResidentialAddressLine2(String residentialAddressLine2) {
+        this.residentialAddressLine2 = residentialAddressLine2;
+    }
+
+    public void setResidentialAddressCareOf(String residentialAddressCareOf) {
+        this.residentialAddressCareOf = residentialAddressCareOf;
+    }
+
+    public void setResidentialAddressCountry(String residentialAddressCountry) {
+        this.residentialAddressCountry = residentialAddressCountry;
+    }
+
+    public void setResidentialAddressLocality(String residentialAddressLocality) {
+        this.residentialAddressLocality = residentialAddressLocality;
+    }
+
+    public void setResidentialAddressPoBox(String residentialAddressPoBox) {
+        this.residentialAddressPoBox = residentialAddressPoBox;
+    }
+
+    public void setResidentialAddressPostCode(String residentialAddressPostCode) {
+        this.residentialAddressPostCode = residentialAddressPostCode;
+    }
+
+    public void setResidentialAddressRegion(String residentialAddressRegion) {
+        this.residentialAddressRegion = residentialAddressRegion;
+    }
+
+    public Address getServiceAddress() {
+        Address address = new Address();
+        address.setAddressLine1(serviceAddressLine1);
+        address.setAddressLine2(serviceAddressLine2);
+        address.setCareOf(serviceAddressCareOf);
+        address.setCountry(serviceAddressCountry);
+        address.setLocality(serviceAddressLocality);
+        address.setPoBox(serviceAddressPoBox);
+        address.setPostalCode(serviceAddressPostCode);
+        address.setRegion(serviceAddressRegion);
+        return address;
+    }
+
+    public Address getResidentialAddress() {
+        Address address = new Address();
+        if (isSecureOfficer()) {
+            address.setAddressLine1("Companies House Cannot Disclose this Home Address");
+        } else {
+            address.setAddressLine1(residentialAddressLine1);
+            address.setAddressLine2(residentialAddressLine2);
+            address.setCareOf(residentialAddressCareOf);
+            address.setCountry(residentialAddressCountry);
+            address.setLocality(residentialAddressLocality);
+            address.setPoBox(residentialAddressPoBox);
+            address.setPostalCode(residentialAddressPostCode);
+            address.setRegion(residentialAddressRegion);
+        }
+        return address;
+    }
 }
