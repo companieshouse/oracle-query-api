@@ -38,7 +38,7 @@ public class TransactionController {
         }
         try {
             FilingHistoryApi filingHistory = transactionService.getTransactions(companyNumber);
-            if (filingHistory.getItems().isEmpty()) {
+            if (filingHistory.getItems() == null || filingHistory.getItems().isEmpty()) {
                 logProgess("No transactions found", logMap);
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
