@@ -78,4 +78,13 @@ class TransactionControllerTest {
         ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+    
+    @Test
+    @DisplayName("Get transaction history items array null returns a Http Not Found")
+    void testGetTransactionHistoryNullItemsReturnsNotFound() throws Exception {
+    	FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
+        when(transactionService.getTransactions(COMPANY_NUMBER)).thenReturn(filingHistoryApi);
+        ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 }
