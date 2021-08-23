@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.payment.ConfirmationStatementPayment;
+import uk.gov.ch.model.payment.ConfirmationStatementPaymentJson;
 import uk.gov.ch.repository.payment.ConfirmationStatementPaymentCheckRepository;
 import uk.gov.ch.service.payment.ConfirmationStatementPaymentCheckService;
 import uk.gov.companieshouse.logging.Logger;
@@ -24,23 +25,28 @@ public class ConfirmationStatementPaymentCheckServiceImpl implements Confirmatio
     private ConfirmationStatementPaymentCheckRepository confirmationStatementPaymentCheckRepository;
 
     @Override
-    public boolean isConfirmationStatementPaid(String companyNumber, String dueDateString) {
+    public ConfirmationStatementPaymentJson isConfirmationStatementPaid(String companyNumber, String dueDateString) {
         LocalDate dueDate = LocalDate.parse(dueDateString, dateTimeFormatter);
         Optional<ConfirmationStatementPayment> confirmationStatementPayment
                 = confirmationStatementPaymentCheckRepository.findPaymentsForPeriod(companyNumber, Date.valueOf(dueDate));
 
+        ConfirmationStatementPaymentJson confirmationStatementPaymentJson =
+                new ConfirmationStatementPaymentJson();
         if(confirmationStatementPayment.isPresent()) {
             Long paidByTransactionId = confirmationStatementPayment.get().getPaidByTransactionId();
 
             if(paidByTransactionId != null) {
                 LOGGER.info("Confirmation statement payment id " +
                         paidByTransactionId + " found for due date " + dueDateString);
-                return true;
+                confirmationStatementPaymentJson.setPaid(Boolean.TRUE);
+            } else {
+                LOGGER.info("Confirmation statement payment query returned result but no payment transaction id found");
+                confirmationStatementPaymentJson.setPaid(Boolean.FALSE);
             }
-            LOGGER.info("Confirmation statement payment query returned result but no payment transaction id found");
-            return false;
+        } else {
+            LOGGER.info("Confirmation statement payment query returned no result");
+            confirmationStatementPaymentJson.setPaid(Boolean.FALSE);
         }
-        LOGGER.info("Confirmation statement payment query returned no result");
-        return false;
+        return confirmationStatementPaymentJson;
     }
 }
