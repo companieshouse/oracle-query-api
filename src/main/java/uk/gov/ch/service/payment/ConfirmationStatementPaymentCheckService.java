@@ -1,6 +1,8 @@
 package uk.gov.ch.service.payment;
 
+import uk.gov.ch.model.payment.ConfirmationStatementPaymentJson;
+
 public interface ConfirmationStatementPaymentCheckService {
 
-    boolean isConfirmationStatementPaid(String companyNumber, String dueDate);
+    ConfirmationStatementPaymentJson isConfirmationStatementPaid(String companyNumber, String dueDate);
 }

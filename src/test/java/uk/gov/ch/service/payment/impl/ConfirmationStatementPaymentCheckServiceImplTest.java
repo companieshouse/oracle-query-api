@@ -6,6 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.model.payment.ConfirmationStatementPayment;
+import uk.gov.ch.model.payment.ConfirmationStatementPaymentJson;
 import uk.gov.ch.repository.payment.ConfirmationStatementPaymentCheckRepository;
 
 import java.sql.Date;
@@ -13,8 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,8 +37,8 @@ class ConfirmationStatementPaymentCheckServiceImplTest {
         confirmationStatementPayment.setPaidByTransactionId(PAID_BY_TRANSACTION_ID);
         Date dueDateSql = Date.valueOf(LocalDate.parse(DUE_DATE, dateTimeFormatter));
         when(confirmationStatementPaymentCheckRepository.findPaymentsForPeriod(COMPANY_NUMBER, dueDateSql)).thenReturn(Optional.of(confirmationStatementPayment));
-        boolean isPaid = confirmationStatementPaymentCheckServiceImpl.isConfirmationStatementPaid(COMPANY_NUMBER, DUE_DATE);
-        assertTrue(isPaid);
+        ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckServiceImpl.isConfirmationStatementPaid(COMPANY_NUMBER, DUE_DATE);
+        assertEquals(Boolean.TRUE, confirmationStatementPaymentJson.isPaid());
     }
 
     @Test
@@ -47,8 +47,8 @@ class ConfirmationStatementPaymentCheckServiceImplTest {
         confirmationStatementPayment.setPaidByTransactionId(PAID_BY_TRANSACTION_ID);
         Date dueDateSql = Date.valueOf(LocalDate.parse(DUE_DATE, dateTimeFormatter));
         when(confirmationStatementPaymentCheckRepository.findPaymentsForPeriod(COMPANY_NUMBER, dueDateSql)).thenReturn(Optional.empty());
-        boolean isPaid = confirmationStatementPaymentCheckServiceImpl.isConfirmationStatementPaid(COMPANY_NUMBER, DUE_DATE);
-        assertFalse(isPaid);
+        ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckServiceImpl.isConfirmationStatementPaid(COMPANY_NUMBER, DUE_DATE);
+        assertEquals(Boolean.FALSE, confirmationStatementPaymentJson.isPaid());
     }
 
     @Test
@@ -56,7 +56,7 @@ class ConfirmationStatementPaymentCheckServiceImplTest {
         ConfirmationStatementPayment confirmationStatementPayment = new ConfirmationStatementPayment();
         Date dueDateSql = Date.valueOf(LocalDate.parse(DUE_DATE, dateTimeFormatter));
         when(confirmationStatementPaymentCheckRepository.findPaymentsForPeriod(COMPANY_NUMBER, dueDateSql)).thenReturn(Optional.of(confirmationStatementPayment));
-        boolean isPaid = confirmationStatementPaymentCheckServiceImpl.isConfirmationStatementPaid(COMPANY_NUMBER, DUE_DATE);
-        assertFalse(isPaid);
+        ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckServiceImpl.isConfirmationStatementPaid(COMPANY_NUMBER, DUE_DATE);
+        assertEquals(Boolean.FALSE, confirmationStatementPaymentJson.isPaid());
     }
 }

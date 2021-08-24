@@ -232,7 +232,7 @@ paths:
       summary: Flag to say whether a payment has been made or not for that period
       responses:
         '200':
-          description: Boolean flag
+          description: Json object containing a boolean flag
           content:
             application/json:
               schema:
@@ -880,7 +880,11 @@ components:
     confirmationStatementPayment:
       type: object
       required:
-        - paidByTransactionId
+        - paid
+      properties:
+         paid:
+           type: boolean
+           description: flag to say whether transaction has been paid
   parameters:
     companyNumber:
       name: 'company_number'
