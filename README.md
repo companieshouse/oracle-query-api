@@ -31,6 +31,7 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/filing-history`                                            | Calls service to retrieve the filing history transactions
 **GET**   | `/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control`| Calls service to retrieve the psc data for the company
 **GET**   | `/company/{companyNumber}/confirmation-statement/paid`                               | Calls service to verify confirmation statement payment has been made for company on due date
+**GET**   | `/company/{companyNumber}/register/location`                                         | Calls service to retrieve the registers locations for a company
 
 ### Query parameters
 Query parameter          | Description
