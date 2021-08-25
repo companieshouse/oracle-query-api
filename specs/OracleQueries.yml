@@ -206,6 +206,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personsOfSignificantControl'
+  /company/{company_number}/register/location:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - register-location
+      operationId: getRegisterLocation
+      summary: Get a list of registers and localtion for the company
+      responses:
+        '200':
+          description: 'Register location data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registerLocation'
   /company/{company_number}/shareholders:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
@@ -877,6 +892,22 @@ components:
           type: integer
           description: The numerical id for the currency held by the shareholder
           example: "826"
+    registerLocation:
+      type: object
+      required:
+        - registerTypeId
+        - sailAddress
+        - registerTypeDesc
+      properties:
+        registerTypeId:
+          type: integer
+          description: ID of the register type primary key
+        sailAddress:
+          type: object
+          description: The SAIL address of the companys registers
+        registerTypeDesc:
+          type: string
+          description: The description of the register type
     confirmationStatementPayment:
       type: object
       required:
