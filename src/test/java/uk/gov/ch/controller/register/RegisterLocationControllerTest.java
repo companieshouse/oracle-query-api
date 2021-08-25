@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class RegisterLocationControllerTest {
+class RegisterLocationControllerTest {
     private static final String COMPANY_NUMBER = "12345678";
     private static final int START_INDEX = 0;
     private static final int ITEMS_PER_PAGE = 10;
