@@ -237,6 +237,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/confirmationStatementPayment'
+  /company/{company_number}:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - company-profile
+      operationId: getCompanyProfile
+      summary: Get basic information on the company
+      responses:
+        '200':
+          description: Basic company information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/companyProfile'
+        '404':
+          description: No company information found
 components:
   schemas:
     companyOfficer:
@@ -885,6 +902,88 @@ components:
          paid:
            type: boolean
            description: flag to say whether transaction has been paid
+    companyProfile:
+      type: object
+      required:
+        - company_name
+        - company_number
+        - date_of_creation
+      properties:
+        company_name:
+          type: string
+          description: The name of the company
+        company_number:
+          type: string
+          description: The number of the company
+        date_of_creation:
+          type: string
+          format: date
+          description: The date the company was created
+        date_of_cessation:
+          type: string
+          format: date
+          description: The date which the company was converted/closed or dissolved
+        previous_company_names:
+          type: array
+          description: The previous company names of the company
+          items:
+            $ref: '#/components/schemas/previous_company_names'
+        registered_office_address:
+          type: object
+          description: The registered office address for the company
+          $ref: '#/components/schemas/registered_office_address'
+        sic_codes:
+          type: array
+          items:
+            type: string
+    previous_company_names:
+      type: object
+      required:
+        - name
+        - effective_from
+        - ceased_on
+      properties:
+        name:
+          type: string
+          description: The previous company name
+        effective_from:
+          type: string
+          format: date
+          description: The date from which the company name was effective
+        ceased_on:
+          type: string
+          format: date
+          description: The date on which the company name ceased
+    registered_office_address:
+      type: object
+      properties:
+        address_line_1:
+          type: string
+          description: The first line of the address
+        address_line_2:
+          type: string
+          description: The second line of the address
+        care_of:
+          type: string
+          description: The care of name
+        country:
+          type: string
+          description: The country
+        locality:
+          type: string
+          description: The locality e.g London
+        po_box:
+          type: string
+          description: The post-office box number
+        postal_code:
+          type: string
+          description: The postal code e.g CF14 3UZ
+        premises:
+          type: string
+          description: The property name or number
+        region:
+          type: string
+          description: The region e.g Surrey
   parameters:
     companyNumber:
       name: 'company_number'
