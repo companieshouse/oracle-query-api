@@ -17,6 +17,8 @@ tags:
     description: view details for a Scottish bankrupt officer
   - name: filing-history
     description: filing history obtained from the transactions relating to the company
+  - name: company-profile
+    description: basic company information
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
