@@ -1,14 +1,20 @@
 package uk.gov.ch.controller.corporatebody;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
 import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
 import uk.gov.ch.service.corporatebody.CorporateBodyService;
+import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -53,5 +59,22 @@ public class CorporateBodyController {
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+    
+    @GetMapping("/company/{companyNumber}")
+    public ResponseEntity<CompanyProfileApi> getCompanyProfile(@PathVariable String companyNumber){
+        Map<String, Object> debugMap = new HashMap<>();
+        LOGGER.info("Calling service to retrieve basic company information", debugMap);
+        try {
+            CompanyProfileApi companyProfileApi = corporateBodyService.getCompanyProfile(companyNumber);
+            return ResponseEntity.status(HttpStatus.OK).body(companyProfileApi);
+        } catch (CorporateBodyNotFoundException e) {
+            LOGGER.error("No company found", debugMap);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (CompanyProfileMappingException cpme) {
+            LOGGER.error("Exception when mapping");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+        
     }
 }
