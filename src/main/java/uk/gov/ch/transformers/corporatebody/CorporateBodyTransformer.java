@@ -12,6 +12,7 @@ import uk.gov.ch.model.corporatebody.sqldatamodels.ConfirmationStatementDates;
 import uk.gov.ch.model.corporatebody.sqldatamodels.PreviousCompanyNames;
 import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredOfficeAddress;
 import uk.gov.ch.model.corporatebody.sqldatamodels.SicCodes;
+import uk.gov.companieshouse.api.model.company.AnnualReturnApi;
 import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 import uk.gov.companieshouse.api.model.company.ConfirmationStatementApi;
 import uk.gov.companieshouse.api.model.company.PreviousCompanyNamesApi;
@@ -34,7 +35,7 @@ public class CorporateBodyTransformer {
             companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
         }
         companyProfileApi.setCommunityInterestCompany(getBooleanFromString(model.getCicInd()));
-        companyProfileApi.setHasBeenLiquidated(getBooleanFromString(model.getHasInsolvencyHistory()));
+        companyProfileApi.setHasInsolvencyHistory(getBooleanFromString(model.getHasInsolvencyHistory()));
         if (model.getPreviousCompanyNames() != null) {
             companyProfileApi.setPreviousCompanyNames(getPreviousCompanyNames(model.getPreviousCompanyNames()));
         }
@@ -52,10 +53,14 @@ public class CorporateBodyTransformer {
                     .setConfirmationStatement(getConfirmationStatementDates(model.getConfirmationStatementDates(),
                             getBooleanFromString(model.getConfirmationStatementOverdue())));
         }
+        if (model.getAnnualReturnDates() != null) {
+            companyProfileApi.setAnnualReturn(getAnnualReturn(model));
+        }
         companyProfileApi.setAccounts(getAccounts(model));
         if(model.getSicCodes() != null && !model.getSicCodes().isEmpty()) {
             companyProfileApi.setSicCodes(getSicCodes(model.getSicCodes()));
         }
+        companyProfileApi.setHasCharges(getBooleanFromString(model.getHasMortgages()));
         return companyProfileApi;
     }
 
@@ -110,10 +115,19 @@ public class CorporateBodyTransformer {
         accountingReferenceDateApi.setDay(model.getAccRefDate().substring(2));
         accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(0,2));
         companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
-        companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
-        companyAccountApi.setNextMadeUpTo(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+        if(model.getAccountingDates() != null) {            
+            companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
+            companyAccountApi.setNextMadeUpTo(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+        }
         companyAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
         return companyAccountApi;
+    }
+    
+    private AnnualReturnApi getAnnualReturn(CompanyProfileModel model) {
+        AnnualReturnApi annualReturnApi = new AnnualReturnApi();
+        annualReturnApi.setOverdue(getBooleanFromString(model.getAnnualReturnOverdue()));
+        annualReturnApi.setLastMadeUpTo(getLocalDateFromString(model.getAnnualReturnDates().getLatestMadeUpTo()));
+        return annualReturnApi;
     }
     
     private String[] getSicCodes(List<SicCodes> sicCodeList) {
