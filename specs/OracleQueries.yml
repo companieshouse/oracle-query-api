@@ -1061,7 +1061,7 @@ components:
         type: string
       example: "B67053D91CC750DEE05400144FFBDD12"
     paymentPeriodDueDate:
-      name: 'payment_period_due_date'
+      name: 'payment_period_made_up_to_date'
       description: 'Specifies when payment is due for a particular company'
       in: 'query'
       required: true
