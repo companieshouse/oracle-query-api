@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -67,7 +69,7 @@ class TransactionTransformerTest {
         assertEquals(1, associatedFiling.getDate().getMonth().getValue());
         assertEquals(22, associatedFiling.getDate().getDayOfMonth());
     }
-    
+
     @Test
     @DisplayName("Transform the where the Barcode is null defaults to paper_filed false")
     void convertFilingHistoryWithNullBarcode() {
@@ -77,7 +79,7 @@ class TransactionTransformerTest {
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertTrue(filingApi.isPaperFiled());
     }
-    
+
     @Test
     @DisplayName("Transform the FilingApi when barcode and document id indicate an electronic filing so paper_filed is false")
     void convertFilingHistoryWithAnElectronicFiling() {
@@ -88,7 +90,7 @@ class TransactionTransformerTest {
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertFalse(filingApi.isPaperFiled());
     }
-    
+
     @Test
     @DisplayName("Transform the FilingApi when barcode could be electronic filed but document id cannot")
     void convertFilingHistoryWithElectronicFiledBarcodeReturnsPaperFiled() {
@@ -99,7 +101,7 @@ class TransactionTransformerTest {
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertFalse(filingApi.isPaperFiled());
     }
-    
+
     @Test
     @DisplayName("Transform the FilingApi when document id could be electronic filed but barcode cannot")
     void convertFilingHistoryWithElectronicFiledDocumentIdReturnsPaperFiled() {
@@ -110,7 +112,7 @@ class TransactionTransformerTest {
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertFalse(filingApi.isPaperFiled());
     }
-    
+
     @Test
     @DisplayName("Transform the FilingApi when barcode and document id indicate paper filed")
     void convertFilingHistoryWithPaperFiledBarcodeAndDocumentIdReturnsPaperFiled() {
@@ -119,50 +121,53 @@ class TransactionTransformerTest {
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertTrue(filingApi.isPaperFiled());
     }
-    
+
     @Test
     @DisplayName("Transform a list of filing transactions to return a completed FilingHistoryApi object")
     void convertFilingHistoryWithListOfFilingTransactions() {
-    	List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
-    	filingHistoryTransactionList.add(setUpFilingHistoryTransaction(false));
-    	filingHistoryTransactionList.add(setUpFilingHistoryTransaction(false));
-    	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactionList);
-    	assertEquals("filing-history-available", filingHistoryApi.getFilingHistoryStatus());
-    	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItems().size());
-    	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItemsPerPage());
-    	assertEquals(0l, filingHistoryApi.getStartIndex());
-    	assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getTotalCount());
-    	assertEquals("filing-history", filingHistoryApi.getKind());
+        List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
+        filingHistoryTransactionList.add(setUpFilingHistoryTransaction(false));
+        filingHistoryTransactionList.add(setUpFilingHistoryTransaction(false));
+        FilingHistoryApi filingHistoryApi = transactionTransformer
+                .convertToFilingHistoryApi(filingHistoryTransactionList);
+        assertEquals("filing-history-available", filingHistoryApi.getFilingHistoryStatus());
+        assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItems().size());
+        assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItemsPerPage());
+        assertEquals(0l, filingHistoryApi.getStartIndex());
+        assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getTotalCount());
+        assertEquals("filing-history", filingHistoryApi.getKind());
     }
-    
+
     @Test
     @DisplayName("Transform an empty list of filing transactions to return a completed FilingHistoryApi object")
     void convertFilingHistoryWithEmptyListOfFilingTransactions() {
-    	List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
-    	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactionList);
-    	assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
-    	assertEquals(0l, filingHistoryApi.getItems().size());
-    	assertEquals(0l, filingHistoryApi.getItemsPerPage());
-    	assertEquals(0l, filingHistoryApi.getStartIndex());
-    	assertEquals(0l, filingHistoryApi.getTotalCount());
-    	assertEquals("filing-history", filingHistoryApi.getKind());
+        List<FilingHistoryTransaction> filingHistoryTransactionList = new ArrayList<>();
+        FilingHistoryApi filingHistoryApi = transactionTransformer
+                .convertToFilingHistoryApi(filingHistoryTransactionList);
+        assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
+        assertEquals(0l, filingHistoryApi.getItems().size());
+        assertEquals(0l, filingHistoryApi.getItemsPerPage());
+        assertEquals(0l, filingHistoryApi.getStartIndex());
+        assertEquals(0l, filingHistoryApi.getTotalCount());
+        assertEquals("filing-history", filingHistoryApi.getKind());
     }
-    
+
     @Test
     @DisplayName("Transform an null to return a completed FilingHistoryApi object")
     void convertFilingHistoryWithNullListOfFilingTransactions() {
-    	FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(null);
-    	assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
-    	assertEquals(0l, filingHistoryApi.getItems().size());
-    	assertEquals(0l, filingHistoryApi.getItemsPerPage());
-    	assertEquals(0l, filingHistoryApi.getStartIndex());
-    	assertEquals(0l, filingHistoryApi.getTotalCount());
-    	assertEquals("filing-history", filingHistoryApi.getKind());
+        FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(null);
+        assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
+        assertEquals(0l, filingHistoryApi.getItems().size());
+        assertEquals(0l, filingHistoryApi.getItemsPerPage());
+        assertEquals(0l, filingHistoryApi.getStartIndex());
+        assertEquals(0l, filingHistoryApi.getTotalCount());
+        assertEquals("filing-history", filingHistoryApi.getKind());
     }
 
     private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi) {
         assertEquals(filingHistoryTransaction.getFormType(), filingApi.getType());
-        assertEquals(filingHistoryTransaction.getDescription(), filingApi.getDescription());
+        assertEquals("legacy", filingApi.getDescription());
+        assertEquals(filingHistoryTransaction.getDescription(), filingApi.getDescriptionValues().get("description"));
         assertEquals(2021, filingApi.getActionDate().getYear());
         assertEquals(1, filingApi.getActionDate().getMonth().getValue());
         assertEquals(22, filingApi.getActionDate().getDayOfMonth());
@@ -174,7 +179,7 @@ class TransactionTransformerTest {
         FilingHistoryTransaction parentTransaction = new FilingHistoryTransaction();
         parentTransaction.setBarcode("AAAAAAAAAA");
         parentTransaction.setCategory("6");
-        parentTransaction.setDescription("A description");
+        parentTransaction.setDescription("legacy");
         parentTransaction.setDocumentId("1234567890");
         parentTransaction.setEntityId(1234567890L);
         parentTransaction.setFormType("FORM TYPE");
@@ -183,7 +188,7 @@ class TransactionTransformerTest {
             FilingHistoryTransaction childTransaction = new FilingHistoryTransaction();
             childTransaction.setBarcode("BBBBBBBB");
             childTransaction.setCategory("7");
-            childTransaction.setDescription("Child description");
+            childTransaction.setDescription("legacy");
             childTransaction.setDocumentId("2345678901");
             childTransaction.setEntityId(2345678901L);
             childTransaction.setFormType("CHILD");
