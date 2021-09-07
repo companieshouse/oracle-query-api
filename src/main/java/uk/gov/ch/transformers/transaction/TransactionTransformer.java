@@ -61,6 +61,7 @@ public class TransactionTransformer {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
         filingApi.setActionDate(receivedDate);
+        filingApi.setDate(receivedDate);
         // if the barcode starts with an X OR the 4th character in the document id is an X then it is
         // electronically filed
         if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")
