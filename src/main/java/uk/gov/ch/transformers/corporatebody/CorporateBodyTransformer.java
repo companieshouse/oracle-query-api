@@ -19,6 +19,8 @@ import uk.gov.companieshouse.api.model.company.PreviousCompanyNamesApi;
 import uk.gov.companieshouse.api.model.company.RegisteredOfficeAddressApi;
 import uk.gov.companieshouse.api.model.company.account.AccountingReferenceDateApi;
 import uk.gov.companieshouse.api.model.company.account.CompanyAccountApi;
+import uk.gov.companieshouse.api.model.company.account.LastAccountsApi;
+import uk.gov.companieshouse.api.model.company.account.NextAccountsApi;
 
 @Component
 public class CorporateBodyTransformer {
@@ -28,12 +30,8 @@ public class CorporateBodyTransformer {
         companyProfileApi.setCompanyName(model.getCompanyName());
         companyProfileApi.setCompanyNumber(model.getCompanyNumber());
         companyProfileApi.setCompanyStatus(CompanyStatusEnum.fromString(model.getStatus()).getDescription());
-        if (model.getCreationDate() != null) {
-            companyProfileApi.setDateOfCreation(getLocalDateFromString(model.getCreationDate()));
-        }
-        if (model.getDateOfDissolution() != null) {
-            companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
-        }
+        companyProfileApi.setDateOfCreation(getLocalDateFromString(model.getCreationDate()));
+        companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
         companyProfileApi.setCommunityInterestCompany(getBooleanFromString(model.getCicInd()));
         companyProfileApi.setHasInsolvencyHistory(getBooleanFromString(model.getHasInsolvencyHistory()));
         if (model.getPreviousCompanyNames() != null) {
@@ -57,7 +55,7 @@ public class CorporateBodyTransformer {
             companyProfileApi.setAnnualReturn(getAnnualReturn(model));
         }
         companyProfileApi.setAccounts(getAccounts(model));
-        if(model.getSicCodes() != null && !model.getSicCodes().isEmpty()) {
+        if (model.getSicCodes() != null && !model.getSicCodes().isEmpty()) {
             companyProfileApi.setSicCodes(getSicCodes(model.getSicCodes()));
         }
         companyProfileApi.setHasCharges(getBooleanFromString(model.getHasMortgages()));
@@ -65,8 +63,11 @@ public class CorporateBodyTransformer {
     }
 
     private LocalDate getLocalDateFromString(String dateString) {
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-        return LocalDate.parse(dateString, dateTimeFormatter);
+        if (dateString != null) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+            return LocalDate.parse(dateString, dateTimeFormatter);
+        }
+        return null;
     }
 
     private boolean getBooleanFromString(String boolString) {
@@ -113,48 +114,51 @@ public class CorporateBodyTransformer {
         CompanyAccountApi companyAccountApi = new CompanyAccountApi();
         AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
         accountingReferenceDateApi.setDay(model.getAccRefDate().substring(2));
-        accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(0,2));
+        accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(0, 2));
         companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
-        if(model.getAccountingDates() != null) {            
+        if (model.getAccountingDates() != null) {
             companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
             companyAccountApi.setNextMadeUpTo(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+
+            LastAccountsApi lastAccountApi = new LastAccountsApi();
+            lastAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getLastPeriodStartOn()));
+            lastAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
+            if (model.getAccountType() != null) {
+                lastAccountApi.setType(CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription());
+            }
+            companyAccountApi.setLastAccounts(lastAccountApi);
+
+            NextAccountsApi nextAccountApi = new NextAccountsApi();
+            nextAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodStartOn()));
+            nextAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+            companyAccountApi.setNextAccounts(null);
         }
         companyAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
         return companyAccountApi;
     }
-    
+
     private AnnualReturnApi getAnnualReturn(CompanyProfileModel model) {
         AnnualReturnApi annualReturnApi = new AnnualReturnApi();
         annualReturnApi.setOverdue(getBooleanFromString(model.getAnnualReturnOverdue()));
         annualReturnApi.setLastMadeUpTo(getLocalDateFromString(model.getAnnualReturnDates().getLatestMadeUpTo()));
         return annualReturnApi;
     }
-    
+
     private String[] getSicCodes(List<SicCodes> sicCodeList) {
         List<String> sicCodes = new ArrayList<>();
-        if(sicCodeList.get(0) != null) {
+        if (sicCodeList.get(0) != null) {
             sicCodes = getSicCodeString(sicCodeList.get(0));
         }
         return sicCodes.toArray(new String[sicCodes.size()]);
     }
-    
+
     private List<String> getSicCodeString(SicCodes sicCode) {
         List<String> sicCodes = new ArrayList<>();
-        if(sicCode.getSic1() != null) {
-            sicCodes.add(sicCode.getSic1());
-        }
-        if(sicCode.getSic2() != null) {
-            sicCodes.add(sicCode.getSic2());
-        }
-        if(sicCode.getSic3() != null) {
-            sicCodes.add(sicCode.getSic3());
-        }
-        if(sicCode.getSic4() != null) {
-            sicCodes.add(sicCode.getSic4());
-        }
-        if(sicCode.getSic5() != null) {
-            sicCodes.add(sicCode.getSic5());
-        }
+        sicCodes.add(sicCode.getSic1());
+        sicCodes.add(sicCode.getSic2());
+        sicCodes.add(sicCode.getSic3());
+        sicCodes.add(sicCode.getSic4());
+        sicCodes.add(sicCode.getSic5());
         return sicCodes;
     }
 

@@ -59,7 +59,7 @@ public class CorporateBodyTransformerTest {
         assertPreviousNames(model, result);
         assertSicCodes(model, result);
     }
-    
+
     @Test
     @DisplayName("Convert with null fields")
     void testConvertWithNullFields() {
@@ -73,26 +73,28 @@ public class CorporateBodyTransformerTest {
         model.setDateOfDissolution(null);
         model.setCreationDate(null);
         CompanyProfileApi result = transformer.convert(model);
-        
+
         assertNotNull(result.getAccounts());
         assertAccountingReference(result);
-        
+
         assertNull(result.getAnnualReturn());
         assertNull(result.getConfirmationStatement());
-        
+
         assertNull(result.getRegisteredOfficeAddress());
         assertNull(result.getSicCodes());
-        
+
         assertNull(result.getDateOfCessation());
         assertNull(result.getDateOfCreation());
         assertNull(result.getPreviousCompanyNames());
     }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
-        assertEquals(3, result.getSicCodes().length);
+        assertEquals(5, result.getSicCodes().length);
         assertEquals(model.getSicCodes().get(0).getSic1(), result.getSicCodes()[0]);
         assertEquals(model.getSicCodes().get(0).getSic2(), result.getSicCodes()[1]);
         assertEquals(model.getSicCodes().get(0).getSic3(), result.getSicCodes()[2]);
+        assertEquals(model.getSicCodes().get(0).getSic4(), result.getSicCodes()[3]);
+        assertEquals(model.getSicCodes().get(0).getSic5(), result.getSicCodes()[4]);
     }
 
     private void assertPreviousNames(CompanyProfileModel model, CompanyProfileApi result) {
@@ -107,11 +109,22 @@ public class CorporateBodyTransformerTest {
 
     private void assertAccounts(CompanyProfileModel model, CompanyProfileApi result) {
         assertAccountingReference(result);
-        
+
         assertEquals(getLocalDateFromString(model.getAccountingDates().getNextDue()),
                 result.getAccounts().getNextDue());
         assertEquals(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()),
                 result.getAccounts().getNextMadeUpTo());
+        assertEquals(CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription(),
+                result.getAccounts().getLastAccounts().getType());
+        assertEquals(getLocalDateFromString(model.getAccountingDates().getLastPeriodStartOn()),
+                result.getAccounts().getLastAccounts().getPeriodStartOn());
+        assertEquals(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()),
+                result.getAccounts().getLastAccounts().getPeriodEndOn());
+        assertEquals(getLocalDateFromString(model.getAccountingDates().getNextPeriodStartOn()),
+                result.getAccounts().getNextAccounts().getPeriodStartOn());
+        assertEquals(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()),
+                result.getAccounts().getNextAccounts().getPeriodEndOn());
+
     }
 
     private void assertAccountingReference(CompanyProfileApi result) {
@@ -216,6 +229,8 @@ public class CorporateBodyTransformerTest {
         sicCodes.setSic1("sic 1");
         sicCodes.setSic2("sic 2");
         sicCodes.setSic3("sic 3");
+        sicCodes.setSic4("sic 4");
+        sicCodes.setSic5("sic 5");
         List<SicCodes> sicCodeList = new ArrayList<>();
         sicCodeList.add(sicCodes);
         model.setSicCodes(sicCodeList);
