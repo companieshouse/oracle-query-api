@@ -170,7 +170,7 @@ class CorporateBodyTransformerTest {
         model.setCompanyNumber("12345678");
         model.setAccountOverdue("1");
         model.setAccountType("2");
-        model.setAccRefDate("0831");
+        model.setAccRefDate("3108");
         model.setAnnualReturnOverdue("1");
         model.setCicInd("1");
         model.setConfirmationStatementOverdue("1");

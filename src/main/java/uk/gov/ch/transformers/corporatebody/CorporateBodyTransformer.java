@@ -114,8 +114,8 @@ public class CorporateBodyTransformer {
     private CompanyAccountApi getAccounts(CompanyProfileModel model) {
         CompanyAccountApi companyAccountApi = new CompanyAccountApi();
         AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
-        accountingReferenceDateApi.setDay(model.getAccRefDate().substring(2));
-        accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(0, 2));
+        accountingReferenceDateApi.setDay(model.getAccRefDate().substring(0,2));
+        accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(2));
         companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
         if (model.getAccountingDates() != null) {
             companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
@@ -155,11 +155,21 @@ public class CorporateBodyTransformer {
 
     private List<String> getSicCodeString(SicCodes sicCode) {
         List<String> sicCodes = new ArrayList<>();
-        sicCodes.add(sicCode.getSic1());
-        sicCodes.add(sicCode.getSic2());
-        sicCodes.add(sicCode.getSic3());
-        sicCodes.add(sicCode.getSic4());
-        sicCodes.add(sicCode.getSic5());
+        if (sicCode.getSic1() != null) {
+            sicCodes.add(sicCode.getSic1());
+        }
+        if (sicCode.getSic2() != null) {
+            sicCodes.add(sicCode.getSic2());
+        }
+        if (sicCode.getSic3() != null) {
+            sicCodes.add(sicCode.getSic3());
+        }
+        if (sicCode.getSic4() != null) {
+            sicCodes.add(sicCode.getSic4());
+        }
+        if (sicCode.getSic5() != null) {
+            sicCodes.add(sicCode.getSic5());
+        }
         return sicCodes;
     }
 
