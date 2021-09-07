@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
-import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 

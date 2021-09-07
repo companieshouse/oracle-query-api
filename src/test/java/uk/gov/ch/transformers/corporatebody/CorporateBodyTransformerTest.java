@@ -26,7 +26,7 @@ import uk.gov.ch.model.corporatebody.sqldatamodels.SicCodes;
 import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 
 @ExtendWith(MockitoExtension.class)
-public class CorporateBodyTransformerTest {
+class CorporateBodyTransformerTest {
 
     @InjectMocks
     private CorporateBodyTransformer transformer;
