@@ -93,6 +93,9 @@ public class CompanyProfileModel {
     
     @JsonProperty("sic_codes")
     private List<SicCodes> sicCodes;
+    
+    @JsonProperty("full_members_list_date")
+    private String fullMembersListDate;
 
     public String getCompanyName() {
         return companyName;
@@ -316,5 +319,13 @@ public class CompanyProfileModel {
 
     public void setSicCodes(List<SicCodes> sicCodes) {
         this.sicCodes = sicCodes;
+    }
+
+    public String getFullMembersListDate() {
+        return fullMembersListDate;
+    }
+
+    public void setFullMembersListDate(String fullMembersListDate) {
+        this.fullMembersListDate = fullMembersListDate;
     }
 }

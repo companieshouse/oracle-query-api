@@ -59,6 +59,7 @@ public class CorporateBodyTransformer {
             companyProfileApi.setSicCodes(getSicCodes(model.getSicCodes()));
         }
         companyProfileApi.setHasCharges(getBooleanFromString(model.getHasMortgages()));
+        companyProfileApi.setLastFullMembersListDate(getLocalDateFromString(model.getFullMembersListDate()));
         return companyProfileApi;
     }
 

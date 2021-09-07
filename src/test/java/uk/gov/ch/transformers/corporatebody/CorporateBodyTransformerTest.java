@@ -46,6 +46,7 @@ public class CorporateBodyTransformerTest {
         assertEquals(getLocalDateFromString(model.getCreationDate()), result.getDateOfCreation());
         assertEquals(getLocalDateFromString(model.getDateOfDissolution()), result.getDateOfCessation());
         assertEquals(CorporateBodyTypeEnum.fromString(model.getType()).getDescription(), result.getType());
+        assertEquals(getLocalDateFromString(model.getFullMembersListDate()), result.getLastFullMembersListDate());
         assertTrue(result.isHasCharges());
         assertTrue(result.isCommunityInterestCompany());
         assertTrue(result.isHasInsolvencyHistory());
@@ -187,6 +188,7 @@ public class CorporateBodyTransformerTest {
         model.setSuperSecurePscInd("1");
         model.setType("2");
         model.setUndeliverableRegisteredOfficeAddress("1");
+        model.setFullMembersListDate(MID_DATE);
 
         AccountingDates accountingDates = new AccountingDates();
         accountingDates.setLastPeriodEndOn(MID_DATE);
