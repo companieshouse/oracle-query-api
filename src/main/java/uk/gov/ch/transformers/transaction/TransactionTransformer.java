@@ -3,7 +3,9 @@ package uk.gov.ch.transformers.transaction;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
@@ -51,11 +53,15 @@ public class TransactionTransformer {
     
     public FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
         FilingApi filingApi = new FilingApi();
-        filingApi.setDescription(filingHistoryTransaction.getDescription());
+        filingApi.setDescription("legacy");
+        Map<String, Object> descriptionValues = new HashMap<>();
+        descriptionValues.put("description", filingHistoryTransaction.getDescription());
+        filingApi.setDescriptionValues(descriptionValues);
         filingApi.setType(filingHistoryTransaction.getFormType());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
         filingApi.setActionDate(receivedDate);
+        filingApi.setDate(receivedDate);
         // if the barcode starts with an X OR the 4th character in the document id is an X then it is
         // electronically filed
         if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")

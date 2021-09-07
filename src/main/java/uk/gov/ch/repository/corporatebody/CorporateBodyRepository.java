@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
 import uk.gov.companieshouse.logging.Logger;
@@ -17,6 +18,8 @@ public class CorporateBodyRepository {
     private static final String GET_TRADED_STATUS_SQL = "SELECT COMPANY_TRADED_TYPE_ID FROM corporate_body WHERE incorporation_number = ?";
 
     private static final String GET_ACTION_CODE_SQL = "SELECT action_code_type_id FROM corporate_body WHERE incorporation_number = ?";
+    
+    private static final String GET_COMPANY_PROFILE_SQL = "SELECT PKG_CHS_GET_DATA.F_GET_COMPANY_DATA(?) from dual";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -47,5 +50,9 @@ public class CorporateBodyRepository {
 
             throw new CorporateBodyNotFoundException(e.getMessage());
         }
+    }
+    
+    public String getCompanyProfile(String companyNumber) {
+        return jdbcTemplate.queryForObject(GET_COMPANY_PROFILE_SQL, String.class, companyNumber);
     }
 }

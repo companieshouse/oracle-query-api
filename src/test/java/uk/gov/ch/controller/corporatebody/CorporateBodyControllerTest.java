@@ -1,5 +1,8 @@
 package uk.gov.ch.controller.corporatebody;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -9,11 +12,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
 import uk.gov.ch.service.corporatebody.CorporateBodyService;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -31,7 +34,8 @@ class CorporateBodyControllerTest {
     @DisplayName("Get action code - company not found")
     void testGetActionCodeNoCompanyFound() throws CorporateBodyNotFoundException {
 
-        when(corporateBodyService.getActionCode(INCORPORATION_NUMBER)).thenThrow(new CorporateBodyNotFoundException("No company found"));
+        when(corporateBodyService.getActionCode(INCORPORATION_NUMBER))
+                .thenThrow(new CorporateBodyNotFoundException("No company found"));
 
         ResponseEntity<Long> response = controller.getActionCode(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -53,7 +57,8 @@ class CorporateBodyControllerTest {
     @DisplayName("Get traded status - company not found")
     void testGetTradedStatusNoCompanyFound() throws CorporateBodyNotFoundException {
 
-        when(corporateBodyService.getTradedStatus(INCORPORATION_NUMBER)).thenThrow(new CorporateBodyNotFoundException("No company found"));
+        when(corporateBodyService.getTradedStatus(INCORPORATION_NUMBER))
+                .thenThrow(new CorporateBodyNotFoundException("No company found"));
 
         ResponseEntity<Long> response = controller.getTradedStatus(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -69,5 +74,37 @@ class CorporateBodyControllerTest {
         ResponseEntity<Long> response = controller.getTradedStatus(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(dummyTradedStatus, response.getBody());
+    }
+
+    @Test
+    @DisplayName("Get company profile - profile successfully returned from service")
+    void testGetCompanyProfileSuccessful() throws CorporateBodyNotFoundException, CompanyProfileMappingException {
+        CompanyProfileApi companyProfileApi = new CompanyProfileApi();
+        when(corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(companyProfileApi);
+
+        ResponseEntity<CompanyProfileApi> response = controller.getCompanyProfile(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(companyProfileApi, response.getBody());
+    }
+
+    @Test
+    @DisplayName("Get company profile - corporate body not found")
+    void testGetCompanyProfileNotFoundException()
+            throws CorporateBodyNotFoundException, CompanyProfileMappingException {
+        when(corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER))
+                .thenThrow(CorporateBodyNotFoundException.class);
+
+        ResponseEntity<CompanyProfileApi> response = controller.getCompanyProfile(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Get company profile - exception when mapping company profile")
+    void testGetCompanyProfileMappingException() throws CorporateBodyNotFoundException, CompanyProfileMappingException {
+        when(corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER))
+                .thenThrow(CompanyProfileMappingException.class);
+
+        ResponseEntity<CompanyProfileApi> response = controller.getCompanyProfile(INCORPORATION_NUMBER);
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
