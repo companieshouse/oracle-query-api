@@ -132,7 +132,7 @@ public class CorporateBodyTransformer {
             NextAccountsApi nextAccountApi = new NextAccountsApi();
             nextAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodStartOn()));
             nextAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
-            companyAccountApi.setNextAccounts(null);
+            companyAccountApi.setNextAccounts(nextAccountApi);
         }
         companyAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
         return companyAccountApi;
