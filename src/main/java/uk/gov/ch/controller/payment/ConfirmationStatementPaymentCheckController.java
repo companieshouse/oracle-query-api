@@ -18,8 +18,8 @@ public class ConfirmationStatementPaymentCheckController {
 
     @GetMapping("/company/{companyNumber}/confirmation-statement/paid")
     public ResponseEntity<ConfirmationStatementPaymentJson> isConfirmationStatementPaid(@PathVariable String companyNumber,
-                                                               @RequestParam(name = "payment_period_due_date", required = true) String paymentPeriodDueDate) {
-        ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckService.isConfirmationStatementPaid(companyNumber, paymentPeriodDueDate);
+                                                               @RequestParam(name = "payment_period_made_up_to_date", required = true) String paymentPeriodMadeUpToDate) {
+        ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckService.isConfirmationStatementPaid(companyNumber, paymentPeriodMadeUpToDate);
         return ResponseEntity.status(HttpStatus.OK).body(confirmationStatementPaymentJson);
     }
 }
