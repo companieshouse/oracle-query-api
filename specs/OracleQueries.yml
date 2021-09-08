@@ -914,13 +914,13 @@ components:
     registerLocation:
       type: object
       required:
-        - registerTypeId
+        - uniqueId
         - sailAddress
         - registerTypeDesc
       properties:
-        registerTypeId:
+        uniqueId:
           type: integer
-          description: ID of the register type primary key
+          description: ID of row number used as primary key
         sailAddress:
           type: object
           description: The SAIL address of the companys registers

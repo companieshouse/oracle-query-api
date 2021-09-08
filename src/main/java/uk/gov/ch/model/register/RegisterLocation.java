@@ -12,8 +12,8 @@ import javax.persistence.Transient;
 public class RegisterLocation {
 
     @Id
-    @Column(name = "register_type_id")
-    private Long registerTypeId;
+    @Column(name = "UNIQUE_ID")
+    private Long uniqueId;
     @Column(name = "SAIL_ADDRESS_LINE_1")
     private String sailAddressLine1;
     @Column(name = "SAIL_ADDRESS_LINE_2")
@@ -39,12 +39,12 @@ public class RegisterLocation {
     private Address sailAddress;
 
 
-    public long getRegisterTypeId() {
-        return registerTypeId;
+    public Long getUniqueId() {
+        return uniqueId;
     }
 
-    public void setRegisterTypeId(long registerTypeId) {
-        this.registerTypeId = registerTypeId;
+    public void setUniqueId(Long uniqueId) {
+        this.uniqueId = uniqueId;
     }
 
     public void setSailAddressLine1(String sailAddressLine1) {
@@ -81,6 +81,10 @@ public class RegisterLocation {
 
     public void setRegisterTypeDesc(String registerTypeDesc) {
         this.registerTypeDesc = registerTypeDesc;
+    }
+
+    public String getRegisterTypeDesc() {
+        return registerTypeDesc;
     }
 
     public Address getSailAddress() {
