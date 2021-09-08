@@ -10,25 +10,20 @@ import uk.gov.ch.service.payment.ConfirmationStatementPaymentCheckService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
 public class ConfirmationStatementPaymentCheckServiceImpl implements ConfirmationStatementPaymentCheckService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Autowired
     private ConfirmationStatementPaymentCheckRepository confirmationStatementPaymentCheckRepository;
 
     @Override
-    public ConfirmationStatementPaymentJson isConfirmationStatementPaid(String companyNumber, String dueDateString) {
-        LocalDate dueDate = LocalDate.parse(dueDateString, dateTimeFormatter);
+    public ConfirmationStatementPaymentJson isConfirmationStatementPaid(String companyNumber, String madeUpToDate) {
         Optional<ConfirmationStatementPayment> confirmationStatementPayment
-                = confirmationStatementPaymentCheckRepository.findPaymentsForPeriod(companyNumber, Date.valueOf(dueDate));
+                = confirmationStatementPaymentCheckRepository.findPaymentsForPeriod(companyNumber, madeUpToDate);
 
         ConfirmationStatementPaymentJson confirmationStatementPaymentJson =
                 new ConfirmationStatementPaymentJson();
@@ -37,14 +32,14 @@ public class ConfirmationStatementPaymentCheckServiceImpl implements Confirmatio
 
             if(paidByTransactionId != null) {
                 LOGGER.info(String.format("Company Number: %s Confirmation statement payment id %s found for due date %s",
-                        companyNumber, paidByTransactionId, dueDateString));
+                        companyNumber, paidByTransactionId, madeUpToDate));
                 confirmationStatementPaymentJson.setPaid(Boolean.TRUE);
             } else {
-                LOGGER.info(String.format("Company Number: %s Confirmation statement payment query returned result but no payment transaction id found for date %s", companyNumber, dueDateString ));
+                LOGGER.info(String.format("Company Number: %s Confirmation statement payment query returned result but no payment transaction id found for date %s", companyNumber, madeUpToDate ));
                 confirmationStatementPaymentJson.setPaid(Boolean.FALSE);
             }
         } else {
-            LOGGER.info(String.format("Company Number: %s Confirmation statement payment query returned no result for date %s", companyNumber, dueDateString ));
+            LOGGER.info(String.format("Company Number: %s Confirmation statement payment query returned no result for date %s", companyNumber, madeUpToDate ));
             confirmationStatementPaymentJson.setPaid(Boolean.FALSE);
         }
         return confirmationStatementPaymentJson;
