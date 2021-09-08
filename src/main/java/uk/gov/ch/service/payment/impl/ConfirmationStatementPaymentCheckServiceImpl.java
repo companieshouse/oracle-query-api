@@ -36,15 +36,15 @@ public class ConfirmationStatementPaymentCheckServiceImpl implements Confirmatio
             Long paidByTransactionId = confirmationStatementPayment.get().getPaidByTransactionId();
 
             if(paidByTransactionId != null) {
-                LOGGER.info(String.format("Confirmation statement payment id %s found for due date %s",
-                        paidByTransactionId, dueDateString));
+                LOGGER.info(String.format("Company Number: %s Confirmation statement payment id %s found for due date %s",
+                        companyNumber, paidByTransactionId, dueDateString));
                 confirmationStatementPaymentJson.setPaid(Boolean.TRUE);
             } else {
-                LOGGER.info(String.format("Confirmation statement payment query returned result but no payment transaction id found for date %s", dueDateString ));
+                LOGGER.info(String.format("Company Number: %s Confirmation statement payment query returned result but no payment transaction id found for date %s", companyNumber, dueDateString ));
                 confirmationStatementPaymentJson.setPaid(Boolean.FALSE);
             }
         } else {
-            LOGGER.info(String.format("Confirmation statement payment query returned no result for date %s", dueDateString ));
+            LOGGER.info(String.format("Company Number: %s Confirmation statement payment query returned no result for date %s", companyNumber, dueDateString ));
             confirmationStatementPaymentJson.setPaid(Boolean.FALSE);
         }
         return confirmationStatementPaymentJson;
