@@ -24,12 +24,11 @@ public class Shareholder {
     private String surname;
     @Column(name = "shares")
     private long shares;
-    @Column(name = "share_class_type_id")
-    @JsonProperty("share_class_type_id")
-    private long shareClassTypeId;
-    @Column(name = "currency_type_id")
-    @JsonProperty("currency_type_id")
-    private long currencyTypeId;
+    @Column(name = "class_of_shares")
+    @JsonProperty("class_of_shares")
+    private String classOfShares;
+    @Column(name = "currency")
+    private String currency;
 
     public Long getShareholderId() {
         return shareholderId;
@@ -71,20 +70,20 @@ public class Shareholder {
         this.shares = shares;
     }
 
-    public long getShareClassTypeId() {
-        return shareClassTypeId;
+    public String getClassOfShares() {
+        return classOfShares;
     }
 
-    public void setShareClassTypeId(long shareClassTypeId) {
-        this.shareClassTypeId = shareClassTypeId;
+    public void setClassOfShares(String classOfShares) {
+        this.classOfShares = classOfShares;
     }
 
-    public long getCurrencyTypeId() {
-        return currencyTypeId;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setCurrencyTypeId(long currencyTypeId) {
-        this.currencyTypeId = currencyTypeId;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
 }
