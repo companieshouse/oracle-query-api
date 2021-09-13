@@ -942,12 +942,35 @@ components:
         - company_number
         - date_of_creation
       properties:
+        accounts:
+          $ref: '#/components/schemas/accounts'
+        annual_return:
+          $ref: '#/components/schemas/annual_return'
+        branch_company_details: 
+          description: UK branch of a foreign company
+          type: string
+        can_file:
+          description: Flag indicating whether this company can file
+          type: boolean
         company_name:
           type: string
           description: The name of the company
         company_number:
           type: string
           description: The number of the company
+        company_status:
+          type: string
+          enum: 
+            - active
+            - dissolved
+            - liquidation
+            - receivership
+            - converted-closed
+        company_status_details:
+          description: Extra details about the status of the company
+          type: string
+        confirmation_statement:
+          $ref: '#/components/schemas/confirmation_statement'
         date_of_creation:
           type: string
           format: date
@@ -956,19 +979,98 @@ components:
           type: string
           format: date
           description: The date which the company was converted/closed or dissolved
+        etag:
+          description: The etag of the company
+          type: string
+        external_registration_number:
+          description: The number given by an external registration body
+          type: string
+        foreign_company_details:
+          description: Foreign company details
+          type: string
+        has_been_liquidated:
+          description: Flag indicating if the company has been liquidated
+          type: boolean
+        has_charges:
+          description: Flag indicating if the company has mortgage charges
+          type: boolean
+        is_community_interest_company:
+          description: Flag indicating if the company is a community interest company
+          type: boolean
+        jurisdiction:
+          description: The jurisdiction specifies the political body responsible for the company
+          type: string
+          enum:
+            - england-wales
+            - wales
+            - scotland
+            - northern-ireland
+            - european-union
+            - united-kingdom
+            - england
+            - noneu
+        last_full_members_list_date:
+          description: The date of last full members list update
+          type: string
+          format: date
+        links:
+          description: A set of URLs related to the resource, including self
+          type: array
+          items:
+            type: string
+        partial_data_available:
+          description: Returned if Companies House is not the primary source of data for this company
+          type: string
         previous_company_names:
           type: array
           description: The previous company names of the company
           items:
             $ref: '#/components/schemas/previous_company_names'
         registered_office_address:
-          type: object
-          description: The registered office address for the company
           $ref: '#/components/schemas/registered_office_address'
         sic_codes:
           type: array
           items:
             type: string
+        subtype:
+          description: The subtype of the company
+          type: string
+        type:
+          description: The type of the company
+          type: string
+          enum: 
+            - private-unlimited
+            - ltd
+            - plc
+            - old-public-company
+            - private-limited-guarant-nsc-limited-exemption
+            - limited-partnership
+            - private-limited-guarant-nsc
+            - converted-or-closed
+            - private-unlimited-nsc
+            - private-limited-shares-section-30-exemption
+            - assurance-company
+            - oversea-company
+            - eeig
+            - icvc-securities
+            - icvc-warrant
+            - icvc-umbrella
+            - industrial-and-provident-society
+            - northern-ireland
+            - northern-ireland-other
+            - llp
+            - royal-charter
+            - investment-company-with-variable-capital
+            - unregistered-company
+            - registered-society-non-jurisdictional
+            - protected-cell-company
+            - scottish-partnership
+            - charitable-incorporated-organisation
+            - scottish-charitable-incorporated-organisation
+            - further-education-or-sixth-form-college-corporation
+            - european-public-limited-liability-company-se
+        undeliverable_registered_office_address:
+          description: Flag indicating whether post can be delivered to the registered office
     previous_company_names:
       type: object
       required:
@@ -989,6 +1091,7 @@ components:
           description: The date on which the company name ceased
     registered_office_address:
       type: object
+      description: The registered office address for the company
       properties:
         address_line_1:
           type: string
@@ -1017,6 +1120,129 @@ components:
         region:
           type: string
           description: The region e.g Surrey
+    accounts:
+      type: object
+      description: Account details for the company
+      properties:
+        accounting_reference_date:
+          $ref: '#/components/schemas/accounting_reference_date'
+        last_accounts:
+          $ref: '#/components/schemas/last_accounts'
+        next_accounts:
+          $ref: '#/components/schemas/next_accounts'
+        next_due:
+          type: string
+          description: The date the accounts are due to be filed
+          format: date
+        next_made_up_to:
+          type: string
+          description: The date the accounts period ends on
+          format: date
+        overdue:
+          type: boolean
+          description: Flag to indicate if the accounts are overdue
+    accounting_reference_date:
+      type: object
+      description: The accounting reference date
+      properties:
+        day:
+          type: integer
+          description: The Accounting Reference Date (ARD) day
+        month:
+          type: integer
+          description: The Accounting Reference Date (ARD) month
+    last_accounts:
+      type: object
+      description: The last accounts for the company
+      properties:
+        made_up_to:
+          type: string
+          description: The date the accounts period ends
+          format: date
+        period_ends_on:
+          type: string
+          description: The date the accounts period ends on
+          format: date
+        period_starts_on:
+          type: string
+          description: The date the accounts period starts on
+          format: date
+        type:
+          type: string
+          description: The type of accounts
+          enum: 
+            - full
+            - small
+            - medium
+            - group
+            - dormant
+            - interim
+            - initial
+            - total-exemption-full
+            - total-exemption-small
+            - partial-exemption
+            - audit-exemption-subsidiary
+            - filing-exemption-subsidiary
+            - micro-entity
+            - audited-abridged
+            - unaudited-abridged
+    next_accounts:
+      type: object
+      description: The next accounts for the company
+      properties:
+        next_due:
+          type: string
+          description: The date the accounts are due to be filed on
+          format: date
+        overdue:
+          type: boolean
+          description: Flag indicating if the accounts are overdue
+        period_ends_on:
+          type: string
+          description: The date the accounts period ends on
+          format: date
+        period_starts_on:
+          type: string
+          description: The date the accounts period starts on
+          format: date
+    annual_return:
+      type: object
+      description: Annual return details for the company
+      properties:
+        last_made_up_to:
+          type: string
+          description: The date the annual return period ends on
+          format: date
+        next_due:
+          type: string
+          description: The date the annual return period ends on
+          format: date
+        next_made_up_to: 
+          type: string
+          description: The date the annual return period ends on
+          format: date
+        overdue:
+          type: boolean
+          description: Flag indicating if the annual return is overdue
+    confirmation_statement:
+      type: object
+      description: Confirmation statement details for the company
+      properties:
+        last_made_up_to:
+          type: string
+          description: The date the confirmation statement period ends on
+          format: date
+        next_due:
+          type: string
+          description: The date the confirmation statement period ends on
+          format: date
+        next_made_up_to: 
+          type: string
+          description: The date the confirmation statement period ends on
+          format: date
+        overdue:
+          type: boolean
+          description: Flag indicating if the confirmation statement is overdue
   parameters:
     companyNumber:
       name: 'company_number'
