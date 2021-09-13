@@ -883,34 +883,34 @@ components:
         - surname
         - addressId
         - shares
-        - shareClassTypeId
-        - currencyTypeId
+        - classOfShares
+        - currency
       properties:
         foreName1:
           type: string
-          description: The first name of the shareholder
+          description: The first name of the shareholder.
         foreName2:
           type: string
-          description: The middle name of the shareholder
+          description: The middle name of the shareholder.
         surname:
           type: string
-          description: The surname of the shareholder
+          description: The surname of the shareholder.
         addressId:
           type: integer
-          description: The numerical id for the address of the shareholder
+          description: The numerical id for the address of the shareholder.
           example: "3063647053"
         shares:
           type: integer
-          description: The number of shares held by the shareholder
+          description: The number of shares held by the shareholder.
           example: "1000"
-        shareClassTypeId:
-          type: integer
-          description: The numerical id for the class of share held by the shareholder
-          example: "1"
-        currencyTypeId:
-          type: integer
-          description: The numerical id for the currency held by the shareholder
-          example: "826"
+        classOfShares:
+          type: string
+          description: The class of shares held by the shareholder.
+          example: "ORDINARY"
+        currency:
+          type: string
+          description: The currency the shares are held in.
+          example: "GBP"
     registerLocation:
       type: object
       required:
