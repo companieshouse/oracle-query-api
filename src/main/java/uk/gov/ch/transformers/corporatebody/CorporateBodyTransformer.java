@@ -72,7 +72,10 @@ public class CorporateBodyTransformer {
     }
 
     private boolean getBooleanFromString(String boolString) {
-        return boolString.equals("1");
+        if(boolString != null) {            
+            return boolString.equals("1");
+        }
+        return false;
     }
 
     private List<PreviousCompanyNamesApi> getPreviousCompanyNames(List<PreviousCompanyNames> originalList) {
