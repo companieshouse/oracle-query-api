@@ -56,6 +56,8 @@ class CorporateBodyTransformerTest {
         assertTrue(result.getAnnualReturn().isOverdue());
 
         assertAccounts(model, result);
+        assertEquals(CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription(),
+                result.getAccounts().getLastAccounts().getType());
         assertConfirmationStattment(model, result);
         assertAddress(model, result);
         assertPreviousNames(model, result);
@@ -93,6 +95,36 @@ class CorporateBodyTransformerTest {
         assertFalse(result.isHasCharges());
         assertFalse(result.isCommunityInterestCompany());
     }
+    
+    @Test
+    @DisplayName("Test enum conversion where values of 0 are equal to null")
+    void testConvertEnumsWithZero() {
+        CompanyProfileModel model = setUpModel();
+        model.setAccountType("0");
+        CompanyProfileApi result = transformer.convert(model);
+        assertEquals(model.getCompanyName(), result.getCompanyName());
+        assertEquals(model.getCompanyNumber(), result.getCompanyNumber());
+        assertEquals(CompanyStatusEnum.fromString(model.getStatus()).getDescription(), result.getCompanyStatus());
+        assertEquals(getLocalDateFromString(model.getCreationDate()), result.getDateOfCreation());
+        assertEquals(getLocalDateFromString(model.getDateOfDissolution()), result.getDateOfCessation());
+        assertEquals(CorporateBodyTypeEnum.fromString(model.getType()).getDescription(), result.getType());
+        assertEquals(getLocalDateFromString(model.getFullMembersListDate()), result.getLastFullMembersListDate());
+        assertTrue(result.isHasCharges());
+        assertTrue(result.isCommunityInterestCompany());
+        assertTrue(result.isHasInsolvencyHistory());
+        assertTrue(result.isRegisteredOfficeIsInDispute());
+        assertTrue(result.isUndeliverableRegisteredOfficeAddress());
+        assertTrue(result.getAnnualReturn().isOverdue());
+
+        assertAccounts(model, result);
+        assertNull(result.getAccounts().getLastAccounts().getType());
+        assertConfirmationStattment(model, result);
+        assertAddress(model, result);
+        assertPreviousNames(model, result);
+        assertSicCodes(model, result);
+        
+        
+    }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
         assertEquals(5, result.getSicCodes().length);
@@ -120,8 +152,6 @@ class CorporateBodyTransformerTest {
                 result.getAccounts().getNextDue());
         assertEquals(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()),
                 result.getAccounts().getNextMadeUpTo());
-        assertEquals(CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription(),
-                result.getAccounts().getLastAccounts().getType());
         assertEquals(getLocalDateFromString(model.getAccountingDates().getLastPeriodStartOn()),
                 result.getAccounts().getLastAccounts().getPeriodStartOn());
         assertEquals(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()),

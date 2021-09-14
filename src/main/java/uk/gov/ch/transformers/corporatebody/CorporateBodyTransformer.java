@@ -128,7 +128,7 @@ public class CorporateBodyTransformer {
             lastAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getLastPeriodStartOn()));
             lastAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
             lastAccountApi.setMadeUpTo(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
-            if (model.getAccountType() != null) {
+            if (model.getAccountType() != null && !model.getAccountType().equals("0")) {
                 lastAccountApi.setType(CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription());
             }
             companyAccountApi.setLastAccounts(lastAccountApi);
