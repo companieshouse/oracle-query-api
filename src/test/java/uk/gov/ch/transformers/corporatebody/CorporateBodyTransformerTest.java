@@ -1,6 +1,7 @@
 package uk.gov.ch.transformers.corporatebody;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -73,6 +74,8 @@ class CorporateBodyTransformerTest {
         model.setPreviousCompanyNames(null);
         model.setDateOfDissolution(null);
         model.setCreationDate(null);
+        model.setCicInd(null);
+        model.setHasMortgages(null);
         CompanyProfileApi result = transformer.convert(model);
 
         assertNotNull(result.getAccounts());
@@ -87,6 +90,8 @@ class CorporateBodyTransformerTest {
         assertNull(result.getDateOfCessation());
         assertNull(result.getDateOfCreation());
         assertNull(result.getPreviousCompanyNames());
+        assertFalse(result.isHasCharges());
+        assertFalse(result.isCommunityInterestCompany());
     }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
