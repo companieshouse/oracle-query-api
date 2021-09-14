@@ -32,14 +32,14 @@ public class TransactionTransformer {
         List<FilingApi> filingApiList = new ArrayList<>();
         FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
 
-        if(filingHistoryTransactions != null && !filingHistoryTransactions.isEmpty()) {            
-            for(FilingHistoryTransaction fht : filingHistoryTransactions) {
+        if (filingHistoryTransactions != null && !filingHistoryTransactions.isEmpty()) {
+            for (FilingHistoryTransaction fht : filingHistoryTransactions) {
                 filingApiList.add(convert(fht));
             }
             filingHistoryApi.setItems(filingApiList);
-            filingHistoryApi.setItemsPerPage((long)filingApiList.size());
+            filingHistoryApi.setItemsPerPage((long) filingApiList.size());
             filingHistoryApi.setFilingHistoryStatus("filing-history-available");
-            filingHistoryApi.setTotalCount((long)filingApiList.size());
+            filingHistoryApi.setTotalCount((long) filingApiList.size());
         } else {
             filingHistoryApi.setItems(filingApiList);
             filingHistoryApi.setItemsPerPage(0l);
@@ -50,7 +50,7 @@ public class TransactionTransformer {
         filingHistoryApi.setKind("filing-history");
         return filingHistoryApi;
     }
-    
+
     public FilingApi convert(FilingHistoryTransaction filingHistoryTransaction) {
         FilingApi filingApi = new FilingApi();
         filingApi.setDescription("legacy");
@@ -62,10 +62,12 @@ public class TransactionTransformer {
         LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
         filingApi.setActionDate(receivedDate);
         filingApi.setDate(receivedDate);
-        // if the barcode starts with an X OR the 4th character in the document id is an X then it is
+        // if the barcode starts with an X OR the 4th character in the document id is an
+        // X then it is
         // electronically filed
         if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")
-                && filingHistoryTransaction.getDocumentId().charAt(3) != 'X')) {
+                && (filingHistoryTransaction.getDocumentId() != null
+                        && filingHistoryTransaction.getDocumentId().charAt(3) != 'X'))) {
             filingApi.setPaperFiled(true);
         }
         if (filingHistoryTransaction.getChild() != null) {
