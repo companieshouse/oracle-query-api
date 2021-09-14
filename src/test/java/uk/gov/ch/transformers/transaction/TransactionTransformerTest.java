@@ -112,6 +112,17 @@ class TransactionTransformerTest {
         assertFilingHistoryApi(filingHistoryTransaction, filingApi);
         assertFalse(filingApi.isPaperFiled());
     }
+    
+    @Test
+    @DisplayName("Transform the FilingApi when document id is null")
+    void convertFilingHistoryWhenDocumentIdIsNull() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        filingHistoryTransaction.setBarcode("A1234567");
+        filingHistoryTransaction.setDocumentId(null);
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
+        assertFalse(filingApi.isPaperFiled());
+    }
 
     @Test
     @DisplayName("Transform the FilingApi when barcode and document id indicate paper filed")
