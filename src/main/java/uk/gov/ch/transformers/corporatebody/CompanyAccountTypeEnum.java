@@ -10,16 +10,16 @@ public enum CompanyAccountTypeEnum {
     INTERIM("6","interim"),
     INITIAL("7","initial"),
     TOTAL_EXEMPTION_FULL("8","total-exemption-full"),
-    TOTAL_EXEMPTION_SMALL("9","total-exemption-small"),
-    PARTIAL_EXEMPTION("10","partial-exemption"),
+    TOTAL_EXEMPTION_SMALL("A","total-exemption-small"),
+    PARTIAL_EXEMPTION("B","partial-exemption"),
 //    PARENT_LAW_ACCOUNTS("11",""),
 //    OVERSEAS_EXEMPTION("12",""),
 //    REJECTED("13",""),
-    AUDIT_EXEMPTION_SUBSIDIARY("14","audit-exemption-subsidiary"),
-    FILING_EXEMPTION_SUBSIDIARY("15","filing-exemption-subsidiary"),
-    MICRO_ENTITY("16","micro-entity"),
-    AUDITED_ABRIDGED("17","audited-abridged"),
-    UNAUDITED_ABRIDGED("18","unaudited-abridged");
+    AUDIT_EXEMPTION_SUBSIDIARY("C","audit-exemption-subsidiary"),
+    FILING_EXEMPTION_SUBSIDIARY("D","filing-exemption-subsidiary"),
+    MICRO_ENTITY("E","micro-entity"),
+    AUDITED_ABRIDGED("F","audited-abridged"),
+    UNAUDITED_ABRIDGED("G","unaudited-abridged");
     
     private CompanyAccountTypeEnum(String id, String description) {
         this.id = id;
