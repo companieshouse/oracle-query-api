@@ -7,7 +7,7 @@ public enum CompanyStatusEnum {
     LIQUIDATION("2","liquidation"),
     RECEIVERSHIP("4", "receivership"),
     CONVERTED_CLOSED("5", "converted-closed"),
-    TRANSFERRED_FROM_GB("5","active"),
+    TRANSFERRED_FROM_GB("6","active"),
     RECEIVERSHIP_A("A","receivership"),
     VOLUNTARY_ARRANGEMENT_B("B","voluntary-arrangement"),
     VOLUNTARY_ARRANGEMENT_RECEIVERSHIP("C","insolvency-proceedings"),
