@@ -965,10 +965,21 @@ components:
             - dissolved
             - liquidation
             - receivership
+            - administration
+            - voluntary-arrangement
             - converted-closed
+            - insolvency-proceedings
         company_status_details:
           description: Extra details about the status of the company
           type: string
+          enum:
+            - transferred-from-uk
+            - active-proposal-to-strike-off
+            - petition-to-restore-dissolved
+            - transformed-to-se
+            - converted-to-plc
+            - converted-to-uk-societas
+            - converted-to-ukeig
         confirmation_statement:
           $ref: '#/components/schemas/confirmation_statement'
         date_of_creation:

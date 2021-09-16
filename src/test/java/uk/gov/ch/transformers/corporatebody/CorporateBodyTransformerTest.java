@@ -44,6 +44,7 @@ class CorporateBodyTransformerTest {
         assertEquals(model.getCompanyName(), result.getCompanyName());
         assertEquals(model.getCompanyNumber(), result.getCompanyNumber());
         assertEquals(CompanyStatusEnum.fromString(model.getStatus()).getDescription(), result.getCompanyStatus());
+        assertEquals(CompanyStatusDetailEnum.fromString(model.getStatus()).getDescription(), result.getCompanyStatusDetail());
         assertEquals(getLocalDateFromString(model.getCreationDate()), result.getDateOfCreation());
         assertEquals(getLocalDateFromString(model.getDateOfDissolution()), result.getDateOfCessation());
         assertEquals(CorporateBodyTypeEnum.fromString(model.getType()).getDescription(), result.getType());
@@ -101,6 +102,7 @@ class CorporateBodyTransformerTest {
     void testConvertEnumsWithZero() {
         CompanyProfileModel model = setUpModel();
         model.setAccountType("0");
+        model.setStatus("1");
         CompanyProfileApi result = transformer.convert(model);
         assertEquals(model.getCompanyName(), result.getCompanyName());
         assertEquals(model.getCompanyNumber(), result.getCompanyNumber());
@@ -160,6 +162,8 @@ class CorporateBodyTransformerTest {
                 result.getAccounts().getNextAccounts().getPeriodStartOn());
         assertEquals(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()),
                 result.getAccounts().getNextAccounts().getPeriodEndOn());
+        assertEquals(getLocalDateFromString(model.getAccountingDates().getNextDue()),
+                result.getAccounts().getNextAccounts().getDueOn());
 
     }
 
@@ -218,7 +222,7 @@ class CorporateBodyTransformerTest {
         model.setHasMortgages("1");
         model.setProofStatus("1");
         model.setRegisteredOfficeIsInDispute("1");
-        model.setStatus("1");
+        model.setStatus("AB");
         model.setSubtype("2");
         model.setSuperSecurePscInd("1");
         model.setType("2");
