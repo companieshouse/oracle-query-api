@@ -3,6 +3,7 @@ package uk.gov.ch.transformers.corporatebody;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -24,12 +25,17 @@ import uk.gov.companieshouse.api.model.company.account.NextAccountsApi;
 
 @Component
 public class CorporateBodyTransformer {
+    
+    private static final List<String> COMPANY_STATUS_DETAIL = Arrays.asList("5", "Q", "R", "X", "Z", "AA", "AB");
 
     public CompanyProfileApi convert(CompanyProfileModel model) {
         CompanyProfileApi companyProfileApi = new CompanyProfileApi();
         companyProfileApi.setCompanyName(model.getCompanyName());
         companyProfileApi.setCompanyNumber(model.getCompanyNumber());
         companyProfileApi.setCompanyStatus(CompanyStatusEnum.fromString(model.getStatus()).getDescription());
+        if(COMPANY_STATUS_DETAIL.contains(model.getStatus().toUpperCase())) {
+            companyProfileApi.setCompanyStatusDetail(CompanyStatusDetailEnum.fromString(model.getStatus()).getDescription());
+        }
         companyProfileApi.setDateOfCreation(getLocalDateFromString(model.getCreationDate()));
         companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
         companyProfileApi.setCommunityInterestCompany(getBooleanFromString(model.getCicInd()));
@@ -137,6 +143,7 @@ public class CorporateBodyTransformer {
             nextAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodStartOn()));
             nextAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
             nextAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
+            nextAccountApi.setDueOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
             companyAccountApi.setNextAccounts(nextAccountApi);
         }
         companyAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
