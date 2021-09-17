@@ -70,7 +70,7 @@ public class CorporateBodyTransformer {
     }
 
     private LocalDate getLocalDateFromString(String dateString) {
-        if (dateString != null) {
+        if (dateString != null && !dateString.isEmpty()) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
             return LocalDate.parse(dateString, dateTimeFormatter);
         }
