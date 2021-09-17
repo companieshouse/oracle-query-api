@@ -23,7 +23,7 @@ import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class EmergencyOfficersControllerTest {
+class EmergencyOfficersControllerTest {
 
     @Mock
     EmergencyOfficersService mockEmergencyOfficersService;
@@ -40,7 +40,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName("Get list of eligible officers - no company not found")
-    public void testGetEligibleOfficersNoCompanyFound() {
+    void testGetEligibleOfficersNoCompanyFound() {
 
         when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(null);
 
@@ -50,7 +50,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName("Get list of eligible officers - no eligible officers found")
-    public void testGetEligibleOfficersNoOfficersFound() {
+    void testGetEligibleOfficersNoOfficersFound() {
         when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(corporateBodyAppointmentsNoOfficers());
 
         ResponseEntity<CorporateBodyAppointments> returnedEligibleOfficers = controller.getListOfEligibleCompanyOfficers(INCORPORATION_NUMBER, START_INDEX, ITEMS_PER_PAGE);
@@ -59,7 +59,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName("Get list of eligible officers - success path")
-    public void testGetEligibleOfficersForCompanySuccess() {
+    void testGetEligibleOfficersForCompanySuccess() {
 
         when(mockEmergencyOfficersService.getEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(corporateBodyAppointments());
 
@@ -71,7 +71,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName("Get eligible officer - no eligible officer found")
-    public void testGetEligibleOfficerNoOfficerFound() {
+    void testGetEligibleOfficerNoOfficerFound() {
         when(mockEmergencyOfficersService.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(null);
 
         ResponseEntity<CorporateBodyAppointment> returnedEligibleOfficer = controller.getCompanyOfficer(INCORPORATION_NUMBER, OFFICER_ID);
@@ -80,7 +80,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName(("Get eligible officer - success path"))
-    public void testGetEligibleOfficerSuccess() {
+    void testGetEligibleOfficerSuccess() {
 
         when(mockEmergencyOfficersService.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(new CorporateBodyAppointment());
 
@@ -90,7 +90,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName(("Get filing history - has not filed in past 30 days"))
-    public void testGetFilingHistoryHasNotFiled() {
+    void testGetFilingHistoryHasNotFiled() {
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = new CorporateBodyEFilingStatus();
         corporateBodyEFilingStatus.setEfilingFoundInPeriod(false);
         when(mockEmergencyOfficersService.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(corporateBodyEFilingStatus);
@@ -102,7 +102,7 @@ public class EmergencyOfficersControllerTest {
 
     @Test
     @DisplayName(("Get filing history - has filed in past 30 days"))
-    public void testGetFilingHistoryHasFiled() {
+    void testGetFilingHistoryHasFiled() {
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = new CorporateBodyEFilingStatus();
         corporateBodyEFilingStatus.setEfilingFoundInPeriod(true);
         when(mockEmergencyOfficersService.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(corporateBodyEFilingStatus);
