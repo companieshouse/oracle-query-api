@@ -969,7 +969,7 @@ components:
             - voluntary-arrangement
             - converted-closed
             - insolvency-proceedings
-        company_status_details:
+        company_status_detail:
           description: Extra details about the status of the company
           type: string
           enum:
@@ -1005,6 +1005,9 @@ components:
         has_charges:
           description: Flag indicating if the company has mortgage charges
           type: boolean
+        has_insolvency_history: 
+          description: Flag indicating if the company has insolvency history
+          type: boolean 
         is_community_interest_company:
           description: Flag indicating if the company is a community interest company
           type: boolean

@@ -99,15 +99,16 @@ class CorporateBodyTransformerTest {
     
     @Test
     @DisplayName("Test enum conversion where values of 0 are equal to null")
-    void testConvertEnumsWithZero() {
+    void testConvertEnumsWithZeroOrEmptyStrings() {
         CompanyProfileModel model = setUpModel();
         model.setAccountType("0");
         model.setStatus("1");
+        model.setCreationDate("");
         CompanyProfileApi result = transformer.convert(model);
         assertEquals(model.getCompanyName(), result.getCompanyName());
         assertEquals(model.getCompanyNumber(), result.getCompanyNumber());
         assertEquals(CompanyStatusEnum.fromString(model.getStatus()).getDescription(), result.getCompanyStatus());
-        assertEquals(getLocalDateFromString(model.getCreationDate()), result.getDateOfCreation());
+        assertNull(result.getDateOfCreation());
         assertEquals(getLocalDateFromString(model.getDateOfDissolution()), result.getDateOfCessation());
         assertEquals(CorporateBodyTypeEnum.fromString(model.getType()).getDescription(), result.getType());
         assertEquals(getLocalDateFromString(model.getFullMembersListDate()), result.getLastFullMembersListDate());
@@ -123,9 +124,7 @@ class CorporateBodyTransformerTest {
         assertConfirmationStattment(model, result);
         assertAddress(model, result);
         assertPreviousNames(model, result);
-        assertSicCodes(model, result);
-        
-        
+        assertSicCodes(model, result);   
     }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
