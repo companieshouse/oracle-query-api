@@ -1204,7 +1204,7 @@ components:
       type: object
       description: The next accounts for the company
       properties:
-        next_due:
+        due_on:
           type: string
           description: The date the accounts are due to be filed on
           format: date
