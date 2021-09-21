@@ -126,6 +126,21 @@ class CorporateBodyTransformerTest {
         assertPreviousNames(model, result);
         assertSicCodes(model, result);   
     }
+    
+    @Test
+    @DisplayName("Test ARD with null and default values, should return null ARD dates")
+    void testConvertWithNullOrDefaultARD() {
+        CompanyProfileModel model = setUpModel();
+        model.setAccRefDate(null);
+        CompanyProfileApi result = transformer.convert(model);
+        assertNull(result.getAccounts().getAccountingReferenceDate().getDay());
+        assertNull(result.getAccounts().getAccountingReferenceDate().getMonth());
+        
+        model.setAccRefDate("9999");
+        CompanyProfileApi secondResult = transformer.convert(model);
+        assertNull(secondResult.getAccounts().getAccountingReferenceDate().getDay());
+        assertNull(secondResult.getAccounts().getAccountingReferenceDate().getMonth());
+    }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
         assertEquals(5, result.getSicCodes().length);
