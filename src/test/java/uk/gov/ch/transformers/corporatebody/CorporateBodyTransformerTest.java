@@ -133,13 +133,15 @@ class CorporateBodyTransformerTest {
         CompanyProfileModel model = setUpModel();
         model.setAccRefDate(null);
         CompanyProfileApi result = transformer.convert(model);
-        assertNull(result.getAccounts().getAccountingReferenceDate().getDay());
-        assertNull(result.getAccounts().getAccountingReferenceDate().getMonth());
+        assertNull(result.getAccounts().getAccountingReferenceDate());
         
-        model.setAccRefDate("9999");
+        model.setAccRefDate("9912");
         CompanyProfileApi secondResult = transformer.convert(model);
-        assertNull(secondResult.getAccounts().getAccountingReferenceDate().getDay());
-        assertNull(secondResult.getAccounts().getAccountingReferenceDate().getMonth());
+        assertNull(secondResult.getAccounts().getAccountingReferenceDate());
+        
+        model.setAccRefDate("1299");
+        CompanyProfileApi thirdResult = transformer.convert(model);
+        assertNull(thirdResult.getAccounts().getAccountingReferenceDate());
     }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {

@@ -123,16 +123,17 @@ public class CorporateBodyTransformer {
 
     private CompanyAccountApi getAccounts(CompanyProfileModel model) {
         CompanyAccountApi companyAccountApi = new CompanyAccountApi();
-        AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
         if(model.getAccRefDate() != null && !model.getAccRefDate().isEmpty()) {
-            if(!model.getAccRefDate().substring(0,2).equalsIgnoreCase(ARD_DEFAULT_STRING)) {                
+            if(model.getAccRefDate().substring(0,2).equalsIgnoreCase(ARD_DEFAULT_STRING) ||
+                    model.getAccRefDate().substring(2).equalsIgnoreCase(ARD_DEFAULT_STRING)) {
+                companyAccountApi.setAccountingReferenceDate(null);
+            } else {                
+                AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
                 accountingReferenceDateApi.setDay(model.getAccRefDate().substring(0,2));
-            }
-            if(!model.getAccRefDate().substring(2).equalsIgnoreCase(ARD_DEFAULT_STRING)) {                
                 accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(2));
+                companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
             }
         }
-        companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
         if (model.getAccountingDates() != null) {
             companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
             companyAccountApi.setNextMadeUpTo(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
