@@ -9,6 +9,7 @@ public enum CompanyAccountTypeEnum {
     DORMANT("5","dormant"),
     INTERIM("6","interim"),
     INITIAL("7","initial"),
+    NO_ACCOUNTS_TYPE_AVAILABLE("8", "no-accounts-type-available"),
     TOTAL_EXEMPTION_FULL("9","total-exemption-full"),
     TOTAL_EXEMPTION_SMALL("A","total-exemption-small"),
     PARTIAL_EXEMPTION("B","partial-exemption"),
