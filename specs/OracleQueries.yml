@@ -775,6 +775,11 @@ components:
         - serviceAddressLine1
         - serviceAddressPostCode
         - serviceAddressPostTown
+        - serviceAddressRegion
+        - serviceAddressArea
+        - serviceAddressCareOf
+        - serviceAddressPoBox
+        - serviceAddressCountryName
         - officerNationality
         - officerDateOfBirth
         - houseNameNumber
@@ -784,6 +789,7 @@ components:
         - postCode
         - region
         - countryName
+        - careOf
         - suppliedCompanyName
         - poBox
         - addressLine1
@@ -818,6 +824,21 @@ components:
         serviceAddressPostTown:
           type: string
           description: Town
+        serviceAddressArea:
+          type: string
+          description: Area
+        serviceAddressPoBox:
+          type: string
+          description: PO Box
+        serviceAddressCountryName:
+          type: string
+          description: Country
+        serviceAddressCareOf:
+          type: string
+          description: Care Of
+        serviceAddressRegion:
+          type: string
+          description: County
         officerNationality:
           type: string
           description: Nationality
@@ -846,6 +867,9 @@ components:
         countryName:
           type: string
           description: Country
+        careOf:
+          type: string
+          description: Care of
         suppliedCompanyName:
           type: string
           description: name of company corresponding to the company number
