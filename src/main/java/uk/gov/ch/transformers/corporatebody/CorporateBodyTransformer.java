@@ -101,7 +101,7 @@ public class CorporateBodyTransformer {
         RegisteredOfficeAddressApi registeredOfficeAddressApi = new RegisteredOfficeAddressApi();
         registeredOfficeAddressApi.setAddressLine1(registeredOfficeAddress.getAddressLine1());
         registeredOfficeAddressApi.setAddressLine2(registeredOfficeAddress.getAddressLine2());
-        registeredOfficeAddressApi.setCareOf(registeredOfficeAddress.getCareOf());
+        registeredOfficeAddressApi.setCareOf(registeredOfficeAddress.getCareOfName());
         registeredOfficeAddressApi.setCountry(registeredOfficeAddress.getCountry());
         registeredOfficeAddressApi.setLocality(registeredOfficeAddress.getLocality());
         registeredOfficeAddressApi.setPoBox(registeredOfficeAddress.getPoBox());

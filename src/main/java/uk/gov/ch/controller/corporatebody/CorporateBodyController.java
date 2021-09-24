@@ -64,6 +64,7 @@ public class CorporateBodyController {
     @GetMapping("/company/{companyNumber}")
     public ResponseEntity<CompanyProfileApi> getCompanyProfile(@PathVariable String companyNumber){
         Map<String, Object> debugMap = new HashMap<>();
+        debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling service to retrieve basic company information", debugMap);
         try {
             CompanyProfileApi companyProfileApi = corporateBodyService.getCompanyProfile(companyNumber);

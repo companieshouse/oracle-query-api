@@ -202,7 +202,7 @@ class CorporateBodyTransformerTest {
                 result.getRegisteredOfficeAddress().getAddressLine1());
         assertEquals(model.getRegisteredOfficeAddress().getAddressLine2(),
                 result.getRegisteredOfficeAddress().getAddressLine2());
-        assertEquals(model.getRegisteredOfficeAddress().getCareOf(), result.getRegisteredOfficeAddress().getCareOf());
+        assertEquals(model.getRegisteredOfficeAddress().getCareOfName(), result.getRegisteredOfficeAddress().getCareOf());
         assertEquals(model.getRegisteredOfficeAddress().getCountry(), result.getRegisteredOfficeAddress().getCountry());
         assertEquals(model.getRegisteredOfficeAddress().getLocality(),
                 result.getRegisteredOfficeAddress().getLocality());
@@ -273,7 +273,7 @@ class CorporateBodyTransformerTest {
         RegisteredOfficeAddress address = new RegisteredOfficeAddress();
         address.setAddressLine1("Address 1");
         address.setAddressLine2("Address 2");
-        address.setCareOf("care of");
+        address.setCareOfName("care of");
         address.setCountry("country");
         address.setLocality("locality");
         address.setPoBox("po box");
