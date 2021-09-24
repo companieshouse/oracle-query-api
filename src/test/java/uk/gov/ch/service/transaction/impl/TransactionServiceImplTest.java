@@ -88,9 +88,9 @@ class TransactionServiceImplTest {
     }
     
     @Test
-    @DisplayName("Test get transaction returns Company Not Found string")
-    void testGetTransactionRepositoryCompanyNotFoundString() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company Not Found");
+    @DisplayName("Test get transaction returns company has no transactions string")
+    void testGetTransactionRepositoryCompanyHasNoTransactionsString() throws Exception {
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company has no transactions");
         FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
         assertNull(response.getItems());
