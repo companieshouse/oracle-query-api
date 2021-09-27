@@ -1,6 +1,7 @@
 package uk.gov.ch.model.capital;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import uk.gov.ch.util.CustomTextFormat;
 
 public class StatementOfCapital {
 
@@ -61,7 +62,7 @@ public class StatementOfCapital {
     }
 
     public String getPrescribedParticulars() {
-        return prescribedParticulars;
+        return CustomTextFormat.formatStandardSentence(prescribedParticulars);
     }
 
     public void setPrescribedParticulars(String prescribedParticulars) {
