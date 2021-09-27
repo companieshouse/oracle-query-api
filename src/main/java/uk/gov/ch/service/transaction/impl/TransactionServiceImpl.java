@@ -29,6 +29,7 @@ public class TransactionServiceImpl implements TransactionService {
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String MESSAGE = "message";
     private static final String COMPANY_HAS_NO_TRANSACTIONS = "Company has no transactions";
+    private static final String COMPANY_NOT_FOUND = "Company Not Found";
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -46,7 +47,8 @@ public class TransactionServiceImpl implements TransactionService {
         LOGGER.info("Calling package for transaction history", logMap);
         String result = transactionRepository.getTransactionJson(companyNumber);
         FilingHistoryApi response = new FilingHistoryApi();
-        if (result == null || result.isEmpty() || result.equalsIgnoreCase(COMPANY_HAS_NO_TRANSACTIONS)) {
+        if (result == null || result.isEmpty() || result.equalsIgnoreCase(COMPANY_HAS_NO_TRANSACTIONS)
+                || result.equalsIgnoreCase(COMPANY_NOT_FOUND)) {
             logMap.remove(MESSAGE);
             LOGGER.info("Null or empty response from repository", logMap);
             return response;
@@ -60,7 +62,7 @@ public class TransactionServiceImpl implements TransactionService {
                     new TypeReference<List<FilingHistoryTransaction>>() {
                     });
             response = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactions);
-            
+
         } catch (JsonMappingException e) {
             logMap.remove(MESSAGE);
             LOGGER.info("JSON Mapping Exception on response", logMap);
