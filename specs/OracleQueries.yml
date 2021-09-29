@@ -799,6 +799,7 @@ components:
         - serviceAddressCareOf
         - serviceAddressPoBox
         - serviceAddressCountryName
+        - serviceAddresHouseNameNumber
         - officerNationality
         - officerDateOfBirth
         - houseNameNumber
@@ -859,6 +860,9 @@ components:
         serviceAddressRegion:
           type: string
           description: County
+        serviceAddressHouseNameNumber:
+          type: string
+          description: Premises
         officerNationality:
           type: string
           description: Nationality
