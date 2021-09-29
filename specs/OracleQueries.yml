@@ -19,6 +19,8 @@ tags:
     description: filing history obtained from the transactions relating to the company
   - name: company-profile
     description: basic company information
+  - name: officer-list
+    description: list of company officers
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -271,6 +273,23 @@ paths:
                 $ref: '#/components/schemas/companyProfile'
         '404':
           description: No company information found
+  /company/{company_number}/officers:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - officer-list
+      operationId: getOfficers
+      summary: Get a list of all officers for the company
+      responses:
+        '200':
+          description: List of company officers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/officer_list'
+        '404':
+          description: No officers found
 components:
   schemas:
     companyOfficer:
@@ -795,6 +814,7 @@ components:
         - poBox
         - addressLine1
         - natureOfControl
+        - registerLocation
         - registrationNumber
         - lawGoverned
         - legalForm
@@ -887,6 +907,10 @@ components:
           type: string
           description: Extent and nature of control of the psc in the company
           example: "75% or more of shares held as a person"
+        registerLocation:
+          type: string
+          description: Registered location of rle
+          example: "NORWAY"
         registrationNumber:
           type: string
           description: Registration number of rle
@@ -997,7 +1021,7 @@ components:
             - voluntary-arrangement
             - converted-closed
             - insolvency-proceedings
-        company_status_details:
+        company_status_detail:
           description: Extra details about the status of the company
           type: string
           enum:
@@ -1033,6 +1057,9 @@ components:
         has_charges:
           description: Flag indicating if the company has mortgage charges
           type: boolean
+        has_insolvency_history: 
+          description: Flag indicating if the company has insolvency history
+          type: boolean 
         is_community_interest_company:
           description: Flag indicating if the company is a community interest company
           type: boolean
@@ -1229,7 +1256,7 @@ components:
       type: object
       description: The next accounts for the company
       properties:
-        next_due:
+        due_on:
           type: string
           description: The date the accounts are due to be filed on
           format: date
@@ -1282,6 +1309,198 @@ components:
         overdue:
           type: boolean
           description: Flag indicating if the confirmation statement is overdue
+    officer_list:
+      type: object
+      description: List of officers for the company
+      required:
+        - active_count
+        - items
+        - items_per_page
+        - kind
+        - resigned_count
+        - start_index
+        - total_results
+      properties:
+        active_count:
+          type: integer
+          description: the count of officers who are currently appointed
+        etag:
+          type: string
+          description: the etag for the officer list
+        items_per_page:
+          type: integer
+          description: the number of officers to return per page
+        kind:
+          type: string
+          description: Indicates this resource is an officer list
+          example: officer-list
+        links:
+          type: array
+          description: A set of URLs related to the resource, including self
+          items:
+            type: string
+        resigned_count:
+          type: integer
+          description: the count of officers who have been resigned
+        start_index:
+          type: integer
+          description: the offset into the entire results set that this page starts
+        total_results:
+          type: integer
+          description: the total number of officers in this result set
+        items:
+          type: array
+          description: the list of officers
+          items:
+            $ref: '#/components/schemas/officer'
+    officer:
+      type: object
+      description: the company officer
+      required:
+        - address
+        - appointed_on
+        - name
+      properties:
+        address:
+          $ref: '#/components/schemas/usual_residential_address'
+        appointed_on:
+          type: string
+          description: the date on which the officer was appointed
+          format: date
+        country_of_residence:
+          type: string
+          description: the officer's country of residence
+        date_of_birth:
+          $ref: '#/components/schemas/officerDOB'
+        former_names:
+          type: array
+          description: Former names of the officer
+          items:
+            $ref: '#/components/schemas/former_names'
+        identifiction:
+          $ref: '#/components/schemas/identification'
+        name:
+          type: string
+          description: Corporate or natural officer name
+        nationality:
+          type: string
+          description: The officer's nationality
+        occupation:
+          type: string
+          description: The officer's job title
+        officer_role:
+          type: string
+          description: Possible values are
+          enum:
+            - cic-manager
+            - corporate-director
+            - corporate-llp-designated-member
+            - corporate-llp-member
+            - corporate-manager-of-an-eeig
+            - corporate-member-of-a-management-organ
+            - corporate-member-supervisory-organ
+            - corporate-member-of-an-administrative-organ
+            - corporate-nominee-director
+            - corporate-nominee-secretary
+            - corporate-secretary
+            - director
+            - general-partner-in-a-limited-partnership
+            - judicial-factor
+            - limited-partner-in-a-limited-partnership
+            - llp-designated-member
+            - llp-member
+            - manager-of-an-eeig
+            - member-of-a-management-organ
+            - member-of-a-supervisory-organ
+            - member-of-an-administrative-organ
+            - nominee-director
+            - nominee-secretary
+            - person-authorised-to-accept
+            - person-authorised-to-represent
+            - person-authorised-to-represent-and-accept
+            - receiver-and-manager
+            - secretary
+        resigned_on:
+          type: string
+          description: the date on which the officer resigned
+          format: date
+    former_names:
+      type: object
+      description: Former officer name
+      properties:
+        forenames:
+          type: string
+          description: Former forenames of the officer
+        surname:
+          type: string
+          description: Former surnames of the officer
+    identification:
+      type: object
+      description: Only one from `eea`, `non-eea`, `uk-limited` or `other-corporate-body-or-firm` can be supplied
+      properties:
+        identification_type:
+          type: string
+          description: the officer's identity type
+          enum:
+            - eea
+            - non-eea
+            - uk-limited
+            - other-corporate-body-or-firm
+        legal_authority:
+          type: string
+          description: The legal authority supervising the company
+        legal_form:
+          type: string
+          description: The legal form of the company as defined by its country of registration
+        place_registered:
+          type: string
+          description: The place registered
+        registration_number:
+          type: string
+          description: The Company registration number
+    usual_residential_address:
+      type: object
+      readOnly: true
+      required:
+        - address_line_1
+        - locality
+      properties:
+        address_line_1:
+          type: string
+          description: The first line of the address
+          example: "Crown Way"
+        address_line_2:
+          type: string
+          description: The second line of the address
+          example: "Maindy"
+        care_of:
+          type: string
+          description: The care of name
+        country:
+          type: string
+          description: The country
+          example: "Wales"
+        locality:
+          type: string
+          description: The locality
+          readOnly: true
+          example: "Cardiff"
+        po_box:
+          type: string
+          description: The post-office box number
+          example: "10"
+        postal_code:
+          type: string
+          description: The postal code
+          example: "CF14 3UZ"
+        premises:
+          type: string
+          description: The property name or number
+          example: "10"
+        region:
+          type: string
+          description: The region
+          example: "Surrey"
   parameters:
     companyNumber:
       name: 'company_number'

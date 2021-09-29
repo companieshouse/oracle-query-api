@@ -88,9 +88,18 @@ class TransactionServiceImplTest {
     }
     
     @Test
-    @DisplayName("Test get transaction returns Company Not Found string")
+    @DisplayName("Test get transaction returns company has no transactions string")
+    void testGetTransactionRepositoryCompanyHasNoTransactionsString() throws Exception {
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company has no transactions");
+        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
+        assertNotNull(response);
+        assertNull(response.getItems());
+    }
+    
+    @Test
+    @DisplayName("Test get transaction returns company not found string")
     void testGetTransactionRepositoryCompanyNotFoundString() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company Not Found");
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company not found");
         FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
         assertNull(response.getItems());

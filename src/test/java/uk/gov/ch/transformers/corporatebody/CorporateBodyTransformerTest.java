@@ -99,15 +99,16 @@ class CorporateBodyTransformerTest {
     
     @Test
     @DisplayName("Test enum conversion where values of 0 are equal to null")
-    void testConvertEnumsWithZero() {
+    void testConvertEnumsWithZeroOrEmptyStrings() {
         CompanyProfileModel model = setUpModel();
         model.setAccountType("0");
         model.setStatus("1");
+        model.setCreationDate("");
         CompanyProfileApi result = transformer.convert(model);
         assertEquals(model.getCompanyName(), result.getCompanyName());
         assertEquals(model.getCompanyNumber(), result.getCompanyNumber());
         assertEquals(CompanyStatusEnum.fromString(model.getStatus()).getDescription(), result.getCompanyStatus());
-        assertEquals(getLocalDateFromString(model.getCreationDate()), result.getDateOfCreation());
+        assertNull(result.getDateOfCreation());
         assertEquals(getLocalDateFromString(model.getDateOfDissolution()), result.getDateOfCessation());
         assertEquals(CorporateBodyTypeEnum.fromString(model.getType()).getDescription(), result.getType());
         assertEquals(getLocalDateFromString(model.getFullMembersListDate()), result.getLastFullMembersListDate());
@@ -123,9 +124,24 @@ class CorporateBodyTransformerTest {
         assertConfirmationStattment(model, result);
         assertAddress(model, result);
         assertPreviousNames(model, result);
-        assertSicCodes(model, result);
+        assertSicCodes(model, result);   
+    }
+    
+    @Test
+    @DisplayName("Test ARD with null and default values, should return null ARD dates")
+    void testConvertWithNullOrDefaultARD() {
+        CompanyProfileModel model = setUpModel();
+        model.setAccRefDate(null);
+        CompanyProfileApi result = transformer.convert(model);
+        assertNull(result.getAccounts().getAccountingReferenceDate());
         
+        model.setAccRefDate("9912");
+        CompanyProfileApi secondResult = transformer.convert(model);
+        assertNull(secondResult.getAccounts().getAccountingReferenceDate());
         
+        model.setAccRefDate("1299");
+        CompanyProfileApi thirdResult = transformer.convert(model);
+        assertNull(thirdResult.getAccounts().getAccountingReferenceDate());
     }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
@@ -186,7 +202,7 @@ class CorporateBodyTransformerTest {
                 result.getRegisteredOfficeAddress().getAddressLine1());
         assertEquals(model.getRegisteredOfficeAddress().getAddressLine2(),
                 result.getRegisteredOfficeAddress().getAddressLine2());
-        assertEquals(model.getRegisteredOfficeAddress().getCareOf(), result.getRegisteredOfficeAddress().getCareOf());
+        assertEquals(model.getRegisteredOfficeAddress().getCareOfName(), result.getRegisteredOfficeAddress().getCareOf());
         assertEquals(model.getRegisteredOfficeAddress().getCountry(), result.getRegisteredOfficeAddress().getCountry());
         assertEquals(model.getRegisteredOfficeAddress().getLocality(),
                 result.getRegisteredOfficeAddress().getLocality());
@@ -257,7 +273,7 @@ class CorporateBodyTransformerTest {
         RegisteredOfficeAddress address = new RegisteredOfficeAddress();
         address.setAddressLine1("Address 1");
         address.setAddressLine2("Address 2");
-        address.setCareOf("care of");
+        address.setCareOfName("care of");
         address.setCountry("country");
         address.setLocality("locality");
         address.setPoBox("po box");

@@ -27,6 +27,7 @@ import uk.gov.companieshouse.api.model.company.account.NextAccountsApi;
 public class CorporateBodyTransformer {
     
     private static final List<String> COMPANY_STATUS_DETAIL = Arrays.asList("5", "Q", "R", "X", "Z", "AA", "AB");
+    private static final String ARD_DEFAULT_STRING = "99";
 
     public CompanyProfileApi convert(CompanyProfileModel model) {
         CompanyProfileApi companyProfileApi = new CompanyProfileApi();
@@ -70,7 +71,7 @@ public class CorporateBodyTransformer {
     }
 
     private LocalDate getLocalDateFromString(String dateString) {
-        if (dateString != null) {
+        if (dateString != null && !dateString.isEmpty()) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
             return LocalDate.parse(dateString, dateTimeFormatter);
         }
@@ -100,7 +101,7 @@ public class CorporateBodyTransformer {
         RegisteredOfficeAddressApi registeredOfficeAddressApi = new RegisteredOfficeAddressApi();
         registeredOfficeAddressApi.setAddressLine1(registeredOfficeAddress.getAddressLine1());
         registeredOfficeAddressApi.setAddressLine2(registeredOfficeAddress.getAddressLine2());
-        registeredOfficeAddressApi.setCareOf(registeredOfficeAddress.getCareOf());
+        registeredOfficeAddressApi.setCareOf(registeredOfficeAddress.getCareOfName());
         registeredOfficeAddressApi.setCountry(registeredOfficeAddress.getCountry());
         registeredOfficeAddressApi.setLocality(registeredOfficeAddress.getLocality());
         registeredOfficeAddressApi.setPoBox(registeredOfficeAddress.getPoBox());
@@ -122,10 +123,17 @@ public class CorporateBodyTransformer {
 
     private CompanyAccountApi getAccounts(CompanyProfileModel model) {
         CompanyAccountApi companyAccountApi = new CompanyAccountApi();
-        AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
-        accountingReferenceDateApi.setDay(model.getAccRefDate().substring(0,2));
-        accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(2));
-        companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
+        if(model.getAccRefDate() != null && !model.getAccRefDate().isEmpty()) {
+            if(model.getAccRefDate().substring(0,2).equalsIgnoreCase(ARD_DEFAULT_STRING) ||
+                    model.getAccRefDate().substring(2).equalsIgnoreCase(ARD_DEFAULT_STRING)) {
+                companyAccountApi.setAccountingReferenceDate(null);
+            } else {                
+                AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
+                accountingReferenceDateApi.setDay(model.getAccRefDate().substring(0,2));
+                accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(2));
+                companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
+            }
+        }
         if (model.getAccountingDates() != null) {
             companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
             companyAccountApi.setNextMadeUpTo(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));

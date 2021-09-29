@@ -53,7 +53,7 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
     @Override
     public CompanyProfileApi getCompanyProfile(String companyNumber) throws CorporateBodyNotFoundException, CompanyProfileMappingException {
         Map<String, Object> debugMap = new HashMap<>();
-        debugMap.put("company-number", companyNumber);
+        debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling DAO to retrieve company profile", debugMap);
 
         String resultJson = corporateBodyRepository.getCompanyProfile(companyNumber);

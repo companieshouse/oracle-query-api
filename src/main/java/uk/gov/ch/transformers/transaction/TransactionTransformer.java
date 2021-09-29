@@ -55,7 +55,11 @@ public class TransactionTransformer {
         FilingApi filingApi = new FilingApi();
         filingApi.setDescription("legacy");
         Map<String, Object> descriptionValues = new HashMap<>();
-        descriptionValues.put("description", filingHistoryTransaction.getDescription());
+        if(filingHistoryTransaction.getDescription() == null) {
+            descriptionValues.put("description", "");
+        } else {            
+            descriptionValues.put("description", filingHistoryTransaction.getDescription());
+        }
         filingApi.setDescriptionValues(descriptionValues);
         filingApi.setType(filingHistoryTransaction.getFormType());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");

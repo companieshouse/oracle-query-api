@@ -174,6 +174,18 @@ class TransactionTransformerTest {
         assertEquals(0l, filingHistoryApi.getTotalCount());
         assertEquals("filing-history", filingHistoryApi.getKind());
     }
+    
+    @Test
+    @DisplayName("Transform where the description on the FilingHistoryTransaction is null")
+    void convertFilingHistoryWithNullDescription() {
+        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
+        filingHistoryTransaction.setDescription(null);
+        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
+        assertEquals(filingHistoryTransaction.getFormType(), filingApi.getType());
+        assertEquals("legacy", filingApi.getDescription());
+        assertEquals("", filingApi.getDescriptionValues().get("description"));
+        
+    }
 
     private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi) {
         assertEquals(filingHistoryTransaction.getFormType(), filingApi.getType());

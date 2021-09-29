@@ -15,8 +15,8 @@ public class RegisteredOfficeAddress {
     @JsonProperty("postal_code")
     private String postalCode;
     
-    @JsonProperty("care_of")
-    private String careOf;
+    @JsonProperty("care_of_name")
+    private String careOfName;
     
     @JsonProperty("country")
     private String country;
@@ -57,12 +57,12 @@ public class RegisteredOfficeAddress {
         this.postalCode = postalCode;
     }
 
-    public String getCareOf() {
-        return careOf;
+    public String getCareOfName() {
+        return careOfName;
     }
 
-    public void setCareOf(String careOf) {
-        this.careOf = careOf;
+    public void setCareOfName(String careOf) {
+        this.careOfName = careOf;
     }
 
     public String getCountry() {
