@@ -62,6 +62,8 @@ public class PersonWithSignificantControl {
     private String addressLine1;
     @Column(name = "NATURE_OF_CONTROL")
     private String natureOfControl;
+    @Column(name = "PSC_REGISTER_LOCATION")
+    private String registerLocation;
     @Column(name = "PSC_REGISTRATION_NUMBER")
     private String registrationNumber;
     @Column(name = "PSC_LAW_GOVERNED")
@@ -237,6 +239,14 @@ public class PersonWithSignificantControl {
 
     public void setNatureOfControl(String natureOfControl) {
         this.natureOfControl = natureOfControl;
+    }
+
+    public String getRegisterLocation() {
+        return registerLocation;
+    }
+
+    public void setRegisterLocation(String registerLocation) {
+        this.registerLocation = registerLocation;
     }
 
     public String getRegistrationNumber() {

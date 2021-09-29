@@ -24,6 +24,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "ADR.AREA as SERVICE_ADDRESS_AREA," +
             "OD.OFFICER_NATIONALITY, " +
             "OD.OFFICER_DATE_OF_BIRTH, " +
+            "CAD.PSC_REGISTER_LOCATION, " +
             "CAD.PSC_REGISTRATION_NUMBER, " +
             "CAD.PSC_LAW_GOVERNED, " +
             "CAD.PSC_LEGAL_FORM, " +
@@ -65,7 +66,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) " +
             "group by CBA.CORPORATE_BODY_APPOINTMENT_ID, CBA.OFFICER_FORENAME_1, CBA.OFFICER_FORENAME_2, CBA.OFFICER_SURNAME, CBA.APPOINTMENT_TYPE_ID, CBA.SERVICE_ADDRESS_LINE_1, " +
             "CBA.SERVICE_ADDRESS_POST_CODE, CBA.SERVICE_ADDRESS_POST_TOWN, ADR.CARE_OF, ADR.REGION, ADR.COUNTRY_NAME, ADR.PO_BOX, ADR.AREA, OD.OFFICER_NATIONALITY, OD.OFFICER_DATE_OF_BIRTH, " +
-            "CAD.PSC_REGISTRATION_NUMBER, CAD.PSC_LAW_GOVERNED, CAD.PSC_LEGAL_FORM, CAD.PSC_COUNTRY, " +
+            "CAD.PSC_REGISTER_LOCATION, CAD.PSC_REGISTRATION_NUMBER, CAD.PSC_LAW_GOVERNED, CAD.PSC_LEGAL_FORM, CAD.PSC_COUNTRY, " +
             "       case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.HOUSE_NAME_NUMBER end, " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.STREET end  , " +
             "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.AREA end  , " +
