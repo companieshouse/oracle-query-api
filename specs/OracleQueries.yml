@@ -813,6 +813,7 @@ components:
         - poBox
         - addressLine1
         - natureOfControl
+        - registerLocation
         - registrationNumber
         - lawGoverned
         - legalForm
@@ -902,6 +903,10 @@ components:
           type: string
           description: Extent and nature of control of the psc in the company
           example: "75% or more of shares held as a person"
+        registerLocation:
+          type: string
+          description: Registered location of rle
+          example: "NORWAY"
         registrationNumber:
           type: string
           description: Registration number of rle
