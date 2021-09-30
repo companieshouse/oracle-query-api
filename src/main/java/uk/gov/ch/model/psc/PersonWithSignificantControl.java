@@ -82,7 +82,7 @@ public class PersonWithSignificantControl {
     private Address serviceAddress;
 
     @Transient
-    @JsonProperty("address")
+    @JsonProperty("residential_address")
     private Address residentialAddress;
 
     public Address getServiceAddress() {
