@@ -801,7 +801,7 @@ components:
         - legalForm
         - countryOfResidence
         - serviceAddress
-        - residentialAddress
+        - address
       properties:
         corporateBodyAppointmentId:
           type: integer
@@ -856,7 +856,7 @@ components:
         serviceAddress:
           type: object
           description: The service address of the PSC
-        residentialAddress:
+        address:
           type: object
           description: The Usual Residential Address (URA) of the PSC
     shareholders:

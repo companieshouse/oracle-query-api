@@ -78,8 +78,7 @@ public class PersonWithSignificantControl {
     private Address serviceAddress;
 
     @Transient
-    @JsonProperty("residential_address")
-    private Address residentialAddress;
+    private Address address;
 
     public Address getServiceAddress() {
         Address address = new Address();
@@ -94,7 +93,7 @@ public class PersonWithSignificantControl {
         return address;
     }
 
-    public Address getResidentialAddress() {
+    public Address getAddress() {
         Address address = new Address();
         address.setAddressLine1(addressLine1);
         address.setAddressLine2(street);
