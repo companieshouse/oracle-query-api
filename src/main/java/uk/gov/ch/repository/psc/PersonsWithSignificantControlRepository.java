@@ -49,7 +49,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             + "left outer join nature_of_control_type noct on NOCT.NATURE_OF_CONTROL_TYPE_ID=NOC.NATURE_OF_CONTROL_TYPE_ID "
             + "left outer join CORPORATE_APPT_DETAIL CAD on CAD.CORPORATE_APPT_DETAIL_ID=CBA.CORPORATE_APPT_DETAIL_ID "
             + "where "
-            + "CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = '10256992') "
+            + "CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?) "
             + "AND CBA.RESIGNATION_IND = 'N' "
             + "AND CBA.SUPER_SECURE_PSC_IND = 'N' "
             + "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) "
