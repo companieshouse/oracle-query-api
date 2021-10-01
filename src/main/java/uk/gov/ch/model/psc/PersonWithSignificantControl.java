@@ -38,10 +38,6 @@ public class PersonWithSignificantControl {
     private String serviceAddressCountryName;
     @Column(name = "SERVICE_ADDRESS_PO_BOX")
     private String serviceAddressPoBox;
-    @Column(name = "SERVICE_ADDRESS_AREA")
-    private String serviceAddressArea;
-    @Column(name = "SERVICE_ADDRESS_HOUSE_NAME_NUMBER")
-    private String serviceAddressHouseNameNumber;
     @Column(name = "OFFICER_NATIONALITY")
     private String officerNationality;
     @Column(name = "OFFICER_DATE_OF_BIRTH")
@@ -277,10 +273,6 @@ public class PersonWithSignificantControl {
 
     public void setServiceAddressPoBox(String serviceAddressPoBox) {
         this.serviceAddressPoBox = serviceAddressPoBox;
-    }
-
-    public void setServiceAddressArea(String serviceAddressArea) {
-        this.serviceAddressArea = serviceAddressArea;
     }
 
     public void setCareOf(String careOf) {

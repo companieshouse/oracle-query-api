@@ -22,8 +22,6 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             + "ADR.REGION as SERVICE_ADDRESS_REGION, "
             + "ADR.COUNTRY_NAME as SERVICE_ADDRESS_COUNTRY_NAME, "
             + "ADR.PO_BOX as SERVICE_ADDRESS_PO_BOX, "
-            + "ADR.AREA as SERVICE_ADDRESS_AREA, "
-            + "ADR.HOUSE_NAME_NUMBER as SERVICE_ADDRESS_HOUSE_NAME_NUMBER, "
             + "OD.OFFICER_NATIONALITY, "
             + "OD.OFFICER_DATE_OF_BIRTH, "
             + "CAD.PSC_REGISTER_LOCATION, "
