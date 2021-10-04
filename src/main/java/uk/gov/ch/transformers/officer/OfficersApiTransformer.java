@@ -10,9 +10,12 @@ import org.springframework.stereotype.Component;
 import uk.gov.ch.model.officer.Identification;
 import uk.gov.ch.model.officer.OfficerDataModel;
 import uk.gov.ch.model.officer.OfficerIdentification;
+import uk.gov.ch.model.officer.PreviousNameModel;
 import uk.gov.ch.model.officer.ServiceAddress;
 import uk.gov.companieshouse.api.model.common.Address;
+import uk.gov.companieshouse.api.model.common.DateOfBirth;
 import uk.gov.companieshouse.api.model.officers.CompanyOfficerApi;
+import uk.gov.companieshouse.api.model.officers.FormerNamesApi;
 import uk.gov.companieshouse.api.model.officers.IdentificationApi;
 import uk.gov.companieshouse.api.model.officers.OfficersApi;
 
@@ -59,7 +62,32 @@ public class OfficersApiTransformer {
     }
     
     private void setHumanOfficerFields(OfficerDataModel model, CompanyOfficerApi officer) {
-        // TODO map human fields - D.O.B., forename, surname, occupation etc
+        if(model.getPreviousNameArray() != null && !model.getPreviousNameArray().isEmpty()) {
+            List<FormerNamesApi> formerNames = new ArrayList<>();
+            for(PreviousNameModel pnm : model.getPreviousNameArray()) {
+                FormerNamesApi formerName = new FormerNamesApi();
+                formerName.setForenames(pnm.getPreviousForename());
+                formerName.setSurname(pnm.getPreviousSurname());
+                formerNames.add(formerName);
+            }
+            officer.setFormerNames(formerNames);
+        }
+        officer.setName(getHumanName(model.getForename(), model.getMiddleName(), model.getSurname()));
+        LocalDate dateOfBirthModel = getLocalDateFromString(model.getDateOfBirth());
+        DateOfBirth dateOfBirth = new DateOfBirth();
+        dateOfBirth.setMonth(new Long(dateOfBirthModel.getMonthValue()));
+        dateOfBirth.setYear(new Long(dateOfBirthModel.getYear()));
+        officer.setDateOfBirth(dateOfBirth);
+        
+        officer.setOccupation(model.getOccupation());
+        officer.setNationality(model.getNationality());
+    }
+    
+    private String getHumanName(String forename, String middleName, String surname) {
+        String name = forename != null ? forename : "";
+        name += middleName != null ? " " + middleName : "";
+        name += surname != null ? " " + surname : "";
+        return name.trim();
     }
     
     private LocalDate getLocalDateFromString(String dateString) {
