@@ -15,7 +15,7 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             + "CBA.OFFICER_SURNAME, "
             + "CBA.APPOINTMENT_TYPE_ID, "
             + "ADR.HOUSE_NAME_NUMBER as SERVICE_ADDRESS_LINE_1, "
-            + "ADR.STREET as SERVICE_ADDRESS_line_2, "
+            + "ADR.STREET as SERVICE_ADDRESS_LINE_2, "
             + "ADR.POST_CODE as SERVICE_ADDRESS_POST_CODE, "
             + "ADR.POST_TOWN as SERVICE_ADDRESS_POST_TOWN, "
             + "ADR.CARE_OF as SERVICE_ADDRESS_CARE_OF, "

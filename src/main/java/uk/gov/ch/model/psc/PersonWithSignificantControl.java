@@ -24,7 +24,7 @@ public class PersonWithSignificantControl {
     private String appointmentTypeId;
     @Column(name = "SERVICE_ADDRESS_LINE_1")
     private String serviceAddressLine1;
-    @Column(name = "SERVICE_ADDRESS_line_2")
+    @Column(name = "SERVICE_ADDRESS_LINE_2")
     private String serviceAddressLine2;
     @Column(name = "SERVICE_ADDRESS_POST_CODE")
     private String serviceAddressPostCode;
