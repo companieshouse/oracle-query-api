@@ -34,6 +34,8 @@ public class PersonWithSignificantControl {
     private String serviceAddressPoBox;
     @Column(name = "SERVICE_ADDRESS_AREA")
     private String serviceAddressArea;
+    @Column(name = "SERVICE_ADDRESS_HOUSE_NAME_NUMBER")
+    private String serviceAddressHouseNameNumber;
     @Column(name = "OFFICER_NATIONALITY")
     private String officerNationality;
     @Column(name = "OFFICER_DATE_OF_BIRTH")
@@ -62,6 +64,8 @@ public class PersonWithSignificantControl {
     private String addressLine1;
     @Column(name = "NATURE_OF_CONTROL")
     private String natureOfControl;
+    @Column(name = "PSC_REGISTER_LOCATION")
+    private String registerLocation;
     @Column(name = "PSC_REGISTRATION_NUMBER")
     private String registrationNumber;
     @Column(name = "PSC_LAW_GOVERNED")
@@ -239,6 +243,14 @@ public class PersonWithSignificantControl {
         this.natureOfControl = natureOfControl;
     }
 
+    public String getRegisterLocation() {
+        return registerLocation;
+    }
+
+    public void setRegisterLocation(String registerLocation) {
+        this.registerLocation = registerLocation;
+    }
+
     public String getRegistrationNumber() {
         return registrationNumber;
     }
@@ -317,5 +329,13 @@ public class PersonWithSignificantControl {
 
     public void setCareOf(String careOf) {
         this.careOf = careOf;
+    }
+
+    public String getServiceAddressHouseNameNumber() {
+        return serviceAddressHouseNameNumber;
+    }
+
+    public void setServiceAddressHouseNameNumber(String serviceAddressHouseNameNumber) {
+        this.serviceAddressHouseNameNumber = serviceAddressHouseNameNumber;
     }
 }
