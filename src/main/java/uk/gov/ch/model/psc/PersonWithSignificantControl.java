@@ -81,20 +81,20 @@ public class PersonWithSignificantControl {
     private Address address;
 
     public Address getServiceAddress() {
-        Address address = new Address();
-        address.setAddressLine1(serviceAddressLine1);
-        address.setAddressLine2(serviceAddressLine2);
-        address.setCareOf(serviceAddressCareOf);
-        address.setCountry(serviceAddressCountryName);
-        address.setLocality(serviceAddressPostTown);
-        address.setPoBox(serviceAddressPoBox);
-        address.setPostalCode(serviceAddressPostCode);
-        address.setRegion(serviceAddressRegion);
-        return address;
+        serviceAddress = new Address();
+        serviceAddress.setAddressLine1(serviceAddressLine1);
+        serviceAddress.setAddressLine2(serviceAddressLine2);
+        serviceAddress.setCareOf(serviceAddressCareOf);
+        serviceAddress.setCountry(serviceAddressCountryName);
+        serviceAddress.setLocality(serviceAddressPostTown);
+        serviceAddress.setPoBox(serviceAddressPoBox);
+        serviceAddress.setPostalCode(serviceAddressPostCode);
+        serviceAddress.setRegion(serviceAddressRegion);
+        return serviceAddress;
     }
 
     public Address getAddress() {
-        Address address = new Address();
+        address = new Address();
         address.setAddressLine1(addressLine1);
         address.setAddressLine2(street);
         address.setCareOf(careOf);
