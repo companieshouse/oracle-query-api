@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.officer.Identification;
 import uk.gov.ch.model.officer.OfficerDataModel;
 import uk.gov.ch.model.officer.OfficerIdentification;
@@ -18,6 +19,8 @@ import uk.gov.companieshouse.api.model.officers.CompanyOfficerApi;
 import uk.gov.companieshouse.api.model.officers.FormerNamesApi;
 import uk.gov.companieshouse.api.model.officers.IdentificationApi;
 import uk.gov.companieshouse.api.model.officers.OfficersApi;
+import uk.gov.companieshouse.logging.Logger;
+import uk.gov.companieshouse.logging.LoggerFactory;
 
 @Component
 public class OfficersApiTransformer {
@@ -73,11 +76,13 @@ public class OfficersApiTransformer {
             officer.setFormerNames(formerNames);
         }
         officer.setName(getHumanName(model.getForename(), model.getMiddleName(), model.getSurname()));
-        LocalDate dateOfBirthModel = getLocalDateFromString(model.getDateOfBirth());
-        DateOfBirth dateOfBirth = new DateOfBirth();
-        dateOfBirth.setMonth(new Long(dateOfBirthModel.getMonthValue()));
-        dateOfBirth.setYear(new Long(dateOfBirthModel.getYear()));
-        officer.setDateOfBirth(dateOfBirth);
+        if(model.getDateOfBirth() != null) {            
+            LocalDate dateOfBirthModel = getLocalDateFromString(model.getDateOfBirth());
+            DateOfBirth dateOfBirth = new DateOfBirth();
+            dateOfBirth.setMonth(new Long(dateOfBirthModel.getMonthValue()));
+            dateOfBirth.setYear(new Long(dateOfBirthModel.getYear()));
+            officer.setDateOfBirth(dateOfBirth);
+        }
         
         officer.setOccupation(model.getOccupation());
         officer.setNationality(model.getNationality());
