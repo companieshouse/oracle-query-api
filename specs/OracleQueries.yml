@@ -791,34 +791,17 @@ components:
         - officerForename2
         - officerSurname
         - appointmentTypeId
-        - serviceAddressLine1
-        - serviceAddressPostCode
-        - serviceAddressPostTown
-        - serviceAddressRegion
-        - serviceAddressArea
-        - serviceAddressCareOf
-        - serviceAddressPoBox
-        - serviceAddressCountryName
-        - serviceAddresHouseNameNumber
         - officerNationality
         - officerDateOfBirth
-        - houseNameNumber
-        - street
-        - area
-        - postTown
-        - postCode
-        - region
-        - countryName
-        - careOf
         - suppliedCompanyName
-        - poBox
-        - addressLine1
         - natureOfControl
         - registerLocation
         - registrationNumber
         - lawGoverned
         - legalForm
         - countryOfResidence
+        - serviceAddress
+        - address
       properties:
         corporateBodyAppointmentId:
           type: integer
@@ -836,33 +819,6 @@ components:
           type: string
           description: Numerical code reference to type of psc person or relevant legal entity
           example: "5007"
-        serviceAddressLine1:
-          type: string
-          description: First line of address house name or number and street
-        serviceAddressPostCode:
-          type: string
-          description: Area post code
-        serviceAddressPostTown:
-          type: string
-          description: Town
-        serviceAddressArea:
-          type: string
-          description: Area
-        serviceAddressPoBox:
-          type: string
-          description: PO Box
-        serviceAddressCountryName:
-          type: string
-          description: Country
-        serviceAddressCareOf:
-          type: string
-          description: Care Of
-        serviceAddressRegion:
-          type: string
-          description: County
-        serviceAddressHouseNameNumber:
-          type: string
-          description: Premises
         officerNationality:
           type: string
           description: Nationality
@@ -870,39 +826,9 @@ components:
           type: string
           description: The officer date of birth
           example: "1970-01-01"
-        houseNameNumber:
-          type: string
-          description: House name or number
-        street:
-          type: string
-          description: Street
-        area:
-          type: string
-          description: Village or town district
-        postTown:
-          type: string
-          description: Town or city
-        postCode:
-          type: string
-          description: Post code
-        region:
-          type: string
-          description: County
-        countryName:
-          type: string
-          description: Country
-        careOf:
-          type: string
-          description: Care of
         suppliedCompanyName:
           type: string
           description: name of company corresponding to the company number
-        poBox:
-          type: string
-          description: Po box
-        addressLine1:
-          type: string
-          description: Address
         natureOfControl:
           type: string
           description: Extent and nature of control of the psc in the company
@@ -927,6 +853,12 @@ components:
           type: string
           description: Country rle is located in
           example: "ENGLAND"
+        serviceAddress:
+          type: object
+          description: The service address of the PSC
+        address:
+          type: object
+          description: The Usual Residential Address (URA) of the PSC
     shareholders:
       type: object
       required:
