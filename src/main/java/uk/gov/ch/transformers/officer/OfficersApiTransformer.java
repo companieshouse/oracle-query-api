@@ -77,10 +77,12 @@ public class OfficersApiTransformer {
         officer.setName(getHumanName(model.getForename(), model.getMiddleName(), model.getSurname()));
         if(model.getDateOfBirth() != null) {            
             LocalDate dateOfBirthModel = getLocalDateFromString(model.getDateOfBirth());
-            DateOfBirth dateOfBirth = new DateOfBirth();
-            dateOfBirth.setMonth(Long.valueOf(dateOfBirthModel.getMonthValue()));
-            dateOfBirth.setYear(Long.valueOf(dateOfBirthModel.getYear()));
-            officer.setDateOfBirth(dateOfBirth);
+            if(dateOfBirthModel != null) {                
+                DateOfBirth dateOfBirth = new DateOfBirth();
+                dateOfBirth.setMonth(Long.valueOf(dateOfBirthModel.getMonthValue()));
+                dateOfBirth.setYear(Long.valueOf(dateOfBirthModel.getYear()));
+                officer.setDateOfBirth(dateOfBirth);
+            }
         }
         
         officer.setOccupation(model.getOccupation());

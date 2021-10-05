@@ -268,6 +268,17 @@ class OfficerApiTransformerTest {
     }
     
     @Test
+    @DisplayName("Test conversion with human officer empty string date of birth")
+    void testConvertWithHumanOfficersEmptyStringDateOfBirth() {
+        OfficerDataModel humanOfficer = createHumanOfficerDataModel();
+        humanOfficer.setDateOfBirth("");
+        List<OfficerDataModel> officerList = new ArrayList<>();
+        officerList.add(humanOfficer);
+        OfficersApi officersApi = transformer.convert(officerList);
+        assertNull(officersApi.getItems().get(0).getDateOfBirth());
+    }
+    
+    @Test
     @DisplayName("Test conversion with human officers empty previous names list")
     void testConvertWithHumanOfficerEmptyPreviousNames() {
         OfficerDataModel humanOfficer = createHumanOfficerDataModel();
