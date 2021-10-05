@@ -13,6 +13,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.exception.NoOfficersExistingException;
+import uk.gov.ch.exception.OfficersMappingException;
 import uk.gov.ch.model.officer.OfficerDataModel;
 import uk.gov.ch.repository.officers.OfficersRepository;
 import uk.gov.ch.service.officer.OfficerService;
@@ -26,26 +28,28 @@ public class OfficerServiceImpl implements OfficerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String COMPANY_NOT_FOUND = "Company Not Found";
+    private static final String NO_OFFICER_STRING = "], \"CreatedTime\":";
 
     @Autowired
     OfficersRepository officersRepository;
 
     @Autowired
     private ObjectMapper objectMapper;
-    
+
     @Autowired
     private OfficersApiTransformer transformer;
 
     @Override
-    public OfficersApi getOfficers(String companyNumber) {
+    public OfficersApi getOfficers(String companyNumber) throws OfficersMappingException, NoOfficersExistingException {
         Map<String, Object> debugMap = new HashMap<>();
         debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling package for list of officers", debugMap);
         String result = officersRepository.getOfficers(companyNumber);
 
-        if (result == null || result.isEmpty() || result.contains(COMPANY_NOT_FOUND)) {
+        if (result == null || result.isEmpty() || result.contains(COMPANY_NOT_FOUND)
+                || result.startsWith(NO_OFFICER_STRING)) {
             LOGGER.info("Get officers returned a non-processable string");
-            return new OfficersApi();
+            throw new NoOfficersExistingException("Non processable response from respository");
         }
 
         try {
@@ -55,13 +59,10 @@ public class OfficerServiceImpl implements OfficerService {
                     new TypeReference<List<OfficerDataModel>>() {
                     });
             return transformer.convert(officerDataModels);
-            
-        } catch (JsonProcessingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
 
-        return null;
+        } catch (JsonProcessingException e) {
+            throw new OfficersMappingException("JsonProcessingException encountered when mapping");
+        }
     }
 
 }

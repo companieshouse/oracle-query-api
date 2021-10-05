@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.officer.Identification;
 import uk.gov.ch.model.officer.OfficerDataModel;
 import uk.gov.ch.model.officer.OfficerIdentification;
@@ -19,8 +18,6 @@ import uk.gov.companieshouse.api.model.officers.CompanyOfficerApi;
 import uk.gov.companieshouse.api.model.officers.FormerNamesApi;
 import uk.gov.companieshouse.api.model.officers.IdentificationApi;
 import uk.gov.companieshouse.api.model.officers.OfficersApi;
-import uk.gov.companieshouse.logging.Logger;
-import uk.gov.companieshouse.logging.LoggerFactory;
 
 @Component
 public class OfficersApiTransformer {
@@ -28,7 +25,7 @@ public class OfficersApiTransformer {
     public OfficersApi convert(List<OfficerDataModel> officerList) {
         OfficersApi officersApi = new OfficersApi();
         officersApi.setStartIndex(0);
-        officersApi.setEtag("officer-list");
+        officersApi.setKind("officer-list");
         officersApi.setItemsPerPage(new Long(officerList.size()));
         officersApi.setTotalResults(officerList.size());
         int resigned = 0;
@@ -61,7 +58,9 @@ public class OfficersApiTransformer {
 
     private void setCorporateOfficerFields(OfficerDataModel model, CompanyOfficerApi officer) {
         officer.setName(model.getSurname());
-        officer.setIdentification(getIdentification(model.getIdentification()));
+        if(model.getIdentification() != null) {            
+            officer.setIdentification(getIdentification(model.getIdentification()));
+        }
     }
     
     private void setHumanOfficerFields(OfficerDataModel model, CompanyOfficerApi officer) {
@@ -122,11 +121,13 @@ public class OfficersApiTransformer {
         if(identification.getEea() != null) {
             setIdentificationDetails(identificationApi, "eea", identification.getEea());
         } else if(identification.getNonEea() != null) {
-            setIdentificationDetails(identificationApi, "non-eea", identification.getEea());
+            setIdentificationDetails(identificationApi, "non-eea", identification.getNonEea());
         } else if(identification.getOtherCorporateBodyOrFirm() != null) {
-            setIdentificationDetails(identificationApi, "other-corporate-body-or-firm", identification.getEea());
+            setIdentificationDetails(identificationApi, "other-corporate-body-or-firm", identification.getOtherCorporateBodyOrFirm());
         } else if(identification.getUkLimitedCompany() != null) {
-            setIdentificationDetails(identificationApi, "uk-limited-company", identification.getEea());
+            setIdentificationDetails(identificationApi, "uk-limited-company", identification.getUkLimitedCompany());
+        } else {
+            return null;
         }
         return identificationApi;
     }
