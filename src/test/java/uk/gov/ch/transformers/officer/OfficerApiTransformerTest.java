@@ -24,7 +24,7 @@ import uk.gov.companieshouse.api.model.officers.IdentificationApi;
 import uk.gov.companieshouse.api.model.officers.OfficersApi;
 
 @ExtendWith(MockitoExtension.class)
-public class OfficerApiTransformerTest {
+class OfficerApiTransformerTest {
     
     private static final String ADDRESS_LINE_1 = "Address line 1";
     private static final String ADDRESS_LINE_2 = "Address line 2";
@@ -413,7 +413,4 @@ public class OfficerApiTransformerTest {
         previousNamesList.add(previousName1);
         return previousNamesList;
     }
-    
-    
-
 }

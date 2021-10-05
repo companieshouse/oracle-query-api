@@ -26,7 +26,7 @@ public class OfficersApiTransformer {
         OfficersApi officersApi = new OfficersApi();
         officersApi.setStartIndex(0);
         officersApi.setKind("officer-list");
-        officersApi.setItemsPerPage(new Long(officerList.size()));
+        officersApi.setItemsPerPage(Long.valueOf(officerList.size()));
         officersApi.setTotalResults(officerList.size());
         int resigned = 0;
         List<CompanyOfficerApi> officers = new ArrayList<>();
@@ -78,8 +78,8 @@ public class OfficersApiTransformer {
         if(model.getDateOfBirth() != null) {            
             LocalDate dateOfBirthModel = getLocalDateFromString(model.getDateOfBirth());
             DateOfBirth dateOfBirth = new DateOfBirth();
-            dateOfBirth.setMonth(new Long(dateOfBirthModel.getMonthValue()));
-            dateOfBirth.setYear(new Long(dateOfBirthModel.getYear()));
+            dateOfBirth.setMonth(Long.valueOf(dateOfBirthModel.getMonthValue()));
+            dateOfBirth.setYear(Long.valueOf(dateOfBirthModel.getYear()));
             officer.setDateOfBirth(dateOfBirth);
         }
         

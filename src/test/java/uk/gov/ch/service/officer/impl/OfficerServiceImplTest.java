@@ -30,7 +30,7 @@ import uk.gov.ch.transformers.officer.OfficersApiTransformer;
 import uk.gov.companieshouse.api.model.officers.OfficersApi;
 
 @ExtendWith(MockitoExtension.class)
-public class OfficerServiceImplTest {
+class OfficerServiceImplTest {
 
     @InjectMocks
     private OfficerServiceImpl officerServiceImpl;
