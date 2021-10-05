@@ -14,7 +14,7 @@ public interface ShareholderRepository  extends PagingAndSortingRepository<Share
             + "sh.SHAREHOLDER_FORENAME_2 AS fore_name_2, "
             + "sh.SHAREHOLDER_SURNAME AS surname, "
             + "shd.NUMBER_OF_SHARES AS shares, "
-            + "sct.SHARE_CLASS_TYPE_DESC AS class_of_shares, "
+            + "coalesce(shd.NON_STANDARD_SHARE_CLASS, sct.SHARE_CLASS_TYPE_DESC) AS class_of_shares, "
             + "ctp.CURRENCY_TYPE_CODE as currency "
             + "FROM shareholder sh INNER JOIN shareholding shd ON sh.SHAREHOLDING_ID = shd.SHAREHOLDING_ID "
             + "JOIN corporate_body cb ON cb.CORPORATE_BODY_ID = shd.CORPORATE_BODY_ID "
