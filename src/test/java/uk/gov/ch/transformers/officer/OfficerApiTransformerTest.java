@@ -54,6 +54,18 @@ class OfficerApiTransformerTest {
     private static final String REGION = "Region";
     private static final String SURNAME = "Surname";
     private static final String UK_LIMITED_COMPANY = "uk-limited-company";
+    private static final String EMPTY_STRING = " ";
+    private static final String ADDRESS_LINE_1_WHITE_SPACE = " Address line 1 ";
+    private static final String ADDRESS_LINE_2_WHITE_SPACE = " Address line 2 ";
+    private static final String CARE_OF_NAME_WHITE_SPACE = " Care of name ";
+    private static final String COUNTRY_WHITE_SPACE = " Country ";
+    private static final String LOCALITY_WHITE_SPACE = " Locality ";
+    private static final String PO_BOX_WHITE_SPACE = " PO Box ";
+    private static final String POSTCODE_WHITE_SPACE = " POSTCODE ";
+    private static final String PREMISES_WHITE_SPACE = " Premises ";
+    private static final String REGION_WHITE_SPACE = " Region ";
+    private static final String USUAL_COUNTRY_WHITE_SPACE = " Usual Country ";
+
     
     private OfficersApiTransformer transformer;
     
@@ -221,7 +233,50 @@ class OfficerApiTransformerTest {
         assertNull(officersApi.getItems().get(0).getAddress());
         assertNull(officersApi.getItems().get(1).getAddress());
     }
-    
+
+    @Test
+    @DisplayName("Test conversion where the service address holds empty string values")
+    void testConversionWhereAddressFieldsValuesEmptyStrings() {
+        OfficerDataModel humanOfficer = createHumanOfficerDataModel();
+        humanOfficer.setServiceAddress(createServiceAddressWithEmptyStrings());
+
+        List<OfficerDataModel> officerList = new ArrayList<>();
+        officerList.add(humanOfficer);
+
+        OfficersApi officersApi = transformer.convert(officerList);
+        assertNull(officersApi.getItems().get(0).getAddress().getAddressLine1());
+        assertNull(officersApi.getItems().get(0).getAddress().getAddressLine2());
+        assertNull(officersApi.getItems().get(0).getAddress().getCareOf());
+        assertNull(officersApi.getItems().get(0).getAddress().getCountry());
+        assertNull(officersApi.getItems().get(0).getAddress().getLocality());
+        assertNull(officersApi.getItems().get(0).getAddress().getPoBox());
+        assertNull(officersApi.getItems().get(0).getAddress().getPostalCode());
+        assertNull(officersApi.getItems().get(0).getAddress().getPremises());
+        assertNull(officersApi.getItems().get(0).getAddress().getRegion());
+    }
+
+    @Test
+    @DisplayName("Test conversion where the service address values are trimmed of whitespace ")
+    void testConversionWhereAddressFieldsValuesTrailingWhiteSpace() {
+        OfficerDataModel humanOfficer = createHumanOfficerDataModel();
+        humanOfficer.setServiceAddress(createServiceAddressWithTrailingWhiteSpace());
+
+        List<OfficerDataModel> officerList = new ArrayList<>();
+        officerList.add(humanOfficer);
+
+        OfficersApi officersApi = transformer.convert(officerList);
+        assertEquals(ADDRESS_LINE_1, officersApi.getItems().get(0).getAddress().getAddressLine1());
+        assertEquals(ADDRESS_LINE_2, officersApi.getItems().get(0).getAddress().getAddressLine2());
+        assertEquals(CARE_OF_NAME, officersApi.getItems().get(0).getAddress().getCareOf());
+        assertEquals(COUNTRY, officersApi.getItems().get(0).getAddress().getCountry());
+        assertEquals(LOCALITY, officersApi.getItems().get(0).getAddress().getLocality());
+        assertEquals(PO_BOX, officersApi.getItems().get(0).getAddress().getPoBox());
+        assertEquals(POSTCODE, officersApi.getItems().get(0).getAddress().getPostalCode());
+        assertEquals(PREMISES, officersApi.getItems().get(0).getAddress().getPremises());
+        assertEquals(REGION, officersApi.getItems().get(0).getAddress().getRegion());
+
+    }
+
     @Test
     @DisplayName("Test conversion with human officers null previous names")
     void testConvertWithHumanOfficerNullPreviousName() {
@@ -397,6 +452,38 @@ class OfficerApiTransformerTest {
         serviceAddress.setRegion(REGION);
         serviceAddress.setUsualCountryOfResidence("Usual Country");
         
+        return serviceAddress;
+    }
+
+    private ServiceAddress createServiceAddressWithEmptyStrings() {
+        ServiceAddress serviceAddress = new ServiceAddress();
+        serviceAddress.setAddressLine1(EMPTY_STRING);
+        serviceAddress.setAddressLine2(EMPTY_STRING);
+        serviceAddress.setCareOfName(EMPTY_STRING);
+        serviceAddress.setCountry(EMPTY_STRING);
+        serviceAddress.setLocality(EMPTY_STRING);
+        serviceAddress.setPoBox(EMPTY_STRING);
+        serviceAddress.setPostalCode(EMPTY_STRING);
+        serviceAddress.setPremises(EMPTY_STRING);
+        serviceAddress.setRegion(EMPTY_STRING);
+        serviceAddress.setUsualCountryOfResidence(EMPTY_STRING);
+
+        return serviceAddress;
+    }
+
+    private ServiceAddress createServiceAddressWithTrailingWhiteSpace() {
+        ServiceAddress serviceAddress = new ServiceAddress();
+        serviceAddress.setAddressLine1(ADDRESS_LINE_1_WHITE_SPACE);
+        serviceAddress.setAddressLine2(ADDRESS_LINE_2_WHITE_SPACE);
+        serviceAddress.setCareOfName(CARE_OF_NAME_WHITE_SPACE);
+        serviceAddress.setCountry(COUNTRY_WHITE_SPACE);
+        serviceAddress.setLocality(LOCALITY_WHITE_SPACE);
+        serviceAddress.setPoBox(PO_BOX_WHITE_SPACE);
+        serviceAddress.setPostalCode(POSTCODE_WHITE_SPACE);
+        serviceAddress.setPremises(PREMISES_WHITE_SPACE);
+        serviceAddress.setRegion(REGION_WHITE_SPACE);
+        serviceAddress.setUsualCountryOfResidence(USUAL_COUNTRY_WHITE_SPACE);
+
         return serviceAddress;
     }
     
