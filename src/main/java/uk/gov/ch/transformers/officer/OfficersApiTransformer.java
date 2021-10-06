@@ -108,12 +108,12 @@ public class OfficersApiTransformer {
         Address address = new Address();
         address.setAddressLine1(getString(serviceAddress.getAddressLine1()));
         address.setAddressLine2(getString(serviceAddress.getAddressLine2()));
-        address.setCareOf(getString(serviceAddress.getCareOfName()));;
-        address.setCountry(getString(serviceAddress.getCountry()));;
-        address.setLocality(getString(serviceAddress.getLocality()));;
-        address.setPoBox(getString(serviceAddress.getPoBox()));;
-        address.setPostalCode(getString(serviceAddress.getPostalCode()));;
-        address.setPremises(getString(serviceAddress.getPremises()));;
+        address.setCareOf(getString(serviceAddress.getCareOfName()));
+        address.setCountry(getString(serviceAddress.getCountry()));
+        address.setLocality(getString(serviceAddress.getLocality()));
+        address.setPoBox(getString(serviceAddress.getPoBox()));
+        address.setPostalCode(getString(serviceAddress.getPostalCode()));
+        address.setPremises(getString(serviceAddress.getPremises()));
         address.setRegion(getString(serviceAddress.getRegion()));
         return address;
     }
