@@ -54,6 +54,7 @@ class OfficerApiTransformerTest {
     private static final String REGION = "Region";
     private static final String SURNAME = "Surname";
     private static final String UK_LIMITED_COMPANY = "uk-limited-company";
+    private static final String EMPTY_STRING = " ";
     
     private OfficersApiTransformer transformer;
     
@@ -221,7 +222,23 @@ class OfficerApiTransformerTest {
         assertNull(officersApi.getItems().get(0).getAddress());
         assertNull(officersApi.getItems().get(1).getAddress());
     }
-    
+
+    @Test
+    @DisplayName("Test conversion where the service address holds empty string values")
+    void testConversionWhereAddressFieldsValuesEmptyStrings() {
+        OfficerDataModel humanOfficer = createHumanOfficerDataModel();
+        humanOfficer.setServiceAddress(createServiceAddressWithEmptyStrings());
+
+        List<OfficerDataModel> officerList = new ArrayList<>();
+        officerList.add(humanOfficer);
+
+        OfficersApi officersApi = transformer.convert(officerList);
+        assertEquals(ADDRESS_LINE_1, officersApi.getItems().get(0).getAddress().getAddressLine1());
+        assertNull(officersApi.getItems().get(0).getAddress().getAddressLine2());
+        assertNull(officersApi.getItems().get(0).getAddress().getCountry());
+        assertNull(officersApi.getItems().get(0).getAddress().getLocality());
+    }
+
     @Test
     @DisplayName("Test conversion with human officers null previous names")
     void testConvertWithHumanOfficerNullPreviousName() {
@@ -397,6 +414,22 @@ class OfficerApiTransformerTest {
         serviceAddress.setRegion(REGION);
         serviceAddress.setUsualCountryOfResidence("Usual Country");
         
+        return serviceAddress;
+    }
+
+    private ServiceAddress createServiceAddressWithEmptyStrings() {
+        ServiceAddress serviceAddress = new ServiceAddress();
+        serviceAddress.setAddressLine1(ADDRESS_LINE_1);
+        serviceAddress.setAddressLine2(EMPTY_STRING);
+        serviceAddress.setCareOfName(CARE_OF_NAME);
+        serviceAddress.setCountry(EMPTY_STRING);
+        serviceAddress.setLocality(EMPTY_STRING);
+        serviceAddress.setPoBox(PO_BOX);
+        serviceAddress.setPostalCode(POSTCODE);
+        serviceAddress.setPremises(PREMISES);
+        serviceAddress.setRegion(REGION);
+        serviceAddress.setUsualCountryOfResidence("Usual Country");
+
         return serviceAddress;
     }
     
