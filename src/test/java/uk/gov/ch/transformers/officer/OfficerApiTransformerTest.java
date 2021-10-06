@@ -5,13 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import uk.gov.ch.model.officer.Identification;
 import uk.gov.ch.model.officer.OfficerDataModel;
 import uk.gov.ch.model.officer.OfficerIdentification;
@@ -256,7 +254,7 @@ class OfficerApiTransformerTest {
     }
 
     @Test
-    @DisplayName("Test conversion where the service address values are trimmed of whitespace ")
+    @DisplayName("Test conversion where the service address values are trimmed of whitespace")
     void testConversionWhereAddressFieldsValuesTrailingWhiteSpace() {
         OfficerDataModel humanOfficer = createHumanOfficerDataModel();
         humanOfficer.setServiceAddress(createServiceAddressWithTrailingWhiteSpace());
@@ -274,7 +272,23 @@ class OfficerApiTransformerTest {
         assertEquals(POSTCODE, officersApi.getItems().get(0).getAddress().getPostalCode());
         assertEquals(PREMISES, officersApi.getItems().get(0).getAddress().getPremises());
         assertEquals(REGION, officersApi.getItems().get(0).getAddress().getRegion());
+    }
 
+    @Test
+    @DisplayName("Test conversion where the service address value is null")
+    void testConversionWhereAddressFieldsValueIsNull() {
+
+        ServiceAddress serviceAddress = new ServiceAddress();
+        serviceAddress.setAddressLine1(null);
+
+        OfficerDataModel humanOfficer = createHumanOfficerDataModel();
+        humanOfficer.setServiceAddress(serviceAddress);
+
+        List<OfficerDataModel> officerList = new ArrayList<>();
+        officerList.add(humanOfficer);
+
+        OfficersApi officersApi = transformer.convert(officerList);
+        assertNull(officersApi.getItems().get(0).getAddress().getAddressLine1());
     }
 
     @Test

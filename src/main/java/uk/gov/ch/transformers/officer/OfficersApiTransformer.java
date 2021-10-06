@@ -106,15 +106,15 @@ public class OfficersApiTransformer {
     
     private Address getServiceAddress(ServiceAddress serviceAddress) {
         Address address = new Address();
-        address.setAddressLine1(serviceAddress.getAddressLine1().trim().isEmpty() ? null : serviceAddress.getAddressLine1().trim());
-        address.setAddressLine2(serviceAddress.getAddressLine2().trim().isEmpty() ? null : serviceAddress.getAddressLine2().trim());
-        address.setCareOf(serviceAddress.getCareOfName().trim().isEmpty() ? null : serviceAddress.getCareOfName().trim());
-        address.setCountry(serviceAddress.getCountry().trim().isEmpty() ? null : serviceAddress.getCountry().trim());
-        address.setLocality(serviceAddress.getLocality().trim().isEmpty() ? null : serviceAddress.getLocality().trim());
-        address.setPoBox(serviceAddress.getPoBox().trim().isEmpty() ? null : serviceAddress.getPoBox().trim());
-        address.setPostalCode(serviceAddress.getPostalCode().trim().isEmpty() ? null : serviceAddress.getPostalCode().trim());
-        address.setPremises(serviceAddress.getPremises().trim().isEmpty() ? null : serviceAddress.getPremises().trim());
-        address.setRegion(serviceAddress.getRegion().trim().isEmpty() ? null : serviceAddress.getRegion().trim());
+        address.setAddressLine1(getString(serviceAddress.getAddressLine1()));
+        address.setAddressLine2(getString(serviceAddress.getAddressLine2()));
+        address.setCareOf(getString(serviceAddress.getCareOfName()));;
+        address.setCountry(getString(serviceAddress.getCountry()));;
+        address.setLocality(getString(serviceAddress.getLocality()));;
+        address.setPoBox(getString(serviceAddress.getPoBox()));;
+        address.setPostalCode(getString(serviceAddress.getPostalCode()));;
+        address.setPremises(getString(serviceAddress.getPremises()));;
+        address.setRegion(getString(serviceAddress.getRegion()));
         return address;
     }
     
@@ -140,6 +140,14 @@ public class OfficersApiTransformer {
         identificationApi.setLegalForm(identification.getLegalForm());
         identificationApi.setPlaceRegistered(identification.getPlaceRegistered());
         identificationApi.setRegistrationNumber(identification.getRegistrationNumber());
+    }
+
+    private String getString(String originalString) {
+        if(originalString == null || originalString.trim().isEmpty()) {
+            return null;
+        } else {
+            return originalString.trim();
+        }
     }
 
 }
