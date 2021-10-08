@@ -32,6 +32,9 @@ public class ActiveDirectorDetails {
     @Column(name = "DATE_OF_BIRTH")
     @JsonProperty("date_of_birth")
     private String dateOfBirth;
+    @Column(name = "date_of_appointment")
+    @JsonProperty("date_of_appointment")
+    private String dateOfAppointment;
     @Column(name = "SERVICE_ADDRESS_LINE_1")
     private String serviceAddressLine1;
     @Column(name = "SERVICE_ADDRESS_LINE_2")
@@ -120,10 +123,7 @@ public class ActiveDirectorDetails {
     }
 
     public String getDateOfBirth() throws ParseException {
-        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
-        Date dob = formatFrom.parse(dateOfBirth);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
-        return simpleDateFormat.format(dob);
+        return formatDate(dateOfBirth);
     }
 
     public void setDateOfBirth(String dateOfBirth) {
@@ -202,6 +202,14 @@ public class ActiveDirectorDetails {
         this.residentialAddressRegion = residentialAddressRegion;
     }
 
+    public String getDateOfAppointment() throws ParseException {
+        return formatDate(dateOfAppointment);
+    }
+
+    public void setDateOfAppointment(String dateOfAppointment) {
+        this.dateOfAppointment = dateOfAppointment;
+    }
+
     public Address getServiceAddress() {
         Address address = new Address();
         address.setAddressLine1(serviceAddressLine1);
@@ -230,5 +238,12 @@ public class ActiveDirectorDetails {
             address.setRegion(residentialAddressRegion);
         }
         return address;
+    }
+
+    private String formatDate(String dateString) throws ParseException {
+        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatFrom.parse(dateString);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        return simpleDateFormat.format(date);
     }
 }

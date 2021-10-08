@@ -682,6 +682,7 @@ components:
         - occupation
         - nationality
         - dateOfBirth
+        - dateOfAppointment
         - serviceAddress
         - residentialAddress
       properties:
@@ -703,6 +704,9 @@ components:
         dateOfBirth:
           type: string
           description: The full date of birth of the active director
+        dateOfAppointment:
+          type: string
+          description: Appointment date of the director
         serviceAddress:
           type: object
           description: The service address of the active director
