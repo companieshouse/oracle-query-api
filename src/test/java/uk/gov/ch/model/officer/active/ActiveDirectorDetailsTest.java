@@ -18,6 +18,7 @@ class ActiveDirectorDetailsTest {
     String URA_POST_TOWN = "Town";
     String URA_POST_CODE = "POST CODE";
     String UNFORMATTED_DOB = "1962-01-29 00:00:00.0";
+    String UNFORMATTED_DOA = "2009-01-29 00:00:00.0";
     String FORMATTED_DOB = "29 January 1962";
     String SECURE_DIRECTOR_URA_LINE_1 = "Companies House Cannot Disclose this Home Address";
 
@@ -31,6 +32,7 @@ class ActiveDirectorDetailsTest {
         director.setOccupation("singer");
         director.setNationality("British");
         director.setDateOfBirth(UNFORMATTED_DOB);
+        director.setDateOfAppointment(UNFORMATTED_DOA);
         
         director.setResidentialAddressLine1(URA_LINE_1);
         director.setResidentialAddressLine2("Crown Way");
