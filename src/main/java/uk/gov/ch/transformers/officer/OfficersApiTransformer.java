@@ -106,16 +106,24 @@ public class OfficersApiTransformer {
     
     private Address getServiceAddress(ServiceAddress serviceAddress) {
         Address address = new Address();
-        address.setAddressLine1(serviceAddress.getAddressLine1().trim().isEmpty() ? null : serviceAddress.getAddressLine1().trim());
-        address.setAddressLine2(serviceAddress.getAddressLine2().trim().isEmpty() ? null : serviceAddress.getAddressLine2().trim());
-        address.setCareOf(serviceAddress.getCareOfName().trim().isEmpty() ? null : serviceAddress.getCareOfName().trim());
-        address.setCountry(serviceAddress.getCountry().trim().isEmpty() ? null : serviceAddress.getCountry().trim());
-        address.setLocality(serviceAddress.getLocality().trim().isEmpty() ? null : serviceAddress.getLocality().trim());
-        address.setPoBox(serviceAddress.getPoBox().trim().isEmpty() ? null : serviceAddress.getPoBox().trim());
-        address.setPostalCode(serviceAddress.getPostalCode().trim().isEmpty() ? null : serviceAddress.getPostalCode().trim());
-        address.setPremises(serviceAddress.getPremises().trim().isEmpty() ? null : serviceAddress.getPremises().trim());
-        address.setRegion(serviceAddress.getRegion().trim().isEmpty() ? null : serviceAddress.getRegion().trim());
+        address.setAddressLine1(checkNullOrEmptyString(serviceAddress.getAddressLine1()));
+        address.setAddressLine2(checkNullOrEmptyString(serviceAddress.getAddressLine2()));
+        address.setCareOf(checkNullOrEmptyString(serviceAddress.getCareOfName()));
+        address.setCountry(checkNullOrEmptyString(serviceAddress.getCountry()));
+        address.setLocality(checkNullOrEmptyString(serviceAddress.getLocality()));
+        address.setPoBox(checkNullOrEmptyString(serviceAddress.getPoBox()));
+        address.setPostalCode(checkNullOrEmptyString(serviceAddress.getPostalCode()));
+        address.setPremises(checkNullOrEmptyString(serviceAddress.getPremises()));
+        address.setRegion(checkNullOrEmptyString(serviceAddress.getRegion()));
         return address;
+    }
+    
+    private String checkNullOrEmptyString(String string) { 
+        if(string == null || string.trim().isEmpty()) {
+            return null;
+        } else {
+            return string.trim();
+        }
     }
     
     private IdentificationApi getIdentification(Identification identification) {
