@@ -35,6 +35,9 @@ public class ActiveDirectorDetails {
     @Column(name = "date_of_appointment")
     @JsonProperty("date_of_appointment")
     private String dateOfAppointment;
+    @Column(name = "country_of_residence")
+    @JsonProperty("country_of_residence")
+    private String countryOfResidence;
     @Column(name = "SERVICE_ADDRESS_LINE_1")
     private String serviceAddressLine1;
     @Column(name = "SERVICE_ADDRESS_LINE_2")
@@ -128,6 +131,14 @@ public class ActiveDirectorDetails {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    public void setCountryOfResidence(String countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
     }
 
     public void setSecureIndicator(String secureIndicator) {

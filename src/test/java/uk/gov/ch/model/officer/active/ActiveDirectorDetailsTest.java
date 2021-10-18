@@ -20,6 +20,7 @@ class ActiveDirectorDetailsTest {
     String UNFORMATTED_DOB = "1962-01-29 00:00:00.0";
     String UNFORMATTED_DOA = "2009-01-29 00:00:00.0";
     String FORMATTED_DOB = "29 January 1962";
+    String COUNTRY_OF_RESIDENCE = "Country";
     String SECURE_DIRECTOR_URA_LINE_1 = "Companies House Cannot Disclose this Home Address";
 
     @BeforeEach
@@ -33,7 +34,8 @@ class ActiveDirectorDetailsTest {
         director.setNationality("British");
         director.setDateOfBirth(UNFORMATTED_DOB);
         director.setDateOfAppointment(UNFORMATTED_DOA);
-        
+        director.setCountryOfResidence(COUNTRY_OF_RESIDENCE);
+
         director.setResidentialAddressLine1(URA_LINE_1);
         director.setResidentialAddressLine2("Crown Way");
         director.setResidentialAddressCountry("Wales");

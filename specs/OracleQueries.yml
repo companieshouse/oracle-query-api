@@ -683,6 +683,7 @@ components:
         - nationality
         - dateOfBirth
         - dateOfAppointment
+        - countryOfResidence
         - serviceAddress
         - residentialAddress
       properties:
@@ -707,6 +708,9 @@ components:
         dateOfAppointment:
           type: string
           description: Appointment date of the director
+        countryOfResidence:
+          type: string
+          description: The usual residential country of the active director
         serviceAddress:
           type: object
           description: The service address of the active director
