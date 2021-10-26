@@ -143,6 +143,18 @@ class CorporateBodyTransformerTest {
         CompanyProfileApi thirdResult = transformer.convert(model);
         assertNull(thirdResult.getAccounts().getAccountingReferenceDate());
     }
+    
+    @Test
+    @DisplayName("Test where dissolution date is null and closure date is populated")
+    void testConvertWithClosureDate() {
+        CompanyProfileModel model = setUpModel();
+        model.setClosureDate(MID_DATE);
+        model.setDateOfDissolution(null);
+        
+        CompanyProfileApi result = transformer.convert(model);
+        assertNotNull(result.getDateOfCessation());
+        assertEquals(getLocalDateFromString(model.getClosureDate()), result.getDateOfCessation());
+    }
 
     private void assertSicCodes(CompanyProfileModel model, CompanyProfileApi result) {
         assertEquals(5, result.getSicCodes().length);
