@@ -37,6 +37,9 @@ public class CompanyProfileModel {
     @JsonProperty("creation_date")
     private String creationDate;
     
+    @JsonProperty("closure_date")
+    private String closureDate;
+    
     @JsonProperty("account_type")
     private String accountType;
     
@@ -327,5 +330,13 @@ public class CompanyProfileModel {
 
     public void setFullMembersListDate(String fullMembersListDate) {
         this.fullMembersListDate = fullMembersListDate;
+    }
+
+    public String getClosureDate() {
+        return closureDate;
+    }
+
+    public void setClosureDate(String closureDate) {
+        this.closureDate = closureDate;
     }
 }

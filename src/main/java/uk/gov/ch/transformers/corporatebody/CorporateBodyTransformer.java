@@ -38,7 +38,11 @@ public class CorporateBodyTransformer {
             companyProfileApi.setCompanyStatusDetail(CompanyStatusDetailEnum.fromString(model.getStatus()).getDescription());
         }
         companyProfileApi.setDateOfCreation(getLocalDateFromString(model.getCreationDate()));
-        companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
+        if(model.getDateOfDissolution() != null) {            
+            companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
+        } else if(model.getClosureDate() != null) {
+            companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getClosureDate()));
+        }
         companyProfileApi.setCommunityInterestCompany(getBooleanFromString(model.getCicInd()));
         companyProfileApi.setHasInsolvencyHistory(getBooleanFromString(model.getHasInsolvencyHistory()));
         if (model.getPreviousCompanyNames() != null) {
