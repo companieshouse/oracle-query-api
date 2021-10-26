@@ -22,6 +22,8 @@ public class PersonWithSignificantControl {
     private String officerSurname;
     @Column(name = "APPOINTMENT_TYPE_ID")
     private String appointmentTypeId;
+    @Column(name = "APPOINTMENT_DATE")
+    private String appointmentDate;
     @Column(name = "SERVICE_ADDRESS_LINE_1")
     private String serviceAddressLine1;
     @Column(name = "SERVICE_ADDRESS_LINE_2")
@@ -144,6 +146,14 @@ public class PersonWithSignificantControl {
 
     public void setAppointmentTypeId(String appointmentTypeId) {
         this.appointmentTypeId = appointmentTypeId;
+    }
+
+    public String getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(String appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 
     public void setServiceAddressLine1(String serviceAddressLine1) {

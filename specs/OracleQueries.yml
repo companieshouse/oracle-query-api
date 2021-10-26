@@ -799,6 +799,7 @@ components:
         - officerForename2
         - officerSurname
         - appointmentTypeId
+        - appointmentDate
         - officerNationality
         - officerDateOfBirth
         - suppliedCompanyName
@@ -827,6 +828,9 @@ components:
           type: string
           description: Numerical code reference to type of psc person or relevant legal entity
           example: "5007"
+        appointmentDate:
+          type: string
+          description: Date of appointment
         officerNationality:
           type: string
           description: Nationality
