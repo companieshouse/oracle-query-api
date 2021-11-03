@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.officer.active;
 
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +17,8 @@ import uk.gov.ch.service.officer.active.ActiveDirectorDetailsService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
+import java.util.List;
+
 @RestController
 public class ActiveDirectorDetailsController {
 
@@ -25,7 +28,7 @@ public class ActiveDirectorDetailsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @GetMapping("/company/{companyNumber}/director/active")
-    public ResponseEntity<ActiveDirectorDetails> getActiveDirectorDetails(@PathVariable String companyNumber,
+    public ResponseEntity getActiveDirectorDetails(@PathVariable String companyNumber,
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
@@ -39,6 +42,25 @@ public class ActiveDirectorDetailsController {
             return ResponseEntity.status(HttpStatus.OK).body(details);
         } catch (InvalidActiveDirectorsCountFoundException e) {
             LOGGER.info("More than one or Zero active directors could be found for company number " + companyNumber);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @GetMapping("/company/{companyNumber}/officer/active")
+    public ResponseEntity getActiveOfficers(@PathVariable String companyNumber,
+            @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
+            @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
+
+        Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
+
+        LOGGER.info("Calling service to retrieve active officers' details for company number " + companyNumber);
+
+        try {
+            List details = service.getActiveOfficers(companyNumber, pageable);
+            LOGGER.info(String.format("Returning active officers for company number %s", companyNumber));
+            return ResponseEntity.status(HttpStatus.OK).body(details);
+        } catch (NotFoundException e) {
+            LOGGER.info(String.format("No active officers could be found for company number %s", companyNumber));
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
