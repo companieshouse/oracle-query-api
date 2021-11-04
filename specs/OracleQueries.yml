@@ -164,6 +164,8 @@ paths:
   /company/{company_number}/director/active:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
+      - $ref: '#/components/parameters/startIndex'
+      - $ref: '#/components/parameters/itemsPerPage'
     get:
       tags:
         - active-director-details
@@ -175,9 +177,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/activeDirectorDetails'
+                $ref: '#/components/schemas/activeOfficerDetails'
         '404':
-          description: No active director data found
+          description: Incorrect number of officers found must be single active director company.
+  /company/{company_number}/officers/active:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+      - $ref: '#/components/parameters/startIndex'
+      - $ref: '#/components/parameters/itemsPerPage'
+    get:
+      tags:
+        - active-officers-details-list
+      operationId: getActiveOfficersDetails
+      summary: Get a list of the active officers for the company
+      responses:
+        '200':
+          description: The company active officers list data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/companyActiveOfficers'
+        '404':
+          description: No active officers were found.
   /company/{company_number}/filing-history:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
@@ -417,6 +438,36 @@ components:
           description: The postal code
           readOnly: true
           example: "CF143UZ"
+    companyActiveOfficers:
+      type: object
+      required:
+        - items_per_page
+        - start_index
+        - total_results
+        - items
+      properties:
+        items_per_page:
+          type: integer
+          format: int64
+          description: Number of active officers per page returned in this list
+          readOnly: true
+          example: 10
+        start_index:
+          type: integer
+          format: int64
+          description: The offset into the entire list that this page starts at. Zero indexed
+          readOnly: true
+          example: 0
+        total_results:
+          type: integer
+          format: int64
+          description: The total number of active officers in the list
+          readOnly: true
+          example: 0
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/activeOfficerDetails'
     companyOfficers:
       type: object
       required:
@@ -673,7 +724,7 @@ components:
         totalAmountUnpaidForCurrency:
           type: integer
           description: The total amount unpaid.
-    activeDirectorDetails:
+    activeOfficerDetails:
       type: object
       required:
         - foreName1
