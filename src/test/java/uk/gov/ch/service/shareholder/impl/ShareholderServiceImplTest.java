@@ -14,7 +14,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 import uk.gov.ch.repository.shareholder.ShareholderRepository;
 import uk.gov.ch.model.shareholder.Shareholder;
 

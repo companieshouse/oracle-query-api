@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-public class ActiveDirectorDetails {
+public class ActiveOfficerDetails {
 
     @Id
     @Column(name = "officer_detail_id")

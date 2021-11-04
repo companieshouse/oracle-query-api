@@ -4,9 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
+import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 
-public interface ActiveDirectorDetailsRepository extends PagingAndSortingRepository<ActiveDirectorDetails, Long> {
+public interface ActiveOfficersDetailsRepository extends PagingAndSortingRepository<ActiveOfficerDetails, Long> {
 
     @Query(value = "select * from ( SELECT "
             + "cba.officer_detail_id, "
@@ -35,11 +35,14 @@ public interface ActiveDirectorDetailsRepository extends PagingAndSortingReposit
             + "ura.POST_CODE as RESIDENTIAL_ADDRESS_POST_CODE, "
             + "ura.REGION as RESIDENTIAL_ADDRESS_REGION, "
             + "od.secure_director_service_ind AS secure_indicator "
-            + "FROM corporate_body cb inner join corporate_body_appointment cba ON cba.corporate_body_id=cb.corporate_body_id "
-            + "inner join officer_detail od on od.officer_detail_id=cba.officer_detail_id "
-            + "inner join address adr on cba.service_address_id = adr.address_id "
-            + "inner join usual_residential_address ura on ura.usual_residential_address_id = od.usual_residential_address_id "
-            + "WHERE cb.incorporation_number = ? AND cba.resignation_ind = 'N' AND cba.appointment_type_id = 2 "
+            + "FROM corporate_body cb, corporate_body_appointment cba, officer_detail od, address adr, usual_residential_address ura "
+            + "WHERE cba.corporate_body_id=cb.corporate_body_id "
+            + "AND od.officer_detail_id=cba.officer_detail_id "
+            + "AND cba.service_address_id = adr.address_id "
+            + "AND ura.usual_residential_address_id = od.usual_residential_address_id "
+            + "AND cb.incorporation_number = ?1 "
+            + "AND cba.resignation_ind = 'N' "
+            + "AND cba.appointment_type_id = 2 "
             + "group by "
             + "cba.officer_detail_id, "
             + "cba.officer_forename_1, "
@@ -69,7 +72,7 @@ public interface ActiveDirectorDetailsRepository extends PagingAndSortingReposit
             + "od.secure_director_service_ind "
             + "having count(1)=1 "
             + ") where rownum <= 1", nativeQuery = true)
-    Page<ActiveDirectorDetails> getActiveDirectorDetails(String incorporationNumber, Pageable pageable);
+    Page<ActiveOfficerDetails> getActiveDirectorDetails(String incorporationNumber, Pageable pageable);
 
     @Query(value = "SELECT "
             + "cba.officer_detail_id, "
@@ -98,11 +101,13 @@ public interface ActiveDirectorDetailsRepository extends PagingAndSortingReposit
             + "ura.POST_CODE as RESIDENTIAL_ADDRESS_POST_CODE, "
             + "ura.REGION as RESIDENTIAL_ADDRESS_REGION, "
             + "od.secure_director_service_ind AS secure_indicator "
-            + "FROM corporate_body cb inner join corporate_body_appointment cba ON cba.corporate_body_id=cb.corporate_body_id "
-            + "inner join officer_detail od on od.officer_detail_id=cba.officer_detail_id "
-            + "inner join address adr on cba.service_address_id = adr.address_id "
-            + "inner join usual_residential_address ura on ura.usual_residential_address_id = od.usual_residential_address_id "
-            + "WHERE cb.incorporation_number = ? AND cba.resignation_ind = 'N' "
+            + "FROM corporate_body cb, corporate_body_appointment cba, officer_detail od, address adr, usual_residential_address ura "
+            + "WHERE cba.corporate_body_id=cb.corporate_body_id "
+            + "AND od.officer_detail_id=cba.officer_detail_id "
+            + "AND cba.service_address_id = adr.address_id "
+            + "AND ura.usual_residential_address_id = od.usual_residential_address_id "
+            + "AND cb.incorporation_number = ?1 "
+            + "AND cba.resignation_ind = 'N' "
             + "group by "
             + "cba.officer_detail_id, "
             + "cba.officer_forename_1, "
@@ -129,6 +134,9 @@ public interface ActiveDirectorDetailsRepository extends PagingAndSortingReposit
             + "ura.PO_BOX, "
             + "ura.POST_CODE, "
             + "ura.REGION, "
-            + "od.secure_director_service_ind", nativeQuery = true)
-    Page<ActiveDirectorDetails> getActiveOfficerDetails(String incorporationNumber, Pageable pageable);
+            + "od.secure_director_service_ind",
+            countQuery = "select count(*) FROM corporate_body cb, corporate_body_appointment cba "
+                    + "WHERE cba.corporate_body_id=cb.corporate_body_id AND cb.incorporation_number = ?1 AND cba.resignation_ind = 'N'",
+            nativeQuery = true)
+    Page<ActiveOfficerDetails> getActiveOfficersDetails(String incorporationNumber, Pageable pageable);
 }
