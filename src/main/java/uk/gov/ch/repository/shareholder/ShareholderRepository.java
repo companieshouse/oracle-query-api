@@ -20,7 +20,14 @@ public interface ShareholderRepository  extends PagingAndSortingRepository<Share
             + "JOIN corporate_body cb ON cb.CORPORATE_BODY_ID = shd.CORPORATE_BODY_ID "
             + "LEFT JOIN currency_type ctp ON shd.currency_type_id = ctp.currency_type_id "
             + "LEFT JOIN share_class_type sct on sct.SHARE_CLASS_TYPE_ID = shd.SHARE_CLASS_TYPE_ID "
-            + "WHERE cb.INCORPORATION_NUMBER =  ?", nativeQuery = true)
+            + "WHERE cb.INCORPORATION_NUMBER =  ?1",
+            countQuery = "select count(*) FROM shareholder sh, shareholding shd, corporate_body cb, currency_type ctp, share_class_type sct "
+                    + "WHERE sh.SHAREHOLDING_ID = shd.SHAREHOLDING_ID "
+                    + "AND cb.CORPORATE_BODY_ID = shd.CORPORATE_BODY_ID "
+                    + "AND shd.currency_type_id = ctp.currency_type_id "
+                    + "AND sct.SHARE_CLASS_TYPE_ID = shd.SHARE_CLASS_TYPE_ID "
+                    + "AND cb.INCORPORATION_NUMBER = ?1",
+            nativeQuery = true)
     Page<Shareholder> getShareholders(String incorporationNumber, Pageable pageable);
 
     @Query(value = "SELECT COUNT(*) "
