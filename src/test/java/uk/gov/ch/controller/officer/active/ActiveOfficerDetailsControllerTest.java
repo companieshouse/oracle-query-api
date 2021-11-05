@@ -22,12 +22,15 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ActiveOfficerDetailsControllerTest {
+
     private static final String COMPANY_NUMBER = "12345678";
     private static final int START_INDEX = 0;
     private static final int ITEMS_PER_PAGE = 10;
-    Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
+    private Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
+
     @InjectMocks
     private ActiveOfficerDetailsController controller;
+
     @Mock
     private ActiveOfficerDetailsService service;
 
@@ -41,6 +44,7 @@ class ActiveOfficerDetailsControllerTest {
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(mockOfficer, responseEntity.getBody());
     }
+
     @Test
     @DisplayName("Get Active Director - Company With No Active Director")
     void testGetActiveDirectorDetailsForCompanyWithNoActiveDirector() throws InvalidActiveOfficersCountFoundException {

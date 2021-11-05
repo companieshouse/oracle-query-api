@@ -31,7 +31,7 @@ public class ActiveOfficerDetailsServiceImpl implements ActiveOfficerDetailsServ
         if (list.size() == 1 ) {
             return list.get(0);
         } else {
-            LOGGER.error(WRONG_OFFICER_COUNT_MESSAGE + companyNumber);
+            LOGGER.info(WRONG_OFFICER_COUNT_MESSAGE + companyNumber);
             throw new InvalidActiveOfficersCountFoundException(WRONG_OFFICER_COUNT_MESSAGE);
         }
     }
@@ -39,9 +39,9 @@ public class ActiveOfficerDetailsServiceImpl implements ActiveOfficerDetailsServ
     @Override
     public List<ActiveOfficerDetails> getActiveOfficersDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException {
         List<ActiveOfficerDetails> list =  activeOfficersDetailsRepository.getActiveOfficersDetails(companyNumber, pageable).toList();
-        LOGGER.debug(String.format("Query list size returned = %s", list.size()));
+        LOGGER.debug(String.format("getActiveOfficersDetails Query list size returned = %s", list.size()));
         if(list.isEmpty() ) {
-            LOGGER.error(NO_OFFICERS_FOUND_MESSAGE);
+            LOGGER.info(NO_OFFICERS_FOUND_MESSAGE);
             throw new InvalidActiveOfficersCountFoundException(NO_OFFICERS_FOUND_MESSAGE);
         } else {
             return list;
