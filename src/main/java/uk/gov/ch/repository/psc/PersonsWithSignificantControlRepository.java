@@ -67,6 +67,16 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
             + "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.SUPPLIED_COMPANY_NAME end, "
             + "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.PO_BOX end, "
             + "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.ADDRESS_LINE_1 end, "
-            + "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.CARE_OF end", nativeQuery = true)
+            + "case when OD.SECURE_DIRECTOR_SERVICE_IND='Y' then null else  URA.CARE_OF end",
+            countQuery = "select count(*) "
+                    + "from CORPORATE_BODY_APPOINTMENT CBA inner join OFFICER_DETAIL OD on OD.OFFICER_DETAIL_ID=CBA.OFFICER_DETAIL_ID "
+                    + "left outer join  USUAL_RESIDENTIAL_ADDRESS URA on OD.USUAL_RESIDENTIAL_ADDRESS_ID = URA.USUAL_RESIDENTIAL_ADDRESS_ID "
+                    + "left outer join  ADDRESS ADR on CBA.SERVICE_ADDRESS_ID = ADR.ADDRESS_ID "
+                    + "left outer join CORPORATE_BODY_APPT_NOC_LINK noc on NOC.CORPORATE_BODY_APPOINTMENT_ID=CBA.CORPORATE_BODY_APPOINTMENT_ID "
+                    + "left outer join nature_of_control_type noct on NOCT.NATURE_OF_CONTROL_TYPE_ID=NOC.NATURE_OF_CONTROL_TYPE_ID "
+                    + "left outer join CORPORATE_APPT_DETAIL CAD on CAD.CORPORATE_APPT_DETAIL_ID=CBA.CORPORATE_APPT_DETAIL_ID "
+                    + "where CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?1) "
+                    + "AND CBA.RESIGNATION_IND = 'N' AND CBA.SUPER_SECURE_PSC_IND = 'N' AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009)",
+            nativeQuery = true)
     Page<PersonWithSignificantControl> findPersonsWithSignificantControl(String companyNumber, Pageable pageable);
 }
