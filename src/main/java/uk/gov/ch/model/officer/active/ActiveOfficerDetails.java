@@ -72,6 +72,10 @@ public class ActiveOfficerDetails {
     private String residentialAddressRegion;
     @Column(name = "SECURE_INDICATOR")
     private String secureIndicator;
+    @Column(name = "corporate_officer")
+    private boolean corporate;
+    @Column(name = "appointment_type")
+    private String appointmentType;
 
     @Transient
     @JsonProperty("service_address")
@@ -80,6 +84,10 @@ public class ActiveOfficerDetails {
     @Transient
     @JsonProperty("residential_address")
     private Address residentialAddress;
+
+    @Transient
+    @JsonProperty("officer_type")
+    private String officerType;
 
     public void setOfficerDetailId(Long officerDetailId) {
         this.officerDetailId = officerDetailId;
@@ -219,6 +227,19 @@ public class ActiveOfficerDetails {
 
     public void setDateOfAppointment(String dateOfAppointment) {
         this.dateOfAppointment = dateOfAppointment;
+    }
+
+    public void setCorporate(boolean corporate) {
+        this.corporate = corporate;
+    }
+
+    public void setAppointmentType(String appointmentType) {
+        this.appointmentType = appointmentType;
+    }
+
+    public String getOfficerType() {
+        StringBuilder ty = new StringBuilder(corporate ? "corporate " : "natural ");
+        return ty.append(appointmentType).toString().toUpperCase();
     }
 
     public Address getServiceAddress() {
