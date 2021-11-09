@@ -737,37 +737,42 @@ components:
         - countryOfResidence
         - serviceAddress
         - residentialAddress
+        - officerType
       properties:
         foreName1:
           type: string
-          description: The first name of the active director
+          description: The first name of the active officer
         foreName2:
           type: string
-          description: The middle name of the active director
+          description: The middle name of the active officer
         surname:
           type: string
-          description: The surname of the active director
+          description: The surname of the active officer
         occupation:
           type: string
-          description: The occupation of the active director
+          description: The occupation of the active officer
         nationality:
           type: string
-          description: The nationality of the active director
+          description: The nationality of the active officer
         dateOfBirth:
           type: string
-          description: The full date of birth of the active director
+          description: The full date of birth of the active officer
         dateOfAppointment:
           type: string
-          description: Appointment date of the director
+          description: Appointment date of the officer
         countryOfResidence:
           type: string
-          description: The usual residential country of the active director
+          description: The usual residential country of the active officer
         serviceAddress:
           type: object
-          description: The service address of the active director
+          description: The service address of the active officer
         residentialAddress:
           type: object
-          description: The Usual Residential Address (URA) of the active director
+          description: The Usual Residential Address (URA) of the active officer
+        officerType:
+          type: string
+          description: The appointment type (appointment and corporate indicators) of the active officer.
+          example: "CORPORATE SECRETARY"
     filingHistoryList:
       type: object
       required:

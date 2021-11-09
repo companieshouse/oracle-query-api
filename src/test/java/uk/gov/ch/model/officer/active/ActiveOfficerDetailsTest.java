@@ -93,4 +93,37 @@ class ActiveOfficerDetailsTest {
         assertFalse(json.contains("\"Y\""));
     }
 
+    @Test
+    @Description("Should have appointmentType set to Corporate Secretary")
+    void appointmentTypeCorporateSecretaryTest() {
+        director.setCorporate(true);
+        director.setAppointmentType("secretary");
+
+        assertEquals("CORPORATE SECRETARY", director.getOfficerType());
+    }
+    @Test
+    @Description("Should have appointmentType set to Natural Secretary")
+    void appointmentTypeNaturalSecretaryTest() {
+        director.setCorporate(false);
+        director.setAppointmentType("secretary");
+
+        assertEquals("NATURAL SECRETARY", director.getOfficerType());
+    }
+    @Test
+    @Description("Should have appointmentType set to Corporate Director")
+    void appointmentTypeCorporateDirectorTest() {
+        director.setCorporate(true);
+        director.setAppointmentType("director");
+
+        assertEquals("CORPORATE DIRECTOR", director.getOfficerType());
+    }
+    @Test
+    @Description("Should have appointmentType set to Natural Director")
+    void appointmentTypeNaturalDirectorTest() {
+        director.setCorporate(false);
+        director.setAppointmentType("director");
+
+        assertEquals("NATURAL DIRECTOR", director.getOfficerType());
+    }
+
 }
