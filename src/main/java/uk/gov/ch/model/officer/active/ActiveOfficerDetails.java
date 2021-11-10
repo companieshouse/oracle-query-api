@@ -73,6 +73,7 @@ public class ActiveOfficerDetails {
     @Column(name = "SECURE_INDICATOR")
     private String secureIndicator;
     @Column(name = "corporate")
+    @JsonProperty("is_corporate")
     private boolean corporate;
     @Column(name = "role")
     private String role;
