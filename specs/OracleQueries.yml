@@ -737,6 +737,13 @@ components:
         - countryOfResidence
         - serviceAddress
         - residentialAddress
+        - role
+        - placeRegistered
+        - registrationNumber
+        - lawGoverned
+        - legalForm
+        - identificationType
+        - corporate
       properties:
         foreName1:
           type: string
@@ -767,7 +774,35 @@ components:
           description: The service address of the active director
         residentialAddress:
           type: object
-          description: The Usual Residential Address (URA) of the active director
+          description: The Usual Residential Address (URA) of the active officer
+        role:
+          type: string
+          description: The appointment type description of the active officer.
+          example: "SECRETARY"
+        placeRegistered:
+          type: string
+          description: The country where to (corporate) active officer is registered.
+          example: "UNITED KINGDOM"
+        registrationNumber:
+          type: string
+          description: The (corporate) active officer's registration number.
+          example: "00233654"
+        lawGoverned:
+          type: string
+          description: The (corporate) active officer's law governed.
+          example: "INTERNATIONAL BUSINESS COMPANIES ACT 2000"
+        legalForm:
+          type: string
+          description: The (corporate) active officer's legal form.
+          example: "INTERNATIONAL BUSINESS COMPANY"
+        identificationType:
+          typr: string
+          description: The (corporate) active officer's identification type.
+          example: "Y"
+        corporate:
+          type: boolean
+          description: Flag to show whether or not the active officer is a corporate.
+          example: false
     filingHistoryList:
       type: object
       required:
