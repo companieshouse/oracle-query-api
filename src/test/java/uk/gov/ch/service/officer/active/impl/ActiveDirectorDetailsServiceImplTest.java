@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ActiveDirectorDetailsServiceImplTest {
+class ActiveDirectorDetailsServiceImplTest {
 
     private static final String COMPANY_NUMBER = "123456789";
     private static final int START_INDEX = 0;
