@@ -35,33 +35,6 @@ class ActiveOfficerDetailsControllerTest {
     private ActiveOfficerDetailsService service;
 
     @Test
-    @DisplayName("Get Active Director - Company With Active Director")
-    void testGetActiveDirectorDetailsForCompanyWithOneActiveDirector() throws InvalidActiveOfficersCountFoundException {
-
-        ActiveOfficerDetails mockOfficer = new ActiveOfficerDetails();
-        when(service.getActiveDirectorDetails(COMPANY_NUMBER, pageable)).thenReturn(mockOfficer);
-        ResponseEntity<ActiveOfficerDetails> responseEntity = controller.getActiveDirectorDetails(COMPANY_NUMBER, START_INDEX, ITEMS_PER_PAGE);
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertEquals(mockOfficer, responseEntity.getBody());
-    }
-
-    @Test
-    @DisplayName("Get Active Director - Company With No Active Director")
-    void testGetActiveDirectorDetailsForCompanyWithNoActiveDirector() throws InvalidActiveOfficersCountFoundException {
-        when(service.getActiveDirectorDetails(COMPANY_NUMBER, pageable)).thenThrow(new InvalidActiveOfficersCountFoundException("No results were found when getting Active Directors."));
-        ResponseEntity<ActiveOfficerDetails> responseEntity = controller.getActiveDirectorDetails(COMPANY_NUMBER, START_INDEX, ITEMS_PER_PAGE);
-        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
-    }
-
-    @Test
-    @DisplayName("Get Active Director - Company With More Than One Active Director")
-    void testGetActiveDirectorDetailsForCompanyWithMultipleActiveDirectors() throws InvalidActiveOfficersCountFoundException {
-        when(service.getActiveDirectorDetails(COMPANY_NUMBER, pageable)).thenThrow(new InvalidActiveOfficersCountFoundException("Single result not returned"));
-        ResponseEntity<ActiveOfficerDetails> responseEntity = controller.getActiveDirectorDetails(COMPANY_NUMBER, START_INDEX, ITEMS_PER_PAGE);
-        assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
-    }
-
-    @Test
     @DisplayName("Get Active Officers - Company With No Active Officers")
     void testGetActiveOfficersDetailsForCompanyWithNoActiveOfficers() throws InvalidActiveOfficersCountFoundException {
         when(service.getActiveOfficersDetails(COMPANY_NUMBER, pageable)).thenThrow(new InvalidActiveOfficersCountFoundException("No results were found when getting Active Officers for company number "));

@@ -7,8 +7,6 @@ import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 import java.util.List;
 
 public interface ActiveOfficerDetailsService {
-    ActiveOfficerDetails getActiveDirectorDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException;
-
     List<ActiveOfficerDetails> getActiveOfficersDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException;
 
 }

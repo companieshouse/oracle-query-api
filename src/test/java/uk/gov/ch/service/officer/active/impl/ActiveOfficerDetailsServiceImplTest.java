@@ -35,35 +35,6 @@ class ActiveOfficerDetailsServiceImplTest {
     private ActiveOfficerDetailsServiceImpl activeDirectorDetailsService;
 
     @Test
-    void getActiveDirectorDetailsSingleOfficerCompanyTest() throws InvalidActiveOfficersCountFoundException {
-        Page<ActiveOfficerDetails> expectedPage = getMockActiveOfficerRepo(1);
-
-        when(activeOfficersDetailsRepository.getActiveDirectorDetails(COMPANY_NUMBER, pageable)).thenReturn(expectedPage);
-        ActiveOfficerDetails result = activeDirectorDetailsService.getActiveDirectorDetails(COMPANY_NUMBER, pageable);
-        assertEquals(expectedPage.getContent().get(0), result);
-    }
-
-    @Test
-    void getActiveDirectorDetailsMultiOfficerCompanyTest() {
-        Page<ActiveOfficerDetails> expectedList = getMockActiveOfficerRepo(2);
-
-        when(activeOfficersDetailsRepository.getActiveDirectorDetails(COMPANY_NUMBER, pageable)).thenReturn(expectedList);
-        Assertions.assertThrows(InvalidActiveOfficersCountFoundException.class, () ->
-            activeDirectorDetailsService.getActiveDirectorDetails(COMPANY_NUMBER, pageable)
-        );
-    }
-
-    @Test
-    void getActiveDirectorDetailsZeroOfficerCompanyTest() {
-        Page<ActiveOfficerDetails> expectedList = getMockActiveOfficerRepo(0);
-
-        when(activeOfficersDetailsRepository.getActiveDirectorDetails(COMPANY_NUMBER, pageable)).thenReturn(expectedList);
-        Assertions.assertThrows(InvalidActiveOfficersCountFoundException.class, () ->
-            activeDirectorDetailsService.getActiveDirectorDetails(COMPANY_NUMBER, pageable)
-        );
-    }
-
-    @Test
     void getActiveOfficersDetailsSingleOfficerCompanyTest() throws InvalidActiveOfficersCountFoundException {
         Page<ActiveOfficerDetails> expectedPage = getMockActiveOfficerRepo(1);
 
