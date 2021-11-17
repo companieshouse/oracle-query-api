@@ -19,22 +19,10 @@ public class ActiveOfficerDetailsServiceImpl implements ActiveOfficerDetailsServ
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    private static final String WRONG_OFFICER_COUNT_MESSAGE = "Incorrect number of officers found must be single active director company.";
     private static final String NO_OFFICERS_FOUND_MESSAGE = "No active officers were found.";
 
     @Autowired
     private ActiveOfficersDetailsRepository activeOfficersDetailsRepository;
-
-    @Override
-    public ActiveOfficerDetails getActiveDirectorDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException {
-        List<ActiveOfficerDetails> list =  activeOfficersDetailsRepository.getActiveDirectorDetails(companyNumber, pageable).toList();
-        if (list.size() == 1 ) {
-            return list.get(0);
-        } else {
-            LOGGER.info(WRONG_OFFICER_COUNT_MESSAGE + companyNumber);
-            throw new InvalidActiveOfficersCountFoundException(WRONG_OFFICER_COUNT_MESSAGE);
-        }
-    }
 
     @Override
     public List<ActiveOfficerDetails> getActiveOfficersDetails(String companyNumber, Pageable pageable) throws InvalidActiveOfficersCountFoundException {

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ActiveOfficerDetailsTest {
 
-    private ActiveOfficerDetails director;
+    private ActiveOfficerDetails officer;
     private String URA_LINE_1 = "123 Street";
     private String URA_POST_TOWN = "Town";
     private String URA_POST_CODE = "POST CODE";
@@ -25,70 +25,71 @@ class ActiveOfficerDetailsTest {
 
     @BeforeEach
     void beforeEach() {
-        director = new ActiveOfficerDetails();
-        director.setOfficerDetailId(001L);
-        director.setForeName1("JOHN");
-        director.setForeName2("MiddleName");
-        director.setSurname("DOE");
-        director.setOccupation("singer");
-        director.setNationality("British");
-        director.setDateOfBirth(UNFORMATTED_DOB);
-        director.setDateOfAppointment(UNFORMATTED_DOA);
-        director.setCountryOfResidence(COUNTRY_OF_RESIDENCE);
+        officer = new ActiveOfficerDetails();
+        officer.setOfficerDetailId(001L);
+        officer.setForeName1("JOHN");
+        officer.setForeName2("MiddleName");
+        officer.setSurname("DOE");
+        officer.setOccupation("singer");
+        officer.setNationality("British");
+        officer.setDateOfBirth(UNFORMATTED_DOB);
+        officer.setDateOfAppointment(UNFORMATTED_DOA);
+        officer.setCountryOfResidence(COUNTRY_OF_RESIDENCE);
+        officer.setCorporate(false);
 
-        director.setResidentialAddressLine1(URA_LINE_1);
-        director.setResidentialAddressLine2("Crown Way");
-        director.setResidentialAddressCountry("Wales");
-        director.setResidentialAddressLocality(URA_POST_TOWN);
-        director.setResidentialAddressPostCode(URA_POST_CODE);
+        officer.setResidentialAddressLine1(URA_LINE_1);
+        officer.setResidentialAddressLine2("Crown Way");
+        officer.setResidentialAddressCountry("Wales");
+        officer.setResidentialAddressLocality(URA_POST_TOWN);
+        officer.setResidentialAddressPostCode(URA_POST_CODE);
     }
 
     @Test
-    @Description("Should return the non-secure director's formatted full date of birth")
+    @Description("Should return the non-secure officer's formatted full date of birth")
     void nonSecureActiveOfficerDetailsDobTest() throws ParseException {
-        director.setSecureIndicator("N");
-        assertEquals( FORMATTED_DOB, director.getDateOfBirth());
+        officer.setSecureIndicator("N");
+        assertEquals( FORMATTED_DOB, officer.getDateOfBirth());
     }
 
     @Test
-    @Description("Should return the secure director's formatted full date of birth")
+    @Description("Should return the secure officer's formatted full date of birth")
     void secureActiveOfficerDetailsDobTest() throws ParseException {
-        director.setSecureIndicator("Y");
-        assertEquals( FORMATTED_DOB, director.getDateOfBirth());
+        officer.setSecureIndicator("Y");
+        assertEquals( FORMATTED_DOB, officer.getDateOfBirth());
     }
 
     @Test
-    @Description("Should return the non-secure director's URA")
+    @Description("Should return the non-secure officer's URA")
     void nonSecureActiveOfficerDetailsUraTest() {
-        director.setSecureIndicator("N");
-        assertEquals(URA_LINE_1, director.getResidentialAddress().getAddressLine1());
-        assertEquals(URA_POST_TOWN, director.getResidentialAddress().getLocality());
-        assertEquals(URA_POST_CODE, director.getResidentialAddress().getPostalCode());
+        officer.setSecureIndicator("N");
+        assertEquals(URA_LINE_1, officer.getResidentialAddress().getAddressLine1());
+        assertEquals(URA_POST_TOWN, officer.getResidentialAddress().getLocality());
+        assertEquals(URA_POST_CODE, officer.getResidentialAddress().getPostalCode());
     }
 
     @Test
-    @Description("Should NOT return the secure director's URA but just a message in line 1")
+    @Description("Should NOT return the secure officer's URA but just a message in line 1")
     void secureActiveOfficerDetailsUraTest() {
-        director.setSecureIndicator("Y");
-        assertEquals(SECURE_DIRECTOR_URA_LINE_1, director.getResidentialAddress().getAddressLine1());
-        assertEquals( null, director.getResidentialAddress().getLocality());
-        assertEquals(null, director.getResidentialAddress().getPostalCode());
+        officer.setSecureIndicator("Y");
+        assertEquals(SECURE_DIRECTOR_URA_LINE_1, officer.getResidentialAddress().getAddressLine1());
+        assertEquals( null, officer.getResidentialAddress().getLocality());
+        assertEquals(null, officer.getResidentialAddress().getPostalCode());
     }
 
     @Test
-    @Description("Should not contain the secure indicator in the json of a non-secure director")
+    @Description("Should not contain the secure indicator in the json of a non-secure officer")
     void nonSecureActiveOfficerDetailsSecureIndicatorTest() throws JsonProcessingException {
-        director.setSecureIndicator("N");
-        String json = new ObjectMapper().writeValueAsString(director);
+        officer.setSecureIndicator("N");
+        String json = new ObjectMapper().writeValueAsString(officer);
         assertFalse(json.contains("secure"));
         assertFalse(json.contains("\"N\""));
     }
 
     @Test
-    @Description("Should not contain the secure indicator in the json of a secure director")
+    @Description("Should not contain the secure indicator in the json of a secure officer")
     void secureActiveOfficerDetailsSecureIndicatorTest() throws JsonProcessingException {
-        director.setSecureIndicator("Y");
-        String json = new ObjectMapper().writeValueAsString(director);
+        officer.setSecureIndicator("Y");
+        String json = new ObjectMapper().writeValueAsString(officer);
         assertFalse(json.contains("secure"));
         assertFalse(json.contains("\"Y\""));
     }
