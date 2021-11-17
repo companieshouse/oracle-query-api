@@ -328,14 +328,12 @@ public class ActiveOfficerDetails {
     }
 
     private String formatDate(String dateString) throws ParseException {
-        if (dateString != null) {
-            SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = formatFrom.parse(dateString);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
-            return simpleDateFormat.format(date);
-        }
-        else {
+        if (dateString == null) {
             return null;
         }
+        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = formatFrom.parse(dateString);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        return simpleDateFormat.format(date);
     }
 }
