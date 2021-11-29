@@ -24,14 +24,14 @@ public interface RegisterLocationRepository extends PagingAndSortingRepository<R
             + " INNER JOIN address ad on ad.address_id=cbal.address_id"
             + " INNER JOIN corporate_body_address_type cbat on cbat.address_type_id=cbal.address_type_id"
             + " LEFT JOIN corbod_regtyp_link cbrl on cbrl.corporate_body_id=cb.corporate_body_id"
-            + " FULL OUTER JOIN register_type rt on rt.register_type_id=cbrl.register_type_id"
+            + " LEFT OUTER JOIN register_type rt on rt.register_type_id=cbrl.register_type_id"
             + " WHERE cb.incorporation_number = ?"
             + " AND cbat.address_type_id = 5000",
             countQuery = "select count(*) FROM corporate_body cb INNER JOIN corbod_address_link cbal on cbal.corporate_body_id=cb.corporate_body_id "
                     + "INNER JOIN address ad on ad.address_id=cbal.address_id "
                     + "INNER JOIN corporate_body_address_type cbat on cbat.address_type_id=cbal.address_type_id "
                     + "LEFT JOIN corbod_regtyp_link cbrl on cbrl.corporate_body_id=cb.corporate_body_id "
-                    + "FULL OUTER JOIN register_type rt on rt.register_type_id=cbrl.register_type_id "
+                    + "LEFT OUTER JOIN register_type rt on rt.register_type_id=cbrl.register_type_id "
                     + "WHERE cb.incorporation_number = ?1 AND cbat.address_type_id = 5000",
             nativeQuery = true)
     Page<RegisterLocation> getRegisterLocation(String incorporationNumber, Pageable pageable);
