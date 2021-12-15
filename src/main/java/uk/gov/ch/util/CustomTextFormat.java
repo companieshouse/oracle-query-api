@@ -1,6 +1,6 @@
 package uk.gov.ch.util;
 
-import org.codehaus.plexus.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 public class CustomTextFormat {
 
@@ -16,7 +16,7 @@ public class CustomTextFormat {
 
         StringBuilder stringBuilder = new StringBuilder();
         for (String sub : text.toLowerCase().split("\\. ")) {
-            stringBuilder.append(". ").append(StringUtils.capitalizeFirstLetter(sub));
+            stringBuilder.append(". ").append(StringUtils.capitalize(sub));
         }
         return stringBuilder.delete(0,1).toString().trim();
     }
