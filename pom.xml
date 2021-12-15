@@ -18,7 +18,7 @@
     <properties>
         <spring.boot.version>2.4.0</spring.boot.version>
         <java.version>1.8</java.version>
-        <structured-logging.version>1.9.10</structured-logging.version>
+        <structured-logging.version>1.9.11</structured-logging.version>
         <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
         <sdk-manager-java.version>1.5.2</sdk-manager-java.version>
         <api-sdk-java.version>4.3.7</api-sdk-java.version>
@@ -48,24 +48,6 @@
             <groupId>org.codehaus.plexus</groupId>
             <artifactId>plexus-utils</artifactId>
             <version>3.4.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.15.0</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.16.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-            <version>2.16.0</version>
         </dependency>
 
         <dependency>
