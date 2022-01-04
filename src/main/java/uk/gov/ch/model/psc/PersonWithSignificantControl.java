@@ -42,6 +42,8 @@ public class PersonWithSignificantControl {
     private String serviceAddressPoBox;
     @Column(name = "OFFICER_NATIONALITY")
     private String officerNationality;
+    @Column(name = "USUAL_RESIDENTIAL_COUNTRY")
+    private String usualResidentialCountry;
     @Column(name = "OFFICER_DATE_OF_BIRTH")
     private String officerDateOfBirth;
     @Column(name = "STREET")
@@ -174,6 +176,14 @@ public class PersonWithSignificantControl {
 
     public void setOfficerNationality(String officerNationality) {
         this.officerNationality = officerNationality;
+    }
+
+    public String getUsualResidentialCountry() {
+        return usualResidentialCountry;
+    }
+
+    public void setUsualResidentialCountry(String usualResidentialCountry) {
+        this.usualResidentialCountry = usualResidentialCountry;
     }
 
     public String getOfficerDateOfBirth() {
