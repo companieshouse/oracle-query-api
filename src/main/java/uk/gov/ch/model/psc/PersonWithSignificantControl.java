@@ -75,7 +75,7 @@ public class PersonWithSignificantControl {
     @Column(name = "PSC_LEGAL_FORM")
     private String legalForm;
     @Column(name = "PSC_COUNTRY")
-    private String countryOfResidence;
+    private String pscCountry;
 
     @Transient
     @JsonProperty("service_address")
@@ -270,12 +270,12 @@ public class PersonWithSignificantControl {
         this.legalForm = legalForm;
     }
 
-    public String getCountryOfResidence() {
-        return countryOfResidence;
+    public String getPscCountry() {
+        return pscCountry;
     }
 
-    public void setCountryOfResidence(String countryOfResidence) {
-        this.countryOfResidence = countryOfResidence;
+    public void setPscCountry(String pscCountry) {
+        this.pscCountry = pscCountry;
     }
 
     public void setServiceAddressCareOf(String serviceAddressCareOf) {
