@@ -8,6 +8,7 @@ import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 
 public interface ActiveOfficersDetailsRepository extends PagingAndSortingRepository<ActiveOfficerDetails, Long> {
 
+
     @Query(value = "SELECT "
             + "cba.officer_detail_id, "
             + "cba.officer_forename_1 AS fore_name_1, "
@@ -33,14 +34,14 @@ public interface ActiveOfficersDetailsRepository extends PagingAndSortingReposit
             + "adr.PO_BOX as SERVICE_ADDRESS_PO_BOX, "
             + "adr.POST_CODE as SERVICE_ADDRESS_POST_CODE, "
             + "adr.REGION as SERVICE_ADDRESS_REGION, "
-            + "ura.HOUSE_NAME_NUMBER as RESIDENTIAL_ADDRESS_line_1, "
-            + "ura.STREET as RESIDENTIAL_ADDRESS_line_2, "
-            + "ura.CARE_OF as RESIDENTIAL_ADDRESS_CARE_OF, "
-            + "ura.COUNTRY_NAME as RESIDENTIAL_ADDRESS_country, "
-            + "ura.POST_TOWN as RESIDENTIAL_ADDRESS_locality, "
-            + "ura.PO_BOX as RESIDENTIAL_ADDRESS_PO_BOX, "
-            + "ura.POST_CODE as RESIDENTIAL_ADDRESS_POST_CODE, "
-            + "ura.REGION as RESIDENTIAL_ADDRESS_REGION, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.HOUSE_NAME_NUMBER end RESIDENTIAL_ADDRESS_LINE_1, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.STREET end RESIDENTIAL_ADDRESS_LINE_2, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.CARE_OF end RESIDENTIAL_ADDRESS_CARE_OF, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.COUNTRY_NAME end RESIDENTIAL_ADDRESS_COUNTRY, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.POST_TOWN end RESIDENTIAL_ADDRESS_LOCALITY, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.PO_BOX end RESIDENTIAL_ADDRESS_PO_BOX, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.POST_CODE end RESIDENTIAL_ADDRESS_POST_CODE, "
+            + "CASE WHEN od.SECURE_DIRECTOR_SERVICE_IND = 'Y' THEN NULL ELSE ura.REGION end RESIDENTIAL_ADDRESS_REGION, "
             + "od.secure_director_service_ind AS secure_indicator "
             + "FROM CORPORATE_BODY_APPOINTMENT CBA "
             + "inner join OFFICER_DETAIL OD on OD.OFFICER_DETAIL_ID=CBA.OFFICER_DETAIL_ID "
