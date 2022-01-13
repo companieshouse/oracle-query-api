@@ -8,6 +8,7 @@ import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 
 public interface ActiveOfficersDetailsRepository extends PagingAndSortingRepository<ActiveOfficerDetails, Long> {
 
+
     @Query(value = "SELECT "
             + "cba.officer_detail_id, "
             + "cba.officer_forename_1 AS fore_name_1, "
