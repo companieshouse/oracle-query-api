@@ -46,6 +46,8 @@ public class PersonWithSignificantControl {
     private String usualResidentialCountry;
     @Column(name = "OFFICER_DATE_OF_BIRTH")
     private String officerDateOfBirth;
+    @Column(name = "HOUSE_NAME_NUMBER")
+    private String houseNameNumber;
     @Column(name = "STREET")
     private String street;
     @Column(name = "POST_TOWN")
@@ -99,7 +101,7 @@ public class PersonWithSignificantControl {
 
     public Address getAddress() {
         address = new Address();
-        address.setAddressLine1(addressLine1);
+        address.setAddressLine1(houseNameNumber);
         address.setAddressLine2(street);
         address.setCareOf(careOf);
         address.setCountry(countryName);
@@ -300,5 +302,13 @@ public class PersonWithSignificantControl {
 
     public void setServiceAddressLine2(String serviceAddressLine2) {
         this.serviceAddressLine2 = serviceAddressLine2;
+    }
+
+    public String getHouseNameNumber() {
+        return houseNameNumber;
+    }
+
+    public void setHouseNameNumber(String houseNameNumber) {
+        this.houseNameNumber = houseNameNumber;
     }
 }
