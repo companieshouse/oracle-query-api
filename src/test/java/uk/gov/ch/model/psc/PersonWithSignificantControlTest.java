@@ -7,18 +7,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PersonWithSignificantControlTest {
 
-    private static String HOUSE_NAME_NUMBER = "19";
-    private static String STREET = "My Street";
-    private static String CARE_OF = "care of";
-    private static String COUNTRY_NAME = "England";
-    private static String POST_TOWN = "London";
-    private static String PO_BOX = "PO box";
-    private static String POST_CODE = "LW1 1AA";
-    private static String REGION = "region";
+    private static final String HOUSE_NAME_NUMBER = "19";
+    private static final String STREET = "My Street";
+    private static final String CARE_OF = "care of";
+    private static final String COUNTRY_NAME = "England";
+    private static final String POST_TOWN = "London";
+    private static final String PO_BOX = "PO box";
+    private static final String POST_CODE = "LW1 1AA";
+    private static final String REGION = "region";
 
     @Test
     void testUraAddress() {
+        final String ADDRESS_LINE_1 = "should not get used";
+
         PersonWithSignificantControl psc = new PersonWithSignificantControl();
+        psc.setAddressLine1(ADDRESS_LINE_1);
         psc.setHouseNameNumber(HOUSE_NAME_NUMBER);
         psc.setStreet(STREET);
         psc.setCareOf(CARE_OF);
