@@ -16,7 +16,7 @@
     <description>App for querying oracle databases</description>
 
     <properties>
-        <spring.boot.version>2.4.0</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
         <java.version>1.8</java.version>
         <structured-logging.version>1.9.11</structured-logging.version>
         <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
