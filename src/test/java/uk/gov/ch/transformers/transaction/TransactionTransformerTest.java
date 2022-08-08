@@ -1,18 +1,19 @@
 package uk.gov.ch.transformers.transaction;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -91,28 +92,22 @@ class TransactionTransformerTest {
         assertFalse(filingApi.isPaperFiled());
     }
 
-    @Test
-    @DisplayName("Transform the FilingApi when barcode could be electronic filed but document id cannot")
-    void convertFilingHistoryWithElectronicFiledBarcodeReturnsPaperFiled() {
+    @ParameterizedTest
+    @DisplayName("Transform the FilingApi when {conditions}")
+    @CsvSource(value={"X1234567,000A1234567ABCD,barcode could be electronic filed but document id cannot",
+            "A1234567,000X1234567ABCD,document id could be electronic filed but barcode cannot",
+            "A1234567,NULL,document id is null"}, nullValues={"NULL"})
+    void convertFilingHistoryWithElectronicFiledBarcodeReturnsPaperFiled(String barcode, String documentId) {
         FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
-        filingHistoryTransaction.setBarcode("X1234567");
-        filingHistoryTransaction.setDocumentId("000A1234567ABCD");
+        filingHistoryTransaction.setBarcode(barcode);
+        filingHistoryTransaction.setDocumentId(documentId);
         FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
-        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
-        assertFalse(filingApi.isPaperFiled());
+        assertAll(
+                () -> assertFilingHistoryApi(filingHistoryTransaction, filingApi),
+                () -> assertFalse(filingApi.isPaperFiled())
+        );
     }
 
-    @Test
-    @DisplayName("Transform the FilingApi when document id could be electronic filed but barcode cannot")
-    void convertFilingHistoryWithElectronicFiledDocumentIdReturnsPaperFiled() {
-        FilingHistoryTransaction filingHistoryTransaction = setUpFilingHistoryTransaction(false);
-        filingHistoryTransaction.setBarcode("A1234567");
-        filingHistoryTransaction.setDocumentId("000X1234567ABCD");
-        FilingApi filingApi = transactionTransformer.convert(filingHistoryTransaction);
-        assertFilingHistoryApi(filingHistoryTransaction, filingApi);
-        assertFalse(filingApi.isPaperFiled());
-    }
-    
     @Test
     @DisplayName("Transform the FilingApi when document id is null")
     void convertFilingHistoryWhenDocumentIdIsNull() {
@@ -144,7 +139,7 @@ class TransactionTransformerTest {
         assertEquals("filing-history-available", filingHistoryApi.getFilingHistoryStatus());
         assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItems().size());
         assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getItemsPerPage());
-        assertEquals(0l, filingHistoryApi.getStartIndex());
+        assertEquals(0L, filingHistoryApi.getStartIndex());
         assertEquals(filingHistoryTransactionList.size(), filingHistoryApi.getTotalCount());
         assertEquals("filing-history", filingHistoryApi.getKind());
     }
@@ -156,10 +151,10 @@ class TransactionTransformerTest {
         FilingHistoryApi filingHistoryApi = transactionTransformer
                 .convertToFilingHistoryApi(filingHistoryTransactionList);
         assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
-        assertEquals(0l, filingHistoryApi.getItems().size());
-        assertEquals(0l, filingHistoryApi.getItemsPerPage());
-        assertEquals(0l, filingHistoryApi.getStartIndex());
-        assertEquals(0l, filingHistoryApi.getTotalCount());
+        assertEquals(0L, filingHistoryApi.getItems().size());
+        assertEquals(0L, filingHistoryApi.getItemsPerPage());
+        assertEquals(0L, filingHistoryApi.getStartIndex());
+        assertEquals(0L, filingHistoryApi.getTotalCount());
         assertEquals("filing-history", filingHistoryApi.getKind());
     }
 
@@ -168,10 +163,10 @@ class TransactionTransformerTest {
     void convertFilingHistoryWithNullListOfFilingTransactions() {
         FilingHistoryApi filingHistoryApi = transactionTransformer.convertToFilingHistoryApi(null);
         assertEquals("filing-history-unavailable", filingHistoryApi.getFilingHistoryStatus());
-        assertEquals(0l, filingHistoryApi.getItems().size());
-        assertEquals(0l, filingHistoryApi.getItemsPerPage());
-        assertEquals(0l, filingHistoryApi.getStartIndex());
-        assertEquals(0l, filingHistoryApi.getTotalCount());
+        assertEquals(0L, filingHistoryApi.getItems().size());
+        assertEquals(0L, filingHistoryApi.getItemsPerPage());
+        assertEquals(0L, filingHistoryApi.getStartIndex());
+        assertEquals(0L, filingHistoryApi.getTotalCount());
         assertEquals("filing-history", filingHistoryApi.getKind());
     }
     

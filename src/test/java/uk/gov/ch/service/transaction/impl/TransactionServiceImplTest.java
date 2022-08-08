@@ -1,5 +1,6 @@
 package uk.gov.ch.service.transaction.impl;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -14,6 +15,9 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -55,24 +59,42 @@ class TransactionServiceImplTest {
     @Test
     @DisplayName("Test get transactions returns successfully")
     void testGetTransactionReturnsSuccessfully() throws Exception {
-    	List<FilingHistoryTransaction> transactionList = getFilingHistoryTransactionList();
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(getResponseJson());
+        List<FilingHistoryTransaction> transactionList = getFilingHistoryTransactionList();
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
+                getResponseJson());
         when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenReturn(mockJsonNode);
         when(mockJsonNode.get("filing_history")).thenReturn(mockJsonNode);
         when(objectMapper.convertValue(any(JsonNode.class),
                 ArgumentMatchers.<TypeReference<List<FilingHistoryTransaction>>>any()))
-                        .thenReturn(transactionList);
-        when(transactionTransformer.convertToFilingHistoryApi(transactionList)).thenReturn(getFilingHistoryApi());
+                .thenReturn(transactionList);
+        when(transactionTransformer.convertToFilingHistoryApi(transactionList)).thenReturn(
+                getFilingHistoryApi());
         FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
         assertEquals(1, response.getItems().size());
 
     }
 
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {
+            "Company has no transactions",
+            "Company Not Found"})
+    @DisplayName("Test NoOfficersExistingException with transactionService.getTransactions")
+    void testNoOfficersExistingExceptionOnConditions(String condition)
+            throws TransactionMappingException {
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(condition);
+        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
+        assertAll(
+                () -> assertNotNull(response),
+                () -> assertNull(response.getItems())
+        );
+    }
+
     @Test
     @DisplayName("Test get transaction returns empty list")
     void testGetTransactionRepositoryEmptyResponse() throws Exception {
-    	when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("");
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("");
         FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
         assertNotNull(response);
         assertNull(response.getItems());
@@ -86,84 +108,70 @@ class TransactionServiceImplTest {
         assertNotNull(response);
         assertNull(response.getItems());
     }
-    
-    @Test
-    @DisplayName("Test get transaction returns company has no transactions string")
-    void testGetTransactionRepositoryCompanyHasNoTransactionsString() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company has no transactions");
-        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
-        assertNotNull(response);
-        assertNull(response.getItems());
-    }
-    
-    @Test
-    @DisplayName("Test get transaction returns company not found string")
-    void testGetTransactionRepositoryCompanyNotFoundString() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn("Company not found");
-        FilingHistoryApi response = transactionService.getTransactions(COMPANY_NUMBER);
-        assertNotNull(response);
-        assertNull(response.getItems());
-    }
 
     @Test
     @DisplayName("Test get transaction mapper throws a JsonMappingException")
     void testGetTransactionThrowsJsonMappingException() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(getResponseJson());
-        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(JsonMappingException.class);
-        assertThrows(TransactionMappingException.class, () -> {
-            transactionService.getTransactions(COMPANY_NUMBER);
-        });
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
+                getResponseJson());
+        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
+                JsonMappingException.class);
+        assertThrows(TransactionMappingException.class, () ->
+                transactionService.getTransactions(COMPANY_NUMBER)
+        );
     }
 
     @Test
     @DisplayName("Test get transaction mapper throws a JsonProcessingException")
     void testGetTransactionThrowsJsonProcessingException() throws Exception {
-        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(getResponseJson());
-        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(JsonProcessingException.class);
-        assertThrows(TransactionMappingException.class, () -> {
-            transactionService.getTransactions(COMPANY_NUMBER);
-        });
+        when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
+                getResponseJson());
+        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
+                JsonProcessingException.class);
+        assertThrows(TransactionMappingException.class, () ->
+                transactionService.getTransactions(COMPANY_NUMBER)
+        );
     }
 
     private String getResponseJson() {
-        return "{" + 
-                    "\"filing_history\": [" + 
-                        "{" + 
+        return "{" +
+                    "\"filing_history\": [" +
+                        "{" +
                             "\"entity_id\": \"3123724769\", "
-                          + "\"receive_date\": \"20210102121314\", " 
-                          + "\"category\": \"2\", " 
+                          + "\"receive_date\": \"20210102121314\", "
+                          + "\"category\": \"2\", "
                           + "\"form_type\": \"AP01\", "
-                          + "\"barcode\": \"AA1111AA\", " 
+                          + "\"barcode\": \"AA1111AA\", "
                           + "\"description\": \"DIRECTOR APPOINTED NAME GOES HERE\", "
-                          + "\"document_id\": \"123456789012345\" " 
-                     + "}, " 
-                     + "{ " 
+                          + "\"document_id\": \"123456789012345\" "
+                     + "}, "
+                     + "{ "
                          + "\"entity_id\": \"345678912\", "
-                         + "\"receive_date\": \"20210203121314\", " 
-                         + "\"category\": \"1\", " 
+                         + "\"receive_date\": \"20210203121314\", "
+                         + "\"category\": \"1\", "
                          + "\"form_type\": \"AR01\", "
-                         + "\"barcode\": \"BB2222BB\", " 
+                         + "\"barcode\": \"BB2222BB\", "
                          + "\"description\": \"01/02/12 FULL LIST\", "
-                         + "\"document_id\": \"000X424FB3V5834\", " 
-                         + "\"child\": [ " 
+                         + "\"document_id\": \"000X424FB3V5834\", "
+                         + "\"child\": [ "
                              + "{" + "\"entity_id\": \"345678912\", "
-                                   + "\"receive_date\": \"20210203121314\", " 
-                                   + "\"category\": \"1\", " 
+                                   + "\"receive_date\": \"20210203121314\", "
+                                   + "\"category\": \"1\", "
                                    + "\"form_type\": \"SH01\", "
-                                   + "\"barcode\": \"CC3333CC\", " 
+                                   + "\"barcode\": \"CC3333CC\", "
                                    + "\"description\": \"01/02/03 STATEMENT OF CAPITAL;GBP LOTS\", "
-                                   + "\"document_id\": \"234567890123456\" " 
-                             + "} " 
-                          + "] " 
+                                   + "\"document_id\": \"234567890123456\" "
+                             + "} "
+                          + "] "
                     + "}"
                 + "]"
             + "}";
     }
-    
+
     private FilingHistoryApi getFilingHistoryApi() {
-    	FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
-    	filingHistoryApi.setItems(getFilingApiList());
-    	return filingHistoryApi;
+        FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
+        filingHistoryApi.setItems(getFilingApiList());
+        return filingHistoryApi;
     }
 
     private List<FilingHistoryTransaction> getFilingHistoryTransactionList() {
@@ -179,7 +187,7 @@ class TransactionServiceImplTest {
         filingHistoryTransactionList.add(fht);
         return filingHistoryTransactionList;
     }
-    
+
     private List<FilingApi> getFilingApiList() {
         List<FilingApi> filingApiList = new ArrayList<>();
         FilingApi filingApi = new FilingApi();
