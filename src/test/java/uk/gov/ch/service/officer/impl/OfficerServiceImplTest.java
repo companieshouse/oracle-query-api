@@ -11,6 +11,9 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.NullAndEmptySource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -18,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,54 +38,30 @@ class OfficerServiceImplTest {
     private OfficerServiceImpl officerServiceImpl;
 
     @Mock
-    ObjectMapper mockObjectMapper;
+    private ObjectMapper mockObjectMapper;
 
     @Mock
-    OfficersApiTransformer mockTransformer;
+    private OfficersApiTransformer mockTransformer;
 
     @Mock
-    OfficersRepository mockRepository;
+    private OfficersRepository mockRepository;
 
     @Mock
-    JsonNode mockNode;
+    private JsonNode mockNode;
 
     private static final String COMP_NO = "12345678";
 
-    @Test
-    @DisplayName("Test get officers returns a null String")
-    void testGetOfficersReturnsIsNull() {
-        when(mockRepository.getOfficers(COMP_NO)).thenReturn(null);
-        assertThrows(NoOfficersExistingException.class, () -> {
-            officerServiceImpl.getOfficers(COMP_NO);
-        });
-    }
-
-    @Test
-    @DisplayName("Test get officers returns an empty String")
-    void testGetOfficersReturnsEmptyString() {
-        when(mockRepository.getOfficers(COMP_NO)).thenReturn("");
-        assertThrows(NoOfficersExistingException.class, () -> {
-            officerServiceImpl.getOfficers(COMP_NO);
-        });
-    }
-
-    @Test
-    @DisplayName("Test get officers returns a company not found string")
-    void testGetOfficersReturnsCompanyNotFoundString() {
-        when(mockRepository.getOfficers(COMP_NO)).thenReturn("Company Not Found");
-        assertThrows(NoOfficersExistingException.class, () -> {
-            officerServiceImpl.getOfficers(COMP_NO);
-        });
-    }
-
-    @Test
-    @DisplayName("Test get officers returns a string indicating no officers found")
-    void testGetOfficersNoOfficersFoundString() {
-        when(mockRepository.getOfficers(COMP_NO)).thenReturn("], \"CreatedTime\": \"04-OCT-21 11.17.50.000000\"}");
-        assertThrows(NoOfficersExistingException.class, () -> {
-            officerServiceImpl.getOfficers(COMP_NO);
-        });
-
+    @ParameterizedTest
+    @NullAndEmptySource
+    @ValueSource(strings = {
+            "Company Not Found",
+            "], \"CreatedTime\": \"04-OCT-21 11.17.50.000000\"}"})
+    @DisplayName("Test NoOfficersExistingException with repository.getOfficers")
+    void testNoOfficersExistingExceptionOnConditions(String condition) {
+        when(mockRepository.getOfficers(COMP_NO)).thenReturn(condition);
+        assertThrows(NoOfficersExistingException.class, () ->
+            officerServiceImpl.getOfficers(COMP_NO)
+        );
     }
 
     @Test
