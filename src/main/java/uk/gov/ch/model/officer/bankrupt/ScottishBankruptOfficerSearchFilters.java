@@ -12,7 +12,15 @@ public class ScottishBankruptOfficerSearchFilters {
     private String surname;
     private String dateOfBirth;
     private String postcode;
+    private String alias;
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
     public String getForename1() {
         return forename1;

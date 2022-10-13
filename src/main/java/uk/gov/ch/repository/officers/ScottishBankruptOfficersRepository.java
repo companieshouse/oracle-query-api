@@ -30,17 +30,19 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      * @return page A {@link Page} containing the search results and the pagination data
      */
     @Query(value = "select * "
-                 + "from SCOTTISH_BANKRUPT_OFFICER "
-                 + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
-                 + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
-                 + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                 + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
-           countQuery = "select COUNT(*) "
-                   + "from SCOTTISH_BANKRUPT_OFFICER "
-                   + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
-                   + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
-                   + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                   + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
-           nativeQuery = true)
-    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("dob") String dob, @Param("postcode") String postcode, Pageable pageable);
+            + "from SCOTTISH_BANKRUPT_OFFICER "
+            + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
+            + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
+            + "and (:alias is null or upper(ALIAS) like '%' || upper(:alias) || '%') "
+            + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
+            + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
+            countQuery = "select COUNT(*) "
+                    + "from SCOTTISH_BANKRUPT_OFFICER "
+                    + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
+                    + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
+                    + "and (:alias is null or upper(ALIAS) like '%' || upper(:alias) || '%') "
+                    + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
+                    + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
+            nativeQuery = true)
+    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("alias") String alias, @Param("dob") String dob, @Param("postcode") String postcode, Pageable pageable);
 }
