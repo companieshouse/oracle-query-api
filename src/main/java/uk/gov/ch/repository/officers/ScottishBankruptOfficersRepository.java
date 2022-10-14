@@ -41,8 +41,7 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                    + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                    + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
                    + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
-                   + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) "
-                   + "order by START_DATE desc",
+                   + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
            nativeQuery = true)
     Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("dob") String dob, @Param("postcode") String postcode, Pageable pageable);
 }
