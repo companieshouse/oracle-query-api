@@ -33,15 +33,19 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                  + "from SCOTTISH_BANKRUPT_OFFICER "
                  + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                  + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
-                 + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
+                 + "and ((:fromDob is null and :toDob is null) "
+                 + "or (DATE_OF_BIRTH = TO_DATE(:fromDob, 'YYYY-MM-DD')) " + "or (DATE_OF_BIRTH = TO_DATE(:toDob, 'YYYY-MM-DD'))"
+                 + "or (DATE_OF_BIRTH between TO_DATE(:fromDob, 'YYYY-MM-DD') and TO_DATE(:toDob, 'YYYY-MM-DD')))"
                  + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) "
                  + "order by START_DATE desc",
            countQuery = "select COUNT(*) "
                    + "from SCOTTISH_BANKRUPT_OFFICER "
                    + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                    + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
-                   + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
+                   + "and ((:fromDob is null and :toDob is null) "
+                   + "or (DATE_OF_BIRTH = TO_DATE(:fromDob, 'YYYY-MM-DD')) " + "or (DATE_OF_BIRTH = TO_DATE(:toDob, 'YYYY-MM-DD'))"
+                   + "or (DATE_OF_BIRTH between TO_DATE(:fromDob, 'YYYY-MM-DD') and TO_DATE(:toDob, 'YYYY-MM-DD')))"
                    + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("dob") String dob, @Param("postcode") String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("fromDob") String fromDateOfBirth, @Param("toDob") String toDateOfBirth, @Param("postcode") String postcode, Pageable pageable);
 }
