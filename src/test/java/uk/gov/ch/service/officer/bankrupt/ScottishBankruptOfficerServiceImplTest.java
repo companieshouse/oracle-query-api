@@ -49,13 +49,15 @@ import java.util.Optional;
     private static final String SURNAME = "surname";
     private static final String FROM_DATE_OF_BIRTH = "2020-01-01";
     private static final String TO_DATE_OF_BIRTH = "2020-02-01";
+    private static final String ALIAS = "alias";
+    private static final String DATE_OF_BIRTH = "2020-01-01";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
 
     @Test
     @DisplayName("Search for bankrupt officers")
     void testScottishBankruptSearch() {
-        when(repo.findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(POSTCODE), any(Pageable.class))).thenReturn(page);
+        when(repo.findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME),eq(ALIAS), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(POSTCODE), any(Pageable.class))).thenReturn(page);
 
         ScottishBankruptOfficerSearchResults expectedResults = new ScottishBankruptOfficerSearchResults();
         when(transformer.convertToSearchResults(page)).thenReturn(expectedResults);
@@ -65,6 +67,8 @@ import java.util.Optional;
         filters.setSurname(SURNAME);
         filters.setFromDateOfBirth(FROM_DATE_OF_BIRTH);
         filters.setToDateOfBirth(TO_DATE_OF_BIRTH);
+        filters.setAlias(ALIAS);
+        filters.setDateOfBirth(DATE_OF_BIRTH);
         filters.setPostcode(POSTCODE);
 
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
@@ -76,7 +80,7 @@ import java.util.Optional;
         assertEquals(expectedResults, results);
 
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        verify(repo).findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(POSTCODE), captor.capture());
+        verify(repo).findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(ALIAS), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(POSTCODE), captor.capture());
         Pageable pageable = captor.getValue();
         assertEquals(START_INDEX, pageable.getPageNumber());
         assertEquals(ITEMS_PER_PAGE, pageable.getPageSize());

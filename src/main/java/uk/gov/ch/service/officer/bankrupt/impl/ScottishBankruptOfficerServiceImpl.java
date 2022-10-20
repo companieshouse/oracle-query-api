@@ -33,7 +33,7 @@ public class ScottishBankruptOfficerServiceImpl implements BankruptOfficerServic
 
         ScottishBankruptOfficerSearchFilters filters = search.getFilters();
         Page<ScottishBankruptOfficerDataModel> dataModel = scottishBankruptOfficersRepository.findScottishBankruptOfficers(
-            filters.getForename1(), filters.getSurname(), filters.getFromDateOfBirth(), filters.getToDateOfBirth(),
+            filters.getForename1(), filters.getSurname(),  filters.getAlias(),filters.getFromDateOfBirth(), filters.getToDateOfBirth(),
                 filters.getPostcode(), page);
 
         return bankruptOfficersTransformer.convertToSearchResults(dataModel);
