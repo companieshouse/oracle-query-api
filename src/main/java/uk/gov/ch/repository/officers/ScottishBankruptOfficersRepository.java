@@ -25,6 +25,7 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      * 
      * @param forename Forename filter
      * @param surname  Surname filter
+     * @param alias Alias filter
      * @param dob Date of birth filter
      * @param postcode Postcode filter
      * @return page A {@link Page} containing the search results and the pagination data
