@@ -542,9 +542,13 @@ components:
         surname:
           type: string
           description: The officers' surname.
-        date_of_birth:
+        fromDate_of_birth:
           type: string
-          description: The officers' date of birth.
+          description: Officers' date of birth to search from.
+          example: "2020-01-01"
+        toDate_of_birth:
+          type: string
+          description: Officers' date of birth to search up to.
           example: "2020-01-01"
         postcode:
           type: string

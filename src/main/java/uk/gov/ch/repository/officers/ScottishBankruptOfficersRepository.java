@@ -25,7 +25,8 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      * 
      * @param forename Forename filter
      * @param surname  Surname filter
-     * @param dob Date of birth filter
+     * @param fromDateOfBirth a DOB to search in a range from filter
+     * @param toDateOfBirth a DOB to search in a range to filter
      * @param postcode Postcode filter
      * @return page A {@link Page} containing the search results and the pagination data
      */
