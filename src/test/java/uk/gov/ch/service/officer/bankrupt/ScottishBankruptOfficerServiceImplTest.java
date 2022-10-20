@@ -68,7 +68,6 @@ import java.util.Optional;
         filters.setFromDateOfBirth(FROM_DATE_OF_BIRTH);
         filters.setToDateOfBirth(TO_DATE_OF_BIRTH);
         filters.setAlias(ALIAS);
-        filters.setDateOfBirth(DATE_OF_BIRTH);
         filters.setPostcode(POSTCODE);
 
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();

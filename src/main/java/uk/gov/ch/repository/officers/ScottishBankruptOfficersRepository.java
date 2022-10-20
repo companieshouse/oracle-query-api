@@ -52,5 +52,5 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                    + "or (DATE_OF_BIRTH between TO_DATE(:fromDob, 'YYYY-MM-DD') and TO_DATE(:toDob, 'YYYY-MM-DD')))"
                    + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("fromDob") String fromDateOfBirth, @Param("toDob") String toDateOfBirth, @Param("postcode") String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("alias") String alias,  @Param("fromDob") String fromDateOfBirth, @Param("toDob") String toDateOfBirth, @Param("postcode") String postcode, Pageable pageable);
 }
