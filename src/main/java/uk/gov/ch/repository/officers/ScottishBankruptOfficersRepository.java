@@ -25,6 +25,9 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
      * 
      * @param forename Forename filter
      * @param surname  Surname filter
+     * @param fromDateOfBirth a DOB to search in a range from filter
+     * @param toDateOfBirth a DOB to search in a range to filter
+     * @param alias Alias filter
      * @param dob Date of birth filter
      * @param postcode Postcode filter
      * @return page A {@link Page} containing the search results and the pagination data
@@ -33,15 +36,21 @@ public interface ScottishBankruptOfficersRepository extends PagingAndSortingRepo
                  + "from SCOTTISH_BANKRUPT_OFFICER "
                  + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                  + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
-                 + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
+                 +  "and (:alias is null or upper(ALIAS) like '%' || upper(:alias) || '%') "
+                 + "and ((:fromDob is null and :toDob is null) "
+                 + "or (DATE_OF_BIRTH = TO_DATE(:fromDob, 'YYYY-MM-DD')) " + "or (DATE_OF_BIRTH = TO_DATE(:toDob, 'YYYY-MM-DD'))"
+                 + "or (DATE_OF_BIRTH between TO_DATE(:fromDob, 'YYYY-MM-DD') and TO_DATE(:toDob, 'YYYY-MM-DD')))"
                  + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) "
                  + "order by START_DATE desc",
            countQuery = "select COUNT(*) "
                    + "from SCOTTISH_BANKRUPT_OFFICER "
                    + "where (:forename is null or upper(FORENAME_1) = upper(:forename)) "
                    + "and (:surname is null or upper(SURNAME) = upper(:surname)) "
-                   + "and (:dob is null or DATE_OF_BIRTH = TO_DATE(:dob, 'YYYY-MM-DD')) "
+                   + "and (:alias is null or upper(ALIAS) like '%' || upper(:alias) || '%') "
+                   + "and ((:fromDob is null and :toDob is null) "
+                   + "or (DATE_OF_BIRTH = TO_DATE(:fromDob, 'YYYY-MM-DD')) " + "or (DATE_OF_BIRTH = TO_DATE(:toDob, 'YYYY-MM-DD'))"
+                   + "or (DATE_OF_BIRTH between TO_DATE(:fromDob, 'YYYY-MM-DD') and TO_DATE(:toDob, 'YYYY-MM-DD')))"
                    + "and (:postcode is null or upper(replace(ADDRESS_POSTCODE, ' ', '')) = upper(replace(:postcode, ' ', ''))) ",
            nativeQuery = true)
-    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("dob") String dob, @Param("postcode") String postcode, Pageable pageable);
+    Page<ScottishBankruptOfficerDataModel> findScottishBankruptOfficers(@Param("forename") String forename, @Param("surname") String surname, @Param("alias") String alias,  @Param("fromDob") String fromDateOfBirth, @Param("toDob") String toDateOfBirth, @Param("postcode") String postcode, Pageable pageable);
 }

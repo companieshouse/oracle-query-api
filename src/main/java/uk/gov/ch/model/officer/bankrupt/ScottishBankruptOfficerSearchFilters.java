@@ -10,9 +10,18 @@ public class ScottishBankruptOfficerSearchFilters {
 
     private String forename1;
     private String surname;
-    private String dateOfBirth;
+    private String fromDateOfBirth;
+    private String toDateOfBirth;
     private String postcode;
+    private String alias;
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 
     public String getForename1() {
         return forename1;
@@ -30,12 +39,20 @@ public class ScottishBankruptOfficerSearchFilters {
         this.surname = surname;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getFromDateOfBirth() {
+        return fromDateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setFromDateOfBirth(String fromDateOfBirth) {
+        this.fromDateOfBirth = fromDateOfBirth;
+    }
+
+    public String getToDateOfBirth() {
+        return toDateOfBirth;
+    }
+
+    public void setToDateOfBirth(String toDateOfBirth) {
+        this.toDateOfBirth = toDateOfBirth;
     }
 
     public String getPostcode() {
@@ -46,3 +63,4 @@ public class ScottishBankruptOfficerSearchFilters {
         this.postcode = postcode;
     }
 }
+

@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 
@@ -47,6 +46,9 @@ import java.util.Optional;
     private static final int ITEMS_PER_PAGE = 2;
     private static final String FORENAME = "forename";
     private static final String SURNAME = "surname";
+    private static final String FROM_DATE_OF_BIRTH = "2020-01-01";
+    private static final String TO_DATE_OF_BIRTH = "2020-02-01";
+    private static final String ALIAS = "alias";
     private static final String DATE_OF_BIRTH = "2020-01-01";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
@@ -54,7 +56,7 @@ import java.util.Optional;
     @Test
     @DisplayName("Search for bankrupt officers")
     void testScottishBankruptSearch() {
-        when(repo.findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(DATE_OF_BIRTH), eq(POSTCODE), any(Pageable.class))).thenReturn(page);
+        when(repo.findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME),eq(ALIAS), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(POSTCODE), any(Pageable.class))).thenReturn(page);
 
         ScottishBankruptOfficerSearchResults expectedResults = new ScottishBankruptOfficerSearchResults();
         when(transformer.convertToSearchResults(page)).thenReturn(expectedResults);
@@ -62,7 +64,9 @@ import java.util.Optional;
         ScottishBankruptOfficerSearchFilters filters = new ScottishBankruptOfficerSearchFilters();
         filters.setForename1(FORENAME);
         filters.setSurname(SURNAME);
-        filters.setDateOfBirth(DATE_OF_BIRTH);
+        filters.setFromDateOfBirth(FROM_DATE_OF_BIRTH);
+        filters.setToDateOfBirth(TO_DATE_OF_BIRTH);
+        filters.setAlias(ALIAS);
         filters.setPostcode(POSTCODE);
 
         ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
@@ -74,38 +78,76 @@ import java.util.Optional;
         assertEquals(expectedResults, results);
 
         ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
-        verify(repo).findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(DATE_OF_BIRTH), eq(POSTCODE), captor.capture());
+        verify(repo).findScottishBankruptOfficers(eq(FORENAME), eq(SURNAME), eq(ALIAS), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(POSTCODE), captor.capture());
         Pageable pageable = captor.getValue();
         assertEquals(START_INDEX, pageable.getPageNumber());
         assertEquals(ITEMS_PER_PAGE, pageable.getPageSize());
     }
 
     @Test
-    @DisplayName("Search for bankrupt officer by id")
-    void testScottishBankruptSearchByID() {
-        ScottishBankruptOfficerDataModel mockRepoResponse = new ScottishBankruptOfficerDataModel() {{
-            setEphemeralKey(EPHEMERAL_KEY);
-        }};
-        when(repo.findById(eq(EPHEMERAL_KEY))).thenReturn(Optional.of(mockRepoResponse));
-        ScottishBankruptOfficerDetails mockTransformerResponse = new ScottishBankruptOfficerDetails() {{
-            setEphemeralKey(EPHEMERAL_KEY);
+    @DisplayName("Search for bankrupt officers with DOB filter")
+    void testScottishBankruptSearchWithDOBFilters() {
 
-        }};
-        when(transformer.convertToDetails(mockRepoResponse)).thenReturn(mockTransformerResponse);
+        when(repo.findScottishBankruptOfficers(eq(null), eq(null),eq(null), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(null), any(Pageable.class))).thenReturn(page);
+        ScottishBankruptOfficerSearchResults expectedResults = new ScottishBankruptOfficerSearchResults();
+        when(transformer.convertToSearchResults(page)).thenReturn(expectedResults);
 
-        ScottishBankruptOfficerDetails result = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
-        assertEquals(EPHEMERAL_KEY, result.getEphemeralKey());
+        ScottishBankruptOfficerSearchFilters filters = new ScottishBankruptOfficerSearchFilters();
+
+        filters.setFromDateOfBirth(FROM_DATE_OF_BIRTH);
+        filters.setToDateOfBirth(TO_DATE_OF_BIRTH);
 
 
+        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        search.setStartIndex(START_INDEX);
+        search.setItemsPerPage(ITEMS_PER_PAGE);
+        search.setFilters(filters);
+
+        ScottishBankruptOfficerSearchResults results = service.getScottishBankruptOfficers(search);
+        assertEquals(expectedResults, results);
+
+        ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
+        verify(repo).findScottishBankruptOfficers(eq(null), eq(null), eq(null), eq(FROM_DATE_OF_BIRTH), eq(TO_DATE_OF_BIRTH), eq(null), captor.capture());
+        Pageable pageable = captor.getValue();
+        assertEquals(START_INDEX, pageable.getPageNumber());
+        assertEquals(ITEMS_PER_PAGE, pageable.getPageSize());
     }
+
+    @Test
+    @DisplayName("Search for bankrupt officers with alias filter")
+    void testScottishBankruptSearchWithAliasFilters() {
+
+        when(repo.findScottishBankruptOfficers(eq(null), eq(null),eq(ALIAS), eq(null), eq(null), eq(null), any(Pageable.class))).thenReturn(page);
+        ScottishBankruptOfficerSearchResults expectedResults = new ScottishBankruptOfficerSearchResults();
+        when(transformer.convertToSearchResults(page)).thenReturn(expectedResults);
+
+        ScottishBankruptOfficerSearchFilters filters = new ScottishBankruptOfficerSearchFilters();
+
+        filters.setAlias(ALIAS);
+        ScottishBankruptOfficerSearch search = new ScottishBankruptOfficerSearch();
+        search.setStartIndex(START_INDEX);
+        search.setItemsPerPage(ITEMS_PER_PAGE);
+        search.setFilters(filters);
+
+        ScottishBankruptOfficerSearchResults results = service.getScottishBankruptOfficers(search);
+        assertEquals(expectedResults, results);
+
+        ArgumentCaptor<Pageable> captor = ArgumentCaptor.forClass(Pageable.class);
+        verify(repo).findScottishBankruptOfficers(eq(null), eq(null), eq(ALIAS), eq(null), eq(null), eq(null), captor.capture());
+        Pageable pageable = captor.getValue();
+        assertEquals(START_INDEX, pageable.getPageNumber());
+        assertEquals(ITEMS_PER_PAGE, pageable.getPageSize());
+    }
+
+
 
     @Test
     @DisplayName("No officer found with get by ID")
     void noOfficerFoundByID(){
-       when(repo.findById(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
+        when(repo.findById(ArgumentMatchers.anyString())).thenReturn(Optional.empty());
 
-       ScottishBankruptOfficerDetails details = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
-       assertNull(details);
+        ScottishBankruptOfficerDetails details = service.getScottishBankruptOfficer(EPHEMERAL_KEY);
+        assertNull(details);
     }
 
 
