@@ -77,7 +77,12 @@ public class BankruptOfficersTransformer {
         details.setAddressLine3(scottishBankruptOfficerDetailsDataModel.getAddressLine3());
         details.setCounty(scottishBankruptOfficerDetailsDataModel.getAddressCounty());
         details.setTown(scottishBankruptOfficerDetailsDataModel.getAddressTown());
-        details.setDebtorDischargeDate(scottishBankruptOfficerDetailsDataModel.getDebtorDischargeDate());
+
+        LocalDate debtorDischargeDate = scottishBankruptOfficerDetailsDataModel.getDebtorDischargeDate();
+
+        if (debtorDischargeDate != null && !END_OF_TIME.isEqual(debtorDischargeDate)) {
+            details.setDebtorDischargeDate(debtorDischargeDate);
+        }
 
         return details;
     }
