@@ -545,17 +545,17 @@ components:
           description: The officers' first name.
         surname:
           type: string
-          description: The officers' surname. Only a single one of the required properties must be included
+          description: The officers' surname. Only a single one of the required properties must be included.
         alias:
           type: string
           description: The officers' alias.
         fromDate_of_birth:
           type: string
-          description: The officers' date of birth to search from. Only a single one of the required properties must be included
+          description: The officers' date of birth to search from. Only a single one of the required properties must be included.
           example: "2020-01-01"
         toDate_of_birth:
           type: string
-          description: The officers' date of birth to search up to. Only a single one of the required properties must be included
+          description: The officers' date of birth to search up to. Only a single one of the required properties must be included.
           example: "2020-01-01"
         postcode:
           type: string
