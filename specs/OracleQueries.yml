@@ -551,11 +551,11 @@ components:
           description: The officers' alias.
         date_of_birth_from:
           type: string
-          description: The officers' date of birth to search from.  At least one of the required fields must be included.
+          description: The officers' date of birth to search from. At least one of the required fields must be included.
           example: "2020-01-01"
         date_of_birth_to:
           type: string
-          description: The officers' date of birth to search up to.  At least one of the required fields must be included.
+          description: The officers' date of birth to search up to. At least one of the required fields must be included.
           example: "2020-01-01"
         postcode:
           type: string
