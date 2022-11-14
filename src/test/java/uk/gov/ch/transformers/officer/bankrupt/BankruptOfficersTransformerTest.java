@@ -68,6 +68,7 @@ class BankruptOfficersTransformerTest {
         assertEquals(ADDRESS_POSTCODE, convertedOfficer.getPostcode());
         assertEquals(DATE_OF_BIRTH, convertedOfficer.getDateOfBirth());
         assertEquals(DEBTOR_DISCHARGE, convertedOfficer.getDebtorDischargeDate());
+        assertEquals(CASE_TYPE, convertedOfficer.getCaseType());
 
     }
 
@@ -91,6 +92,7 @@ class BankruptOfficersTransformerTest {
         assertEquals(ADDRESS_POSTCODE, convertedOfficer.getPostcode());
         assertEquals(DATE_OF_BIRTH, convertedOfficer.getDateOfBirth());
         assertNull(convertedOfficer.getDebtorDischargeDate());
+        assertEquals(CASE_TYPE, convertedOfficer.getCaseType());
 
     }
 
@@ -113,7 +115,7 @@ class BankruptOfficersTransformerTest {
         assertEquals(ADDRESS_POSTCODE, convertedOfficer.getPostcode());
         assertEquals(DATE_OF_BIRTH, convertedOfficer.getDateOfBirth());
         assertNull(convertedOfficer.getDebtorDischargeDate());
-
+        assertEquals(CASE_TYPE, convertedOfficer.getCaseType());
     }
 
 
