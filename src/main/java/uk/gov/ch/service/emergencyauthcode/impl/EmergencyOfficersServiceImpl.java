@@ -1,9 +1,12 @@
 package uk.gov.ch.service.emergencyauthcode.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
@@ -14,8 +17,6 @@ import uk.gov.ch.service.emergencyauthcode.EmergencyOfficersService;
 import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
-
-import java.util.List;
 
 @Service
 public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
@@ -32,7 +33,7 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
 
         LOGGER.info("Calling repository to retrieve eligible officers for " + incorporationNumber);
 
-        Page officersPage = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficersEmergencyAuthCode(incorporationNumber, pageable);
+        Page<CorporateBodyAppointmentDataModel> officersPage = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficersEmergencyAuthCode(incorporationNumber, pageable);
 
         List<CorporateBodyAppointment> corporateBodyAppointmentList =
                 emergencyOfficersTransformer.convert(officersPage);

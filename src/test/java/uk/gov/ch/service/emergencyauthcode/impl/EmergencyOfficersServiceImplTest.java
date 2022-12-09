@@ -1,10 +1,14 @@
 package uk.gov.ch.service.emergencyauthcode.impl;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -16,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
@@ -23,12 +28,9 @@ import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentD
 import uk.gov.ch.repository.officers.EmergencyAuthCodeEligibleOfficersRepository;
 import uk.gov.ch.transformers.emergencyauthcode.EmergencyOfficersTransformer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class EmergencyOfficersServiceImplTest {
+class EmergencyOfficersServiceImplTest {
 
     @Mock
     EmergencyAuthCodeEligibleOfficersRepository mockRepo;
@@ -48,7 +50,7 @@ public class EmergencyOfficersServiceImplTest {
 
     @Test
     @DisplayName("Get eligible officers for emergency-auth-code from repository")
-    public void testGetEligibleOfficersFromRepository() {
+    void testGetEligibleOfficersFromRepository() {
         Page<CorporateBodyAppointmentDataModel> mockRepoResponse = getMockEmergencyAuthCodeRepo();
         when(mockRepo.findEligibleOfficersEmergencyAuthCode(INCORPORATION_NUMBER, pageable)).thenReturn(mockRepoResponse);
 
@@ -63,7 +65,7 @@ public class EmergencyOfficersServiceImplTest {
 
     @Test
     @DisplayName("Get eligible officer returns null from repository")
-    public void testGetEligibleOfficerReturnsNull() {
+    void testGetEligibleOfficerReturnsNull() {
         when(mockRepo.findEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID)).thenReturn(null);
 
         CorporateBodyAppointment returnedCorporateBodyAppointment = service.getEligibleOfficer(INCORPORATION_NUMBER, OFFICER_ID);
@@ -72,7 +74,7 @@ public class EmergencyOfficersServiceImplTest {
 
     @Test
     @DisplayName("Get eligible officer for emergency-auth-code from repository")
-    public void testGetEligibleOfficerFromRepository() {
+    void testGetEligibleOfficerFromRepository() {
         CorporateBodyAppointmentDataModel mockRepoResponse = new CorporateBodyAppointmentDataModel() {{
             setCorporateBodyAppointmentId(123L);
             setOccupationDescription("description");
@@ -92,7 +94,7 @@ public class EmergencyOfficersServiceImplTest {
 
     @Test
     @DisplayName("Get filing history for company returns filing in past 30 days")
-    public void testGetFilingHistoryReturnsFiling() {
+    void testGetFilingHistoryReturnsFiling() {
         when(mockRepo.findEFilingsInLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(1L);
 
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = service.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER);
@@ -101,7 +103,7 @@ public class EmergencyOfficersServiceImplTest {
 
     @Test
     @DisplayName("Get filing history for company returns no filing in past 30 days")
-    public void testGetFilingHistoryReturnsNoFiling() {
+    void testGetFilingHistoryReturnsNoFiling() {
         when(mockRepo.findEFilingsInLastThirtyDays(INCORPORATION_NUMBER)).thenReturn(0L);
 
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = service.checkIfEFiledLastThirtyDays(INCORPORATION_NUMBER);
