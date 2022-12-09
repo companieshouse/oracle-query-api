@@ -1,20 +1,21 @@
 package uk.gov.ch.interceptor;
 
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import uk.gov.companieshouse.logging.Logger;
-import uk.gov.companieshouse.logging.LoggerFactory;
-import uk.gov.companieshouse.logging.util.RequestLogger;
+import static uk.gov.ch.OracleQueryApplication.APPLICATION_NAME_SPACE;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static uk.gov.ch.OracleQueryApplication.APPLICATION_NAME_SPACE;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+import uk.gov.companieshouse.logging.Logger;
+import uk.gov.companieshouse.logging.LoggerFactory;
+import uk.gov.companieshouse.logging.util.RequestLogger;
 
 @Component
-public class LoggingInterceptor extends HandlerInterceptorAdapter implements RequestLogger {
+public class LoggingInterceptor implements RequestLogger, AsyncHandlerInterceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(APPLICATION_NAME_SPACE);
 

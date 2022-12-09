@@ -1,5 +1,20 @@
 package uk.gov.ch.interceptor;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,24 +25,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.servlet.ModelAndView;
+
 import uk.gov.companieshouse.logging.util.LogContextProperties;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 @ExtendWith(MockitoExtension.class)
-public class LoggingInterceptorTests {
+class LoggingInterceptorTests {
 
     @Mock
     private HttpServletRequest httpServletRequest;
@@ -43,7 +45,7 @@ public class LoggingInterceptorTests {
     private ByteArrayOutputStream out;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         when(httpServletRequest.getSession()).thenReturn(session);
         out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
@@ -51,7 +53,7 @@ public class LoggingInterceptorTests {
 
     @Test
     @DisplayName("Tests the interceptor logs the start of the request")
-    public void preHandle() throws JSONException {
+    void preHandle() throws JSONException {
         loggingInterceptor.preHandle(httpServletRequest, httpServletResponse, new Object());
         verify(session, times(1)).setAttribute(eq(LogContextProperties.START_TIME_KEY.value()), anyLong());
         String data = this.getOutputJson().toString();
@@ -61,7 +63,7 @@ public class LoggingInterceptorTests {
 
     @Test
     @DisplayName("Tests the interceptor logs the end of the request")
-    public void postHandle() throws JSONException {
+    void postHandle() throws JSONException {
         long startTime = System.currentTimeMillis();
         when(session.getAttribute(LogContextProperties.START_TIME_KEY.value()))
                 .thenReturn(startTime);
