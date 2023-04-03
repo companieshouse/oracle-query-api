@@ -246,6 +246,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/registerLocation'
+  /company/{companyNumber}/update/entityData:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - update-entity-data
+      operationId: getEntityData
+      summary: Get private Entity data during Update flow
+      responses:
+        '200':
+          description: 'Retrieve Entity data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entityData'
   /company/{company_number}/shareholders:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
