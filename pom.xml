@@ -18,7 +18,7 @@
     <properties>
         <spring.boot.version>2.5.12</spring.boot.version>
         <java.version>1.8</java.version>
-        <structured-logging.version>1.9.11</structured-logging.version>
+        <structured-logging.version>1.9.17</structured-logging.version>
         <thymeleaf-layout-dialect.version>2.3.0</thymeleaf-layout-dialect.version>
         <sdk-manager-java.version>1.5.2</sdk-manager-java.version>
         <api-sdk-java.version>4.3.7</api-sdk-java.version>
@@ -47,6 +47,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
             <version>${spring.boot.version}</version>
         </dependency>
 
