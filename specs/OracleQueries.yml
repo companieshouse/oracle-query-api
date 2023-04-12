@@ -328,6 +328,23 @@ paths:
                 $ref: '#/components/schemas/officer_list'
         '404':
           description: No officers found
+  /overseas-entity/{company_number}/managing-officers:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - overseas-entity-managing-officers
+      operationId: getOverseasEntityManagingOfficers
+      summary: Get managing officers for overseas entity
+      responses:
+        "200":
+          description: 'Retrieve managing officers for overseas entity'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/managingOfficerList'
+        '404':
+          description: No managing officers found
 components:
   schemas:
     companyOfficer:
@@ -485,6 +502,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/activeOfficerDetails'
+    managingOfficerList:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: list
+          items:
+            $ref: '#/components/schemas/managingOfficerData'
     companyOfficers:
       type: object
       required:
@@ -1559,6 +1585,30 @@ components:
           type: string
           description: The region
           example: "Surrey"
+    managingOfficerData:
+      type: object
+      required:
+        - residential_address
+        - contact_name_full
+        - contact_email_address
+        - date_of_birth
+      properties:
+        residential_address:
+          type: object
+          description: The residential address of the managing officer
+          example: "123 Updog road"
+        contact_name_full:
+          type: string
+          description: The full contact name of the managing director
+          example: "John doe"
+        contact_email_address:
+          type: string
+          description: The contact email address of the managing officer
+          example: "testing@email.com"
+        date_of_birth:
+          type: string
+          description: The date of birth of the managing officer
+          example: "1940-05-05"
   parameters:
     companyNumber:
       name: 'company_number'
