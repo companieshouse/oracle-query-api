@@ -21,9 +21,11 @@ tags:
     description: basic company information
   - name: officer-list
     description: list of company officers
+  - name: overseas-entity-data
+    description: Get private entity data for an overseas entity
   - name: beneficial-owners
     description: list of beneficial owners of an overseas entity
-    
+
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
     parameters:
@@ -330,55 +332,8 @@ paths:
                 $ref: '#/components/schemas/officer_list'
         '404':
           description: No officers found
-  /overseas-entity/{incorporationNumber}/beneficial-owners:
-    parameters:
-      - $ref: '#/components/parameters/incorporationNumber'
-    get:
-      tags:
-        - beneficial-owners
-      operationId: getOverseasEntityBeneficialOwners
-      summary: Get a list of all beneficial owners for an overseas entity
-      responses:
-        '200':
-          description: Retrieve beneficial owner data for an overseas entity
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/overseas_entity_beneficial_owner_list'
-        '404':
-          description: No beneficial owner data found
 components:
   schemas:
-    overseas_entity_beneficial_owner_list:
-        type: object
-        properties:
-          items:
-            type: array
-            items:
-              $ref: '#/components/schemas/overseas_entity_beneficial_owner_data'
-    overseas_entity_beneficial_owner_data:
-        type: object
-        properties:
-          usual_residential_address:
-            type: object
-            description: The residential address of the beneficial owner
-            $ref: '#/components/schemas/officerURA'
-          id:
-            type: string
-            description: The id of the beneficial owner
-            example: "12345678900"
-          date_became_registrable:
-            type: string
-            description: The date the beneficial owner was appointed
-            example: "1990-01-01 00:00:00.0"
-          date_of_birth:
-            type: string
-            description: The date of birth of the beneficial owner
-            example: "1990-01-01 00:00:00.0"
-          is_service_address_same_as_usual_address:
-            type: string
-            description: Flag to indicate if service is same as usual address
-            example: "N"
     companyOfficer:
       type: object
       required:
