@@ -21,14 +21,16 @@ public class OverseasEntityBeneficialOwnerServiceImpl implements OverseasEntityB
     private OverseasEntityBeneficialOwnerRepository beneficialOwnerDataRepository;
 
     @Override
-    public List<OverseasEntityBeneficialOwner> getBeneficialOwners(String incorporationNumber)
+    public List<OverseasEntityBeneficialOwner> getBeneficialOwners(String companyNumber)
         throws BeneficialOwnerNotFoundException {
-        List<OverseasEntityBeneficialOwner> beneficialOwners = beneficialOwnerDataRepository.getBeneficialOwners(incorporationNumber);
-        DataMap dataMap = new DataMap.Builder(null).build();
-        dataMap.getLogMap().put("incorporationNumber", incorporationNumber);
-        LOGGER.debugContext(incorporationNumber,
+        List<OverseasEntityBeneficialOwner> beneficialOwners = beneficialOwnerDataRepository.getBeneficialOwners(companyNumber);
+
+        DataMap dataMap = new DataMap.Builder().build();
+        dataMap.getLogMap().put("companyNumber", companyNumber);
+        LOGGER.debugContext(companyNumber,
                 String.format("getBeneficialOwner query list size returned = %s", beneficialOwners.size()),
                 dataMap.getLogMap());
+
         if (beneficialOwners.isEmpty()) {
             throw new BeneficialOwnerNotFoundException("No beneficial owners were found.");
         } else {

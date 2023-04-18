@@ -24,23 +24,24 @@ public class OverseasEntityBeneficialOwnerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @GetMapping("/overseas-entity/{incorporationNumber}/beneficial-owners")
-    public ResponseEntity<List<OverseasEntityBeneficialOwner>> getOverseasEntityBeneficialOwners(@PathVariable String incorporationNumber) {
-        DataMap dataMap = new DataMap.Builder(null).build();
-        dataMap.getLogMap().put("incorporationNumber", incorporationNumber);
-        LOGGER.infoContext(incorporationNumber,
-                String.format("Calling service to retrieve active beneficial owner details for incorporation number %s", incorporationNumber),
+    @GetMapping("/overseas-entity/{companyNumber}/beneficial-owners")
+    public ResponseEntity<List<OverseasEntityBeneficialOwner>> getOverseasEntityBeneficialOwners(@PathVariable String companyNumber) {
+        DataMap dataMap = new DataMap.Builder().build();
+        dataMap.getLogMap().put("companyNumber", companyNumber);
+        LOGGER.infoContext(companyNumber,
+                String.format("Calling service to retrieve active beneficial owner details for company number %s", companyNumber),
                 dataMap.getLogMap());
 
         try {
-            List<OverseasEntityBeneficialOwner> details = overseasEntityBeneficialOwnerService.getBeneficialOwners(incorporationNumber);
-            LOGGER.infoContext(incorporationNumber,
-                    String.format("Returning beneficial owners for incorporation number %s", incorporationNumber),
+            List<OverseasEntityBeneficialOwner> details = overseasEntityBeneficialOwnerService.getBeneficialOwners(companyNumber);
+            LOGGER.infoContext(companyNumber,
+                    String.format("Returning beneficial owners for company number %s", companyNumber),
                     dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.OK).body(details);
         } catch (BeneficialOwnerNotFoundException e) {
-            LOGGER.errorContext(String.format("No beneficial owners could be found for incorporation number %s", incorporationNumber),
-                    e, dataMap.getLogMap());
+            LOGGER.infoContext(companyNumber,
+                    String.format("No beneficial owners could be found for company number %s", companyNumber),
+                    dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

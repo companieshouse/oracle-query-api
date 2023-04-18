@@ -27,5 +27,5 @@ public interface OverseasEntityBeneficialOwnerRepository extends PagingAndSortin
             + "where CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?)"
             + "and CBA.RESIGNATION_IND = 'N' AND CBA.SUPER_SECURE_PSC_IND = 'N' AND CBA.APPOINTMENT_TYPE_ID IN (5010, 5011, 5012)",
             nativeQuery = true)
-    List<OverseasEntityBeneficialOwner> getBeneficialOwners(String incorporationNumber);
+    List<OverseasEntityBeneficialOwner> getBeneficialOwners(String companyNumber);
 }

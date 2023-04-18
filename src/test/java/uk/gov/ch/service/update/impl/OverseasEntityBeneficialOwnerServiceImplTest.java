@@ -28,7 +28,7 @@ public class OverseasEntityBeneficialOwnerServiceImplTest {
     @Mock
     private OverseasEntityBeneficialOwnerRepository overseasEntityBeneficialOwnerRepository;
 
-    private static final String INCORPORATION_NUMBER = "OE123456";
+    private static final String COMPANY_NUMBER = "OE123456";
 
     @Test
     @DisplayName("Get beneficial owners - expected data returned")
@@ -36,10 +36,10 @@ public class OverseasEntityBeneficialOwnerServiceImplTest {
         List<OverseasEntityBeneficialOwner> expectedList = getMockBeneficialOwners(2);
         Address testResidentialAddress = getTestResidentialAddress();
 
-        when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(INCORPORATION_NUMBER))
+        when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(COMPANY_NUMBER))
                 .thenReturn(expectedList);
         List<OverseasEntityBeneficialOwner> result =
-                overseasEntityBeneficialOwnerService.getBeneficialOwners(INCORPORATION_NUMBER);
+                overseasEntityBeneficialOwnerService.getBeneficialOwners(COMPANY_NUMBER);
 
         assertEquals(2, result.size());
         assertEquals("1", result.get(0).getId());
@@ -61,10 +61,10 @@ public class OverseasEntityBeneficialOwnerServiceImplTest {
     @DisplayName("Get beneficial owners - no beneficial owners returned")
     void testGetBeneficialOwnersNoData() throws BeneficialOwnerNotFoundException {
         List<OverseasEntityBeneficialOwner> expectedList = getMockBeneficialOwners(0);
-        when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(INCORPORATION_NUMBER)).thenReturn(expectedList);
+        when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(COMPANY_NUMBER)).thenReturn(expectedList);
 
         Assertions.assertThrows(BeneficialOwnerNotFoundException.class,
-                () -> overseasEntityBeneficialOwnerService.getBeneficialOwners(INCORPORATION_NUMBER));
+                () -> overseasEntityBeneficialOwnerService.getBeneficialOwners(COMPANY_NUMBER));
     }
 
     private List<OverseasEntityBeneficialOwner> getMockBeneficialOwners(int count) {

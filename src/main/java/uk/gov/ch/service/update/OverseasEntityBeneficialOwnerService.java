@@ -6,6 +6,6 @@ import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import java.util.List;
 
 public interface OverseasEntityBeneficialOwnerService {
-    List<OverseasEntityBeneficialOwner> getBeneficialOwners(String incorporationNumber)
+    List<OverseasEntityBeneficialOwner> getBeneficialOwners(String companyNumber)
             throws BeneficialOwnerNotFoundException;
 }
