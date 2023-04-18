@@ -248,6 +248,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/registerLocation'
+  /overseas-entity/{companyNumber}/entity-data:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - overseas-entity-data
+      operationId: getOverseasEntityData
+      summary: Get private entity data for an overseas entity
+      responses:
+        '200':
+          description: 'Retrieve Entity data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/overseasEntityData'
+        '404':
+          description: No email found for entity
   /company/{company_number}/shareholders:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
