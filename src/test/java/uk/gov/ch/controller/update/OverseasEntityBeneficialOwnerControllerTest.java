@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.gov.ch.exception.BeneficialOwnerNotFoundException;
+import uk.gov.ch.exception.BeneficialOwnerCountNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import uk.gov.ch.service.update.impl.OverseasEntityBeneficialOwnerServiceImpl;
 
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-public class OverseasEntityBeneficialOwnerControllerTest {
+class OverseasEntityBeneficialOwnerControllerTest {
     private static final String COMPANY_NUMBER = "OE123456";
 
     @Mock
@@ -30,9 +30,9 @@ public class OverseasEntityBeneficialOwnerControllerTest {
 
     @Test
     @DisplayName("Get beneficial owners - overseas entity with no beneficial owners")
-    void testGetOverseasEntityBeneficialOwnersMethodReturnsCountError() throws BeneficialOwnerNotFoundException {
+    void testGetOverseasEntityBeneficialOwnersMethodReturnsCountError() throws BeneficialOwnerCountNotFoundException {
         when(overseasEntityBeneficialOwnerService.getBeneficialOwners(COMPANY_NUMBER))
-                .thenThrow(new BeneficialOwnerNotFoundException("No beneficial owners were found."));
+                .thenThrow(new BeneficialOwnerCountNotFoundException("No beneficial owners were found."));
 
         ResponseEntity responseEntity = overseasEntityBeneficialOwnerController
                 .getOverseasEntityBeneficialOwners(COMPANY_NUMBER);
@@ -42,7 +42,7 @@ public class OverseasEntityBeneficialOwnerControllerTest {
 
     @Test
     @DisplayName("Get beneficial owners - beneficial owners returned for overseas entity")
-    void testGetOverseasEntityBeneficialOwnersMethodReturnsExpectedData() throws BeneficialOwnerNotFoundException {
+    void testGetOverseasEntityBeneficialOwnersMethodReturnsExpectedData() throws BeneficialOwnerCountNotFoundException {
         List<OverseasEntityBeneficialOwner> beneficialOwners = new ArrayList();
         beneficialOwners.add(new OverseasEntityBeneficialOwner());
         beneficialOwners.add(new OverseasEntityBeneficialOwner());

@@ -3,7 +3,7 @@ package uk.gov.ch.service.update.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.exception.BeneficialOwnerNotFoundException;
+import uk.gov.ch.exception.BeneficialOwnerCountNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import uk.gov.ch.repository.update.OverseasEntityBeneficialOwnerRepository;
 import uk.gov.ch.service.update.OverseasEntityBeneficialOwnerService;
@@ -22,7 +22,7 @@ public class OverseasEntityBeneficialOwnerServiceImpl implements OverseasEntityB
 
     @Override
     public List<OverseasEntityBeneficialOwner> getBeneficialOwners(String companyNumber)
-        throws BeneficialOwnerNotFoundException {
+        throws BeneficialOwnerCountNotFoundException {
         List<OverseasEntityBeneficialOwner> beneficialOwners = beneficialOwnerDataRepository.getBeneficialOwners(companyNumber);
 
         DataMap dataMap = new DataMap.Builder().build();
@@ -32,7 +32,7 @@ public class OverseasEntityBeneficialOwnerServiceImpl implements OverseasEntityB
                 dataMap.getLogMap());
 
         if (beneficialOwners.isEmpty()) {
-            throw new BeneficialOwnerNotFoundException("No beneficial owners were found.");
+            throw new BeneficialOwnerCountNotFoundException("No beneficial owners were found.");
         } else {
             return beneficialOwners;
         }

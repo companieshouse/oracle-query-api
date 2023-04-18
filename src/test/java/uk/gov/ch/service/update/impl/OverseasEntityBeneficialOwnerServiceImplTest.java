@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import uk.gov.ch.exception.BeneficialOwnerNotFoundException;
+import uk.gov.ch.exception.BeneficialOwnerCountNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import uk.gov.ch.repository.update.OverseasEntityBeneficialOwnerRepository;
 import uk.gov.companieshouse.api.model.common.Address;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class OverseasEntityBeneficialOwnerServiceImplTest {
+class OverseasEntityBeneficialOwnerServiceImplTest {
     @InjectMocks
     private OverseasEntityBeneficialOwnerServiceImpl overseasEntityBeneficialOwnerService;
 
@@ -32,7 +32,7 @@ public class OverseasEntityBeneficialOwnerServiceImplTest {
 
     @Test
     @DisplayName("Get beneficial owners - expected data returned")
-    void testGetBeneficialOwnersData() throws BeneficialOwnerNotFoundException {
+    void testGetBeneficialOwnersData() throws BeneficialOwnerCountNotFoundException {
         List<OverseasEntityBeneficialOwner> expectedList = getMockBeneficialOwners(2);
         Address testResidentialAddress = getTestResidentialAddress();
 
@@ -59,11 +59,11 @@ public class OverseasEntityBeneficialOwnerServiceImplTest {
 
     @Test
     @DisplayName("Get beneficial owners - no beneficial owners returned")
-    void testGetBeneficialOwnersNoData() throws BeneficialOwnerNotFoundException {
+    void testGetBeneficialOwnersNoData() throws BeneficialOwnerCountNotFoundException {
         List<OverseasEntityBeneficialOwner> expectedList = getMockBeneficialOwners(0);
         when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(COMPANY_NUMBER)).thenReturn(expectedList);
 
-        Assertions.assertThrows(BeneficialOwnerNotFoundException.class,
+        Assertions.assertThrows(BeneficialOwnerCountNotFoundException.class,
                 () -> overseasEntityBeneficialOwnerService.getBeneficialOwners(COMPANY_NUMBER));
     }
 

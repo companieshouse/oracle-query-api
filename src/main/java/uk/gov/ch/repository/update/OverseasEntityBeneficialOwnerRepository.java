@@ -7,6 +7,10 @@ import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import java.util.List;
 
 public interface OverseasEntityBeneficialOwnerRepository extends PagingAndSortingRepository<OverseasEntityBeneficialOwner, Long> {
+    String OE_INDIVIDUAL_BO_APPOINTMENT_ID = "5010";
+    String OE_OLE_BO_APPOINTMENT_ID = "5011";
+    String OE_GPA_BO_APPOINTMENT_ID = "5012";
+
     @Query(value = "select "
             + "CBA.CORPORATE_BODY_APPOINTMENT_ID, "
             + "CBA.APPOINTMENT_DATE, "
@@ -25,7 +29,12 @@ public interface OverseasEntityBeneficialOwnerRepository extends PagingAndSortin
             + "inner join OFFICER_DETAIL OD on OD.OFFICER_DETAIL_ID=CBA.OFFICER_DETAIL_ID "
             + "left outer join USUAL_RESIDENTIAL_ADDRESS URA on OD.USUAL_RESIDENTIAL_ADDRESS_ID = URA.USUAL_RESIDENTIAL_ADDRESS_ID "
             + "where CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?)"
-            + "and CBA.RESIGNATION_IND = 'N' AND CBA.SUPER_SECURE_PSC_IND = 'N' AND CBA.APPOINTMENT_TYPE_ID IN (5010, 5011, 5012)",
+            + "and CBA.RESIGNATION_IND = 'N' "
+            + "and CBA.SUPER_SECURE_PSC_IND = 'N' "
+            + "and CBA.APPOINTMENT_TYPE_ID IN ("
+            + OE_INDIVIDUAL_BO_APPOINTMENT_ID + ", "
+            + OE_OLE_BO_APPOINTMENT_ID + ", "
+            + OE_GPA_BO_APPOINTMENT_ID + ")",
             nativeQuery = true)
     List<OverseasEntityBeneficialOwner> getBeneficialOwners(String companyNumber);
 }

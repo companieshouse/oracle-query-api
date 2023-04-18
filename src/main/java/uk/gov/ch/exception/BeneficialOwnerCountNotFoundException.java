@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class BeneficialOwnerNotFoundException extends Exception {
-    public BeneficialOwnerNotFoundException(String message) {
+public class BeneficialOwnerCountNotFoundException extends Exception {
+    public BeneficialOwnerCountNotFoundException(String message) {
         super(message);
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.exception.BeneficialOwnerNotFoundException;
+import uk.gov.ch.exception.BeneficialOwnerCountNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import uk.gov.ch.service.update.OverseasEntityBeneficialOwnerService;
 import uk.gov.companieshouse.logging.Logger;
@@ -38,7 +38,7 @@ public class OverseasEntityBeneficialOwnerController {
                     String.format("Returning beneficial owners for company number %s", companyNumber),
                     dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.OK).body(details);
-        } catch (BeneficialOwnerNotFoundException e) {
+        } catch (BeneficialOwnerCountNotFoundException e) {
             LOGGER.infoContext(companyNumber,
                     String.format("No beneficial owners could be found for company number %s", companyNumber),
                     dataMap.getLogMap());
