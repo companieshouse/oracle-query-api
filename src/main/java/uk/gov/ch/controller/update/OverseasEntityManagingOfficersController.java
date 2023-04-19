@@ -29,7 +29,7 @@ public class OverseasEntityManagingOfficersController {
     public ResponseEntity<List<OverseasEntityManagingOfficerData>> getOverseasEntityManagingOfficers(
             @PathVariable String companyNumber) {
 
-        DataMap dataMap = new DataMap.Builder(null).companyNumber(companyNumber).build();
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
         LOGGER.infoContext(companyNumber,
                 String.format("Calling service to retrieve managing officers for company number %s",
