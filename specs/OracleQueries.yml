@@ -21,6 +21,8 @@ tags:
     description: basic company information
   - name: officer-list
     description: list of company officers
+  - name: overseas-entity-data
+    description: Get private entity data for an overseas entity
     
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -1609,6 +1611,20 @@ components:
           type: string
           description: The date of birth of the managing officer
           example: "1940-05-05"
+    overseasEntityData:
+      type: object
+      properties:
+        company_number:
+          type: string
+          description: The company number
+          example: "12345678"
+        email_address:
+          type: string
+          format: email
+          description: The email address of the overseas entity
+      required:
+        - company_number
+        - email_address
   parameters:
     companyNumber:
       name: 'company_number'
