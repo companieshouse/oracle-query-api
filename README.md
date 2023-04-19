@@ -32,6 +32,8 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control`| Calls service to retrieve the psc data for the company
 **GET**   | `/company/{companyNumber}/confirmation-statement/paid`                               | Calls service to verify confirmation statement payment has been made for company on due date
 **GET**   | `/company/{companyNumber}/register/location`                                         | Calls service to retrieve the registers locations for a company
+**GET**   | `/overseas-entity/{companyNumber}/managing-officers`                                 | Calls service to retrieve the managing officers for an overseas entity 
+
 
 ### Query parameters
 Query parameter          | Description
