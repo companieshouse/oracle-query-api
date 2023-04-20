@@ -27,8 +27,7 @@ public class OverseasEntityManagingOfficersServiceImpl implements OverseasEntity
     @Override
     public List<OverseasEntityManagingOfficerData> getOverseasEntityManagingOfficers(String companyNumber)
             throws ManagingOfficerCountNotFoundException {
-        DataMap dataMap = new DataMap.Builder().build();
-        dataMap.getLogMap().put("companyName", companyNumber);
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
         LOGGER.infoContext(companyNumber, "Searching for managing officers for overseas entity", dataMap.getLogMap());
 

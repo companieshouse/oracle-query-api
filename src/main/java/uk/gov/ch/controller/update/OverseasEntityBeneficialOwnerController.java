@@ -26,8 +26,7 @@ public class OverseasEntityBeneficialOwnerController {
 
     @GetMapping("/overseas-entity/{companyNumber}/beneficial-owners")
     public ResponseEntity<List<OverseasEntityBeneficialOwner>> getOverseasEntityBeneficialOwners(@PathVariable String companyNumber) {
-        DataMap dataMap = new DataMap.Builder().build();
-        dataMap.getLogMap().put("companyNumber", companyNumber);
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
         LOGGER.infoContext(companyNumber,
                 String.format("Calling service to retrieve active beneficial owner details for company number %s", companyNumber),
                 dataMap.getLogMap());

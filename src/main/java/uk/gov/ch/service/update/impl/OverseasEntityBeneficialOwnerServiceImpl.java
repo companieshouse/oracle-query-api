@@ -25,8 +25,7 @@ public class OverseasEntityBeneficialOwnerServiceImpl implements OverseasEntityB
         throws BeneficialOwnerCountNotFoundException {
         List<OverseasEntityBeneficialOwner> beneficialOwners = beneficialOwnerDataRepository.getBeneficialOwners(companyNumber);
 
-        DataMap dataMap = new DataMap.Builder().build();
-        dataMap.getLogMap().put("companyNumber", companyNumber);
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
         LOGGER.debugContext(companyNumber,
                 String.format("getBeneficialOwner query list size returned = %s", beneficialOwners.size()),
                 dataMap.getLogMap());
