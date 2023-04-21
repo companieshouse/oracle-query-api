@@ -29,7 +29,7 @@ public class OverseasEntityDataController {
     public ResponseEntity<OverseasEntityDataJson> getEntityEmail(@PathVariable("companyNumber")
                                                                  @Pattern(regexp = "^OE\\d{6}$", message = "Invalid overseas entity number") String companyNumber) {
 
-        DataMap dataMap = new DataMap.Builder(null).companyNumber(companyNumber).build();
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
         try {
             return ResponseEntity.ok(entityDataService.getEntityEmail(companyNumber));

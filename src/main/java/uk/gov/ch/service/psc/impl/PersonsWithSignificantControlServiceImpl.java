@@ -18,7 +18,7 @@ public class PersonsWithSignificantControlServiceImpl implements PersonsWithSign
 
     @Override
     public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber, Pageable pageable) {
-         Page<PersonWithSignificantControl> pscPage = personsWithSignificantControlRepository
+        Page<PersonWithSignificantControl> pscPage = personsWithSignificantControlRepository
                 .findPersonsWithSignificantControl(companyNumber, pageable);
         return pscPage.getContent();
     }

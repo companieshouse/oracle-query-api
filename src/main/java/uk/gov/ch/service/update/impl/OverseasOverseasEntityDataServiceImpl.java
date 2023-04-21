@@ -26,8 +26,7 @@ public class OverseasOverseasEntityDataServiceImpl implements OverseasEntityData
     @Override
     public OverseasEntityDataJson getEntityEmail(String companyNumber) throws OverseasEntityEmailAddressNotFoundException {
 
-        DataMap dataMap = new DataMap.Builder(null).build();
-        dataMap.getLogMap().put("companyName", companyNumber);
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
         LOGGER.infoContext(companyNumber, "Calling database during Update process to retrieve overseas entity email address for company", dataMap.getLogMap());
 
