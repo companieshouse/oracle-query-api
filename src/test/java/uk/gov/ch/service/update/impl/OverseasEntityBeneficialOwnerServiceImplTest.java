@@ -34,7 +34,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
     @DisplayName("Get beneficial owners - expected data returned")
     void testGetBeneficialOwnersData() throws BeneficialOwnerCountNotFoundException {
         List<OverseasEntityBeneficialOwner> expectedList = getMockBeneficialOwners(2);
-        Address testResidentialAddress = getTestResidentialAddress();
+        Address testAddress = getTestAddress();
 
         when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(COMPANY_NUMBER))
                 .thenReturn(expectedList);
@@ -46,15 +46,26 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
         assertEquals("1990/01/01", result.get(0).getDateBecameRegistrable());
         assertEquals("1985/01/01", result.get(0).getDateOfBirth());
         assertEquals("N", result.get(0).getIsServiceAddressSameAsUsualAddress());
-        assertEquals(testResidentialAddress.getAddressLine1(), result.get(0).getUsualResidentialAddress().getAddressLine1());
-        assertEquals(testResidentialAddress.getAddressLine2(), result.get(0).getUsualResidentialAddress().getAddressLine2());
-        assertEquals(testResidentialAddress.getCareOf(), result.get(0).getUsualResidentialAddress().getCareOf());
-        assertEquals(testResidentialAddress.getCountry(), result.get(0).getUsualResidentialAddress().getCountry());
-        assertEquals(testResidentialAddress.getLocality(), result.get(0).getUsualResidentialAddress().getLocality());
-        assertEquals(testResidentialAddress.getPoBox(), result.get(0).getUsualResidentialAddress().getPoBox());
-        assertEquals(testResidentialAddress.getPostalCode(), result.get(0).getUsualResidentialAddress().getPostalCode());
-        assertEquals(testResidentialAddress.getPremises(), result.get(0).getUsualResidentialAddress().getPremises());
-        assertEquals(testResidentialAddress.getRegion(), result.get(0).getUsualResidentialAddress().getRegion());
+        
+        assertEquals(testAddress.getAddressLine1(), result.get(0).getUsualResidentialAddress().getAddressLine1());
+        assertEquals(testAddress.getAddressLine2(), result.get(0).getUsualResidentialAddress().getAddressLine2());
+        assertEquals(testAddress.getCareOf(), result.get(0).getUsualResidentialAddress().getCareOf());
+        assertEquals(testAddress.getCountry(), result.get(0).getUsualResidentialAddress().getCountry());
+        assertEquals(testAddress.getLocality(), result.get(0).getUsualResidentialAddress().getLocality());
+        assertEquals(testAddress.getPoBox(), result.get(0).getUsualResidentialAddress().getPoBox());
+        assertEquals(testAddress.getPostalCode(), result.get(0).getUsualResidentialAddress().getPostalCode());
+        assertEquals(testAddress.getPremises(), result.get(0).getUsualResidentialAddress().getPremises());
+        assertEquals(testAddress.getRegion(), result.get(0).getUsualResidentialAddress().getRegion());
+        
+        assertEquals(testAddress.getAddressLine1(), result.get(0).getPrincipalAddress().getAddressLine1());
+        assertEquals(testAddress.getAddressLine2(), result.get(0).getPrincipalAddress().getAddressLine2());
+        assertEquals(testAddress.getCareOf(), result.get(0).getPrincipalAddress().getCareOf());
+        assertEquals(testAddress.getCountry(), result.get(0).getPrincipalAddress().getCountry());
+        assertEquals(testAddress.getLocality(), result.get(0).getPrincipalAddress().getLocality());
+        assertEquals(testAddress.getPoBox(), result.get(0).getPrincipalAddress().getPoBox());
+        assertEquals(testAddress.getPostalCode(), result.get(0).getPrincipalAddress().getPostalCode());
+        assertEquals(testAddress.getPremises(), result.get(0).getPrincipalAddress().getPremises());
+        assertEquals(testAddress.getRegion(), result.get(0).getPrincipalAddress().getRegion());
     }
 
     @Test
@@ -74,6 +85,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
             bo.setId("1");
             bo.setDateBecameRegistrable("1990/01/01");
             bo.setDateOfBirth("1985/01/01");
+            
             bo.setIsServiceAddressSameAsUsualAddress("N");
             bo.setResidentialAddressLine1("TEST LINE 1");
             bo.setResidentialAddressLine2("TEST LINE 2");
@@ -84,13 +96,23 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
             bo.setResidentialAddressPostCode("TEST POST CODE");
             bo.setResidentialAddressHouseNameNumber("TEST HOUSE NAME NUMBER");
             bo.setResidentialAddressRegion("TEST REGION");
+            
+            bo.setPrincipalAddressLine1("TEST LINE 1");
+            bo.setPrincipalAddressLine2("TEST LINE 2");
+            bo.setPrincipalAddressCareOf("TEST CARE OF");
+            bo.setPrincipalAddressCountryName("TEST COUNTRY");
+            bo.setPrincipalAddressPostTown("TEST POST TOWN");
+            bo.setPrincipalAddressPoBox("TEST PO BOX");
+            bo.setPrincipalAddressPostCode("TEST POST CODE");
+            bo.setPrincipalAddressHouseNameNumber("TEST HOUSE NAME NUMBER");
+            bo.setPrincipalAddressRegion("TEST REGION");
 
             list.add(bo);
         }
         return list;
     }
 
-    private Address getTestResidentialAddress() {
+    private Address getTestAddress() {
         Address testAddress = new Address();
         testAddress.setAddressLine1("TEST LINE 1");
         testAddress.setAddressLine2("TEST LINE 2");
