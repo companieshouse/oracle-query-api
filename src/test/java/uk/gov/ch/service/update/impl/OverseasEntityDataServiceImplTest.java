@@ -22,7 +22,7 @@ import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class OverseasOverseasOverseasEntityDataServiceImplTest {
+class OverseasEntityDataServiceImplTest {
 
     @InjectMocks
     private OverseasOverseasEntityDataServiceImpl entityDataService;
