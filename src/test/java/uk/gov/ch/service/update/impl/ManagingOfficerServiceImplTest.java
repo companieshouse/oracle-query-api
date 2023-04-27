@@ -34,15 +34,29 @@ class ManagingOfficerServiceImplTest {
     private static final String DATE_OF_BIRTH = "date_of_birth";
     private static final String MANAGING_OFFICER_ID = "managing_officer_id";
     private static final String CONTACT_NAME_FULL = "contact_name_full";
-    private static final String ADDRESS_LINE_1 = "address_line_1";
-    private static final String ADDRESS_LINE_2 = "address_line_2";
-    private static final String CARE_OF = "care_of";
-    private static final String COUNTRY = "country";
-    private static final String LOCALITY = "locality";
-    private static final String PO_BOX = "po_box";
-    private static final String POSTAL_CODE = "postal_code";
-    private static final String PREMISES = "premises";
-    private static final String REGION = "region";
+
+    // Residential address constants
+    private static final String RESIDENTIAL_ADDRESS_LINE_1 = "residential_address_line_1";
+    private static final String RESIDENTIAL_ADDRESS_LINE_2 = "residential_address_line_2";
+    private static final String RESIDENTIAL_CARE_OF = "residential_care_of";
+    private static final String RESIDENTIAL_COUNTRY = "residential_country";
+    private static final String RESIDENTIAL_POST_TOWN = "residential_post_town";
+    private static final String RESIDENTIAL_PO_BOX = "residential_po_box";
+    private static final String RESIDENTIAL_POSTAL_CODE = "residential_postal_code";
+    private static final String RESIDENTIAL_PREMISES = "residential_premises";
+    private static final String RESIDENTIAL_REGION = "residential_region";
+
+    // Principal address constants
+    private static final String PRINCIPAL_PREMISES = "principal_premises";
+    private static final String PRINCIPAL_ADDRESS_LINE_1 = "principal_address_line_1";
+    private static final String PRINCIPAL_ADDRESS_LINE_2 = "principal_address_line_2";
+    private static final String PRINCIPAL_LOCALITY = "principal_locality";
+    private static final String PRINCIPAL_REGION = "principal_region";
+    private static final String PRINCIPAL_COUNTRY = "principal_country";
+    private static final String PRINCIPAL_POST_TOWN = "principal_post_town";
+    private static final String PRINCIPAL_POSTAL_CODE = "principal_postal_code";
+    private static final String PRINCIPAL_PO_BOX = "principal_po_box";
+    private static final String PRINCIPAL_CARE_OF = "principal_care_of";
 
     @Test
     @DisplayName("Get managing officers - managing officers returned")
@@ -50,22 +64,34 @@ class ManagingOfficerServiceImplTest {
         List<OverseasEntityManagingOfficerData> expectedList = getMockManagingOfficerRepo(2);
 
         when(managingOfficerDataRepository.getOverseasEntityManagingOfficers(INCORPORATION_NUMBER))
-                .thenReturn(expectedList);
+            .thenReturn(expectedList);
         List<OverseasEntityManagingOfficerData> result = managingOfficerDataService.getOverseasEntityManagingOfficers(INCORPORATION_NUMBER);
         assertEquals(2, result.size());
         assertEquals(CONTACT_EMAIL_ADDRESS, result.get(0).getContactEmailAddress());
         assertEquals(CONTACT_NAME_FULL, result.get(0).getContactNameFull());
         assertEquals(DATE_OF_BIRTH, result.get(0).getDateOfBirth());
         assertEquals(MANAGING_OFFICER_ID, result.get(0).getManagingOfficerId());
-        assertEquals(ADDRESS_LINE_1, result.get(0).getResidentialAddress().getAddressLine1());
-        assertEquals(ADDRESS_LINE_2, result.get(0).getResidentialAddress().getAddressLine2());
-        assertEquals(CARE_OF, result.get(0).getResidentialAddress().getCareOf());
-        assertEquals(COUNTRY, result.get(0).getResidentialAddress().getCountry());
-        assertEquals(LOCALITY, result.get(0).getResidentialAddress().getLocality());
-        assertEquals(PO_BOX, result.get(0).getResidentialAddress().getPoBox());
-        assertEquals(POSTAL_CODE, result.get(0).getResidentialAddress().getPostalCode());
-        assertEquals(PREMISES, result.get(0).getResidentialAddress().getPremises());
-        assertEquals(REGION, result.get(0).getResidentialAddress().getRegion());
+
+        // Check residential address fields
+        assertEquals(RESIDENTIAL_ADDRESS_LINE_1, result.get(0).getResidentialAddress().getAddressLine1());
+        assertEquals(RESIDENTIAL_ADDRESS_LINE_2, result.get(0).getResidentialAddress().getAddressLine2());
+        assertEquals(RESIDENTIAL_CARE_OF, result.get(0).getResidentialAddress().getCareOf());
+        assertEquals(RESIDENTIAL_COUNTRY, result.get(0).getResidentialAddress().getCountry());
+        assertEquals(RESIDENTIAL_PO_BOX, result.get(0).getResidentialAddress().getPoBox());
+        assertEquals(RESIDENTIAL_POST_TOWN, result.get(0).getResidentialAddress().getLocality());
+        assertEquals(RESIDENTIAL_POSTAL_CODE, result.get(0).getResidentialAddress().getPostalCode());
+        assertEquals(RESIDENTIAL_PREMISES, result.get(0).getResidentialAddress().getPremises());
+        assertEquals(RESIDENTIAL_REGION, result.get(0).getResidentialAddress().getRegion());
+
+        // Check principal address fields
+        assertEquals(PRINCIPAL_PREMISES, result.get(0).getPrincipalAddress().getPremises());
+        assertEquals(PRINCIPAL_ADDRESS_LINE_1, result.get(0).getPrincipalAddress().getAddressLine1());
+        assertEquals(PRINCIPAL_ADDRESS_LINE_2, result.get(0).getPrincipalAddress().getAddressLine2());
+        assertEquals(PRINCIPAL_REGION, result.get(0).getPrincipalAddress().getRegion());
+        assertEquals(PRINCIPAL_COUNTRY, result.get(0).getPrincipalAddress().getCountry());
+        assertEquals(PRINCIPAL_POSTAL_CODE, result.get(0).getPrincipalAddress().getPostalCode());
+        assertEquals(PRINCIPAL_PO_BOX, result.get(0).getPrincipalAddress().getPoBox());
+        assertEquals(PRINCIPAL_CARE_OF, result.get(0).getPrincipalAddress().getCareOf());
     }
 
     @Test
@@ -86,15 +112,23 @@ class ManagingOfficerServiceImplTest {
             mo.setContactNameFull(CONTACT_NAME_FULL);
             mo.setDateOfBirth(DATE_OF_BIRTH);
             mo.setManagingOfficerId(MANAGING_OFFICER_ID);
-            mo.setAddressLine1(ADDRESS_LINE_1);
-            mo.setAddressLine2(ADDRESS_LINE_2);
-            mo.setCareOf(CARE_OF);
-            mo.setCountryName(COUNTRY);
-            mo.setLocality(LOCALITY);
-            mo.setPoBox(PO_BOX);
-            mo.setPostalCode(POSTAL_CODE);
-            mo.setPremises(PREMISES);
-            mo.setRegion(REGION);
+            mo.setResidentialAddressLine1(RESIDENTIAL_ADDRESS_LINE_1);
+            mo.setResidentialAddressLine2(RESIDENTIAL_ADDRESS_LINE_2);
+            mo.setResidentialCareOf(RESIDENTIAL_CARE_OF);
+            mo.setResidentialCountryName(RESIDENTIAL_COUNTRY);
+            mo.setResidentialPostTown(RESIDENTIAL_POST_TOWN);
+            mo.setResidentialPoBox(RESIDENTIAL_PO_BOX);
+            mo.setResidentialPostalCode(RESIDENTIAL_POSTAL_CODE);
+            mo.setResidentialPremises(RESIDENTIAL_PREMISES);
+            mo.setResidentialRegion(RESIDENTIAL_REGION);
+            mo.setPrincipalPremises(PRINCIPAL_PREMISES);
+            mo.setPrincipalAddressLine1(PRINCIPAL_ADDRESS_LINE_1);
+            mo.setPrincipalAddressLine2(PRINCIPAL_ADDRESS_LINE_2);
+            mo.setPrincipalRegion(PRINCIPAL_REGION);
+            mo.setPrincipalCountryName(PRINCIPAL_COUNTRY);
+            mo.setPrincipalPostalCode(PRINCIPAL_POSTAL_CODE);
+            mo.setPrincipalPoBox(PRINCIPAL_PO_BOX);
+            mo.setPrincipalCareOf(PRINCIPAL_CARE_OF);
             list.add(mo);
         }
         return list;
