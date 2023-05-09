@@ -28,7 +28,7 @@ public class OverseasOverseasEntityDataServiceImpl implements OverseasEntityData
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
-        LOGGER.infoContext(companyNumber, "Calling database during Update process to retrieve overseas entity email address for company", dataMap.getLogMap());
+        LOGGER.infoContext(companyNumber, "Calling database during Update process to retrieve overseas entity email address for company " + companyNumber, dataMap.getLogMap());
 
         OverseasEntityDataJson overseasEntityDataJson = new OverseasEntityDataJson();
         OverseasEntityData overseasEntityData = overseasEntityDataRepository.getOverseasEntityData(companyNumber);
