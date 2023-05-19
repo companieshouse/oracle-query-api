@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.exception.OverseasEntityEmailAddressNotFoundException;
+import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityDataJson;
 import uk.gov.ch.service.update.impl.OverseasOverseasEntityDataServiceImpl;
 import uk.gov.companieshouse.logging.Logger;
@@ -33,8 +33,8 @@ public class OverseasEntityDataController {
 
         try {
             return ResponseEntity.ok(entityDataService.getEntityEmail(companyNumber));
-        } catch (OverseasEntityEmailAddressNotFoundException e) {
-            LOGGER.errorContext("The overseas entity email address could not be found for: " + companyNumber, e, dataMap.getLogMap());
+        } catch (CorporateBodyDetailsEmailAddressNotFoundException e) {
+            LOGGER.errorContext("The corporate body details email address could not be found for: " + companyNumber, e, dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

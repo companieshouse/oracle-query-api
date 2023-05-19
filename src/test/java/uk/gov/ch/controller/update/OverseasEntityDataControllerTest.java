@@ -13,7 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import uk.gov.ch.exception.OverseasEntityEmailAddressNotFoundException;
+import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityDataJson;
 import uk.gov.ch.service.update.impl.OverseasOverseasEntityDataServiceImpl;
 
@@ -44,7 +44,7 @@ class OverseasEntityDataControllerTest {
 
     @Test
     @DisplayName("Get entity email address - email was found")
-    void testGetEntityEmailMethodReturnsExpectedEntityData() throws OverseasEntityEmailAddressNotFoundException {
+    void testGetEntityEmailMethodReturnsExpectedEntityData() throws CorporateBodyDetailsEmailAddressNotFoundException {
         OverseasEntityDataJson expectedOverseasEntityData = new OverseasEntityDataJson();
         expectedOverseasEntityData.setEmailAddress("frank.sinatra@ratpack.com");
 
@@ -58,9 +58,9 @@ class OverseasEntityDataControllerTest {
 
     @Test
     @DisplayName("Throws 404 when entity email not found")
-    void testEntityEmailNotFound() throws OverseasEntityEmailAddressNotFoundException {
+    void testEntityEmailNotFound() throws CorporateBodyDetailsEmailAddressNotFoundException {
 
-        when(entityDataService.getEntityEmail(VALID_COMPANY_NUMBER)).thenThrow(new OverseasEntityEmailAddressNotFoundException("No entity email address found for company " + VALID_COMPANY_NUMBER));
+        when(entityDataService.getEntityEmail(VALID_COMPANY_NUMBER)).thenThrow(new CorporateBodyDetailsEmailAddressNotFoundException("No entity email address found for company " + VALID_COMPANY_NUMBER));
 
         ResponseEntity<OverseasEntityDataJson> response = overseasEntityDataController.getEntityEmail(VALID_COMPANY_NUMBER);
 
@@ -84,7 +84,7 @@ class OverseasEntityDataControllerTest {
 
     @Test
     void getEntityEmail_notFound() throws Exception {
-        when(entityDataService.getEntityEmail(VALID_COMPANY_NUMBER)).thenThrow(OverseasEntityEmailAddressNotFoundException.class);
+        when(entityDataService.getEntityEmail(VALID_COMPANY_NUMBER)).thenThrow(CorporateBodyDetailsEmailAddressNotFoundException.class);
 
         mockMvc.perform(get("/overseas-entity/{companyNumber}/entity-data", VALID_COMPANY_NUMBER).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
