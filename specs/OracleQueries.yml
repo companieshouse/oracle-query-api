@@ -25,6 +25,8 @@ tags:
     description: Get private entity data for an overseas entity
   - name: beneficial-owners
     description: list of beneficial owners of an overseas entity
+  - name: registered-email-address
+    description: Get private registered email address of company
 
 paths:
   /emergency-auth-code/company/{company_number}/eligible-officers:
@@ -366,6 +368,23 @@ paths:
                 $ref: '#/components/schemas/overseas_entity_beneficial_owner_list'
         '404':
           description: No beneficial owner data found
+  /company/{companyNumber}/registered-email-address:
+    parameters:
+      - $ref: '#/components/parameters/companyNumber'
+    get:
+      tags:
+        - registered-email-address
+      operationId: getRegisteredEmailAddress
+      summary: Get the registered email address for a company
+      responses:
+        '200':
+          description: Retrieve registered email address for a company
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/registered_email_address'
+        '404':
+          description: No registered email address found
 components:
   schemas:
     overseas_entity_beneficial_owner_list:
@@ -1335,6 +1354,14 @@ components:
         region:
           type: string
           description: The region e.g Surrey
+    registered_email_address:
+      type: object
+      description: The registered email address for the company
+      properties:
+        email_address:
+          type: string
+          description: The registered email address
+          format: email
     accounts:
       type: object
       description: Account details for the company
@@ -1674,20 +1701,6 @@ components:
           type: string
           description: The date of birth of the managing officer
           example: "1940-05-05"
-    overseasEntityData:
-      type: object
-      properties:
-        company_number:
-          type: string
-          description: The company number
-          example: "12345678"
-        email_address:
-          type: string
-          format: email
-          description: The email address of the overseas entity
-      required:
-        - company_number
-        - email_address
   parameters:
     companyNumber:
       name: 'company_number'

@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
+import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
+import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
 import uk.gov.ch.service.corporatebody.CorporateBodyService;
 import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
+import uk.gov.companieshouse.logging.util.DataMap;
 
 @RestController
 public class CorporateBodyController {
@@ -76,6 +79,19 @@ public class CorporateBodyController {
             LOGGER.error("Exception when mapping");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-        
+    }
+    @GetMapping("/company/{companyNumber}/registered-email-address")
+    public ResponseEntity<RegisteredEmailAddressJson> getRegisteredEmailAddress(@PathVariable("companyNumber") String companyNumber) {
+
+        DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
+
+        LOGGER.info("Entered get registered email address for company " + companyNumber);
+
+        try {
+            return ResponseEntity.ok(corporateBodyService.getRegisteredEmailAddress(companyNumber));
+        } catch (CorporateBodyDetailsEmailAddressNotFoundException e) {
+            LOGGER.errorContext("The corporate body details email address could not be found for: " + companyNumber, e, dataMap.getLogMap());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

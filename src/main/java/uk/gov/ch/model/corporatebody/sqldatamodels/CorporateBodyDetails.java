@@ -1,4 +1,4 @@
-package uk.gov.ch.model.update;
+package uk.gov.ch.model.corporatebody.sqldatamodels;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class OverseasEntityData {
+public class CorporateBodyDetails {
 
     @Id
     @Column(name = "corporate_body_id")

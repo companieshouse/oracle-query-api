@@ -1,4 +1,4 @@
-package uk.gov.ch.service.update.impl;
+package uk.gov.ch.service.corporatebody.impl;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,22 +10,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
+import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
 import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
-import uk.gov.ch.model.update.OverseasEntityDataJson;
 import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class OverseasEntityDataServiceImplTest {
+class RegisteredEmailAddressServiceImplTest {
 
     @InjectMocks
-    private OverseasOverseasEntityDataServiceImpl entityDataService;
+    private CorporateBodyServiceImpl corporateBodyService;
 
     @Mock
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
@@ -33,16 +31,16 @@ class OverseasEntityDataServiceImplTest {
     private static final String COMPANY_NUMBER = "OE12345678";
 
     @Test
-    @DisplayName("Get entity email address - email was found")
+    @DisplayName("Get registered email address - email was found")
     void testGetEmailAddressFound() throws CorporateBodyDetailsEmailAddressNotFoundException {
-        CorporateBodyDetails corporateBodyDetails = new CorporateBodyDetails();
-        corporateBodyDetails.setEmailAddress("franksinatra@ratpack.com");
+        CorporateBodyDetails registeredEmailAddress = new CorporateBodyDetails();
+        registeredEmailAddress.setEmailAddress("franksinatra@ratpack.com");
 
-        when(corporateBodyDetailsRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(corporateBodyDetails);
+        when(corporateBodyDetailsRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(registeredEmailAddress);
 
-        OverseasEntityDataJson result = entityDataService.getEntityEmail(COMPANY_NUMBER);
+        RegisteredEmailAddressJson result = corporateBodyService.getRegisteredEmailAddress(COMPANY_NUMBER);
 
-        assertEquals(result.getEmailAddress(), corporateBodyDetails.getEmailAddress());
+        assertEquals(result.getRegisteredEmailAddress(), registeredEmailAddress.getEmailAddress());
         verify(corporateBodyDetailsRepository, times(1)).getEmailAddress(COMPANY_NUMBER);
     }
 
@@ -55,7 +53,7 @@ class OverseasEntityDataServiceImplTest {
 
         when(corporateBodyDetailsRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(dataWithNoEmail);
 
-        assertThrows(CorporateBodyDetailsEmailAddressNotFoundException.class, () -> entityDataService.getEntityEmail(COMPANY_NUMBER));
+        assertThrows(CorporateBodyDetailsEmailAddressNotFoundException.class, () -> corporateBodyService.getRegisteredEmailAddress(COMPANY_NUMBER));
 
         verify(corporateBodyDetailsRepository, times(1)).getEmailAddress(COMPANY_NUMBER);
     }
