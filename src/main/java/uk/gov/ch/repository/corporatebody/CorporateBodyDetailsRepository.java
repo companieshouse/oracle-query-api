@@ -2,9 +2,9 @@ package uk.gov.ch.repository.corporatebody;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetailsEmailAddress;
+import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
 
-public interface CorporateBodyDetailsEmailAddressRepository extends PagingAndSortingRepository<CorporateBodyDetailsEmailAddress, String> {
+public interface CorporateBodyDetailsRepository extends PagingAndSortingRepository<CorporateBodyDetails, String> {
 
     @Query(value = "select "
             + "CB.corporate_body_id, CBD.email_address "
@@ -13,5 +13,5 @@ public interface CorporateBodyDetailsEmailAddressRepository extends PagingAndSor
             + "where "
             + "CB.incorporation_number = ?" ,
             nativeQuery = true)
-    CorporateBodyDetailsEmailAddress getEmailAddress(String companyNumber);
+    CorporateBodyDetails getEmailAddress(String companyNumber);
 }

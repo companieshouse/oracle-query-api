@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class CorporateBodyDetailsEmailAddress {
+public class CorporateBodyDetails {
 
     @Id
     @Column(name = "corporate_body_id")

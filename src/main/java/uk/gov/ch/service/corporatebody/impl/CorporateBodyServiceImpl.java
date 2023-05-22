@@ -17,9 +17,9 @@ import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
 import uk.gov.ch.model.corporatebody.sqldatamodels.CompanyProfileModel;
-import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetailsEmailAddress;
+import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
 import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
-import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsEmailAddressRepository;
+import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsRepository;
 import uk.gov.ch.repository.corporatebody.CorporateBodyRepository;
 import uk.gov.ch.service.corporatebody.CorporateBodyService;
 import uk.gov.ch.transformers.corporatebody.CorporateBodyTransformer;
@@ -43,7 +43,7 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
     private CorporateBodyTransformer corporateBodyTransformer;
 
     @Autowired
-    private CorporateBodyDetailsEmailAddressRepository corporateBodyDetailsEmailAddressRepository;
+    private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 
     private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
 
@@ -91,7 +91,7 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
         LOGGER.infoContext(companyNumber, "Calling database during Update process to retrieve registered email address for company " + companyNumber, dataMap.getLogMap());
 
         RegisteredEmailAddressJson registeredEmailAddressJson = new RegisteredEmailAddressJson();
-        CorporateBodyDetailsEmailAddress emailAddress = corporateBodyDetailsEmailAddressRepository.getEmailAddress(companyNumber);
+        CorporateBodyDetails emailAddress = corporateBodyDetailsRepository.getEmailAddress(companyNumber);
 
         if (emailAddress == null || StringUtils.isBlank(emailAddress.getEmailAddress())) {
             LOGGER.errorContext(companyNumber, "No email address found for company", null, dataMap.getLogMap());

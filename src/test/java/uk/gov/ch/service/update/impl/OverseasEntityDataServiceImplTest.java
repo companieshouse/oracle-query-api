@@ -10,9 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
-import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetailsEmailAddress;
+import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
 import uk.gov.ch.model.update.OverseasEntityDataJson;
-import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsEmailAddressRepository;
+import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,35 +28,35 @@ class OverseasEntityDataServiceImplTest {
     private OverseasOverseasEntityDataServiceImpl entityDataService;
 
     @Mock
-    private CorporateBodyDetailsEmailAddressRepository corporateBodyDetailsEmailAddressRepository;
+    private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 
     private static final String COMPANY_NUMBER = "OE12345678";
 
     @Test
     @DisplayName("Get entity email address - email was found")
     void testGetEmailAddressFound() throws CorporateBodyDetailsEmailAddressNotFoundException {
-        CorporateBodyDetailsEmailAddress corporateBodyDetailsEmailAddress = new CorporateBodyDetailsEmailAddress();
-        corporateBodyDetailsEmailAddress.setEmailAddress("franksinatra@ratpack.com");
+        CorporateBodyDetails corporateBodyDetails = new CorporateBodyDetails();
+        corporateBodyDetails.setEmailAddress("franksinatra@ratpack.com");
 
-        when(corporateBodyDetailsEmailAddressRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(corporateBodyDetailsEmailAddress);
+        when(corporateBodyDetailsRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(corporateBodyDetails);
 
         OverseasEntityDataJson result = entityDataService.getEntityEmail(COMPANY_NUMBER);
 
-        assertEquals(result.getEmailAddress(), corporateBodyDetailsEmailAddress.getEmailAddress());
-        verify(corporateBodyDetailsEmailAddressRepository, times(1)).getEmailAddress(COMPANY_NUMBER);
+        assertEquals(result.getEmailAddress(), corporateBodyDetails.getEmailAddress());
+        verify(corporateBodyDetailsRepository, times(1)).getEmailAddress(COMPANY_NUMBER);
     }
 
     @ParameterizedTest
     @NullAndEmptySource
     @DisplayName("Get entity email address - email not found when null or empty")
     void testGetEmailAddressNotFound(String emailAddress) throws CorporateBodyDetailsEmailAddressNotFoundException {
-        CorporateBodyDetailsEmailAddress dataWithNoEmail = new CorporateBodyDetailsEmailAddress();
+        CorporateBodyDetails dataWithNoEmail = new CorporateBodyDetails();
         dataWithNoEmail.setEmailAddress(emailAddress);
 
-        when(corporateBodyDetailsEmailAddressRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(dataWithNoEmail);
+        when(corporateBodyDetailsRepository.getEmailAddress(COMPANY_NUMBER)).thenReturn(dataWithNoEmail);
 
         assertThrows(CorporateBodyDetailsEmailAddressNotFoundException.class, () -> entityDataService.getEntityEmail(COMPANY_NUMBER));
 
-        verify(corporateBodyDetailsEmailAddressRepository, times(1)).getEmailAddress(COMPANY_NUMBER);
+        verify(corporateBodyDetailsRepository, times(1)).getEmailAddress(COMPANY_NUMBER);
     }
 }
