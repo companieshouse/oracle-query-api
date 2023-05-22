@@ -88,7 +88,7 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
-        LOGGER.infoContext(companyNumber, "Calling database during Update process to retrieve registered email address for company " + companyNumber, dataMap.getLogMap());
+        LOGGER.infoContext(companyNumber, "Calling database to retrieve registered email address for company " + companyNumber, dataMap.getLogMap());
 
         RegisteredEmailAddressJson registeredEmailAddressJson = new RegisteredEmailAddressJson();
         CorporateBodyDetails emailAddress = corporateBodyDetailsRepository.getEmailAddress(companyNumber);

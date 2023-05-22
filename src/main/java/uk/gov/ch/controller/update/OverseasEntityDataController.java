@@ -34,7 +34,7 @@ public class OverseasEntityDataController {
         try {
             return ResponseEntity.ok(entityDataService.getEntityEmail(companyNumber));
         } catch (CorporateBodyDetailsEmailAddressNotFoundException e) {
-            LOGGER.errorContext("The corporate body details email address could not be found for: " + companyNumber, e, dataMap.getLogMap());
+            LOGGER.errorContext("The overseas entity email address could not be found for: " + companyNumber, e, dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
