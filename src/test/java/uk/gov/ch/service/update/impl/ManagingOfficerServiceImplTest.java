@@ -70,7 +70,7 @@ class ManagingOfficerServiceImplTest {
         assertEquals(CONTACT_EMAIL_ADDRESS, result.get(0).getContactEmailAddress());
         assertEquals(CONTACT_NAME_FULL, result.get(0).getContactNameFull());
         assertEquals(DATE_OF_BIRTH, result.get(0).getDateOfBirth());
-        assertEquals(MANAGING_OFFICER_ID, result.get(0).getManagingOfficerId());
+        assertEquals(MANAGING_OFFICER_ID, result.get(0).getManagingOfficerAppointmentId());
 
         // Check residential address fields
         assertEquals(RESIDENTIAL_ADDRESS_LINE_1, result.get(0).getResidentialAddress().getAddressLine1());
@@ -111,7 +111,7 @@ class ManagingOfficerServiceImplTest {
             mo.setContactEmailAddress(CONTACT_EMAIL_ADDRESS);
             mo.setContactNameFull(CONTACT_NAME_FULL);
             mo.setDateOfBirth(DATE_OF_BIRTH);
-            mo.setManagingOfficerId(MANAGING_OFFICER_ID);
+            mo.setManagingOfficerAppointmentId(MANAGING_OFFICER_ID);
             mo.setResidentialAddressLine1(RESIDENTIAL_ADDRESS_LINE_1);
             mo.setResidentialAddressLine2(RESIDENTIAL_ADDRESS_LINE_2);
             mo.setResidentialCareOf(RESIDENTIAL_CARE_OF);
