@@ -10,7 +10,7 @@ import uk.gov.ch.model.update.OverseasEntityManagingOfficerData;
 
 public interface OverseasEntityManagingOfficersRepository extends PagingAndSortingRepository<OverseasEntityManagingOfficerData, Long> {
     static final String OVERSEAS_ENTITY_MANAGING_OFFICERS_TYPE_ID = "5013";
-    @Query(value = "SELECT cba.officer_id AS MO_ID, " +
+    @Query(value = "SELECT corporate_body_appointment_id AS MO_APPOINTMENT_ID, " +
         "od.officer_date_of_birth AS DOB, " +
         "uadd.house_name_number AS RESIDENTIAL_ADDRESS_HOUSE_NAME_NUMBER, " +
         "uadd.street AS RESIDENTIAL_ADDRESS_LINE_1, " +

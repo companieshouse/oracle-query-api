@@ -13,8 +13,8 @@ import uk.gov.companieshouse.api.model.common.Address;
 public class OverseasEntityManagingOfficerData {
 
     @Id
-    @Column(name = "MO_ID")
-    private String managingOfficerId;
+    @Column(name = "MO_APPOINTMENT_ID")
+    private String managingOfficerAppointmentId;
     @Column(name = "RESIDENTIAL_ADDRESS_HOUSE_NAME_NUMBER")
     private String residentialPremises;
     @Column(name = "RESIDENTIAL_ADDRESS_LINE_1")
@@ -75,12 +75,12 @@ public class OverseasEntityManagingOfficerData {
     public OverseasEntityManagingOfficerData() {
     }
 
-    public String getManagingOfficerId() {
-        return managingOfficerId;
+    public String getManagingOfficerAppointmentId() {
+        return managingOfficerAppointmentId;
     }
 
-    public void setManagingOfficerId(String managingOfficerId) {
-        this.managingOfficerId = managingOfficerId;
+    public void setManagingOfficerAppointmentId(String managingOfficerAppointmentId) {
+        this.managingOfficerAppointmentId = managingOfficerAppointmentId;
     }
 
     public String getContactNameFull() {
