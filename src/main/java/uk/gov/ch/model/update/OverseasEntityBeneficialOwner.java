@@ -23,58 +23,58 @@ public class OverseasEntityBeneficialOwner {
     @JsonProperty("is_service_address_same_as_usual_address")
     private String isServiceAddressSameAsUsualAddress;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_LINE_1")
+    @Column(name = "RES_ADDR_LINE_1")
     private String residentialAddressLine1;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_LINE_2")
+    @Column(name = "RES_ADDR_LINE_2")
     private String residentialAddressLine2;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_CARE_OF")
+    @Column(name = "RES_ADDR_CARE_OF")
     private String residentialAddressCareOf;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_COUNTRY_NAME")
+    @Column(name = "RES_ADDR_COUNTRY_NAME")
     private String residentialAddressCountryName;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_POST_TOWN")
+    @Column(name = "RES_ADDR_POST_TOWN")
     private String residentialAddressPostTown;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_PO_BOX")
+    @Column(name = "RES_ADDR_PO_BOX")
     private String residentialAddressPoBox;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_POST_CODE")
+    @Column(name = "RES_ADDR_POST_CODE")
     private String residentialAddressPostCode;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_HOUSE_NAME_NUMBER")
+    @Column(name = "RES_ADDR_HOUSE_NAME_NUMBER")
     private String residentialAddressHouseNameNumber;
 
-    @Column(name = "RESIDENTIAL_ADDRESS_REGION")
+    @Column(name = "RES_ADDR_REGION")
     private String residentialAddressRegion;
 
-    @Column(name = "PRINCIPAL_ADDRESS_LINE_1")
+    @Column(name = "PRINC_ADDR_LINE_1")
     private String principalAddressLine1;
 
-    @Column(name = "PRINCIPAL_ADDRESS_LINE_2")
+    @Column(name = "PRINC_ADDR_LINE_2")
     private String principalAddressLine2;
 
-    @Column(name = "PRINCIPAL_ADDRESS_CARE_OF")
+    @Column(name = "PRINC_ADDR_CARE_OF")
     private String principalAddressCareOf;
 
-    @Column(name = "PRINCIPAL_ADDRESS_COUNTRY_NAME")
+    @Column(name = "PRINC_ADDR_COUNTRY_NAME")
     private String principalAddressCountryName;
 
-    @Column(name = "PRINCIPAL_ADDRESS_POST_TOWN")
+    @Column(name = "PRINC_ADDR_POST_TOWN")
     private String principalAddressPostTown;
 
-    @Column(name = "PRINCIPAL_ADDRESS_PO_BOX")
+    @Column(name = "PRINC_ADDR_PO_BOX")
     private String principalAddressPoBox;
 
-    @Column(name = "PRINCIPAL_ADDRESS_POST_CODE")
+    @Column(name = "PRINC_ADDR_POST_CODE")
     private String principalAddressPostCode;
 
-    @Column(name = "PRINCIPAL_ADDRESS_HOUSE_NAME_NUMBER")
+    @Column(name = "PRINC_ADDR_HOUSE_NAME_NUMBER")
     private String principalAddressHouseNameNumber;
 
-    @Column(name = "PRINCIPAL_ADDRESS_REGION")
+    @Column(name = "PRINC_ADDR_REGION")
     private String principalAddressRegion;
 
     @Column(name = "OFFICER_DATE_OF_BIRTH")
