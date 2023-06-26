@@ -15,41 +15,41 @@ public class OverseasEntityManagingOfficerData {
     @Id
     @Column(name = "MO_APPOINTMENT_ID")
     private String managingOfficerAppointmentId;
-    @Column(name = "RESIDENTIAL_ADDRESS_HOUSE_NAME_NUMBER")
+    @Column(name = "RES_ADDR_HOUSE_NAME_NUMBER")
     private String residentialPremises;
-    @Column(name = "RESIDENTIAL_ADDRESS_LINE_1")
+    @Column(name = "RES_ADDR_LINE_1")
     private String residentialAddressLine1;
-    @Column(name = "RESIDENTIAL_ADDRESS_LINE_2")
+    @Column(name = "RES_ADDR_LINE_2")
     private String residentialAddressLine2;
-    @Column(name = "RESIDENTIAL_ADDRESS_POST_TOWN")
+    @Column(name = "RES_ADDR_POST_TOWN")
     private String residentialPostTown;
-    @Column(name = "RESIDENTIAL_ADDRESS_REGION")
+    @Column(name = "RES_ADDR_REGION")
     private String residentialRegion;
-    @Column(name = "RESIDENTIAL_ADDRESS_COUNTRY_NAME")
+    @Column(name = "RES_ADDR_COUNTRY_NAME")
     private String residentialCountryName;
-    @Column(name = "RESIDENTIAL_ADDRESS_POST_CODE")
+    @Column(name = "RES_ADDR_POST_CODE")
     private String residentialPostalCode;
-    @Column(name = "RESIDENTIAL_ADDRESS_PO_BOX")
+    @Column(name = "RES_ADDR_PO_BOX")
     private String residentialPoBox;
-    @Column(name = "RESIDENTIAL_ADDRESS_CARE_OF")
+    @Column(name = "RES_ADDR_CARE_OF")
     private String residentialCareOf;
-    @Column(name = "PRINCIPAL_ADDRESS_HOUSE_NAME_NUMBER")
+    @Column(name = "PRINC_ADDR_HOUSE_NAME_NUMBER")
     private String principalPremises;
-    @Column(name = "PRINCIPAL_ADDRESS_LINE_1")
+    @Column(name = "PRINC_ADDR_LINE_1")
     private String principalAddressLine1;
-    @Column(name = "PRINCIPAL_ADDRESS_LINE_2")
+    @Column(name = "PRINC_ADDR_LINE_2")
     private String principalAddressLine2;
-    @Column(name = "PRINCIPAL_ADDRESS_POST_TOWN")
+    @Column(name = "PRINC_ADDR_POST_TOWN")
     private String principalTown;
-    @Column(name = "PRINCIPAL_ADDRESS_REGION")
+    @Column(name = "PRINC_ADDR_REGION")
     private String principalRegion;
-    @Column(name = "PRINCIPAL_ADDRESS_COUNTRY_NAME")
+    @Column(name = "PRINC_ADDR_COUNTRY_NAME")
     private String principalCountryName;
-    @Column(name = "PRINCIPAL_ADDRESS_POST_CODE")
+    @Column(name = "PRINC_ADDR_POST_CODE")
     private String principalPostalCode;
-    @Column(name = "PRINCIPAL_ADDRESS_PO_BOX")
+    @Column(name = "PRINC_ADDR_PO_BOX")
     private String principalPoBox;
-    @Column(name = "PRINCIPAL_ADDRESS_CARE_OF")
+    @Column(name = "PRINC_ADDR_CARE_OF")
     private String principalCareOf;
 
     @Transient
