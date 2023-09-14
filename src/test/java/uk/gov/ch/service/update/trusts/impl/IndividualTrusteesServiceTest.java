@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class IndividualTrusteesServiceTest {
+class IndividualTrusteesServiceTest {
     @InjectMocks
     private IndividualTrusteesServiceImpl individualTrusteesService;
 
