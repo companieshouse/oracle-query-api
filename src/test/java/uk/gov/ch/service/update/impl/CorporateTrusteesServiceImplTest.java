@@ -80,4 +80,14 @@ class CorporateTrusteesServiceImplTest {
         Assertions.assertThrows(TrustDataCountNotFoundException.class,
                 () -> corporateTrusteesService.getCorporateTrusteeData(TRUST_ID));
     }
+
+    @Test
+    @DisplayName("Get corporate trustees - Null Check")
+    void testGetCorporateTrusteesNullCheck() {
+        List<CorporateTrusteeData> trustees = null;
+        when(corporateTrusteesRepository.getCorporateTrustees(TRUST_ID)).thenReturn(trustees);
+
+        Assertions.assertThrows(TrustDataCountNotFoundException.class,
+                () -> corporateTrusteesService.getCorporateTrusteeData(TRUST_ID));
+    }
 }

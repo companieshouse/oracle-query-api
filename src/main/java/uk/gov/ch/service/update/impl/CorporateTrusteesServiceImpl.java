@@ -28,15 +28,16 @@ public class CorporateTrusteesServiceImpl implements CorporateTrusteesService {
         List<CorporateTrusteeData> corporateTrusteeDataList = corporateTrusteesRepository.getCorporateTrustees(
                 trustId);
 
-        DataMap dataMap = new DataMap.Builder().build();
-        dataMap.getLogMap().put("trust_id", trustId);
-        LOGGER.debugContext(trustId, "getCorporateTrusteeData query list size returned = "
-                + corporateTrusteeDataList.size(), dataMap.getLogMap());
 
-        if (corporateTrusteeDataList.isEmpty()) {
+        if (corporateTrusteeDataList == null || corporateTrusteeDataList.isEmpty()) {
             throw new TrustDataCountNotFoundException(
                     "No corporate trustee data found with trustId " + trustId);
         } else {
+            DataMap dataMap = new DataMap.Builder().build();
+            dataMap.getLogMap().put("trust_id", trustId);
+            LOGGER.debugContext(trustId, "getCorporateTrusteeData query list size returned = "
+                    + corporateTrusteeDataList.size(), dataMap.getLogMap());
+
             return corporateTrusteeDataList;
         }
     }
