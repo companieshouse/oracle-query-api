@@ -36,6 +36,7 @@ Method    | Path                                                                
 **GET**   | `/overseas-entity/{companyNumber}/managing-officers`                                 | Calls service to retrieve the managing officers for an overseas entity
 **GET**   | `/overseas-entity/{companyNumber}/beneficial-owners`                                 | Calls service to retrieve the beneficial owner data for an overseas entity
 **GET**   | `/overseas-entity/trusts/{trustId}/individual-trustees`                              | Calls service to retrieve the individual trustee data for a trust
+**GET**   |`/overseas-entity/{oeNumber}/trusts/links`                                            |Calls service to retrieve the link data for a trust
 
 ### Query parameters
 Query parameter          | Description
