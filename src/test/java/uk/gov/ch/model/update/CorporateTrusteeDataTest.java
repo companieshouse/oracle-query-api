@@ -31,7 +31,6 @@ class CorporateTrusteeDataTest {
     public void setUp() {
         corporateTrusteeData = new CorporateTrusteeData();
 
-        // For demonstration, I'll set values for a few fields
         corporateTrusteeData.setTrusteeId(1L);
         corporateTrusteeData.setTrusteeName("Trustee Name");
         corporateTrusteeData.setRegisterLocation("Location");
@@ -41,8 +40,8 @@ class CorporateTrusteeDataTest {
         corporateTrusteeData.setOnRegisterInCountryFormed(true);
         corporateTrusteeData.setCorporateInd("Corporate");
         corporateTrusteeData.setTrusteeTypeId(3L);
-        corporateTrusteeData.setAppointmentDate(LocalDate.now());
-        corporateTrusteeData.setCeasedDate(LocalDate.now().plusDays(1));
+        corporateTrusteeData.setAppointmentDate(LocalDate.now().toString());
+        corporateTrusteeData.setCeasedDate(LocalDate.now().plusDays(1).toString());
     }
 
 
@@ -60,7 +59,6 @@ class CorporateTrusteeDataTest {
     @DisplayName("CorporateTrusteeData Deserialisation Test")
     void deserialisationTest() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
 
         CorporateTrusteeData output = mapper.readValue(JSON_STRING, CorporateTrusteeData.class);
 

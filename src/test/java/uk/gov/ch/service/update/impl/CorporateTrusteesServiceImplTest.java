@@ -40,8 +40,8 @@ class CorporateTrusteesServiceImplTest {
         setOnRegisterInCountryFormed(true);
         setCorporateInd("Y");
         setTrusteeTypeId(1L);
-        setAppointmentDate(LocalDate.of(2023, 1, 1));
-        setCeasedDate(LocalDate.of(2023, 12, 31));
+        setAppointmentDate("2023-01-01");
+        setCeasedDate("2023-12-31");
     }};
 
     private static final CorporateTrusteeData TRUSTEE_2 = new CorporateTrusteeData() {{
@@ -55,8 +55,8 @@ class CorporateTrusteesServiceImplTest {
         setCorporateInd("N");
         setTrusteeTypeId(2L);
 
-        setAppointmentDate(LocalDate.of( 1985 , 1 , 1 ));
-        setCeasedDate(LocalDate.of(2023, 11, 30));
+        setAppointmentDate("1985-01-01");
+        setCeasedDate("2023-11-30");
     }};
 
     @Test

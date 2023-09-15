@@ -39,8 +39,8 @@ class CorporateTrusteesControllerTest {
         setOnRegisterInCountryFormed(true);
         setCorporateInd("Y");
         setTrusteeTypeId(1L);
-        setAppointmentDate(LocalDate.of(2023, 1, 1)); // Note: This way of constructing Date is deprecated; consider using LocalDate and adjust your entity accordingly.
-        setCeasedDate(LocalDate.of(2023, 12, 31));
+        setAppointmentDate("2023-01-01"); // Note: This way of constructing Date is deprecated; consider using LocalDate and adjust your entity accordingly.
+        setCeasedDate("2023-12-31");
     }};
 
     private static final CorporateTrusteeData TRUSTEE_2 = new CorporateTrusteeData() {{
@@ -53,8 +53,8 @@ class CorporateTrusteesControllerTest {
         setOnRegisterInCountryFormed(false);
         setCorporateInd("N");
         setTrusteeTypeId(2L);
-        setAppointmentDate(LocalDate.of(2023, 2, 1));
-        setCeasedDate(LocalDate.of(2023, 11, 30));
+        setAppointmentDate("2023-02-01");
+        setCeasedDate("2023-11-30");
     }};
 
     @Test
