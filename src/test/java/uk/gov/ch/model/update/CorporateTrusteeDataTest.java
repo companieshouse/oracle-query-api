@@ -1,0 +1,69 @@
+package uk.gov.ch.model.update;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.time.LocalDate;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+class CorporateTrusteeDataTest {
+
+    private static final String JSON_STRING = "{"
+            + "\"trusteeId\":1,"
+            + "\"trusteeName\":\"Trustee Name\","
+            + "\"registerLocation\":\"Location\","
+            + "\"registrationNumber\":\"123456\","
+            + "\"lawGoverned\":\"Law\","
+            + "\"legalForm\":\"Form\","
+            + "\"onRegisterInCountryFormed\":true,"
+            + "\"corporateInd\":\"Corporate\","
+            + "\"trusteeTypeId\":3,"
+            + "\"appointmentDate\":\"2023-09-15\","
+            + "\"ceasedDate\":\"2023-09-16\""
+            + "}";
+    private CorporateTrusteeData corporateTrusteeData;
+
+    @BeforeEach
+    public void setUp() {
+        corporateTrusteeData = new CorporateTrusteeData();
+
+        // For demonstration, I'll set values for a few fields
+        corporateTrusteeData.setTrusteeId(1L);
+        corporateTrusteeData.setTrusteeName("Trustee Name");
+        corporateTrusteeData.setRegisterLocation("Location");
+        corporateTrusteeData.setRegistrationNumber("123456");
+        corporateTrusteeData.setLawGoverned("Law");
+        corporateTrusteeData.setLegalForm("Form");
+        corporateTrusteeData.setOnRegisterInCountryFormed(true);
+        corporateTrusteeData.setCorporateInd("Corporate");
+        corporateTrusteeData.setTrusteeTypeId(3L);
+        corporateTrusteeData.setAppointmentDate(LocalDate.now());
+        corporateTrusteeData.setCeasedDate(LocalDate.now().plusDays(1));
+    }
+
+
+    @Test
+    @DisplayName("CorporateTrusteeData Serialisation Test")
+    void serialisationTest() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        String output = mapper.writeValueAsString(corporateTrusteeData);
+        assertEquals(JSON_STRING, output);
+    }
+
+    @Test
+    @DisplayName("CorporateTrusteeData Deserialisation Test")
+    void deserialisationTest() throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        CorporateTrusteeData output = mapper.readValue(JSON_STRING, CorporateTrusteeData.class);
+
+        assertEquals(corporateTrusteeData, output);
+    }
+}

@@ -1,7 +1,9 @@
 package uk.gov.ch.model.update;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -47,10 +49,12 @@ public class CorporateTrusteeData {
 
     @Column(name = "APPOINTMENT_DATE")
     @JsonProperty("appointmentDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate appointmentDate;
 
     @Column(name = "CEASED_DATE")
     @JsonProperty("ceasedDate")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate ceasedDate;
 
     public Long getTrusteeId() {
@@ -141,4 +145,31 @@ public class CorporateTrusteeData {
         this.ceasedDate = ceasedDate;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CorporateTrusteeData that = (CorporateTrusteeData) o;
+        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(
+                trusteeName, that.trusteeName) && Objects.equals(registerLocation,
+                that.registerLocation) && Objects.equals(registrationNumber,
+                that.registrationNumber) && Objects.equals(lawGoverned, that.lawGoverned)
+                && Objects.equals(legalForm, that.legalForm) && Objects.equals(
+                onRegisterInCountryFormed, that.onRegisterInCountryFormed) && Objects.equals(
+                corporateInd, that.corporateInd) && Objects.equals(trusteeTypeId,
+                that.trusteeTypeId) && Objects.equals(appointmentDate, that.appointmentDate)
+                && Objects.equals(ceasedDate, that.ceasedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trusteeId, trusteeName, registerLocation, registrationNumber,
+                lawGoverned,
+                legalForm, onRegisterInCountryFormed, corporateInd, trusteeTypeId, appointmentDate,
+                ceasedDate);
+    }
 }
