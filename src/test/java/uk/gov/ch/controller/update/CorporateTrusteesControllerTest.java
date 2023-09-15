@@ -3,8 +3,8 @@ package uk.gov.ch.controller.update;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -42,8 +42,8 @@ class CorporateTrusteesControllerTest {
         setServiceSameAsRoaInd(true);
         setCorporateInd("Y");
         setTrusteeTypeId(1L);
-        setAppointmentDate(new Date(2023, 1, 1)); // Note: This way of constructing Date is deprecated; consider using LocalDate and adjust your entity accordingly.
-        setCeasedDate(new Date(2023, 12, 31));
+        setAppointmentDate(LocalDate.of(2023, 1, 1)); // Note: This way of constructing Date is deprecated; consider using LocalDate and adjust your entity accordingly.
+        setCeasedDate(LocalDate.of(2023, 12, 31));
     }};
 
     private static final CorporateTrusteeData TRUSTEE_2 = new CorporateTrusteeData() {{
@@ -59,8 +59,8 @@ class CorporateTrusteesControllerTest {
         setServiceSameAsRoaInd(false);
         setCorporateInd("N");
         setTrusteeTypeId(2L);
-        setAppointmentDate(new Date(2023, 2, 1));
-        setCeasedDate(new Date(2023, 11, 30));
+        setAppointmentDate(LocalDate.of(2023, 2, 1));
+        setCeasedDate(LocalDate.of(2023, 11, 30));
     }};
 
     @Test

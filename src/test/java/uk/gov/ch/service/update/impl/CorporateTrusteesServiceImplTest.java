@@ -3,9 +3,9 @@ package uk.gov.ch.service.update.impl;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -43,8 +43,8 @@ class CorporateTrusteesServiceImplTest {
         setServiceSameAsRoaInd(true);
         setCorporateInd("Y");
         setTrusteeTypeId(1L);
-        setAppointmentDate(new Date(2023, 1, 1)); 
-        setCeasedDate(new Date(2023, 12, 31));
+        setAppointmentDate(LocalDate.of(2023, 1, 1));
+        setCeasedDate(LocalDate.of(2023, 12, 31));
     }};
 
     private static final CorporateTrusteeData TRUSTEE_2 = new CorporateTrusteeData() {{
@@ -60,8 +60,9 @@ class CorporateTrusteesServiceImplTest {
         setServiceSameAsRoaInd(false);
         setCorporateInd("N");
         setTrusteeTypeId(2L);
-        setAppointmentDate(new Date(2023, 2, 1));
-        setCeasedDate(new Date(2023, 11, 30));
+
+        setAppointmentDate(LocalDate.of( 1985 , 1 , 1 ));
+        setCeasedDate(LocalDate.of(2023, 11, 30));
     }};
 
     @Test

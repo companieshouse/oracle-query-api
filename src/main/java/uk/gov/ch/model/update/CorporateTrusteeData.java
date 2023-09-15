@@ -1,7 +1,7 @@
 package uk.gov.ch.model.update;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -60,11 +60,11 @@ public class CorporateTrusteeData {
 
     @Column(name = "APPOINTMENT_DATE")
     @JsonProperty("appointmentDate")
-    private Date appointmentDate;
+    private LocalDate appointmentDate;
 
     @Column(name = "CEASED_DATE")
     @JsonProperty("ceasedDate")
-    private Date ceasedDate;
+    private LocalDate ceasedDate;
 
     public Long getTrusteeId() {
         return trusteeId;
@@ -162,19 +162,19 @@ public class CorporateTrusteeData {
         this.trusteeTypeId = trusteeTypeId;
     }
 
-    public Date getAppointmentDate() {
+    public LocalDate getAppointmentDate() {
         return appointmentDate;
     }
 
-    public void setAppointmentDate(Date appointmentDate) {
+    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 
-    public Date getCeasedDate() {
+    public LocalDate getCeasedDate() {
         return ceasedDate;
     }
 
-    public void setCeasedDate(Date ceasedDate) {
+    public void setCeasedDate(LocalDate ceasedDate) {
         this.ceasedDate = ceasedDate;
     }
 
