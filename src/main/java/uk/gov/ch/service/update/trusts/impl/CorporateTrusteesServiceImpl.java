@@ -1,13 +1,13 @@
-package uk.gov.ch.service.update.impl;
+package uk.gov.ch.service.update.trusts.impl;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
-import uk.gov.ch.model.update.CorporateTrusteeData;
-import uk.gov.ch.repository.update.CorporateTrusteesRepository;
-import uk.gov.ch.service.update.CorporateTrusteesService;
+import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
+import uk.gov.ch.repository.update.trusts.CorporateTrusteesRepository;
+import uk.gov.ch.service.update.trusts.CorporateTrusteesService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 import uk.gov.companieshouse.logging.util.DataMap;

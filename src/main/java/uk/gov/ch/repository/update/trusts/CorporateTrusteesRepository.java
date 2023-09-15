@@ -1,9 +1,9 @@
-package uk.gov.ch.repository.update;
+package uk.gov.ch.repository.update.trusts;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
-import uk.gov.ch.model.update.CorporateTrusteeData;
+import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
 
 public interface CorporateTrusteesRepository extends
         PagingAndSortingRepository<CorporateTrusteeData, Long> {

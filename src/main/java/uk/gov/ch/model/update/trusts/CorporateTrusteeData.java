@@ -1,4 +1,4 @@
-package uk.gov.ch.model.update;
+package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;

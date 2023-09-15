@@ -1,9 +1,8 @@
-package uk.gov.ch.controller.update;
+package uk.gov.ch.controller.update.trusts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,8 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
-import uk.gov.ch.model.update.CorporateTrusteeData;
-import uk.gov.ch.service.update.CorporateTrusteesService;
+import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
+import uk.gov.ch.service.update.trusts.CorporateTrusteesService;
 
 @ExtendWith(MockitoExtension.class)
 class CorporateTrusteesControllerTest {

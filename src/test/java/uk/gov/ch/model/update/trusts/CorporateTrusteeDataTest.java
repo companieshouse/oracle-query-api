@@ -1,4 +1,4 @@
-package uk.gov.ch.model.update;
+package uk.gov.ch.model.update.trusts;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +11,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class CorporateTrusteeDataTest {
-
     private static final String JSON_STRING = "{"
             + "\"trusteeId\":1,"
             + "\"trusteeName\":\"Trustee Name\","

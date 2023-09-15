@@ -1,9 +1,8 @@
-package uk.gov.ch.service.update.impl;
+package uk.gov.ch.service.update.impl.trusts;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
-import uk.gov.ch.model.update.CorporateTrusteeData;
-import uk.gov.ch.repository.update.CorporateTrusteesRepository;
+import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
+import uk.gov.ch.repository.update.trusts.CorporateTrusteesRepository;
+import uk.gov.ch.service.update.trusts.impl.CorporateTrusteesServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
