@@ -37,10 +37,7 @@ class CorporateTrusteesServiceImplTest {
         setRegistrationNumber("R12345");
         setLawGoverned("UK Law");
         setLegalForm("LLP");
-        setCountry("UK");
-        setModificationId(1001L);
         setOnRegisterInCountryFormed(true);
-        setServiceSameAsRoaInd(true);
         setCorporateInd("Y");
         setTrusteeTypeId(1L);
         setAppointmentDate(LocalDate.of(2023, 1, 1));
@@ -54,10 +51,7 @@ class CorporateTrusteesServiceImplTest {
         setRegistrationNumber("R67890");
         setLawGoverned("UK Law");
         setLegalForm("LLC");
-        setCountry("UK");
-        setModificationId(1002L);
         setOnRegisterInCountryFormed(false);
-        setServiceSameAsRoaInd(false);
         setCorporateInd("N");
         setTrusteeTypeId(2L);
 

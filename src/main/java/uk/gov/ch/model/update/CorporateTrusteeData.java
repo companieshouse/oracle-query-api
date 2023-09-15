@@ -2,7 +2,6 @@ package uk.gov.ch.model.update;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDate;
-import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
@@ -33,21 +32,9 @@ public class CorporateTrusteeData {
     @JsonProperty("legalForm")
     private String legalForm;
 
-    @Column(name = "COUNTRY")
-    @JsonProperty("country")
-    private String country;
-
-    @Column(name = "MODIFICATION_ID")
-    @JsonProperty("modificationId")
-    private Long modificationId;
-
     @Column(name = "ON_REGISTER_IN_COUNTRY_FORMED")
     @JsonProperty("onRegisterInCountryFormed")
     private Boolean onRegisterInCountryFormed;
-
-    @Column(name = "SERVICE_SAME_AS_ROA_IND")
-    @JsonProperty("serviceSameAsRoaInd")
-    private Boolean serviceSameAsRoaInd;
 
 
     @Column(name = "CORPORATE_IND")
@@ -114,36 +101,12 @@ public class CorporateTrusteeData {
         this.legalForm = legalForm;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Long getModificationId() {
-        return modificationId;
-    }
-
-    public void setModificationId(Long modificationId) {
-        this.modificationId = modificationId;
-    }
-
     public Boolean getOnRegisterInCountryFormed() {
         return onRegisterInCountryFormed;
     }
 
     public void setOnRegisterInCountryFormed(Boolean onRegisterInCountryFormed) {
         this.onRegisterInCountryFormed = onRegisterInCountryFormed;
-    }
-
-    public Boolean getServiceSameAsRoaInd() {
-        return serviceSameAsRoaInd;
-    }
-
-    public void setServiceSameAsRoaInd(Boolean serviceSameAsRoaInd) {
-        this.serviceSameAsRoaInd = serviceSameAsRoaInd;
     }
 
     public String getCorporateInd() {
@@ -178,34 +141,4 @@ public class CorporateTrusteeData {
         this.ceasedDate = ceasedDate;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        CorporateTrusteeData that = (CorporateTrusteeData) o;
-        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(
-                trusteeName, that.trusteeName) && Objects.equals(registerLocation,
-                that.registerLocation) && Objects.equals(registrationNumber,
-                that.registrationNumber) && Objects.equals(lawGoverned, that.lawGoverned)
-                && Objects.equals(legalForm, that.legalForm) && Objects.equals(
-                country, that.country) && Objects.equals(modificationId, that.modificationId)
-                && Objects.equals(onRegisterInCountryFormed, that.onRegisterInCountryFormed)
-                && Objects.equals(serviceSameAsRoaInd, that.serviceSameAsRoaInd)
-                && Objects.equals(corporateInd, that.corporateInd)
-                && Objects.equals(trusteeTypeId, that.trusteeTypeId)
-                && Objects.equals(appointmentDate, that.appointmentDate)
-                && Objects.equals(ceasedDate, that.ceasedDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(trusteeId, trusteeName, registerLocation, registrationNumber,
-                lawGoverned,
-                legalForm, country, modificationId, onRegisterInCountryFormed, serviceSameAsRoaInd,
-                corporateInd, trusteeTypeId, appointmentDate, ceasedDate);
-    }
 }
