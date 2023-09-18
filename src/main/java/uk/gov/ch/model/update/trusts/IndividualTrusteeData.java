@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class IndividualTrusteeData {
@@ -34,8 +35,8 @@ public class IndividualTrusteeData {
     private String nationality;
 
     @Column(name = "corporate_ind")
-    @JsonProperty("corporateInd")
-    private String corporateInd;
+    @JsonProperty("corporateIndicator")
+    private String corporateIndicator;
 
     @Column(name = "trustee_type_id")
     @JsonProperty("trusteeTypeId")
@@ -97,12 +98,12 @@ public class IndividualTrusteeData {
         this.nationality = nationality;
     }
 
-    public String getCorporateInd() {
-        return corporateInd;
+    public String getCorporateIndicator() {
+        return corporateIndicator;
     }
 
-    public void setCorporateInd(String corporateInd) {
-        this.corporateInd = corporateInd;
+    public void setCorporateIndicator(String corporateIndicator) {
+        this.corporateIndicator = corporateIndicator;
     }
 
     public String getTrusteeTypeId() {
@@ -127,5 +128,28 @@ public class IndividualTrusteeData {
 
     public void setCeasedDate(String ceasedDate) {
         this.ceasedDate = ceasedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IndividualTrusteeData that = (IndividualTrusteeData) o;
+        return Objects.equals(trusteeId, that.trusteeId)
+                && Objects.equals(trusteeForename1, that.trusteeForename1)
+                && Objects.equals(trusteeForename2, that.trusteeForename2)
+                && Objects.equals(trusteeSurname, that.trusteeSurname)
+                && Objects.equals(dateOfBirth, that.dateOfBirth)
+                && Objects.equals(nationality, that.nationality)
+                && Objects.equals(corporateIndicator, that.corporateIndicator)
+                && Objects.equals(trusteeTypeId, that.trusteeTypeId)
+                && Objects.equals(appointmentDate, that.appointmentDate)
+                && Objects.equals(ceasedDate, that.ceasedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trusteeId, trusteeForename1, trusteeForename2, trusteeSurname, dateOfBirth, nationality,
+                corporateIndicator, trusteeTypeId, appointmentDate, ceasedDate);
     }
 }
