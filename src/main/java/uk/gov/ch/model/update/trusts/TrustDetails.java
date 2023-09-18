@@ -27,8 +27,8 @@ public class TrustDetails {
     private String ceasedDate;
 
     @Column(name = "unable_to_obtain_all_info_ind")
-    @JsonProperty("unableToObtainAllInfoInd")
-    private String unableToObtainAllInfoInd;
+    @JsonProperty("unableToObtainAllInfoIndicator")
+    private String unableToObtainAllInfoIndicator;
 
     public String getTrustId() {
         return trustId;
@@ -62,12 +62,12 @@ public class TrustDetails {
         this.ceasedDate = ceasedDate;
     }
 
-    public String getUnableToObtainAllInfoInd() {
-        return unableToObtainAllInfoInd;
+    public String getUnableToObtainAllInfoIndicator() {
+        return unableToObtainAllInfoIndicator;
     }
 
-    public void setUnableToObtainAllInfoInd(String unableToObtainAllInfoInd) {
-        this.unableToObtainAllInfoInd = unableToObtainAllInfoInd;
+    public void setUnableToObtainAllInfoIndicator(String unableToObtainAllInfoIndicator) {
+        this.unableToObtainAllInfoIndicator = unableToObtainAllInfoIndicator;
     }
 
     @Override
@@ -79,11 +79,11 @@ public class TrustDetails {
                 && Objects.equals(trustName, that.trustName)
                 && Objects.equals(trustCreationDate, that.trustCreationDate)
                 && Objects.equals(ceasedDate, that.ceasedDate)
-                && Objects.equals(unableToObtainAllInfoInd, that.unableToObtainAllInfoInd);
+                && Objects.equals(unableToObtainAllInfoIndicator, that.unableToObtainAllInfoIndicator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trustId, trustName, trustCreationDate, ceasedDate, unableToObtainAllInfoInd);
+        return Objects.hash(trustId, trustName, trustCreationDate, ceasedDate, unableToObtainAllInfoIndicator);
     }
 }
