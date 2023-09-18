@@ -28,9 +28,8 @@ public class TrustLinksServiceImpl implements TrustLinksService {
         if (trustLinks == null || trustLinks.isEmpty()) {
             throw new TrustDataCountNotFoundException("No trust links were found");
         } else {
-            DataMap dataMap = new DataMap.Builder().build();
-            dataMap.getLogMap().put("oe_number", oeNumber);
-            LOGGER.debugContext(oeNumber,
+            DataMap dataMap = new DataMap.Builder().companyNumber(oeNumber).build();
+            LOGGER.infoContext(oeNumber,
                     "getTrustLinks query list size returned = " + trustLinks.size(),
                     dataMap.getLogMap());
 

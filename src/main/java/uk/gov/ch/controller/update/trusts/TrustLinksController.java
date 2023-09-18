@@ -23,12 +23,11 @@ public class TrustLinksController {
     @Autowired
     private TrustLinksService individualTrusteesService;
 
-    @GetMapping("/overseas-entity/{oeNumber}/trusts/links")
+    @GetMapping("overseas-entity/{oeNumber}/trusts/beneficial_owners/links")
     public ResponseEntity<List<TrustLinkData>> getIndividualTrustees(
             @PathVariable String oeNumber) {
 
-        DataMap dataMap = new DataMap.Builder().build();
-        dataMap.getLogMap().put("oe_number", oeNumber);
+        DataMap dataMap = new DataMap.Builder().companyNumber(oeNumber).build();
         LOGGER.infoContext(oeNumber,
                 "Calling service to retrieve trust link data for OE Number: " + oeNumber,
                 dataMap.getLogMap());
