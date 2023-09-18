@@ -25,7 +25,7 @@ public class TrustDetailsServiceImpl implements TrustDetailsService {
             throws TrustDataCountNotFoundException {
         List<TrustDetails> trustDetails = trustDetailsRepository.getTrustDetails(companyNumber);
 
-        if (trustDetails.isEmpty()) {
+        if (trustDetails == null || trustDetails.isEmpty()) {
             throw new TrustDataCountNotFoundException("No trusts were found.");
         } else {
             DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();

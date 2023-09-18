@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class TrustDetails {
@@ -67,5 +68,22 @@ public class TrustDetails {
 
     public void setUnableToObtainAllInfoInd(String unableToObtainAllInfoInd) {
         this.unableToObtainAllInfoInd = unableToObtainAllInfoInd;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TrustDetails that = (TrustDetails) o;
+        return Objects.equals(trustId, that.trustId)
+                && Objects.equals(trustName, that.trustName)
+                && Objects.equals(trustCreationDate, that.trustCreationDate)
+                && Objects.equals(ceasedDate, that.ceasedDate)
+                && Objects.equals(unableToObtainAllInfoInd, that.unableToObtainAllInfoInd);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(trustId, trustName, trustCreationDate, ceasedDate, unableToObtainAllInfoInd);
     }
 }
