@@ -12,7 +12,6 @@ import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
 import uk.gov.ch.service.update.trusts.CorporateTrusteesService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
-import uk.gov.companieshouse.logging.util.DataMap;
 
 public class CorporateTrusteesController {
 

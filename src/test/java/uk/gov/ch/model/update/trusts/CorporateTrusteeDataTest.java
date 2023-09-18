@@ -18,8 +18,9 @@ class CorporateTrusteeDataTest {
             + "\"registrationNumber\":\"123456\","
             + "\"lawGoverned\":\"Law\","
             + "\"legalForm\":\"Form\","
+            + "\"country\":\"Never Never Land\","
             + "\"onRegisterInCountryFormed\":true,"
-            + "\"corporateInd\":\"Corporate\","
+            + "\"corporateIndicator\":\"Corporate\","
             + "\"trusteeTypeId\":3,"
             + "\"appointmentDate\":\"2023-09-15\","
             + "\"ceasedDate\":\"2023-09-16\""
@@ -36,6 +37,7 @@ class CorporateTrusteeDataTest {
         corporateTrusteeData.setRegistrationNumber("123456");
         corporateTrusteeData.setLawGoverned("Law");
         corporateTrusteeData.setLegalForm("Form");
+        corporateTrusteeData.setCountry("Never Never Land");
         corporateTrusteeData.setOnRegisterInCountryFormed(true);
         corporateTrusteeData.setCorporateInd("Corporate");
         corporateTrusteeData.setTrusteeTypeId(3L);
@@ -47,8 +49,6 @@ class CorporateTrusteeDataTest {
     @DisplayName("CorporateTrusteeData Serialisation Test")
     void serialisationTest() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.registerModule(new JavaTimeModule());
-
         String output = mapper.writeValueAsString(corporateTrusteeData);
         assertEquals(JSON_STRING, output);
     }
@@ -57,9 +57,7 @@ class CorporateTrusteeDataTest {
     @DisplayName("CorporateTrusteeData Deserialisation Test")
     void deserialisationTest() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-
         CorporateTrusteeData output = mapper.readValue(JSON_STRING, CorporateTrusteeData.class);
-
         assertEquals(corporateTrusteeData, output);
     }
 }

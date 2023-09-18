@@ -32,6 +32,10 @@ public class CorporateTrusteeData {
     @JsonProperty("legalForm")
     private String legalForm;
 
+    @Column(name="COUNTRY")
+    @JsonProperty("country")
+    private String country;
+
     @Column(name = "ON_REGISTER_IN_COUNTRY_FORMED")
     @JsonProperty("onRegisterInCountryFormed")
     private Boolean onRegisterInCountryFormed;
@@ -101,6 +105,14 @@ public class CorporateTrusteeData {
         this.legalForm = legalForm;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public Boolean getOnRegisterInCountryFormed() {
         return onRegisterInCountryFormed;
     }
@@ -150,20 +162,23 @@ public class CorporateTrusteeData {
             return false;
         }
         CorporateTrusteeData that = (CorporateTrusteeData) o;
-        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(trusteeName,
-                that.trusteeName) && Objects.equals(registerLocation, that.registerLocation)
-                && Objects.equals(registrationNumber, that.registrationNumber) && Objects.equals(
-                lawGoverned, that.lawGoverned) && Objects.equals(legalForm, that.legalForm)
-                && Objects.equals(onRegisterInCountryFormed, that.onRegisterInCountryFormed)
-                && Objects.equals(corporateInd, that.corporateInd) && Objects.equals(trusteeTypeId,
-                that.trusteeTypeId) && Objects.equals(appointmentDate, that.appointmentDate)
+        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(
+                trusteeName, that.trusteeName) && Objects.equals(registerLocation,
+                that.registerLocation) && Objects.equals(registrationNumber,
+                that.registrationNumber) && Objects.equals(lawGoverned, that.lawGoverned)
+                && Objects.equals(legalForm, that.legalForm) && Objects.equals(
+                country, that.country) && Objects.equals(onRegisterInCountryFormed,
+                that.onRegisterInCountryFormed) && Objects.equals(corporateInd,
+                that.corporateInd) && Objects.equals(trusteeTypeId, that.trusteeTypeId)
+                && Objects.equals(appointmentDate, that.appointmentDate)
                 && Objects.equals(ceasedDate, that.ceasedDate);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(trusteeId, trusteeName, registerLocation, registrationNumber,
-                lawGoverned, legalForm, onRegisterInCountryFormed, corporateInd, trusteeTypeId,
+                lawGoverned,
+                legalForm, country, onRegisterInCountryFormed, corporateInd, trusteeTypeId,
                 appointmentDate, ceasedDate);
     }
 }

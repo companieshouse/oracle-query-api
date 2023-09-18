@@ -38,7 +38,7 @@ class CorporateTrusteesControllerTest {
         setOnRegisterInCountryFormed(true);
         setCorporateInd("Y");
         setTrusteeTypeId(1L);
-        setAppointmentDate("2023-01-01"); // Note: This way of constructing Date is deprecated; consider using LocalDate and adjust your entity accordingly.
+        setAppointmentDate("2023-01-01");
         setCeasedDate("2023-12-31");
     }};
 
