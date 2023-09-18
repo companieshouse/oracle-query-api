@@ -10,7 +10,6 @@ import uk.gov.ch.repository.update.trusts.CorporateTrusteesRepository;
 import uk.gov.ch.service.update.trusts.CorporateTrusteesService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
-import uk.gov.companieshouse.logging.util.DataMap;
 
 
 @Service
@@ -28,15 +27,12 @@ public class CorporateTrusteesServiceImpl implements CorporateTrusteesService {
         List<CorporateTrusteeData> corporateTrusteeDataList = corporateTrusteesRepository.getCorporateTrustees(
                 trustId);
 
-
         if (corporateTrusteeDataList == null || corporateTrusteeDataList.isEmpty()) {
             throw new TrustDataCountNotFoundException(
                     "No corporate trustee data found with trustId " + trustId);
         } else {
-            DataMap dataMap = new DataMap.Builder().build();
-            dataMap.getLogMap().put("trust_id", trustId);
-            LOGGER.debugContext(trustId, "getCorporateTrusteeData query list size returned = "
-                    + corporateTrusteeDataList.size(), dataMap.getLogMap());
+            LOGGER.info("getCorporateTrusteeData query list for Trust ID " + trustId
+                    + " size returned = " + corporateTrusteeDataList.size());
 
             return corporateTrusteeDataList;
         }

@@ -38,7 +38,7 @@ public class CorporateTrusteeData {
 
 
     @Column(name = "CORPORATE_IND")
-    @JsonProperty("corporateInd")
+    @JsonProperty("corporateIndicator")
     private String corporateInd;
 
     @Column(name = "TRUSTEE_TYPE_ID")

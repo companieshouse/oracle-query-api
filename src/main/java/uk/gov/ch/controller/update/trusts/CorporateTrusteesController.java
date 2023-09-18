@@ -25,24 +25,17 @@ public class CorporateTrusteesController {
     public ResponseEntity<List<CorporateTrusteeData>> getCorporateTrusteeData(
             @PathVariable String trustId) {
 
-        DataMap dataMap = new DataMap.Builder().build();
-        dataMap.getLogMap().put("trust_id", trustId);
-        LOGGER.debugContext(trustId,
-                "Calling service to retrieve Corporate Trustee Data for Trust Id " + trustId,
-                dataMap.getLogMap());
+        LOGGER.info("Calling service to retrieve Corporate Trustee Data for Trust Id " + trustId);
 
         try {
             List<CorporateTrusteeData> corporateTrusteeData = corporateTrusteesService.getCorporateTrusteeData(
                     trustId);
-            LOGGER.debugContext(trustId, "Returning Corporate Trustee Data for Trust Id " + trustId,
-                    dataMap.getLogMap());
+
+            LOGGER.info("Returning Corporate Trustee Data for Trust Id " + trustId);
 
             return ResponseEntity.status(HttpStatus.OK).body(corporateTrusteeData);
         } catch (TrustDataCountNotFoundException e) {
-
-            LOGGER.debugContext(trustId,
-                    "No Corporate Trustee Data can be found for Trust Id " + trustId,
-                    dataMap.getLogMap());
+            LOGGER.info("No Corporate Trustee Data can be found for Trust Id " + trustId);
 
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

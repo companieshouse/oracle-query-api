@@ -15,7 +15,7 @@ public interface CorporateTrusteesRepository extends
             + "FROM trustee t"
             + "JOIN corporate_trustee_details ctd "
             + "ON t.trustee_id = ctd.trustee_id "
-            + "WHERE t.trust_id = '?'",
+            + "WHERE t.trust_id = ?",
             nativeQuery = true)
     List<CorporateTrusteeData> getCorporateTrustees(String trustId);
 }
