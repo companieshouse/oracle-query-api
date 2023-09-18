@@ -39,10 +39,9 @@ class CorporateTrusteeDataTest {
         corporateTrusteeData.setOnRegisterInCountryFormed(true);
         corporateTrusteeData.setCorporateInd("Corporate");
         corporateTrusteeData.setTrusteeTypeId(3L);
-        corporateTrusteeData.setAppointmentDate(LocalDate.now().toString());
-        corporateTrusteeData.setCeasedDate(LocalDate.now().plusDays(1).toString());
+        corporateTrusteeData.setAppointmentDate("2023-09-15");
+        corporateTrusteeData.setCeasedDate("2023-09-16");
     }
-
 
     @Test
     @DisplayName("CorporateTrusteeData Serialisation Test")
