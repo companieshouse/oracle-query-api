@@ -35,9 +35,10 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/registered-email-address`                                  | Calls service to retrieve the registered email address for a company
 **GET**   | `/overseas-entity/{companyNumber}/managing-officers`                                 | Calls service to retrieve the managing officers for an overseas entity
 **GET**   | `/overseas-entity/{companyNumber}/beneficial-owners`                                 | Calls service to retrieve the beneficial owner data for an overseas entity
+**GET**   | `/overseas-entity/{companyNumber}/trusts/details`                                    | Calls service to retrieve the trust data for an overseas entity
 **GET**   | `/overseas-entity/trusts/{trustId}/individual-trustees`                              | Calls service to retrieve the individual trustee data for a trust
-**GET**   | `overseas-entity/{oeNumber}/trusts/beneficial_owners/links`                          | Calls service to retrieve the trust link data for an overseas entity
- **GET**  | `overseas-entity/trusts/{trustId}/corporate-trustees`                                | Calls service to retrieve the Trustee Data when given the ID of a Trust 
+**GET**   | `/overseas-entity/{oeNumber}/trusts/beneficial_owners/links`                         | Calls service to retrieve the trust link data for an overseas entity
+ **GET**  | `/overseas-entity/trusts/{trustId}/corporate-trustees`                               | Calls service to retrieve the Trustee Data when given the ID of a Trust 
 ### Query parameters
 Query parameter          | Description
 :------------------------|:-----------
