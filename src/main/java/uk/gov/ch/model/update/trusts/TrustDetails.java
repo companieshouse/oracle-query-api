@@ -19,8 +19,8 @@ public class TrustDetails {
     private String trustName;
 
     @Column(name = "creation_date")
-    @JsonProperty("trustCreationDate")
-    private String trustCreationDate;
+    @JsonProperty("creationDate")
+    private String creationDate;
 
     @Column(name = "ceased_date")
     @JsonProperty("ceasedDate")
@@ -46,12 +46,12 @@ public class TrustDetails {
         this.trustName = trustName;
     }
 
-    public String getTrustCreationDate() {
-        return trustCreationDate;
+    public String getCreationDate() {
+        return creationDate;
     }
 
-    public void setTrustCreationDate(String trustCreationDate) {
-        this.trustCreationDate = trustCreationDate;
+    public void setCreationDate(String creationDate) {
+        this.creationDate = creationDate;
     }
 
     public String getCeasedDate() {
@@ -77,13 +77,13 @@ public class TrustDetails {
         TrustDetails that = (TrustDetails) o;
         return Objects.equals(trustId, that.trustId)
                 && Objects.equals(trustName, that.trustName)
-                && Objects.equals(trustCreationDate, that.trustCreationDate)
+                && Objects.equals(creationDate, that.creationDate)
                 && Objects.equals(ceasedDate, that.ceasedDate)
                 && Objects.equals(unableToObtainAllInfoIndicator, that.unableToObtainAllInfoIndicator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trustId, trustName, trustCreationDate, ceasedDate, unableToObtainAllInfoIndicator);
+        return Objects.hash(trustId, trustName, creationDate, ceasedDate, unableToObtainAllInfoIndicator);
     }
 }

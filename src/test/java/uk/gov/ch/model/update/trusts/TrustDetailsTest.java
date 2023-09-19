@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TrustDetailsTest {
+class TrustDetailsTest {
     private static final String JSON_STRING =
             "{"
             + "\"trustId\":\"123\","
             + "\"trustName\":\"My trust\","
-            + "\"trustCreationDate\":null,"
+            + "\"creationDate\":null,"
             + "\"ceasedDate\":null,"
-            + "\"unableToObtainAllInfoInd\":null"
+            + "\"unableToObtainAllInfoIndicator\":null"
             + "}";
 
     private TrustDetails trustDetails;
