@@ -21,10 +21,10 @@ public class TrustLinksController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     @Autowired
-    private TrustLinksService individualTrusteesService;
+    private TrustLinksService trustLinksService;
 
     @GetMapping("overseas-entity/{oeNumber}/trusts/beneficial_owners/links")
-    public ResponseEntity<List<TrustLinkData>> getIndividualTrustees(
+    public ResponseEntity<List<TrustLinkData>> getTrustLinkData(
             @PathVariable String oeNumber) {
 
         DataMap dataMap = new DataMap.Builder().companyNumber(oeNumber).build();
@@ -33,7 +33,7 @@ public class TrustLinksController {
                 dataMap.getLogMap());
 
         try {
-            List<TrustLinkData> details = individualTrusteesService.getTrustLinkData(oeNumber);
+            List<TrustLinkData> details = trustLinksService.getTrustLinkData(oeNumber);
             LOGGER.infoContext(oeNumber, "Returning trust link data for OE Number: " + oeNumber,
                     dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.OK).body(details);

@@ -23,11 +23,11 @@ class TrustLinksServiceImplTest {
 
     private static final String OE_NUMBER = "OE123456";
     private static final TrustLinkData TRUST_LINK_DATA_1 = new TrustLinkData() {{
-        setTrusteeId(1L);
+        setTrustId(1L);
         setCorporateBodyAppointmentId(123L);
     }};
     private static final TrustLinkData TRUST_LINK_DATA_2 = new TrustLinkData() {{
-        setTrusteeId(2L);
+        setTrustId(2L);
         setCorporateBodyAppointmentId(456L);
     }};
     @InjectMocks

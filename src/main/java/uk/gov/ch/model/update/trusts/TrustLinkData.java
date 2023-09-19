@@ -7,20 +7,20 @@ import javax.persistence.Column;
 public class TrustLinkData {
 
     @Column(name = "TRUST_ID")
-    @JsonProperty("trusteeId")
-    private Long trusteeId;
+    @JsonProperty("trustId")
+    private Long trustId;
 
     @Column(name = "CORPORATE_BODY_APPOINTMENT_ID")
     @JsonProperty("corporateBodyAppointmentId")
     private Long corporateBodyAppointmentId;
 
 
-    public Long getTrusteeId() {
-        return trusteeId;
+    public Long getTrustId() {
+        return trustId;
     }
 
-    public void setTrusteeId(Long trusteeId) {
-        this.trusteeId = trusteeId;
+    public void setTrustId(Long trustId) {
+        this.trustId = trustId;
     }
 
     public Long getCorporateBodyAppointmentId() {
@@ -40,12 +40,12 @@ public class TrustLinkData {
             return false;
         }
         TrustLinkData that = (TrustLinkData) o;
-        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(
+        return Objects.equals(trustId, that.trustId) && Objects.equals(
                 corporateBodyAppointmentId, that.corporateBodyAppointmentId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trusteeId, corporateBodyAppointmentId);
+        return Objects.hash(trustId, corporateBodyAppointmentId);
     }
 }

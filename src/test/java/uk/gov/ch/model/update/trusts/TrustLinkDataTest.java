@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import uk.gov.ch.model.update.trusts.TrustLinkData;
 
 class TrustLinkDataTest {
 
@@ -23,7 +22,7 @@ class TrustLinkDataTest {
     @BeforeEach
     public void setUp() {
         trustLinkData = new TrustLinkData();
-        trustLinkData.setTrusteeId(1L);
+        trustLinkData.setTrustId(1L);
         trustLinkData.setCorporateBodyAppointmentId(123L);
     }
 

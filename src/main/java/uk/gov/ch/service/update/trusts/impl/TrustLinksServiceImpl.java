@@ -18,12 +18,12 @@ public class TrustLinksServiceImpl implements TrustLinksService {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     @Autowired
-    private TrustLinksRepository individualTrusteesRepository;
+    private TrustLinksRepository trustLinksRepository;
 
     @Override
     public List<TrustLinkData> getTrustLinkData(String oeNumber)
             throws TrustDataCountNotFoundException {
-        List<TrustLinkData> trustLinks = individualTrusteesRepository.getTrustLinks(oeNumber);
+        List<TrustLinkData> trustLinks = trustLinksRepository.getTrustLinks(oeNumber);
 
         if (trustLinks == null || trustLinks.isEmpty()) {
             throw new TrustDataCountNotFoundException("No trust links were found");

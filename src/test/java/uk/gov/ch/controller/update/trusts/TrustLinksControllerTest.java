@@ -22,11 +22,11 @@ class TrustLinksControllerTest {
 
     private static final String OE_NUMBER = "OE123456";
     private static final TrustLinkData TRUST_LINK_DATA_1 = new TrustLinkData() {{
-        setTrusteeId(1L);
+        setTrustId(1L);
         setCorporateBodyAppointmentId(123L);
     }};
     private static final TrustLinkData TRUST_LINK_DATA_2 = new TrustLinkData() {{
-        setTrusteeId(2L);
+        setTrustId(2L);
         setCorporateBodyAppointmentId(456L);
     }};
     @Mock
@@ -38,9 +38,9 @@ class TrustLinksControllerTest {
     @DisplayName("Get Trust Links - trust with no trust links")
     void testGetCorporateTrusteesReturnsCountError() throws TrustDataCountNotFoundException {
         when(trustLinksService.getTrustLinkData(OE_NUMBER)).thenThrow(
-                new TrustDataCountNotFoundException("No corporate trustees were found."));
+                new TrustDataCountNotFoundException("No trust link data found."));
 
-        ResponseEntity<List<TrustLinkData>> responseEntity = trustLinksController.getIndividualTrustees(
+        ResponseEntity<List<TrustLinkData>> responseEntity = trustLinksController.getTrustLinkData(
                 OE_NUMBER);
 
         assertEquals(HttpStatus.NOT_FOUND, responseEntity.getStatusCode());
@@ -54,7 +54,7 @@ class TrustLinksControllerTest {
 
         when(trustLinksService.getTrustLinkData(OE_NUMBER)).thenReturn(trustees);
 
-        ResponseEntity<List<TrustLinkData>> responseEntity = trustLinksController.getIndividualTrustees(
+        ResponseEntity<List<TrustLinkData>> responseEntity = trustLinksController.getTrustLinkData(
                 OE_NUMBER);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
