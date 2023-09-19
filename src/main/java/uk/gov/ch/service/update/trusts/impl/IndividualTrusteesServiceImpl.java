@@ -30,7 +30,7 @@ public class IndividualTrusteesServiceImpl implements IndividualTrusteesService 
             DataMap dataMap = new DataMap.Builder().build();
             dataMap.getLogMap().put("trust_id", trustId);
             LOGGER.debugContext(trustId,
-                    String.format("getIndividualTrustees query list size returned = %s", individualTrustees.size()),
+                    String.format("getTrustLinkData query list size returned = %s", individualTrustees.size()),
                     dataMap.getLogMap());
 
             return individualTrustees;
