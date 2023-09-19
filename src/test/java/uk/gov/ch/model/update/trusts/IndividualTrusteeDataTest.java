@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class IndividualTrusteeDataTest {
     private static final String JSON_STRING =
             "{"
-            + "\"trusteeId\":\"123\","
+            + "\"trusteeId\":123,"
             + "\"trusteeForename1\":\"Bob\","
             + "\"trusteeForename2\":null,"
             + "\"trusteeSurname\":\"Bobby\","
@@ -28,7 +28,7 @@ class IndividualTrusteeDataTest {
     @BeforeEach
     public void setUp() {
         individualTrusteeData = new IndividualTrusteeData();
-        individualTrusteeData.setTrusteeId("123");
+        individualTrusteeData.setTrusteeId(123L);
         individualTrusteeData.setTrusteeForename1("Bob");
         individualTrusteeData.setTrusteeSurname("Bobby");
     }

@@ -27,12 +27,12 @@ class TrustDetailsServiceImplTest {
 
     private static final String OE_NUMBER = "OE123456";
     private static final TrustDetails TRUST_1 = new TrustDetails() {{
-        setTrustId("1");
+        setTrustId(1L);
         setTrustName("My trust");
     }};
 
     private static final TrustDetails TRUST_2 = new TrustDetails() {{
-        setTrustId("2");
+        setTrustId(2L);
         setTrustName("My other trust");
     }};
 
@@ -44,7 +44,7 @@ class TrustDetailsServiceImplTest {
         List<TrustDetails> result = trustDetailsService.getTrustDetails(OE_NUMBER);
 
         assertEquals(1, result.size());
-        assertEquals("1", result.get(0).getTrustId());
+        assertEquals(1L, result.get(0).getTrustId());
         assertEquals("My trust", result.get(0).getTrustName());
     }
 
@@ -56,9 +56,9 @@ class TrustDetailsServiceImplTest {
         List<TrustDetails> result = trustDetailsService.getTrustDetails(OE_NUMBER);
 
         assertEquals(2, result.size());
-        assertEquals("1", result.get(0).getTrustId());
+        assertEquals(1L, result.get(0).getTrustId());
         assertEquals("My trust", result.get(0).getTrustName());
-        assertEquals("2", result.get(1).getTrustId());
+        assertEquals(2L, result.get(1).getTrustId());
         assertEquals("My other trust", result.get(1).getTrustName());
     }
 

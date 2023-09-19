@@ -12,7 +12,7 @@ public class IndividualTrusteeData {
     @Id
     @Column(name = "trustee_id")
     @JsonProperty("trusteeId")
-    private String trusteeId;
+    private Long trusteeId;
 
     @Column(name = "trustee_forename_1")
     @JsonProperty("trusteeForename1")
@@ -40,7 +40,7 @@ public class IndividualTrusteeData {
 
     @Column(name = "trustee_type_id")
     @JsonProperty("trusteeTypeId")
-    private String trusteeTypeId;
+    private Long trusteeTypeId;
 
     @Column(name = "appointment_date")
     @JsonProperty("appointmentDate")
@@ -50,11 +50,11 @@ public class IndividualTrusteeData {
     @JsonProperty("ceasedDate")
     private String ceasedDate;
 
-    public String getTrusteeId() {
+    public Long getTrusteeId() {
         return trusteeId;
     }
 
-    public void setTrusteeId(String trusteeId) {
+    public void setTrusteeId(Long trusteeId) {
         this.trusteeId = trusteeId;
     }
 
@@ -106,11 +106,11 @@ public class IndividualTrusteeData {
         this.corporateIndicator = corporateIndicator;
     }
 
-    public String getTrusteeTypeId() {
+    public Long getTrusteeTypeId() {
         return trusteeTypeId;
     }
 
-    public void setTrusteeTypeId(String trusteeTypeId) {
+    public void setTrusteeTypeId(Long trusteeTypeId) {
         this.trusteeTypeId = trusteeTypeId;
     }
 

@@ -27,13 +27,13 @@ class IndividualTrusteesServiceImplTest {
 
     private static final String TRUST_ID = "123";
     private static final IndividualTrusteeData TRUSTEE_1 = new IndividualTrusteeData() {{
-        setTrusteeId("1");
+        setTrusteeId(1L);
         setTrusteeForename1("Name 1");
         setTrusteeSurname("Surname");
     }};
 
     private static final IndividualTrusteeData TRUSTEE_2 = new IndividualTrusteeData() {{
-        setTrusteeId("2");
+        setTrusteeId(2L);
         setTrusteeForename1("Other Name 1");
         setTrusteeSurname("Other Surname");
     }};
@@ -46,7 +46,7 @@ class IndividualTrusteesServiceImplTest {
         List<IndividualTrusteeData> result = individualTrusteesService.getIndividualTrustees(TRUST_ID);
 
         assertEquals(1, result.size());
-        assertEquals("1", result.get(0).getTrusteeId());
+        assertEquals(1L, result.get(0).getTrusteeId());
         assertEquals("Name 1", result.get(0).getTrusteeForename1());
         assertEquals("Surname", result.get(0).getTrusteeSurname());
     }
@@ -59,10 +59,10 @@ class IndividualTrusteesServiceImplTest {
         List<IndividualTrusteeData> result = individualTrusteesService.getIndividualTrustees(TRUST_ID);
 
         assertEquals(2, result.size());
-        assertEquals("1", result.get(0).getTrusteeId());
+        assertEquals(1L, result.get(0).getTrusteeId());
         assertEquals("Name 1", result.get(0).getTrusteeForename1());
         assertEquals("Surname", result.get(0).getTrusteeSurname());
-        assertEquals("2", result.get(1).getTrusteeId());
+        assertEquals(2L, result.get(1).getTrusteeId());
         assertEquals("Other Name 1", result.get(1).getTrusteeForename1());
         assertEquals("Other Surname", result.get(1).getTrusteeSurname());
     }
