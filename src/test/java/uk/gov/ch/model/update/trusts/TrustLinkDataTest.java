@@ -13,7 +13,7 @@ class TrustLinkDataTest {
 
     private static final String JSON_STRING =
             "{"
-            + "\"trusteeId\":1,"
+            + "\"trustId\":1,"
             + "\"corporateBodyAppointmentId\":123"
             + "}";
 

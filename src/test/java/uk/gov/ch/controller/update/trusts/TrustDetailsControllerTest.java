@@ -27,12 +27,12 @@ class TrustDetailsControllerTest {
 
     private static final String OE_NUMBER = "OE123456";
     private static final TrustDetails TRUST_1 = new TrustDetails() {{
-        setTrustId(1L);
+        setTrustId("1");
         setTrustName("My trust");
     }};
 
     private static final TrustDetails TRUST_2 = new TrustDetails() {{
-        setTrustId(2L);
+        setTrustId("2");
         setTrustName("My other trust");
     }};
 

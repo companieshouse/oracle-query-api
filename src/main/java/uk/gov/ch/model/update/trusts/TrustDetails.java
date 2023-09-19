@@ -12,7 +12,7 @@ public class TrustDetails {
     @Id
     @Column(name = "trust_id")
     @JsonProperty("trustId")
-    private Long trustId;
+    private String trustId;
 
     @Column(name = "trust_name")
     @JsonProperty("trustName")
@@ -30,11 +30,11 @@ public class TrustDetails {
     @JsonProperty("unableToObtainAllInfoIndicator")
     private String unableToObtainAllInfoIndicator;
 
-    public Long getTrustId() {
+    public String getTrustId() {
         return trustId;
     }
 
-    public void setTrustId(Long trustId) {
+    public void setTrustId(String trustId) {
         this.trustId = trustId;
     }
 

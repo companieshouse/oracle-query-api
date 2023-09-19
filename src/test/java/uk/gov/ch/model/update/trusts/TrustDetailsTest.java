@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class TrustDetailsTest {
     private static final String JSON_STRING =
             "{"
-            + "\"trustId\":123,"
+            + "\"trustId\":\"123\","
             + "\"trustName\":\"My trust\","
             + "\"creationDate\":null,"
             + "\"ceasedDate\":null,"
@@ -23,7 +23,7 @@ class TrustDetailsTest {
     @BeforeEach
     public void setUp() {
         trustDetails = new TrustDetails();
-        trustDetails.setTrustId(123L);
+        trustDetails.setTrustId("123");
         trustDetails.setTrustName("My trust");
     }
 

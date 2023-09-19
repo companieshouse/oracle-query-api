@@ -27,13 +27,13 @@ class IndividualTrusteesControllerTest {
 
     private static final String TRUST_ID = "123";
     private static final IndividualTrusteeData TRUSTEE_1 = new IndividualTrusteeData() {{
-        setTrusteeId(1L);
+        setTrusteeId("1");
         setTrusteeForename1("Name 1");
         setTrusteeSurname("Surname");
     }};
 
     private static final IndividualTrusteeData TRUSTEE_2 = new IndividualTrusteeData() {{
-        setTrusteeId(2L);
+        setTrusteeId("2");
         setTrusteeForename1("Other Name 1");
         setTrusteeSurname("Other Surname");
     }};
