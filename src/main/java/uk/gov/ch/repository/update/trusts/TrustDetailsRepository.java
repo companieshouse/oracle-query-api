@@ -12,7 +12,7 @@ public interface TrustDetailsRepository extends PagingAndSortingRepository<Trust
             + "join corporate_body_appointment ca on ca.corporate_body_id = cb.corporate_body_id "
             + "join corbod_appt_trust_link cat on ca.corporate_body_appointment_id = cat.corporate_body_appointment_id "
             + "join trust t on t.trust_id = cat.trust_id "
-            + "where cb.incorporation_number = ?))",
+            + "where cb.incorporation_number = ?",
             nativeQuery = true)
     List<TrustDetails> getTrustDetails(String companyNumber);
 }
