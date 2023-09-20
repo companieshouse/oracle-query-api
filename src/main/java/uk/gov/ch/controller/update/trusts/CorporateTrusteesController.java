@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
 import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
@@ -13,6 +14,7 @@ import uk.gov.ch.service.update.trusts.CorporateTrusteesService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
+@RestController
 public class CorporateTrusteesController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
@@ -20,7 +22,7 @@ public class CorporateTrusteesController {
     @Autowired
     private CorporateTrusteesService corporateTrusteesService;
 
-    @GetMapping("overseas-entity/trusts/{trustId}/corporate-trustees")
+    @GetMapping("/overseas-entity/trusts/{trustId}/corporate-trustees")
     public ResponseEntity<List<CorporateTrusteeData>> getCorporateTrusteeData(
             @PathVariable String trustId) {
 
