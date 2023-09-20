@@ -3,9 +3,13 @@ package uk.gov.ch.model.update.trusts;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class TrustLinkData {
 
+    @Id
     @Column(name = "TRUST_ID")
     @JsonProperty("trustId")
     private Long trustId;
