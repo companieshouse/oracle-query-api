@@ -4,10 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class CorporateTrusteeData {
 
+    @Id
     @Column(name = "TRUSTEE_ID")
     @JsonProperty("trusteeId")
     private Long trusteeId;
