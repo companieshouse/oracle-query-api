@@ -23,7 +23,7 @@ public class TrustLinksController {
     @Autowired
     private TrustLinksService trustLinksService;
 
-    @GetMapping("overseas-entity/{oeNumber}/trusts/beneficial_owners/links")
+    @GetMapping("overseas-entity/{oeNumber}/trusts/beneficial-owners/links")
     public ResponseEntity<List<TrustLinkData>> getTrustLinkData(
             @PathVariable String oeNumber) {
 

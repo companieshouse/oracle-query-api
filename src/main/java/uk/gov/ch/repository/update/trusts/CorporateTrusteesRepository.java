@@ -11,8 +11,8 @@ public interface CorporateTrusteesRepository extends
             + "ctd.on_register_in_country_formed, ctd.register_location, ctd.registration_number, "
             + "ctd.law_governed, ctd.legal_form, ctd.country, "
             + "t.corporate_ind, t.trustee_type_id, "
-            + "t.appointment_date, t.ceased_date"
-            + "FROM trustee t"
+            + "t.appointment_date, t.ceased_date "
+            + "FROM trustee t "
             + "JOIN corporate_trustee_details ctd "
             + "ON t.trustee_id = ctd.trustee_id "
             + "WHERE t.trust_id = ?",
