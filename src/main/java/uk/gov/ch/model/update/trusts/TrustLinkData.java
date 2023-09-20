@@ -9,11 +9,11 @@ import javax.persistence.Id;
 @Entity
 public class TrustLinkData {
 
-    @Id
     @Column(name = "TRUST_ID")
     @JsonProperty("trustId")
     private Long trustId;
 
+    @Id
     @Column(name = "CORPORATE_BODY_APPOINTMENT_ID")
     @JsonProperty("corporateBodyAppointmentId")
     private Long corporateBodyAppointmentId;
