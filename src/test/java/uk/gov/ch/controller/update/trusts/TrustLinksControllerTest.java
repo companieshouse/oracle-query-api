@@ -22,12 +22,12 @@ class TrustLinksControllerTest {
 
     private static final String OE_NUMBER = "OE123456";
     private static final TrustLinkData TRUST_LINK_DATA_1 = new TrustLinkData() {{
-        setTrustId(1L);
-        setCorporateBodyAppointmentId(123L);
+        setTrustId("1");
+        setCorporateBodyAppointmentId("123");
     }};
     private static final TrustLinkData TRUST_LINK_DATA_2 = new TrustLinkData() {{
-        setTrustId(2L);
-        setCorporateBodyAppointmentId(456L);
+        setTrustId("2");
+        setCorporateBodyAppointmentId("456");
     }};
     @Mock
     private TrustLinksService trustLinksService;

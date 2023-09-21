@@ -4,34 +4,40 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class TrustLinkData {
 
     @Id
+    @Column(name="ROWNUM")
+    private Long Id;
+
     @Column(name = "TRUST_ID")
     @JsonProperty("trustId")
-    private Long trustId;
+    private String trustId;
+
 
     @Column(name = "CORPORATE_BODY_APPOINTMENT_ID")
     @JsonProperty("corporateBodyAppointmentId")
-    private Long corporateBodyAppointmentId;
+    private String corporateBodyAppointmentId;
 
 
-    public Long getTrustId() {
+    public String getTrustId() {
         return trustId;
     }
 
-    public void setTrustId(Long trustId) {
+    public void setTrustId(String trustId) {
         this.trustId = trustId;
     }
 
-    public Long getCorporateBodyAppointmentId() {
+    public String getCorporateBodyAppointmentId() {
         return corporateBodyAppointmentId;
     }
 
-    public void setCorporateBodyAppointmentId(Long corporateBodyAppointmentId) {
+    public void setCorporateBodyAppointmentId(String corporateBodyAppointmentId) {
         this.corporateBodyAppointmentId = corporateBodyAppointmentId;
     }
 
