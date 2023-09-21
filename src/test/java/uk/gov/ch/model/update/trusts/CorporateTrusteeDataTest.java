@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 
 class CorporateTrusteeDataTest {
     private static final String JSON_STRING = "{"
-            + "\"trusteeId\":1,"
+            + "\"trusteeId\":\"1\","
             + "\"trusteeName\":\"Trustee Name\","
             + "\"registerLocation\":\"Location\","
             + "\"registrationNumber\":\"123456\","
@@ -31,7 +31,7 @@ class CorporateTrusteeDataTest {
     public void setUp() {
         corporateTrusteeData = new CorporateTrusteeData();
 
-        corporateTrusteeData.setTrusteeId(1L);
+        corporateTrusteeData.setTrusteeId("1");
         corporateTrusteeData.setTrusteeName("Trustee Name");
         corporateTrusteeData.setRegisterLocation("Location");
         corporateTrusteeData.setRegistrationNumber("123456");

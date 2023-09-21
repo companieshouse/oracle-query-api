@@ -9,7 +9,7 @@ public interface TrustLinksRepository extends
         PagingAndSortingRepository<TrustLinkData, Long> {
 
     @Query(value =
-              "SELECT t.trust_id, "
+              "SELECT ROWNUM, t.trust_id, "
                 + "ca.corporate_body_appointment_id "
             + "FROM corporate_body cb "
               + "join corporate_body_appointment ca "

@@ -29,7 +29,7 @@ class CorporateTrusteesControllerTest {
 
     private static final String TRUST_ID = "OE123456";
     private static final CorporateTrusteeData TRUSTEE_1 = new CorporateTrusteeData() {{
-        setTrusteeId(123L);
+        setTrusteeId("123");
         setTrusteeName("My trust");
         setRegisterLocation("London, UK");
         setRegistrationNumber("R12345");
@@ -43,7 +43,7 @@ class CorporateTrusteesControllerTest {
     }};
 
     private static final CorporateTrusteeData TRUSTEE_2 = new CorporateTrusteeData() {{
-        setTrusteeId(456L);
+        setTrusteeId("456");
         setTrusteeName("My other trust");
         setRegisterLocation("Manchester, UK");
         setRegistrationNumber("R67890");

@@ -13,8 +13,8 @@ class TrustLinkDataTest {
 
     private static final String JSON_STRING =
             "{"
-            + "\"trustId\":1,"
-            + "\"corporateBodyAppointmentId\":123"
+            + "\"trustId\":\"1\","
+            + "\"corporateBodyAppointmentId\":\"123\""
             + "}";
 
     private TrustLinkData trustLinkData;
@@ -22,8 +22,8 @@ class TrustLinkDataTest {
     @BeforeEach
     public void setUp() {
         trustLinkData = new TrustLinkData();
-        trustLinkData.setTrustId(1L);
-        trustLinkData.setCorporateBodyAppointmentId(123L);
+        trustLinkData.setTrustId("1");
+        trustLinkData.setCorporateBodyAppointmentId("123");
     }
 
     @Test
