@@ -61,28 +61,28 @@ public class CorporateTrusteeData {
     @JsonProperty("ceasedDate")
     private String ceasedDate;
 
-    @Column(name = "SERVICE_ADDRESS_HOUSE_NAME_NUMBER")
+    @Column(name = "SERV_ADDR_NAME_NUMBER")
     private String serviceAddressHouseNameNumber;
 
-    @Column(name = "SERVICE_ADDRESS_STREET")
+    @Column(name = "SERV_ADDR_STREET")
     private String serviceAddressStreet;
 
-    @Column(name = "SERVICE_ADDRESS_AREA")
+    @Column(name = "SERV_ADDR_AREA")
     private String serviceAddressArea;
 
-    @Column(name = "SERVICE_ADDRESS_POST_TOWN")
+    @Column(name = "SERV_ADDR_POST_TOWN")
     private String serviceAddressPostTown;
 
-    @Column(name = "SERVICE_ADDRESS_REGION")
+    @Column(name = "SERV_ADDR_REGION")
     private String serviceAddressRegion;
 
-    @Column(name = "SERVICE_ADDRESS_COUNTRY_NAME")
+    @Column(name = "SERV_ADDR_COUNTRY_NAME")
     private String serviceAddressCountryName;
 
-    @Column(name = "SERVICE_ADDRESS_POST_CODE")
+    @Column(name = "SERV_ADDR_POST_CODE")
     private String serviceAddressPostCode;
 
-    @Column(name = "RES_OFFICE_HOUSE_NAME_NUMBER")
+    @Column(name = "RES_OFFICE_NAME_NUMBER")
     private String registeredOfficeHouseNameNumber;
 
     @Column(name = "RES_OFFICE_STREET")
