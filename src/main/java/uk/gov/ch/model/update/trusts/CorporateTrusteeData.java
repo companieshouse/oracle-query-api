@@ -108,8 +108,8 @@ public class CorporateTrusteeData {
     private Address serviceAddress;
 
     @Transient
-    @JsonProperty("registeredOffice")
-    private Address registeredOffice;
+    @JsonProperty("registeredOfficeAddress")
+    private Address registeredOfficeAddress;
 
 
     public Address getServiceAddress() {
@@ -136,27 +136,27 @@ public class CorporateTrusteeData {
         }
     }
 
-    public Address getregisteredOffice() {
-        this.registeredOffice = new Address();
-        this.registeredOffice.setPremises(registeredOfficeHouseNameNumber);
-        this.registeredOffice.setAddressLine1(registeredOfficeStreet);
-        this.registeredOffice.setAddressLine2(registeredOfficeArea);
-        this.registeredOffice.setLocality(registeredOfficePostTown);
-        this.registeredOffice.setRegion(registeredOfficeRegion);
-        this.registeredOffice.setCountry(registeredOfficeCountryName);
-        this.registeredOffice.setPostalCode(registeredOfficePostCode);
-        return this.registeredOffice;
+    public Address getRegisteredOfficeAddress() {
+        this.registeredOfficeAddress = new Address();
+        this.registeredOfficeAddress.setPremises(registeredOfficeHouseNameNumber);
+        this.registeredOfficeAddress.setAddressLine1(registeredOfficeStreet);
+        this.registeredOfficeAddress.setAddressLine2(registeredOfficeArea);
+        this.registeredOfficeAddress.setLocality(registeredOfficePostTown);
+        this.registeredOfficeAddress.setRegion(registeredOfficeRegion);
+        this.registeredOfficeAddress.setCountry(registeredOfficeCountryName);
+        this.registeredOfficeAddress.setPostalCode(registeredOfficePostCode);
+        return this.registeredOfficeAddress;
     }
 
-    public void setRegisteredOffice(Address registeredOffice) {
-        if (registeredOffice != null) {
-            this.registeredOfficeHouseNameNumber = registeredOffice.getPremises();
-            this.registeredOfficeStreet = registeredOffice.getAddressLine1();
-            this.registeredOfficeArea = registeredOffice.getAddressLine2();
-            this.registeredOfficePostTown = registeredOffice.getLocality();
-            this.registeredOfficeRegion = registeredOffice.getRegion();
-            this.registeredOfficeCountryName = registeredOffice.getCountry();
-            this.registeredOfficePostCode = registeredOffice.getPostalCode();
+    public void setRegisteredOfficeAddress(Address registeredOfficeAddress) {
+        if (registeredOfficeAddress != null) {
+            this.registeredOfficeHouseNameNumber = registeredOfficeAddress.getPremises();
+            this.registeredOfficeStreet = registeredOfficeAddress.getAddressLine1();
+            this.registeredOfficeArea = registeredOfficeAddress.getAddressLine2();
+            this.registeredOfficePostTown = registeredOfficeAddress.getLocality();
+            this.registeredOfficeRegion = registeredOfficeAddress.getRegion();
+            this.registeredOfficeCountryName = registeredOfficeAddress.getCountry();
+            this.registeredOfficePostCode = registeredOfficeAddress.getPostalCode();
         }
     }
 

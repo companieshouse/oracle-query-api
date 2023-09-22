@@ -86,7 +86,7 @@ class CorporateTrusteeDataTest {
         registeredOffice.setPostalCode("M1 2AB");
 
         corporateTrusteeData.setServiceAddress(serviceAddress);
-        corporateTrusteeData.setRegisteredOffice(registeredOffice);
+        corporateTrusteeData.setRegisteredOfficeAddress(registeredOffice);
     }
 
     @Test
