@@ -34,7 +34,7 @@ class IndividualTrusteeDataTest {
                     "\"premises\":\"123 Main St\"," +
                     "\"region\":\"Greater London\"" +
                 "}," +
-                "\"residentialAddress\":{" +
+                "\"usualResidentialAddress\":{" +
                     "\"address_line_1\":\"Apt 200\"," +
                     "\"address_line_2\":\"Uptown\"," +
                     "\"care_of\":null," +
@@ -83,7 +83,7 @@ class IndividualTrusteeDataTest {
         residentialAddress.setPostalCode("M1 2AB");
 
         individualTrusteeData.setServiceAddress(serviceAddress);
-        individualTrusteeData.setResidentialAddress(residentialAddress);
+        individualTrusteeData.setUsualResidentialAddress(residentialAddress);
 
     }
 

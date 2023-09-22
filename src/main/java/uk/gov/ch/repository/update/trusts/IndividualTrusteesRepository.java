@@ -18,7 +18,6 @@ public interface IndividualTrusteesRepository extends PagingAndSortingRepository
             + "       itd.date_of_birth,"
             + "       itd.nationality,"
             + "       itd.ura_same_as_service_ind,"
-            + "       tal_ura.appointment_address_type_id,"
             + "       sa.house_name_number AS  serv_addr_name_number,"
             + "       sa.street AS  serv_addr_street,"
             + "       sa.area AS  serv_addr_area,"

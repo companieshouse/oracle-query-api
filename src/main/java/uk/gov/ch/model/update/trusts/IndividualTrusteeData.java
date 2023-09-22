@@ -99,8 +99,8 @@ public class IndividualTrusteeData {
     private Address serviceAddress;
 
     @Transient
-    @JsonProperty("residentialAddress")
-    private Address residentialAddress;
+    @JsonProperty("usualResidentialAddress")
+    private Address usualResidentialAddress;
 
 
     public Address getServiceAddress() {
@@ -127,27 +127,27 @@ public class IndividualTrusteeData {
         }
     }
 
-    public Address getResidentialAddress() {
-        this.residentialAddress = new Address();
-        this.residentialAddress.setPremises(residentialAddressHouseNameNumber);
-        this.residentialAddress.setAddressLine1(residentialAddressStreet);
-        this.residentialAddress.setAddressLine2(residentialAddressArea);
-        this.residentialAddress.setLocality(residentialAddressPostTown);
-        this.residentialAddress.setRegion(residentialAddressRegion);
-        this.residentialAddress.setCountry(residentialAddressCountryName);
-        this.residentialAddress.setPostalCode(residentialAddressPostCode);
-        return this.residentialAddress;
+    public Address getUsualResidentialAddress() {
+        this.usualResidentialAddress = new Address();
+        this.usualResidentialAddress.setPremises(residentialAddressHouseNameNumber);
+        this.usualResidentialAddress.setAddressLine1(residentialAddressStreet);
+        this.usualResidentialAddress.setAddressLine2(residentialAddressArea);
+        this.usualResidentialAddress.setLocality(residentialAddressPostTown);
+        this.usualResidentialAddress.setRegion(residentialAddressRegion);
+        this.usualResidentialAddress.setCountry(residentialAddressCountryName);
+        this.usualResidentialAddress.setPostalCode(residentialAddressPostCode);
+        return this.usualResidentialAddress;
     }
 
-    public void setResidentialAddress(Address residentialAddress) {
-        if (residentialAddress != null) {
-            this.residentialAddressHouseNameNumber = residentialAddress.getPremises();
-            this.residentialAddressStreet = residentialAddress.getAddressLine1();
-            this.residentialAddressArea = residentialAddress.getAddressLine2();
-            this.residentialAddressPostTown = residentialAddress.getLocality();
-            this.residentialAddressRegion = residentialAddress.getRegion();
-            this.residentialAddressCountryName = residentialAddress.getCountry();
-            this.residentialAddressPostCode = residentialAddress.getPostalCode();
+    public void setUsualResidentialAddress(Address usualResidentialAddress) {
+        if (usualResidentialAddress != null) {
+            this.residentialAddressHouseNameNumber = usualResidentialAddress.getPremises();
+            this.residentialAddressStreet = usualResidentialAddress.getAddressLine1();
+            this.residentialAddressArea = usualResidentialAddress.getAddressLine2();
+            this.residentialAddressPostTown = usualResidentialAddress.getLocality();
+            this.residentialAddressRegion = usualResidentialAddress.getRegion();
+            this.residentialAddressCountryName = usualResidentialAddress.getCountry();
+            this.residentialAddressPostCode = usualResidentialAddress.getPostalCode();
         }
     }
 

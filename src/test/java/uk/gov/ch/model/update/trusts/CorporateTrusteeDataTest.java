@@ -36,7 +36,7 @@ class CorporateTrusteeDataTest {
                     "\"premises\":\"123 Main St\"," +
                     "\"region\":\"Greater London\"" +
                 "}," +
-                "\"registeredOffice\":{" +
+                "\"registeredOfficeAddress\":{" +
                     "\"address_line_1\":\"Apt 200\"," +
                     "\"address_line_2\":\"Uptown\"," +
                     "\"care_of\":null," +
