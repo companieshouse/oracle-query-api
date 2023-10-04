@@ -1358,7 +1358,7 @@ components:
       type: object
       description: The registered email address for the company
       properties:
-        email_address:
+        registered_email_address:
           type: string
           description: The registered email address
           format: email
