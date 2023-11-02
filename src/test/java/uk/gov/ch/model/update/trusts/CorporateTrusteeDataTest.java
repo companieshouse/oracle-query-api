@@ -22,7 +22,7 @@ class CorporateTrusteeDataTest {
                 "\"country\":\"UK\"," +
                 "\"onRegisterInCountryFormed\":true," +
                 "\"corporateIndicator\":\"Y\"," +
-                "\"trusteeTypeId\":1," +
+                "\"trusteeTypeId\":\"1\"," +
                 "\"appointmentDate\":\"2022-01-01\"," +
                 "\"ceasedDate\":\"2023-01-01\"," +
                 "\"serviceAddress\":{" +
@@ -63,7 +63,7 @@ class CorporateTrusteeDataTest {
         corporateTrusteeData.setCountry("UK");
         corporateTrusteeData.setOnRegisterInCountryFormed(true);
         corporateTrusteeData.setCorporateInd("Y");
-        corporateTrusteeData.setTrusteeTypeId(1L);
+        corporateTrusteeData.setTrusteeTypeId("1");
         corporateTrusteeData.setAppointmentDate("2022-01-01");
         corporateTrusteeData.setCeasedDate("2023-01-01");
 
