@@ -51,7 +51,7 @@ public class CorporateTrusteeData {
 
     @Column(name = "TRUSTEE_TYPE_ID")
     @JsonProperty("trusteeTypeId")
-    private Long trusteeTypeId;
+    private String trusteeTypeId;
 
     @Column(name = "APPOINTMENT_DATE")
     @JsonProperty("appointmentDate")
@@ -233,11 +233,11 @@ public class CorporateTrusteeData {
         this.corporateInd = corporateInd;
     }
 
-    public Long getTrusteeTypeId() {
+    public String getTrusteeTypeId() {
         return trusteeTypeId;
     }
 
-    public void setTrusteeTypeId(Long trusteeTypeId) {
+    public void setTrusteeTypeId(String trusteeTypeId) {
         this.trusteeTypeId = trusteeTypeId;
     }
 

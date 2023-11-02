@@ -39,7 +39,7 @@ class CorporateTrusteesServiceImplTest {
         setLegalForm("LLP");
         setOnRegisterInCountryFormed(true);
         setCorporateInd("Y");
-        setTrusteeTypeId(1L);
+        setTrusteeTypeId("1");
         setAppointmentDate("2023-01-01");
         setCeasedDate("2023-12-31");
     }};
@@ -53,7 +53,7 @@ class CorporateTrusteesServiceImplTest {
         setLegalForm("LLC");
         setOnRegisterInCountryFormed(false);
         setCorporateInd("N");
-        setTrusteeTypeId(2L);
+        setTrusteeTypeId("2");
 
         setAppointmentDate("1985-01-01");
         setCeasedDate("2023-11-30");
