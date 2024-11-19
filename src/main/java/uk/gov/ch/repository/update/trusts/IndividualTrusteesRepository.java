@@ -1,12 +1,13 @@
 package uk.gov.ch.repository.update.trusts;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.update.trusts.IndividualTrusteeData;
 
-import java.util.List;
+public interface IndividualTrusteesRepository extends
+        PagingAndSortingRepository<IndividualTrusteeData, Long> {
 
-public interface IndividualTrusteesRepository extends PagingAndSortingRepository<IndividualTrusteeData, Long> {
     @Query(value = "SELECT t.trustee_id,"
             + "       t.trustee_type_id,"
             + "       t.appointment_date,"

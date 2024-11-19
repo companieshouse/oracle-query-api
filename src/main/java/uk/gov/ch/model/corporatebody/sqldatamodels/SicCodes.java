@@ -3,19 +3,19 @@ package uk.gov.ch.model.corporatebody.sqldatamodels;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SicCodes {
-    
+
     @JsonProperty("sic_1")
     private String sic1;
-    
+
     @JsonProperty("sic_2")
     private String sic2;
-    
+
     @JsonProperty("sic_3")
     private String sic3;
-    
+
     @JsonProperty("sic_4")
     private String sic4;
-    
+
     @JsonProperty("sic_5")
     private String sic5;
 

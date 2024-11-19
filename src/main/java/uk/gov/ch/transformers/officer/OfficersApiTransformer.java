@@ -4,9 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import uk.gov.ch.model.officer.Identification;
 import uk.gov.ch.model.officer.OfficerDataModel;
 import uk.gov.ch.model.officer.OfficerIdentification;
@@ -21,7 +19,7 @@ import uk.gov.companieshouse.api.model.officers.OfficersApi;
 
 @Component
 public class OfficersApiTransformer {
-    
+
     public OfficersApi convert(List<OfficerDataModel> officerList) {
         OfficersApi officersApi = new OfficersApi();
         officersApi.setStartIndex(0);
@@ -30,43 +28,42 @@ public class OfficersApiTransformer {
         officersApi.setTotalResults(officerList.size());
         int resigned = 0;
         List<CompanyOfficerApi> officers = new ArrayList<>();
-        
-        for(OfficerDataModel model : officerList) {
+
+        for (OfficerDataModel model : officerList) {
             CompanyOfficerApi officer = new CompanyOfficerApi();
-            if(model.getResignationDate() != null && !model.getResignationDate().isEmpty()) {
+            if (model.getResignationDate() != null && !model.getResignationDate().isEmpty()) {
                 resigned++;
                 officer.setResignedOn(getLocalDateFromString(model.getResignationDate()));
             }
             officer.setAppointedOn(getLocalDateFromString(model.getAppointmentDate()));
-            if(model.getServiceAddress() != null) {
+            if (model.getServiceAddress() != null) {
                 officer.setAddress(getServiceAddress(model.getServiceAddress()));
             }
-            if(model.getCorporateInd().startsWith("TRUE")) {
+            if (model.getCorporateInd().startsWith("TRUE")) {
                 setCorporateOfficerFields(model, officer);
             } else {
                 setHumanOfficerFields(model, officer);
             }
-            
-            
+
             officers.add(officer);
         }
         officersApi.setItems(officers);
         officersApi.setResignedCount(resigned);
-        
+
         return officersApi;
     }
 
     private void setCorporateOfficerFields(OfficerDataModel model, CompanyOfficerApi officer) {
         officer.setName(model.getSurname());
-        if(model.getIdentification() != null) {            
+        if (model.getIdentification() != null) {
             officer.setIdentification(getIdentification(model.getIdentification()));
         }
     }
-    
+
     private void setHumanOfficerFields(OfficerDataModel model, CompanyOfficerApi officer) {
-        if(model.getPreviousNameArray() != null && !model.getPreviousNameArray().isEmpty()) {
+        if (model.getPreviousNameArray() != null && !model.getPreviousNameArray().isEmpty()) {
             List<FormerNamesApi> formerNames = new ArrayList<>();
-            for(PreviousNameModel pnm : model.getPreviousNameArray()) {
+            for (PreviousNameModel pnm : model.getPreviousNameArray()) {
                 FormerNamesApi formerName = new FormerNamesApi();
                 formerName.setForenames(pnm.getPreviousForename());
                 formerName.setSurname(pnm.getPreviousSurname());
@@ -74,28 +71,29 @@ public class OfficersApiTransformer {
             }
             officer.setFormerNames(formerNames);
         }
-        officer.setName(getHumanName(model.getForename(), model.getMiddleName(), model.getSurname()));
-        if(model.getDateOfBirth() != null) {            
+        officer.setName(
+                getHumanName(model.getForename(), model.getMiddleName(), model.getSurname()));
+        if (model.getDateOfBirth() != null) {
             LocalDate dateOfBirthModel = getLocalDateFromString(model.getDateOfBirth());
-            if(dateOfBirthModel != null) {                
+            if (dateOfBirthModel != null) {
                 DateOfBirth dateOfBirth = new DateOfBirth();
                 dateOfBirth.setMonth(Long.valueOf(dateOfBirthModel.getMonthValue()));
                 dateOfBirth.setYear(Long.valueOf(dateOfBirthModel.getYear()));
                 officer.setDateOfBirth(dateOfBirth);
             }
         }
-        
+
         officer.setOccupation(model.getOccupation());
         officer.setNationality(model.getNationality());
     }
-    
+
     private String getHumanName(String forename, String middleName, String surname) {
         String name = forename != null ? forename : "";
         name += middleName != null ? " " + middleName : "";
         name += surname != null ? " " + surname : "";
         return name.trim();
     }
-    
+
     private LocalDate getLocalDateFromString(String dateString) {
         if (dateString != null && !dateString.isEmpty()) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -103,7 +101,7 @@ public class OfficersApiTransformer {
         }
         return null;
     }
-    
+
     private Address getServiceAddress(ServiceAddress serviceAddress) {
         Address address = new Address();
         address.setAddressLine1(getString(serviceAddress.getAddressLine1()));
@@ -117,24 +115,27 @@ public class OfficersApiTransformer {
         address.setRegion(getString(serviceAddress.getRegion()));
         return address;
     }
-    
+
     private IdentificationApi getIdentification(Identification identification) {
         IdentificationApi identificationApi = new IdentificationApi();
-        if(identification.getEea() != null) {
+        if (identification.getEea() != null) {
             setIdentificationDetails(identificationApi, "eea", identification.getEea());
-        } else if(identification.getNonEea() != null) {
+        } else if (identification.getNonEea() != null) {
             setIdentificationDetails(identificationApi, "non-eea", identification.getNonEea());
-        } else if(identification.getOtherCorporateBodyOrFirm() != null) {
-            setIdentificationDetails(identificationApi, "other-corporate-body-or-firm", identification.getOtherCorporateBodyOrFirm());
-        } else if(identification.getUkLimitedCompany() != null) {
-            setIdentificationDetails(identificationApi, "uk-limited-company", identification.getUkLimitedCompany());
+        } else if (identification.getOtherCorporateBodyOrFirm() != null) {
+            setIdentificationDetails(identificationApi, "other-corporate-body-or-firm",
+                    identification.getOtherCorporateBodyOrFirm());
+        } else if (identification.getUkLimitedCompany() != null) {
+            setIdentificationDetails(identificationApi, "uk-limited-company",
+                    identification.getUkLimitedCompany());
         } else {
             return null;
         }
         return identificationApi;
     }
-    
-    private void setIdentificationDetails(IdentificationApi identificationApi, String type, OfficerIdentification identification) {
+
+    private void setIdentificationDetails(IdentificationApi identificationApi, String type,
+            OfficerIdentification identification) {
         identificationApi.setIdentificationType(type);
         identificationApi.setLegalAuthority(identification.getLegalAuthority());
         identificationApi.setLegalForm(identification.getLegalForm());
@@ -143,7 +144,7 @@ public class OfficersApiTransformer {
     }
 
     private String getString(String originalString) {
-        if(originalString == null || originalString.trim().isEmpty()) {
+        if (originalString == null || originalString.trim().isEmpty()) {
             return null;
         } else {
             return originalString.trim();

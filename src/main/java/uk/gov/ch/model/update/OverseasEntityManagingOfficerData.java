@@ -1,12 +1,10 @@
 package uk.gov.ch.model.update;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import uk.gov.companieshouse.api.model.common.Address;
 
 @Entity
@@ -194,6 +192,10 @@ public class OverseasEntityManagingOfficerData {
         return residentialAddress;
     }
 
+    public void setResidentialAddress(Address residentialAddress) {
+        this.residentialAddress = residentialAddress;
+    }
+
     public Address getPrincipalAddress() {
         principalAddress = new Address();
         principalAddress.setAddressLine1(principalAddressLine1);
@@ -206,10 +208,6 @@ public class OverseasEntityManagingOfficerData {
         principalAddress.setPremises(principalPremises);
         principalAddress.setRegion(principalRegion);
         return principalAddress;
-    }
-
-    public void setResidentialAddress(Address residentialAddress) {
-        this.residentialAddress = residentialAddress;
     }
 
     public void setPrincipalAddress(Address principalAddress) {

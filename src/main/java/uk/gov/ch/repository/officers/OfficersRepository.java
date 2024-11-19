@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 public class OfficersRepository {
 
     private static final String GET_OFFICERS_SQL = "SELECT PKG_CHS_GET_DATA.F_GET_OFFICER_DATA(?) from dual";
-    
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
-    
+
     public String getOfficers(String companyNumber) {
         return jdbcTemplate.queryForObject(GET_OFFICERS_SQL, String.class, companyNumber);
     }

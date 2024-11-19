@@ -1,15 +1,14 @@
 package uk.gov.ch.model.officer.active;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import uk.gov.companieshouse.api.model.common.Address;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import uk.gov.companieshouse.api.model.common.Address;
 
 @Entity
 public class ActiveOfficerDetails {
@@ -241,20 +240,20 @@ public class ActiveOfficerDetails {
         this.dateOfAppointment = dateOfAppointment;
     }
 
-    public void setCorporate(boolean corporate) {
-        this.corporate = corporate;
-    }
-
     public boolean isCorporate() {
         return corporate;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setCorporate(boolean corporate) {
+        this.corporate = corporate;
     }
 
     public String getRole() {
         return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public String getPlaceRegistered() {

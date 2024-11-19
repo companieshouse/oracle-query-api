@@ -3,13 +3,13 @@ package uk.gov.ch.model.corporatebody.sqldatamodels;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PreviousCompanyNames {
-    
+
     @JsonProperty("name")
     private String name;
-    
+
     @JsonProperty("effective_from")
     private String effectiveFrom;
-    
+
     @JsonProperty("ceased_on")
     private String ceasedOn;
 

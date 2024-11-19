@@ -16,26 +16,32 @@ import uk.gov.companieshouse.logging.util.DataMap;
 @Service
 public class OverseasOverseasEntityDataServiceImpl implements OverseasEntityDataService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final String NOT_FOUND_MESSAGE = "Contact email not found for overseas entity: ";
     @Autowired
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-
-    private static final String NOT_FOUND_MESSAGE = "Contact email not found for overseas entity: ";
-
     @Override
-    public OverseasEntityDataJson getEntityEmail(String companyNumber) throws CorporateBodyDetailsEmailAddressNotFoundException {
+    public OverseasEntityDataJson getEntityEmail(String companyNumber)
+            throws CorporateBodyDetailsEmailAddressNotFoundException {
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
-        LOGGER.infoContext(companyNumber, "Calling database to retrieve overseas entity email address for company " + companyNumber, dataMap.getLogMap());
+        LOGGER.infoContext(companyNumber,
+                "Calling database to retrieve overseas entity email address for company "
+                        + companyNumber, dataMap.getLogMap());
 
         OverseasEntityDataJson overseasEntityDataJson = new OverseasEntityDataJson();
-        CorporateBodyDetails corporateBodyDetails = corporateBodyDetailsRepository.getEmailAddress(companyNumber);
+        CorporateBodyDetails corporateBodyDetails = corporateBodyDetailsRepository.getEmailAddress(
+                companyNumber);
 
-        if (corporateBodyDetails == null || StringUtils.isBlank(corporateBodyDetails.getEmailAddress())) {
-            LOGGER.errorContext(companyNumber, "No email address found for overseas entity", null, dataMap.getLogMap());
-            throw new CorporateBodyDetailsEmailAddressNotFoundException(NOT_FOUND_MESSAGE + companyNumber);
+        if (corporateBodyDetails == null || StringUtils.isBlank(
+                corporateBodyDetails.getEmailAddress())) {
+            LOGGER.errorContext(companyNumber, "No email address found for overseas entity", null,
+                    dataMap.getLogMap());
+            throw new CorporateBodyDetailsEmailAddressNotFoundException(
+                    NOT_FOUND_MESSAGE + companyNumber);
         }
 
         overseasEntityDataJson.setEmailAddress(corporateBodyDetails.getEmailAddress());

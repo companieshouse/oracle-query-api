@@ -1,102 +1,101 @@
 package uk.gov.ch.model.corporatebody.sqldatamodels;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CompanyProfileModel {
-    
+
     @JsonProperty("company_name")
     private String companyName;
-    
+
     @JsonProperty("company_number")
     private String companyNumber;
-    
+
     @JsonProperty("type")
     private String type;
-    
+
     @JsonProperty("has_mortgages")
     private String hasMortgages;
-    
+
     @JsonProperty("registered_office_is_in_dispute")
     private String registeredOfficeIsInDispute;
-    
+
     @JsonProperty("undeliverable_registered_office_address")
     private String undeliverableRegisteredOfficeAddress;
-    
+
     @JsonProperty("status")
     private String status;
-    
+
     @JsonProperty("date_of_dissolution")
     private String dateOfDissolution;
-    
+
     @JsonProperty("creation_date")
     private String creationDate;
-    
+
     @JsonProperty("closure_date")
     private String closureDate;
-    
+
     @JsonProperty("account_type")
     private String accountType;
-    
+
     @JsonProperty("acc_ref_date")
     private String accRefDate;
-    
+
     @JsonProperty("has_appointments")
     private String hasAppointments;
-    
+
     @JsonProperty("has_insolvency_history")
     private String hasInsolvencyHistory;
-    
+
     @JsonProperty("jurisdiction")
     private String jurisdiction;
-    
+
     @JsonProperty("proof_status")
     private String proofStatus;
-    
+
     @JsonProperty("cic_ind")
     private String cicInd;
-    
+
     @JsonProperty("super_secure_psc_ind")
     private String superSecurePscInd;
-    
+
     @JsonProperty("subtype")
     private String subtype;
-    
+
     @JsonProperty("CreatedTime")
     private String createdTime;
-    
+
     @JsonProperty("previous_company_names")
     private List<PreviousCompanyNames> previousCompanyNames;
-    
+
     @JsonProperty("registered_office_address")
     private RegisteredOfficeAddress registeredOfficeAddress;
-    
+
     @JsonProperty("accounting_dates")
     private AccountingDates accountingDates;
-    
+
     @JsonProperty("confirmation_statement_dates")
     private ConfirmationStatementDates confirmationStatementDates;
-    
+
     @JsonProperty("confirmation_statement_overdue")
     private String confirmationStatementOverdue;
-    
+
     @JsonProperty("account_overdue")
     private String accountOverdue;
-    
+
     @JsonProperty("annual_return_overdue")
     private String annualReturnOverdue;
-    
+
     @JsonProperty("annual_return_dates")
     private AnnualReturnDates annualReturnDates;
-    
+
     @JsonProperty("sic_codes")
     private List<SicCodes> sicCodes;
-    
+
     @JsonProperty("full_members_list_date")
     private String fullMembersListDate;
 
@@ -144,7 +143,8 @@ public class CompanyProfileModel {
         return undeliverableRegisteredOfficeAddress;
     }
 
-    public void setUndeliverableRegisteredOfficeAddress(String undeliverableRegisteredOfficeAddress) {
+    public void setUndeliverableRegisteredOfficeAddress(
+            String undeliverableRegisteredOfficeAddress) {
         this.undeliverableRegisteredOfficeAddress = undeliverableRegisteredOfficeAddress;
     }
 
@@ -280,7 +280,8 @@ public class CompanyProfileModel {
         return confirmationStatementDates;
     }
 
-    public void setConfirmationStatementDates(ConfirmationStatementDates confirmationStatementDates) {
+    public void setConfirmationStatementDates(
+            ConfirmationStatementDates confirmationStatementDates) {
         this.confirmationStatementDates = confirmationStatementDates;
     }
 

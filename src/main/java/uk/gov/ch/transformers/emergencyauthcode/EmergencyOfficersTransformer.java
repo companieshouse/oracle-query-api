@@ -1,5 +1,8 @@
 package uk.gov.ch.transformers.emergencyauthcode;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
@@ -8,26 +11,26 @@ import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment
 import uk.gov.ch.model.emergencyauthcode.sqldatamodels.CorporateBodyAppointmentDataModel;
 import uk.gov.ch.model.emergencyauthcode.sqldatamodels.UsualResidentialAddressDataModel;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 public class EmergencyOfficersTransformer {
 
-    public CorporateBodyAppointment convert(CorporateBodyAppointmentDataModel appointmentDataModel) {
+    public CorporateBodyAppointment convert(
+            CorporateBodyAppointmentDataModel appointmentDataModel) {
         CorporateBodyAppointment appointment = new CorporateBodyAppointment();
 
         appointment.setId(appointmentDataModel.getOfficerDetail().getOfficerId().toString());
         appointment.setForename(appointmentDataModel.getOfficerDetail().getForename1());
         appointment.setSurname(appointmentDataModel.getOfficerDetail().getSurname());
         appointment.setOfficerRole("DIRECTOR"); // Hardcoded to director for this release
-        appointment.setDateOfBirth(getDateOfBirthJsonModel(appointmentDataModel.getOfficerDetail().getDateOfBirth()));
+        appointment.setDateOfBirth(
+                getDateOfBirthJsonModel(appointmentDataModel.getOfficerDetail().getDateOfBirth()));
         appointment.setAppointedOn(appointmentDataModel.getAppointmentDate());
         appointment.setNationality(appointmentDataModel.getOfficerDetail().getOfficerNationality());
-        appointment.setCountryOfResidence(appointmentDataModel.getOfficerDetail().getUsualResidentialCountry());
+        appointment.setCountryOfResidence(
+                appointmentDataModel.getOfficerDetail().getUsualResidentialCountry());
         appointment.setOccupation(appointmentDataModel.getOccupationDescription());
-        appointment.setUsualResidentialAddress(getUraJsonModel(appointmentDataModel.getOfficerDetail().getUsualResidentialAddress()));
+        appointment.setUsualResidentialAddress(getUraJsonModel(
+                appointmentDataModel.getOfficerDetail().getUsualResidentialAddress()));
 
         return appointment;
     }
@@ -53,7 +56,8 @@ public class EmergencyOfficersTransformer {
         return dateOfBirthJson;
     }
 
-    private CorporateBodyAppointmentURA getUraJsonModel(UsualResidentialAddressDataModel uraDataModel) {
+    private CorporateBodyAppointmentURA getUraJsonModel(
+            UsualResidentialAddressDataModel uraDataModel) {
         CorporateBodyAppointmentURA corporateBodyUra = new CorporateBodyAppointmentURA();
 
         corporateBodyUra.setId(uraDataModel.getUsualResidentialAddressId().toString());

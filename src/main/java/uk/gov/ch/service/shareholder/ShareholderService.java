@@ -1,6 +1,6 @@
 package uk.gov.ch.service.shareholder;
-import java.util.List;
 
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import uk.gov.ch.model.shareholder.Shareholder;
 
