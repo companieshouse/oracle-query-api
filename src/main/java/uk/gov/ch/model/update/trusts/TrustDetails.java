@@ -1,14 +1,14 @@
 package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.util.Objects;
 
 @Entity
 public class TrustDetails {
+
     @Id
     @Column(name = "trust_id")
     @JsonProperty("trustId")
@@ -72,18 +72,24 @@ public class TrustDetails {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         TrustDetails that = (TrustDetails) o;
         return Objects.equals(trustId, that.trustId)
                 && Objects.equals(trustName, that.trustName)
                 && Objects.equals(creationDate, that.creationDate)
                 && Objects.equals(ceasedDate, that.ceasedDate)
-                && Objects.equals(unableToObtainAllInfoIndicator, that.unableToObtainAllInfoIndicator);
+                && Objects.equals(unableToObtainAllInfoIndicator,
+                that.unableToObtainAllInfoIndicator);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trustId, trustName, creationDate, ceasedDate, unableToObtainAllInfoIndicator);
+        return Objects.hash(trustId, trustName, creationDate, ceasedDate,
+                unableToObtainAllInfoIndicator);
     }
 }

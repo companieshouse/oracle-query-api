@@ -20,17 +20,21 @@ public class ScottishBankruptOfficerController {
     private ScottishBankruptOfficerServiceImpl scottishBankruptOfficerServiceImpl;
 
     @PostMapping("/officer-search/scottish-bankrupt-officers")
-        public ResponseEntity<ScottishBankruptOfficerSearchResults> search(@RequestBody ScottishBankruptOfficerSearch scottishBankruptOfficerSearch){
-       ScottishBankruptOfficerSearchResults results =   scottishBankruptOfficerServiceImpl.getScottishBankruptOfficers(scottishBankruptOfficerSearch);
-       if (results.getItems().isEmpty()){
-           return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       }
-       return new ResponseEntity<>(results, HttpStatus.OK);
+    public ResponseEntity<ScottishBankruptOfficerSearchResults> search(
+            @RequestBody ScottishBankruptOfficerSearch scottishBankruptOfficerSearch) {
+        ScottishBankruptOfficerSearchResults results = scottishBankruptOfficerServiceImpl.getScottishBankruptOfficers(
+                scottishBankruptOfficerSearch);
+        if (results.getItems().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(results, HttpStatus.OK);
     }
 
     @GetMapping("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")
-    public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(@PathVariable("ephemeral_officer_key") String ephemeralId){
-        ScottishBankruptOfficerDetails officer = scottishBankruptOfficerServiceImpl.getScottishBankruptOfficer(ephemeralId);
+    public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(
+            @PathVariable("ephemeral_officer_key") String ephemeralId) {
+        ScottishBankruptOfficerDetails officer = scottishBankruptOfficerServiceImpl.getScottishBankruptOfficer(
+                ephemeralId);
         if (officer == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

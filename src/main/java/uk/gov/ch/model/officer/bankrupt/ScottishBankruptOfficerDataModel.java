@@ -1,9 +1,9 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import java.time.LocalDate;
 
 
@@ -34,19 +34,19 @@ public class ScottishBankruptOfficerDataModel {
     private String addressPostcode;
     @Column(name = "DATE_OF_BIRTH")
     private LocalDate dateOfBirth;
-    @Column(name= "ALIAS")
+    @Column(name = "ALIAS")
     private String alias;
-    @Column(name= "CASE_REFERENCE")
+    @Column(name = "CASE_REFERENCE")
     private String caseReference;
-    @Column(name= "CASE_TYPE")
+    @Column(name = "CASE_TYPE")
     private String caseType;
-    @Column(name= "BANKRUPTCY_TYPE")
+    @Column(name = "BANKRUPTCY_TYPE")
     private String bankruptcyType;
-    @Column(name= "START_DATE")
+    @Column(name = "START_DATE")
     private LocalDate startDate;
-    @Column(name= "DEBTOR_DISCHARGE_DATE")
+    @Column(name = "DEBTOR_DISCHARGE_DATE")
     private LocalDate debtorDischargeDate;
-    @Column(name= "TRUSTEE_DISCHARGE_DATE")
+    @Column(name = "TRUSTEE_DISCHARGE_DATE")
     private LocalDate trusteeDischargeDate;
 
     public String getEphemeralKey() {

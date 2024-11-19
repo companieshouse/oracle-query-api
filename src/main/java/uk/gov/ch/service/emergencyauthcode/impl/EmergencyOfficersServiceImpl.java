@@ -1,12 +1,10 @@
 package uk.gov.ch.service.emergencyauthcode.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
@@ -21,7 +19,8 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @Service
 public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private EmergencyAuthCodeEligibleOfficersRepository emergencyAuthCodeEligibleOfficersRepository;
@@ -29,11 +28,13 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
     @Autowired
     private EmergencyOfficersTransformer emergencyOfficersTransformer;
 
-    public CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(String incorporationNumber, Pageable pageable) {
+    public CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(
+            String incorporationNumber, Pageable pageable) {
 
         LOGGER.info("Calling repository to retrieve eligible officers for " + incorporationNumber);
 
-        Page<CorporateBodyAppointmentDataModel> officersPage = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficersEmergencyAuthCode(incorporationNumber, pageable);
+        Page<CorporateBodyAppointmentDataModel> officersPage = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficersEmergencyAuthCode(
+                incorporationNumber, pageable);
 
         List<CorporateBodyAppointment> corporateBodyAppointmentList =
                 emergencyOfficersTransformer.convert(officersPage);
@@ -48,11 +49,14 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
         return corporateBodyAppointments;
     }
 
-    public CorporateBodyAppointment getEligibleOfficer(String incorporationNumber, String officerId) {
+    public CorporateBodyAppointment getEligibleOfficer(String incorporationNumber,
+            String officerId) {
 
-        LOGGER.info("Calling repository to retrieve officer " + officerId + " for company number " + incorporationNumber);
+        LOGGER.info("Calling repository to retrieve officer " + officerId + " for company number "
+                + incorporationNumber);
 
-        CorporateBodyAppointmentDataModel eligibleOfficersDataModel = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficer(incorporationNumber, officerId);
+        CorporateBodyAppointmentDataModel eligibleOfficersDataModel = emergencyAuthCodeEligibleOfficersRepository.findEligibleOfficer(
+                incorporationNumber, officerId);
 
         if (eligibleOfficersDataModel == null) {
             return null;
@@ -63,9 +67,12 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
 
     public CorporateBodyEFilingStatus checkIfEFiledLastThirtyDays(String incorporationNumber) {
 
-        LOGGER.info("Checking if the company has filed in the last thirty days: " + incorporationNumber);
+        LOGGER.info("Checking if the company has filed in the last thirty days: "
+                + incorporationNumber);
 
-        Boolean eFilingStatus = emergencyAuthCodeEligibleOfficersRepository.findEFilingsInLastThirtyDays(incorporationNumber) > 0L;
+        Boolean eFilingStatus =
+                emergencyAuthCodeEligibleOfficersRepository.findEFilingsInLastThirtyDays(
+                        incorporationNumber) > 0L;
 
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = new CorporateBodyEFilingStatus();
         corporateBodyEFilingStatus.setEfilingFoundInPeriod(eFilingStatus);

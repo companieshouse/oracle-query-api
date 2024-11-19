@@ -2,14 +2,12 @@ package uk.gov.ch.controller.transaction;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.service.transaction.TransactionService;
@@ -20,13 +18,15 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @RestController
 public class TransactionController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private TransactionService transactionService;
 
     @GetMapping("/company/{companyNumber}/filing-history")
-    public ResponseEntity<FilingHistoryApi> getTransactionHistory(@PathVariable String companyNumber) {
+    public ResponseEntity<FilingHistoryApi> getTransactionHistory(
+            @PathVariable String companyNumber) {
         Map<String, Object> logMap = new HashMap<>();
         logMap.put("company_number", companyNumber);
         LOGGER.info("Getting transaction history for " + companyNumber, logMap);

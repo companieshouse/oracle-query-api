@@ -8,13 +8,13 @@ public class Identification {
 
     @JsonProperty("EEA")
     private OfficerIdentification eea;
-    
+
     @JsonProperty("non_EEA")
     private OfficerIdentification nonEea;
-    
+
     @JsonProperty("UK_limited_company")
     private OfficerIdentification ukLimitedCompany;
-    
+
     @JsonProperty("other_corporate_body_or_firm")
     private OfficerIdentification otherCorporateBodyOrFirm;
 
@@ -49,5 +49,5 @@ public class Identification {
     public void setOtherCorporateBodyOrFirm(OfficerIdentification otherCorporateBodyOrFirm) {
         this.otherCorporateBodyOrFirm = otherCorporateBodyOrFirm;
     }
-    
+
 }

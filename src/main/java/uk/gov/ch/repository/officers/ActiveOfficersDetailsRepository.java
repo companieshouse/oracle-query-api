@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 
-public interface ActiveOfficersDetailsRepository extends PagingAndSortingRepository<ActiveOfficerDetails, Long> {
+public interface ActiveOfficersDetailsRepository extends
+        PagingAndSortingRepository<ActiveOfficerDetails, Long> {
 
 
     @Query(value = "SELECT "
@@ -91,5 +92,6 @@ public interface ActiveOfficersDetailsRepository extends PagingAndSortingReposit
             countQuery = "select count(*) FROM corporate_body cb, corporate_body_appointment cba "
                     + "WHERE cba.corporate_body_id=cb.corporate_body_id AND cb.incorporation_number = ?1 AND cba.resignation_ind = 'N'",
             nativeQuery = true)
-    Page<ActiveOfficerDetails> getActiveOfficersDetails(String incorporationNumber, Pageable pageable);
+    Page<ActiveOfficerDetails> getActiveOfficersDetails(String incorporationNumber,
+            Pageable pageable);
 }

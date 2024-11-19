@@ -9,9 +9,11 @@ import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
  */
 public interface BankruptOfficerService {
 
-  /**
-   * Perform a search for a bankrupt officer using filtering, pagination and sorting
-   * @return
-   */
-  ScottishBankruptOfficerSearchResults getScottishBankruptOfficers(ScottishBankruptOfficerSearch search);
+    /**
+     * Perform a search for a bankrupt officer using filtering, pagination and sorting
+     *
+     * @return
+     */
+    ScottishBankruptOfficerSearchResults getScottishBankruptOfficers(
+            ScottishBankruptOfficerSearch search);
 }

@@ -5,5 +5,7 @@ import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
 
 public interface StatementOfCapitalService {
-    StatementOfCapital getStatementOfCapital(String incorporationNumber) throws StatementOfCapitalNotFoundException, ServiceException;
+
+    StatementOfCapital getStatementOfCapital(String incorporationNumber)
+            throws StatementOfCapitalNotFoundException, ServiceException;
 }

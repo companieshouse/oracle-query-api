@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.shareholder.Shareholder;
 
-public interface ShareholderRepository  extends PagingAndSortingRepository<Shareholder, Long> {
+public interface ShareholderRepository extends PagingAndSortingRepository<Shareholder, Long> {
 
     @Query(value = "SELECT "
             + "sh.SHAREHOLDER_ID, "
@@ -23,14 +23,15 @@ public interface ShareholderRepository  extends PagingAndSortingRepository<Share
             + "WHERE cb.INCORPORATION_NUMBER = ?1 "
             + "AND shd.NUMBER_OF_SHARES > 0 "
             + "AND shd.NUMBER_OF_SHARES IS NOT NULL ",
-            countQuery = "select count(*) FROM shareholder sh, shareholding shd, corporate_body cb, currency_type ctp, share_class_type sct "
-                    + "WHERE sh.SHAREHOLDING_ID = shd.SHAREHOLDING_ID "
-                    + "AND cb.CORPORATE_BODY_ID = shd.CORPORATE_BODY_ID "
-                    + "AND shd.currency_type_id = ctp.currency_type_id "
-                    + "AND shd.NUMBER_OF_SHARES > 0 "
-                    + "AND shd.NUMBER_OF_SHARES IS NOT NULL "
-                    + "AND sct.SHARE_CLASS_TYPE_ID = shd.SHARE_CLASS_TYPE_ID "
-                    + "AND cb.INCORPORATION_NUMBER = ?1",
+            countQuery =
+                    "select count(*) FROM shareholder sh, shareholding shd, corporate_body cb, currency_type ctp, share_class_type sct "
+                            + "WHERE sh.SHAREHOLDING_ID = shd.SHAREHOLDING_ID "
+                            + "AND cb.CORPORATE_BODY_ID = shd.CORPORATE_BODY_ID "
+                            + "AND shd.currency_type_id = ctp.currency_type_id "
+                            + "AND shd.NUMBER_OF_SHARES > 0 "
+                            + "AND shd.NUMBER_OF_SHARES IS NOT NULL "
+                            + "AND sct.SHARE_CLASS_TYPE_ID = shd.SHARE_CLASS_TYPE_ID "
+                            + "AND cb.INCORPORATION_NUMBER = ?1",
             nativeQuery = true)
     Page<Shareholder> getShareholders(String incorporationNumber, Pageable pageable);
 

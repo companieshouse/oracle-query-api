@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 
-public interface ActiveDirectorDetailsRepository extends PagingAndSortingRepository<ActiveDirectorDetails, Long> {
+public interface ActiveDirectorDetailsRepository extends
+        PagingAndSortingRepository<ActiveDirectorDetails, Long> {
 
     @Query(value = "select * from ( SELECT "
             + "cba.officer_detail_id, "
@@ -69,6 +70,7 @@ public interface ActiveDirectorDetailsRepository extends PagingAndSortingReposit
             + "od.secure_director_service_ind "
             + "having count(1)=1 "
             + ")", nativeQuery = true)
-    Page<ActiveDirectorDetails> getActiveDirectorDetails(String incorporationNumber, Pageable pageable);
+    Page<ActiveDirectorDetails> getActiveDirectorDetails(String incorporationNumber,
+            Pageable pageable);
 
 }
