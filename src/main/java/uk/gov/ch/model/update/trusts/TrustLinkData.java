@@ -1,18 +1,16 @@
 package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
 public class TrustLinkData {
 
     @Id
-    @Column(name="ROWNUM")
+    @Column(name = "ROWNUM")
     private Long Id;
 
     @Column(name = "TRUST_ID")

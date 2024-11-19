@@ -7,7 +7,8 @@ import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStat
 
 public interface EmergencyOfficersService {
 
-    CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(String incorporationNumber, Pageable pageable);
+    CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(String incorporationNumber,
+            Pageable pageable);
 
     CorporateBodyAppointment getEligibleOfficer(String incorporationNumber, String officerId);
 

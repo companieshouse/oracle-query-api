@@ -11,8 +11,10 @@ public interface CorporateBodyService {
     Long getActionCode(String companyNumber) throws CorporateBodyNotFoundException;
 
     Long getTradedStatus(String companyNumber) throws CorporateBodyNotFoundException;
-    
-    CompanyProfileApi getCompanyProfile(String companyNumber) throws CorporateBodyNotFoundException, CompanyProfileMappingException;
 
-    RegisteredEmailAddressJson getRegisteredEmailAddress(String incorporationNumber) throws CorporateBodyDetailsEmailAddressNotFoundException;
+    CompanyProfileApi getCompanyProfile(String companyNumber)
+            throws CorporateBodyNotFoundException, CompanyProfileMappingException;
+
+    RegisteredEmailAddressJson getRegisteredEmailAddress(String incorporationNumber)
+            throws CorporateBodyDetailsEmailAddressNotFoundException;
 }

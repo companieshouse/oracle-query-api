@@ -1,12 +1,11 @@
 package uk.gov.ch.model.register;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import uk.gov.companieshouse.api.model.common.Address;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity
 public class RegisterLocation {
@@ -79,12 +78,12 @@ public class RegisterLocation {
         this.sailAddressRegion = sailAddressRegion;
     }
 
-    public void setRegisterTypeDesc(String registerTypeDesc) {
-        this.registerTypeDesc = registerTypeDesc;
-    }
-
     public String getRegisterTypeDesc() {
         return registerTypeDesc;
+    }
+
+    public void setRegisterTypeDesc(String registerTypeDesc) {
+        this.registerTypeDesc = registerTypeDesc;
     }
 
     public Address getSailAddress() {

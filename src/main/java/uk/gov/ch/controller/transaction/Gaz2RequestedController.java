@@ -15,7 +15,8 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @RestController
 public class Gaz2RequestedController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private Gaz2RequestedService gaz2RequestedService;

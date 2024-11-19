@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.psc.PersonWithSignificantControl;
 
-public interface PersonsWithSignificantControlRepository extends PagingAndSortingRepository<PersonWithSignificantControl, Long> {
+public interface PersonsWithSignificantControlRepository extends
+        PagingAndSortingRepository<PersonWithSignificantControl, Long> {
 
     @Query(value = "select "
             + "CBA.CORPORATE_BODY_APPOINTMENT_ID, "
@@ -79,5 +80,6 @@ public interface PersonsWithSignificantControlRepository extends PagingAndSortin
                     + "where CBA.CORPORATE_BODY_ID = (select CORPORATE_BODY_ID from CORPORATE_BODY where INCORPORATION_NUMBER = ?1) "
                     + "AND CBA.RESIGNATION_IND = 'N' AND CBA.SUPER_SECURE_PSC_IND = 'N' AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009)",
             nativeQuery = true)
-    Page<PersonWithSignificantControl> findPersonsWithSignificantControl(String companyNumber, Pageable pageable);
+    Page<PersonWithSignificantControl> findPersonsWithSignificantControl(String companyNumber,
+            Pageable pageable);
 }

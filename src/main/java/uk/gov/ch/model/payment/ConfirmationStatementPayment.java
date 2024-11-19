@@ -1,11 +1,12 @@
 package uk.gov.ch.model.payment;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 @Entity
 public class ConfirmationStatementPayment {
+
     @Id
     @Column(name = "PAID_BY_TRANSACTION_ID")
     private Long paidByTransactionId;

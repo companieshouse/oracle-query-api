@@ -20,19 +20,23 @@ import java.util.List;
 @RestController
 public class RegisterLocationController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private RegisterLocationService registerLocationService;
 
     @GetMapping("/company/{companyNumber}/register/location")
-    public ResponseEntity<List<RegisterLocation>> getRegisterLocation(@PathVariable String companyNumber,
-           @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
-           @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
+    public ResponseEntity<List<RegisterLocation>> getRegisterLocation(
+            @PathVariable String companyNumber,
+            @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
+            @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
         Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
-        LOGGER.info("Calling service to retrieve register location for company number: " + companyNumber);
-        List<RegisterLocation> result = registerLocationService.getRegisterLocation(companyNumber, pageable);
+        LOGGER.info("Calling service to retrieve register location for company number: "
+                + companyNumber);
+        List<RegisterLocation> result = registerLocationService.getRegisterLocation(companyNumber,
+                pageable);
         LOGGER.info("Retrieved results for register location for company number " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }

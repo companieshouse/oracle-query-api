@@ -3,10 +3,8 @@ package uk.gov.ch.transformers.officer.bankrupt;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
@@ -17,7 +15,8 @@ public class BankruptOfficersTransformer {
 
     private static final LocalDate END_OF_TIME = LocalDate.of(9999, 12, 31);
 
-    public ScottishBankruptOfficerSearchResults convertToSearchResults(Page<ScottishBankruptOfficerDataModel> scottishBankruptOfficerSearchPage) {
+    public ScottishBankruptOfficerSearchResults convertToSearchResults(
+            Page<ScottishBankruptOfficerDataModel> scottishBankruptOfficerSearchPage) {
 
         List<ScottishBankruptOfficerSearchResult> results = new ArrayList<>();
 
@@ -26,15 +25,19 @@ public class BankruptOfficersTransformer {
         }
         ScottishBankruptOfficerSearchResults scottishBankruptOfficerSearchResults = new ScottishBankruptOfficerSearchResults();
         scottishBankruptOfficerSearchResults.setItems(results);
-        scottishBankruptOfficerSearchResults.setItemsPerPage(scottishBankruptOfficerSearchPage.getNumberOfElements());
-        scottishBankruptOfficerSearchResults.setStartIndex(scottishBankruptOfficerSearchPage.getNumber());
-        scottishBankruptOfficerSearchResults.setTotalResults(scottishBankruptOfficerSearchPage.getTotalElements());
+        scottishBankruptOfficerSearchResults.setItemsPerPage(
+                scottishBankruptOfficerSearchPage.getNumberOfElements());
+        scottishBankruptOfficerSearchResults.setStartIndex(
+                scottishBankruptOfficerSearchPage.getNumber());
+        scottishBankruptOfficerSearchResults.setTotalResults(
+                scottishBankruptOfficerSearchPage.getTotalElements());
 
         return scottishBankruptOfficerSearchResults;
 
     }
 
-    public ScottishBankruptOfficerDetails convertToDetails(ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
+    public ScottishBankruptOfficerDetails convertToDetails(
+            ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
         ScottishBankruptOfficerDetails details = new ScottishBankruptOfficerDetails();
 
         details.setForename1(scottishBankruptOfficerDetailsDataModel.getForename1());
@@ -52,7 +55,8 @@ public class BankruptOfficersTransformer {
         details.setCaseType(scottishBankruptOfficerDetailsDataModel.getCaseType());
         details.setBankruptcyType(scottishBankruptOfficerDetailsDataModel.getBankruptcyType());
         details.setStartDate(scottishBankruptOfficerDetailsDataModel.getStartDate());
-        details.setTrusteeDischargeDate(scottishBankruptOfficerDetailsDataModel.getTrusteeDischargeDate());
+        details.setTrusteeDischargeDate(
+                scottishBankruptOfficerDetailsDataModel.getTrusteeDischargeDate());
         details.setEphemeralKey(scottishBankruptOfficerDetailsDataModel.getEphemeralKey());
 
         LocalDate debtorDischargeDate = scottishBankruptOfficerDetailsDataModel.getDebtorDischargeDate();
@@ -64,7 +68,8 @@ public class BankruptOfficersTransformer {
         return details;
     }
 
-    public ScottishBankruptOfficerSearchResult convertToSearchResult(ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
+    public ScottishBankruptOfficerSearchResult convertToSearchResult(
+            ScottishBankruptOfficerDataModel scottishBankruptOfficerDetailsDataModel) {
         ScottishBankruptOfficerSearchResult searchResult = new ScottishBankruptOfficerSearchResult();
 
         searchResult.setEphemeralKey(scottishBankruptOfficerDetailsDataModel.getEphemeralKey());

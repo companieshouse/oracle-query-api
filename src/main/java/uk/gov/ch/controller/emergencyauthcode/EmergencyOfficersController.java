@@ -20,27 +20,32 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @RestController
 public class EmergencyOfficersController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private EmergencyOfficersService emergencyOfficersService;
 
     @GetMapping("/emergency-auth-code/company/{incorporationNumber}/eligible-officers")
-    public ResponseEntity<CorporateBodyAppointments> getListOfEligibleCompanyOfficers(@PathVariable String incorporationNumber,
+    public ResponseEntity<CorporateBodyAppointments> getListOfEligibleCompanyOfficers(
+            @PathVariable String incorporationNumber,
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
         Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
 
-        LOGGER.info("Calling service to retrieve eligible officers for company number " + incorporationNumber);
-        CorporateBodyAppointments eligibleOfficers = emergencyOfficersService.getEligibleOfficersEmergencyAuthCode(incorporationNumber, pageable);
+        LOGGER.info("Calling service to retrieve eligible officers for company number "
+                + incorporationNumber);
+        CorporateBodyAppointments eligibleOfficers = emergencyOfficersService.getEligibleOfficersEmergencyAuthCode(
+                incorporationNumber, pageable);
 
         if (eligibleOfficers == null || eligibleOfficers.getItems().isEmpty()) {
             LOGGER.info("No company directors found for company number " + incorporationNumber);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        LOGGER.info("Returning " + eligibleOfficers.getTotalResults() + " eligible officers for company " + incorporationNumber);
+        LOGGER.info("Returning " + eligibleOfficers.getTotalResults()
+                + " eligible officers for company " + incorporationNumber);
         return ResponseEntity.status(HttpStatus.OK).body(eligibleOfficers);
     }
 
@@ -49,11 +54,14 @@ public class EmergencyOfficersController {
             @PathVariable String companyNumber,
             @PathVariable String officerId) {
 
-        LOGGER.info("Calling service to retrieve officer " + officerId + " for company number " + companyNumber);
-        CorporateBodyAppointment eligibleOfficer = emergencyOfficersService.getEligibleOfficer(companyNumber, officerId);
+        LOGGER.info("Calling service to retrieve officer " + officerId + " for company number "
+                + companyNumber);
+        CorporateBodyAppointment eligibleOfficer = emergencyOfficersService.getEligibleOfficer(
+                companyNumber, officerId);
 
         if (eligibleOfficer == null) {
-            LOGGER.info("No valid company director found for officer_id " + officerId + " on company number " + companyNumber);
+            LOGGER.info("No valid company director found for officer_id " + officerId
+                    + " on company number " + companyNumber);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
@@ -64,8 +72,10 @@ public class EmergencyOfficersController {
     @GetMapping("/emergency-auth-code/company/{companyNumber}/efiling-status")
     public ResponseEntity<CorporateBodyEFilingStatus> getHasFiledLastThirtyDays(
             @PathVariable String companyNumber) {
-        LOGGER.info("Calling service to check if company has filed in the past thirty days: " + companyNumber);
-        CorporateBodyEFilingStatus corporateBodyEFilingStatus = emergencyOfficersService.checkIfEFiledLastThirtyDays(companyNumber);
+        LOGGER.info("Calling service to check if company has filed in the past thirty days: "
+                + companyNumber);
+        CorporateBodyEFilingStatus corporateBodyEFilingStatus = emergencyOfficersService.checkIfEFiledLastThirtyDays(
+                companyNumber);
 
         LOGGER.info("Returning details for corporations eFiling status " + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(corporateBodyEFilingStatus);

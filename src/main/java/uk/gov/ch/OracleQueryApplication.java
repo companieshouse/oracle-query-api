@@ -13,7 +13,7 @@ public class OracleQueryApplication implements WebMvcConfigurer {
 
     public static final String APPLICATION_NAME_SPACE = "oracle-query-api";
 
-    private LoggingInterceptor loggingInterceptor;
+    private final LoggingInterceptor loggingInterceptor;
 
     @Autowired
     public OracleQueryApplication(LoggingInterceptor loggingInterceptor) {

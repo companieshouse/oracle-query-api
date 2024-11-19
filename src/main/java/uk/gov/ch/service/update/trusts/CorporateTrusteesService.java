@@ -5,6 +5,7 @@ import uk.gov.ch.exception.TrustDataCountNotFoundException;
 import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
 
 public interface CorporateTrusteesService {
+
     List<CorporateTrusteeData> getCorporateTrusteeData(String trustId)
             throws TrustDataCountNotFoundException;
 }

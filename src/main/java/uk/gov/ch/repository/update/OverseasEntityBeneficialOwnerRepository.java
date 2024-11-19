@@ -1,15 +1,16 @@
 package uk.gov.ch.repository.update;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 
-import java.util.List;
+public interface OverseasEntityBeneficialOwnerRepository extends
+        PagingAndSortingRepository<OverseasEntityBeneficialOwner, Long> {
 
-public interface OverseasEntityBeneficialOwnerRepository extends PagingAndSortingRepository<OverseasEntityBeneficialOwner, Long> {
-    static final String OE_INDIVIDUAL_BO_APPOINTMENT_ID = "5010";
-    static final String OE_OLE_BO_APPOINTMENT_ID = "5011";
-    static final String OE_GPA_BO_APPOINTMENT_ID = "5012";
+    String OE_INDIVIDUAL_BO_APPOINTMENT_ID = "5010";
+    String OE_OLE_BO_APPOINTMENT_ID = "5011";
+    String OE_GPA_BO_APPOINTMENT_ID = "5012";
 
     @Query(value = "select "
             + "CBA.CORPORATE_BODY_APPOINTMENT_ID, "

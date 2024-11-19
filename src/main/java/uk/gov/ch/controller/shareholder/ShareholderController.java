@@ -21,7 +21,8 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @RestController
 public class ShareholderController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private ShareholderService shareholderService;
@@ -29,10 +30,12 @@ public class ShareholderController {
     @GetMapping("/company/{companyNumber}/shareholders/count")
     public ResponseEntity<Integer> getShareholdersCount(@PathVariable String companyNumber) {
 
-        LOGGER.info("Calling service to retrieve shareholder count for company number " + companyNumber);
+        LOGGER.info("Calling service to retrieve shareholder count for company number "
+                + companyNumber);
         int response = shareholderService.getShareholderCount(companyNumber);
 
-        LOGGER.info("Returning shareholder count ("+ response +") for company number " + companyNumber);
+        LOGGER.info("Returning shareholder count (" + response + ") for company number "
+                + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -43,11 +46,13 @@ public class ShareholderController {
 
         Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
 
-        LOGGER.info("Calling service to retrieve the list of shareholders for company number " + companyNumber);
+        LOGGER.info("Calling service to retrieve the list of shareholders for company number "
+                + companyNumber);
         List<Shareholder> response = shareholderService.getShareholders(companyNumber, pageable);
 
-        LOGGER.info("Returning "+ response.size() +" shareholders for company number " + companyNumber);
+        LOGGER.info("Returning " + response.size() + " shareholders for company number "
+                + companyNumber);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
-    
+
 }

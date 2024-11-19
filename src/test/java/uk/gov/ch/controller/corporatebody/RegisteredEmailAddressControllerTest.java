@@ -18,7 +18,9 @@ import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
 import uk.gov.ch.service.corporatebody.impl.CorporateBodyServiceImpl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

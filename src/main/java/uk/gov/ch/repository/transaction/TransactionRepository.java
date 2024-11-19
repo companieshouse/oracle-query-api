@@ -8,10 +8,9 @@ import org.springframework.stereotype.Repository;
 public class TransactionRepository {
 
 
+    private static final String FILING_HISTORY_SQL = "SELECT PKG_CHS_GET_DATA.f_get_filing_history(?) from dual";
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-    private static final String FILING_HISTORY_SQL = "SELECT PKG_CHS_GET_DATA.f_get_filing_history(?) from dual";
 
     public String getTransactionJson(String companyNumber) {
         return jdbcTemplate.queryForObject(FILING_HISTORY_SQL, String.class, companyNumber);
