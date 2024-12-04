@@ -34,22 +34,14 @@ data "aws_iam_role" "ecs_cluster_iam_role" {
 }
 
 data "aws_lb" "service_lb" {
-  name = "${var.environment}-chs-apichgovuk"
+  name = "${var.environment}-chs-standalone"
 }
 
 data "aws_lb_listener" "service_lb_listener" {
   load_balancer_arn = data.aws_lb.service_lb.arn
-  port = 443
+  port = 18565
 }
 
-data "aws_lb" "secondary_lb" {
-  name = "${var.environment}-chs-apichgovuk-private"
-}
-
-data "aws_lb_listener" "secondary_lb_listener" {
-  load_balancer_arn = data.aws_lb.secondary_lb.arn
-  port = 443
-}
 
 # retrieve all secrets for this stack using the stack path
 data "aws_ssm_parameters_by_path" "secrets" {
@@ -73,7 +65,7 @@ data "aws_ssm_parameter" "global_secret" {
   name     = each.key
 }
 
-// --- s3 bucket for shared services config ---
-data "vault_generic_secret" "shared_s3" {
-  path = "aws-accounts/shared-services/s3"
-}
+# // --- s3 bucket for shared services config ---
+# data "vault_generic_secret" "shared_s3" {
+#   path = "aws-accounts/shared-services/s3"
+# }

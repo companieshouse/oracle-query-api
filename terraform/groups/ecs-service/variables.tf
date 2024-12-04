@@ -32,6 +32,11 @@ variable "desired_task_count" {
   description = "The desired ECS task count for this service"
   default = 1 # defaulted low for dev environments, override for production
 }
+variable "max_task_count" {
+  type        = number
+  description = "The maximum number of tasks for this service."
+  default     = 3
+}
 variable "required_cpus" {
   type = number
   description = "The required cpu resource for this service. 1024 here is 1 vCPU"
@@ -52,11 +57,6 @@ variable "eric_memory" {
   type = number
   description = "The required memory for eric"
   default = 512
-}
-variable "max_task_count" {
-  type        = number
-  description = "The maximum number of tasks for this service."
-  default     = 3
 }
 
 variable "use_fargate" {
@@ -105,11 +105,6 @@ variable "cloudwatch_alarms_enabled" {
   default     = false
 }
 
-variable "multilb_cloudwatch_alarms_enabled" {
-  description = "Whether to create a standard set of cloudwatch alarms for the service in multilb setup.  Requires an SNS topic to have already been created for the stack."
-  type        = bool
-  default     = true
-}
 
 # ------------------------------------------------------------------------------
 # Service environment variable configs
