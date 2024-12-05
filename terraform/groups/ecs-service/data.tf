@@ -39,7 +39,7 @@ data "aws_lb" "utility_lb" {
 
 data "aws_lb_listener" "utility_lb_listener" {
   load_balancer_arn = data.aws_lb.utility_lb.arn
-  port = 18565
+  port = 443
 }
 
 
