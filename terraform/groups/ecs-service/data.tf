@@ -34,7 +34,7 @@ data "aws_iam_role" "ecs_cluster_iam_role" {
 }
 
 data "aws_lb" "utility_lb" {
-  name = "${var.environment}-chs-oracle-query-api"
+  name = "${var.environment}-oracle-query-api"
 }
 
 data "aws_lb_listener" "utility_lb_listener" {
