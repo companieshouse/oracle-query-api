@@ -33,12 +33,12 @@ data "aws_iam_role" "ecs_cluster_iam_role" {
   name = "${local.name_prefix}-ecs-task-execution-role"
 }
 
-data "aws_lb" "utility_lb" {
+data "aws_lb" "oracle_query_api_alb" {
   name = "${var.environment}-oracle-query-api"
 }
 
-data "aws_lb_listener" "utility_lb_listener" {
-  load_balancer_arn = data.aws_lb.utility_lb.arn
+data "aws_lb_listener" "oracle_query_api_alb_listener" {
+  load_balancer_arn = data.aws_lb.oracle_query_api_alb.arn
   port = 443
 }
 
