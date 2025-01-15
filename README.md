@@ -63,7 +63,7 @@ This is done by calling a [module](https://github.com/companieshouse/terraform-m
 
 Application specific attributes | Value                                | Description
 :---------|:-----------------------------------------------------------------------------|:-----------
-**ECS Cluster**        |filing-maintain                                      | ECS cluster (stack) the service belongs to
+**ECS Cluster**        |utility                                      | ECS cluster (stack) the service belongs to
 **Load balancer**      |{env}-oracle-query-api                           | The load balancer that sits in front of the service
 **Concourse pipeline**     |[Pipeline link](https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/oracle-query-api) <br> [Pipeline code](https://github.com/companieshouse/ci-pipelines/blob/master/pipelines/ssplatform/team-development/oracle-query-api)                                  | Concourse pipeline link in shared services
 
