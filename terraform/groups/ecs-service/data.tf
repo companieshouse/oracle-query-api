@@ -37,7 +37,7 @@ data "aws_lb" "oracle_query_api_alb" {
   name = "alb-${var.environment}-oracle-query-api"
 }
 
-data "aws_lb_listener" "utility_lb_listener" {
+data "aws_lb_listener" "oracle_query_api_lb_listener" {
   load_balancer_arn = data.aws_lb.oracle_query_api_alb.arn
   port = 443
 }
@@ -64,6 +64,6 @@ data "aws_ssm_parameter" "global_secret" {
   name     = each.key
 }
 
-# data "vault_generic_secret" "shared_s3" {
-#   path = "aws-accounts/shared-services/s3"
-# }
+data "vault_generic_secret" "shared_s3" {
+  path = "aws-accounts/shared-services/s3"
+}

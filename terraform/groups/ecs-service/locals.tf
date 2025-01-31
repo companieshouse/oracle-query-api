@@ -12,12 +12,13 @@ locals {
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
   lb_listener_rule_priority  = 77
   lb_listener_paths          = ["/oracle-query*"]
-  healthcheck_path           = "/oracle-query-api/healthcheck" #healthcheck path for applications api identity
+  healthcheck_path           = "/oracle-query-api/healthcheck" #healthcheck path for the oracle-query-api service
   healthcheck_matcher        = "200"
   app_environment_filename   = "oracle-query-api.env"
   use_set_environment_files  = var.use_set_environment_files
   application_subnet_ids     = data.aws_subnets.application.ids
   application_subnet_pattern = local.stack_secrets["application_subnet_pattern"]
+  s3_config_bucket           = data.vault_generic_secret.shared_s3.data["config_bucket_name"]
 
   stack_secrets   = jsondecode(data.vault_generic_secret.stack_secrets.data_json)
   service_secrets = jsondecode(data.vault_generic_secret.service_secrets.data_json)
