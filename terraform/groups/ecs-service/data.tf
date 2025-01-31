@@ -37,9 +37,9 @@ data "aws_lb" "oracle_query_api_alb" {
   name = "${var.environment}-oracle-query-api"
 }
 
-data "aws_lb_listener" "oracle_query_api_alb_listener" {
+data "aws_lb_listener" "utility_lb_listener" {
   load_balancer_arn = data.aws_lb.oracle_query_api_alb.arn
-  port = 443
+  port = 80
 }
 
 
