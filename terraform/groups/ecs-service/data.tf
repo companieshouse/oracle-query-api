@@ -34,14 +34,13 @@ data "aws_iam_role" "ecs_cluster_iam_role" {
 }
 
 data "aws_lb" "oracle_query_api_alb" {
-  name = "${var.environment}-oracle-query-api"
+  name = "alb-${var.environment}-oracle-query-api"
 }
 
 data "aws_lb_listener" "utility_lb_listener" {
   load_balancer_arn = data.aws_lb.oracle_query_api_alb.arn
   port = 80
 }
-
 
 # retrieve all secrets for this stack using the stack path
 data "aws_ssm_parameters_by_path" "secrets" {
@@ -65,7 +64,6 @@ data "aws_ssm_parameter" "global_secret" {
   name     = each.key
 }
 
-# // --- s3 bucket for shared services config ---
 # data "vault_generic_secret" "shared_s3" {
 #   path = "aws-accounts/shared-services/s3"
 # }

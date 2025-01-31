@@ -102,7 +102,7 @@ variable "service_scaleup_schedule" {
 variable "cloudwatch_alarms_enabled" {
   description = "Whether to create a standard set of cloudwatch alarms for the service.  Requires an SNS topic to have already been created for the stack."
   type        = bool
-  default     = false
+  default     = true
 }
 
 

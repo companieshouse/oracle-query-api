@@ -12,7 +12,7 @@ locals {
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
   lb_listener_rule_priority  = 77
   lb_listener_paths          = ["/oracle-query*"]
-  healthcheck_path           = "/applications-api-identity-ch-gov-uk/healthcheck" #healthcheck path for applications api identity
+  healthcheck_path           = "/oracle-query-api/healthcheck" #healthcheck path for applications api identity
   healthcheck_matcher        = "200"
   app_environment_filename   = "oracle-query-api.env"
   use_set_environment_files  = var.use_set_environment_files

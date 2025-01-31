@@ -61,10 +61,10 @@ The code present in this repository is used to define and deploy a dockerised co
 This is done by calling a [module](https://github.com/companieshouse/terraform-modules/tree/main/aws/ecs) from terraform-modules. Application specific attributes are injected and the service is then deployed using Terraform via the CICD platform 'Concourse'.
 
 
-Application specific attributes | Value                                | Description
+Application specific attributes | Value                              | Description
 :---------|:-----------------------------------------------------------------------------|:-----------
 **ECS Cluster**        |utility                                      | ECS cluster (stack) the service belongs to
-**Load balancer**      |{env}-oracle-query-api                           | The load balancer that sits in front of the service
+**Load balancer**      |alb-cidev-oracle-query-api                   | The [load balancer](https://github.com/companieshouse/utility-services-stack/blob/303099e40790b105bc04e310167f26564a0eedec/groups/infrastructure/main.tf#L23) that sits in front of the service
 **Concourse pipeline**     |[Pipeline link](https://ci-platform.companieshouse.gov.uk/teams/team-development/pipelines/oracle-query-api) <br> [Pipeline code](https://github.com/companieshouse/ci-pipelines/blob/master/pipelines/ssplatform/team-development/oracle-query-api)                                  | Concourse pipeline link in shared services
 
 
