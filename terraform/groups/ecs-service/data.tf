@@ -39,7 +39,7 @@ data "aws_lb" "oracle_query_api_alb" {
 
 data "aws_lb_listener" "utility_lb_listener" {
   load_balancer_arn = data.aws_lb.oracle_query_api_alb.arn
-  port = 80
+  port = 443
 }
 
 # retrieve all secrets for this stack using the stack path
