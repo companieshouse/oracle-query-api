@@ -11,7 +11,7 @@ locals {
   docker_repo                = "oracle-query-api"
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
   lb_listener_rule_priority  = 77
-  lb_listener_paths          = ["/oracle-query*"]
+  lb_listener_paths          = ["/oracle-query-api", "/oracle-query/*"]
   healthcheck_path           = "/oracle-query-api/healthcheck" #healthcheck path for the oracle-query-api service
   healthcheck_matcher        = "200"
   app_environment_filename   = "oracle-query-api.env"
