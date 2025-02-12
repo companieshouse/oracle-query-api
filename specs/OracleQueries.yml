@@ -237,6 +237,38 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personsOfSignificantControl'
+  /company/corporate-body-appointments/persons-of-significant-control/verification-state:
+    post:
+      tags:
+        - persons-of-significant-control
+      operationId: getIndividualPscVerificationState
+      summary: Get the identity verification state of a person of significant control for the company
+      requestBody:
+        description: Search criteria for specific individual PSC
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/internalId'
+            example:
+              internal_id: 1234567890
+      responses:
+        '200':
+          description: 'Person of significant control verification state data'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/individualPscVerificationState'
+              example:
+                verification_status: Unverified
+                verification_start_date: "2025-04-20"
+                verification_statement_due_date: "2025-05-04"
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorised
+        '404':
+          description: No verification state data found
   /company/{company_number}/register/location:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
@@ -592,7 +624,7 @@ components:
         - items
       properties:
         items:
-          type: list
+          type: array
           items:
             $ref: '#/components/schemas/managingOfficerData'
     companyOfficers:
@@ -716,7 +748,7 @@ components:
         items:
           type: array
           items:
-            $ref: '#/components/schemas/scottishBankruptOfficerSearchResult' 
+            $ref: '#/components/schemas/scottishBankruptOfficerSearchResult'
     scottishBankruptOfficerSearchResult:
       type: object
       required:
@@ -772,37 +804,37 @@ components:
         - $ref: '#/components/schemas/scottishBankruptOfficerSearchResult'
         - type: object
       required:
-          - ephemeral_officer_key
-          - forename1
-          - forename2
-          - alias
-          - surname
-          - date_of_birth
-          - address_line_1
-          - address_line_2
-          - address_line_3
-          - town
-          - county
-          - postcode
-          - case_reference
-          - case_type
-          - start_date
-          - debtor_discharge_date
-          - trustee_discharge_date
+        - ephemeral_officer_key
+        - forename1
+        - forename2
+        - alias
+        - surname
+        - date_of_birth
+        - address_line_1
+        - address_line_2
+        - address_line_3
+        - town
+        - county
+        - postcode
+        - case_reference
+        - case_type
+        - start_date
+        - debtor_discharge_date
+        - trustee_discharge_date
       properties:
         alias:
           type: string
           description: The officers' alias/other name.
-        case_reference: 
+        case_reference:
           type: string
           description: Unique ID for the insolvency or trust deed. This could be supplied in any format.
-        case_type: 
+        case_type:
           type: string
           enum:
             - "Insolvency"
             - "Trust Deed"
           description: Whether it is an insolvency or trust deed.
-        bankruptcy_type: 
+        bankruptcy_type:
           type: string
           enum:
             - "Entity Full Administration"
@@ -810,15 +842,15 @@ components:
             - "MAP"
             - "Sequestration"
           description: The sub-type of insolvency. This will not exist for trust deeds.
-        start_date: 
+        start_date:
           type: string
           description: Date which the insolvency/trust deed begins.
           example: "2020-01-01"
-        debtor_discharge_date: 
+        debtor_discharge_date:
           type: string
           description: Date the restrictions are lifted from the bankrupt officer.
           example: "2020-01-01"
-        trustee_discharge_date: 
+        trustee_discharge_date:
           type: string
           description: Date the insolvency/trust deed is fully discharged.
           example: "2020-01-01"
@@ -934,7 +966,7 @@ components:
           description: The (corporate) active officer's legal form.
           example: "INTERNATIONAL BUSINESS COMPANY"
         identificationType:
-          typr: string
+          type: string
           description: The (corporate) active officer's identification type.
           example: "Y"
         corporate:
@@ -977,7 +1009,7 @@ components:
         - paper_filed
         - action_date
         - type
-      properties: 
+      properties:
         description:
           type: string
           description: The description text for the transaction
@@ -1095,6 +1127,35 @@ components:
         address:
           type: object
           description: The Usual Residential Address (URA) of the PSC
+    internalId:
+      description: The CHIPS appointment ID
+      type: integer
+      format: int64
+      example: "1234567890"
+    individualPscVerificationState:
+      type: object
+      required:
+        - verification_details
+      properties:
+        verification_details:
+          type: object
+          required:
+            - verification_status
+            - verification_start_date
+            - verification_statement_due_date
+          properties:
+            verification_status:
+              type: string
+              enum: [Unverified, Verified, Pending]
+              description: The verification status
+            verification_start_date:
+              type: string
+              format: date
+              description: The start/appointed date assigned
+            verification_statement_due_date:
+              type: string
+              format: date
+              description: The date the verification statement is due
     shareholders:
       type: object
       required:
@@ -1152,9 +1213,9 @@ components:
       required:
         - paid
       properties:
-         paid:
-           type: boolean
-           description: flag to say whether transaction has been paid
+        paid:
+          type: boolean
+          description: flag to say whether transaction has been paid
     companyProfile:
       type: object
       required:
@@ -1166,7 +1227,7 @@ components:
           $ref: '#/components/schemas/accounts'
         annual_return:
           $ref: '#/components/schemas/annual_return'
-        branch_company_details: 
+        branch_company_details:
           description: UK branch of a foreign company
           type: string
         can_file:
@@ -1180,7 +1241,7 @@ components:
           description: The number of the company
         company_status:
           type: string
-          enum: 
+          enum:
             - active
             - dissolved
             - liquidation
@@ -1225,9 +1286,9 @@ components:
         has_charges:
           description: Flag indicating if the company has mortgage charges
           type: boolean
-        has_insolvency_history: 
+        has_insolvency_history:
           description: Flag indicating if the company has insolvency history
-          type: boolean 
+          type: boolean
         is_community_interest_company:
           description: Flag indicating if the company is a community interest company
           type: boolean
@@ -1272,7 +1333,7 @@ components:
         type:
           description: The type of the company
           type: string
-          enum: 
+          enum:
             - private-unlimited
             - ltd
             - plc
@@ -1412,7 +1473,7 @@ components:
         type:
           type: string
           description: The type of accounts
-          enum: 
+          enum:
             - full
             - small
             - medium
@@ -1459,7 +1520,7 @@ components:
           type: string
           description: The date the annual return period ends on
           format: date
-        next_made_up_to: 
+        next_made_up_to:
           type: string
           description: The date the annual return period ends on
           format: date
@@ -1478,7 +1539,7 @@ components:
           type: string
           description: The date the confirmation statement period ends on
           format: date
-        next_made_up_to: 
+        next_made_up_to:
           type: string
           description: The date the confirmation statement period ends on
           format: date
