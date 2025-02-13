@@ -17,6 +17,6 @@ public enum VerificationStatusType {
             s.ordinal = counter++;
     }
 
-    public static VerificationStatusType getTyRepope(int ordinal) {
+    public static VerificationStatusType getType(final int ordinal) {
         return values[ordinal - 1];
     }}
