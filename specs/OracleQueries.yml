@@ -237,7 +237,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personsOfSignificantControl'
-  /company/corporate-body-appointments/persons-of-significant-control/verification-state:
+  /corporate-body-appointments/persons-of-significant-control/verification-state:
     post:
       tags:
         - persons-of-significant-control

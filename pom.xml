@@ -94,6 +94,12 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+        </dependency>
+
         <!-- Oracle JDBC driver -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
