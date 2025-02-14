@@ -1146,7 +1146,7 @@ components:
           properties:
             verification_status:
               type: string
-              enum: [Unverified, Verified, Pending]
+              enum: [UNVERIFIED, VERIFIED, PENDING]
               description: The verification status
             verification_start_date:
               type: string

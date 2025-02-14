@@ -1,13 +1,15 @@
 package uk.gov.ch.controller.psc;
 
+import jakarta.validation.Valid;
+import java.text.MessageFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
-import uk.gov.ch.model.psc.AppointmentIdDto;
 import uk.gov.ch.model.psc.AppointmentVerificationStateDto;
+import uk.gov.ch.model.psc.VerificationStateCriteriaDto;
 import uk.gov.ch.service.psc.AppointmentVerificationStateService;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
@@ -26,14 +28,16 @@ public class AppointmentVerificationStateController {
 
     @PostMapping("/corporate-body-appointments/persons-of-significant-control/verification-state")
     public ResponseEntity<AppointmentVerificationStateDto> getAppointmentVerificationState(
-        @RequestBody AppointmentIdDto appointmentId) {
-        LOGGER.info(
-            "Calling service to obtain persons with significant control appointment verification state, for ID " + appointmentId.appointmentId());
+        @RequestBody @Valid VerificationStateCriteriaDto stateCriteria) {
+        LOGGER.info(MessageFormat.format(
+            "Calling service to obtain persons with significant control appointment verification state, for ID {0,number,#}",
+            stateCriteria.appointmentId()));
 
         final var stateDto = appointmentVerificationStateService.findAppointmentVerificationState(
-            appointmentId.appointmentId());
+            stateCriteria.appointmentId());
 
-        LOGGER.info("Returning appointment verification state for person with significant control ID " + appointmentId.appointmentId());
+        LOGGER.info(MessageFormat.format("Found {0,choice,0#no matches|1#one match} for appointment ID {1,number,#}",
+            stateDto.stream().count(), stateCriteria.appointmentId()));
 
         return ResponseEntity.of(stateDto);
     }
