@@ -7,7 +7,7 @@ public interface AppointmentVerificationStateMapper {
     AppointmentVerificationStateDto entityToDto(final AppointmentVerificationState entity);
 
     default VerificationStatusType verificationStatusTypeFromLong(final Long typeId) {
-        return VerificationStatusType.getType(typeId.intValue());
+        return VerificationStatusType.getTypeFromLong(typeId);
     }
 
 }

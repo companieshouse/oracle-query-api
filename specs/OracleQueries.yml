@@ -254,21 +254,17 @@ paths:
               internal_id: 1234567890
       responses:
         '200':
-          description: 'Person of significant control verification state data'
+          description: 'Person of significant control verification state details'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/individualPscVerificationState'
-              example:
-                verification_status: Unverified
-                verification_start_date: "2025-04-20"
-                verification_statement_due_date: "2025-05-04"
+                $ref: '#/components/schemas/pscVerificationState'
         '400':
           description: Bad request
         '401':
           description: Unauthorised
         '404':
-          description: No verification state data found
+          description: No qualifying PSC or no verification state found
   /company/{company_number}/register/location:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
@@ -1132,30 +1128,28 @@ components:
       type: integer
       format: int64
       example: "1234567890"
-    individualPscVerificationState:
+    pscVerificationState:
+      description: The details of the identity verification state
       type: object
       required:
-        - verification_details
+        - verification_status
+        - verification_start_date
+        - verification_statement_due_date
       properties:
-        verification_details:
-          type: object
-          required:
-            - verification_status
-            - verification_start_date
-            - verification_statement_due_date
-          properties:
-            verification_status:
-              type: string
-              enum: [UNVERIFIED, VERIFIED, PENDING]
-              description: The verification status
-            verification_start_date:
-              type: string
-              format: date
-              description: The start/appointed date assigned
-            verification_statement_due_date:
-              type: string
-              format: date
-              description: The date the verification statement is due
+        verification_status:
+          type: string
+          enum: [UNVERIFIED, VERIFIED, PENDING]
+          description: The verification status
+        verification_start_date:
+          type: string
+          format: date
+          description: The start/appointed date assigned
+          example: "2025-04-20"
+        verification_statement_due_date:
+          type: string
+          format: date
+          description: The date the verification statement is due
+          example: "2025-05-04"
     shareholders:
       type: object
       required:

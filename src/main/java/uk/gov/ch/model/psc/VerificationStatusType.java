@@ -17,6 +17,6 @@ public enum VerificationStatusType {
             s.ordinal = counter++;
     }
 
-    public static VerificationStatusType getType(final int ordinal) {
-        return values[ordinal - 1];
+    public static VerificationStatusType getTypeFromLong(final Long ordinal) {
+        return ordinal != null ? values[ordinal.intValue() - 1] : null;
     }}
