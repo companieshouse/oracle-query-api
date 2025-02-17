@@ -244,14 +244,12 @@ paths:
       operationId: getIndividualPscVerificationState
       summary: Get the identity verification state of a person of significant control for the company
       requestBody:
-        description: Search criteria for specific individual PSC
+        description: Search criteria for specific individual PSC verification state
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/internalId'
-            example:
-              internal_id: 1234567890
+              $ref: '#/components/schemas/verificationStateCriteria'
       responses:
         '200':
           description: 'Person of significant control verification state details'
@@ -1123,11 +1121,15 @@ components:
         address:
           type: object
           description: The Usual Residential Address (URA) of the PSC
-    internalId:
-      description: The CHIPS appointment ID
-      type: integer
-      format: int64
-      example: "1234567890"
+    verificationStateCriteria:
+      description: Criteria for selecting the person of significant control"
+      required:
+        - application_id
+      properties:
+        application_id:
+          type: integer
+          format: int64
+          example: "1234567890"
     pscVerificationState:
       description: The details of the identity verification state
       type: object
