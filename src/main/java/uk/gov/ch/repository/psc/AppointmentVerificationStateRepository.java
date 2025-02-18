@@ -20,7 +20,7 @@ public interface AppointmentVerificationStateRepository extends JpaRepository<Ap
                    + "CBA.CORPORATE_BODY_APPOINTMENT_ID = ?1 "
                    + "AND CBA.RESIGNATION_IND = 'N' "
                    + "AND CBA.SUPER_SECURE_PSC_IND = 'N' "
-                   + "AND CBA.APPOINTMENT_TYPE_ID IN (5007, 5008, 5009) "
+                   + "AND CBA.APPOINTMENT_TYPE_ID = 5007 "
                    + "group by CBA.CORPORATE_BODY_APPOINTMENT_ID, "
                    + "APV.APPT_VERIF_STATUS_TYPE_ID, "
                    + "IDV.IDV_START_DATE, "

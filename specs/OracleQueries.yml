@@ -241,7 +241,7 @@ paths:
     post:
       tags:
         - persons-of-significant-control
-      operationId: getIndividualPscVerificationState
+      operationId: getPscVerificationState
       summary: Get the identity verification state of a person of significant control for the company
       requestBody:
         description: Search criteria for specific individual PSC verification state
