@@ -17,23 +17,29 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @RestController
 public class StatementOfCapitalController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private StatementOfCapitalService statementOfCapitalService;
 
     @GetMapping("/company/{companyNumber}/statement-of-capital")
-    public ResponseEntity<StatementOfCapital> getStatementOfCapital(@PathVariable String companyNumber) {
+    public ResponseEntity<StatementOfCapital> getStatementOfCapital(
+            @PathVariable String companyNumber) {
 
-        LOGGER.info("Calling service to retrieve statement of capital for company number " + companyNumber);
+        LOGGER.info("Calling service to retrieve statement of capital for company number "
+                + companyNumber);
         try {
-            StatementOfCapital statementOfCapital = statementOfCapitalService.getStatementOfCapital(companyNumber);
+            StatementOfCapital statementOfCapital = statementOfCapitalService.getStatementOfCapital(
+                    companyNumber);
             return ResponseEntity.status(HttpStatus.OK).body(statementOfCapital);
-        } catch(StatementOfCapitalNotFoundException e) {
-            LOGGER.error("No statement of capital data could be found for company " + companyNumber, e);
+        } catch (StatementOfCapitalNotFoundException e) {
+            LOGGER.error("No statement of capital data could be found for company " + companyNumber,
+                    e);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch(ServiceException e) {
-            LOGGER.error("More than one statement of capital data result found for company " + companyNumber, e);
+        } catch (ServiceException e) {
+            LOGGER.error("More than one statement of capital data result found for company "
+                    + companyNumber, e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

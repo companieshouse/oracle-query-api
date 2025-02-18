@@ -1,5 +1,6 @@
 package uk.gov.ch.service.update.trusts.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
@@ -11,11 +12,11 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 import uk.gov.companieshouse.logging.util.DataMap;
 
-import java.util.List;
-
 @Service
 public class TrustDetailsServiceImpl implements TrustDetailsService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @Autowired
     private TrustDetailsRepository trustDetailsRepository;
@@ -30,7 +31,8 @@ public class TrustDetailsServiceImpl implements TrustDetailsService {
         } else {
             DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
             LOGGER.debugContext(companyNumber,
-                    String.format("getTrustDetails query list size returned = %s", trustDetails.size()),
+                    String.format("getTrustDetails query list size returned = %s",
+                            trustDetails.size()),
                     dataMap.getLogMap());
 
             return trustDetails;

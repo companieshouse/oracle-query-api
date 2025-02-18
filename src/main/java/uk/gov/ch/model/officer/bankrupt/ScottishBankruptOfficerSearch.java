@@ -3,8 +3,7 @@ package uk.gov.ch.model.officer.bankrupt;
 import org.springframework.stereotype.Component;
 
 /**
- * Criteria for searching for bankrupt officers
- * (filtering and pagination).
+ * Criteria for searching for bankrupt officers (filtering and pagination).
  */
 @Component
 public class ScottishBankruptOfficerSearch {

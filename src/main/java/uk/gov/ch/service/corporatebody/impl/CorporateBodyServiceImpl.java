@@ -1,17 +1,14 @@
 package uk.gov.ch.service.corporatebody.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import java.util.HashMap;
+import java.util.Map;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
@@ -31,21 +28,17 @@ import uk.gov.companieshouse.logging.util.DataMap;
 @Service
 public class CorporateBodyServiceImpl implements CorporateBodyService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
     @Autowired
     private CorporateBodyRepository corporateBodyRepository;
-
     @Autowired
     private ObjectMapper objectMapper;
-    
     @Autowired
     private CorporateBodyTransformer corporateBodyTransformer;
-
     @Autowired
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
-
-    private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
 
     @Override
     public Long getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
@@ -62,7 +55,8 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
     }
 
     @Override
-    public CompanyProfileApi getCompanyProfile(String companyNumber) throws CorporateBodyNotFoundException, CompanyProfileMappingException {
+    public CompanyProfileApi getCompanyProfile(String companyNumber)
+            throws CorporateBodyNotFoundException, CompanyProfileMappingException {
         Map<String, Object> debugMap = new HashMap<>();
         debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling DAO to retrieve company profile", debugMap);
@@ -79,23 +73,30 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
                     });
             return corporateBodyTransformer.convert(companyProfileModel);
         } catch (JsonProcessingException e) {
-            throw new CompanyProfileMappingException("Json Processing exception for " + companyNumber);
+            throw new CompanyProfileMappingException(
+                    "Json Processing exception for " + companyNumber);
         }
     }
 
     @Override
-    public RegisteredEmailAddressJson getRegisteredEmailAddress(String companyNumber) throws CorporateBodyDetailsEmailAddressNotFoundException {
+    public RegisteredEmailAddressJson getRegisteredEmailAddress(String companyNumber)
+            throws CorporateBodyDetailsEmailAddressNotFoundException {
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
-        LOGGER.infoContext(companyNumber, "Calling database to retrieve registered email address for company " + companyNumber, dataMap.getLogMap());
+        LOGGER.infoContext(companyNumber,
+                "Calling database to retrieve registered email address for company "
+                        + companyNumber, dataMap.getLogMap());
 
         RegisteredEmailAddressJson registeredEmailAddressJson = new RegisteredEmailAddressJson();
-        CorporateBodyDetails emailAddress = corporateBodyDetailsRepository.getEmailAddress(companyNumber);
+        CorporateBodyDetails emailAddress = corporateBodyDetailsRepository.getEmailAddress(
+                companyNumber);
 
         if (emailAddress == null || StringUtils.isBlank(emailAddress.getEmailAddress())) {
-            LOGGER.errorContext(companyNumber, "No email address found for company", null, dataMap.getLogMap());
-            throw new CorporateBodyDetailsEmailAddressNotFoundException(NOT_FOUND_MESSAGE + companyNumber);
+            LOGGER.errorContext(companyNumber, "No email address found for company", null,
+                    dataMap.getLogMap());
+            throw new CorporateBodyDetailsEmailAddressNotFoundException(
+                    NOT_FOUND_MESSAGE + companyNumber);
         }
 
         registeredEmailAddressJson.setRegisteredEmailAddress(emailAddress.getEmailAddress());

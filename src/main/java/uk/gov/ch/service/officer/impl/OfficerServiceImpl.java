@@ -1,17 +1,14 @@
 package uk.gov.ch.service.officer.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.NoOfficersExistingException;
 import uk.gov.ch.exception.OfficersMappingException;
@@ -26,7 +23,8 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @Service
 public class OfficerServiceImpl implements OfficerService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String COMPANY_NOT_FOUND = "Company Not Found";
     private static final String NO_OFFICER_STRING = "], \"CreatedTime\":";
 
@@ -40,7 +38,8 @@ public class OfficerServiceImpl implements OfficerService {
     private OfficersApiTransformer transformer;
 
     @Override
-    public OfficersApi getOfficers(String companyNumber) throws OfficersMappingException, NoOfficersExistingException {
+    public OfficersApi getOfficers(String companyNumber)
+            throws OfficersMappingException, NoOfficersExistingException {
         Map<String, Object> debugMap = new HashMap<>();
         debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling package for list of officers", debugMap);

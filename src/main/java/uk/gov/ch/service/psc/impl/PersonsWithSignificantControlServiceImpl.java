@@ -1,5 +1,6 @@
 package uk.gov.ch.service.psc.impl;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,16 +9,16 @@ import uk.gov.ch.model.psc.PersonWithSignificantControl;
 import uk.gov.ch.repository.psc.PersonsWithSignificantControlRepository;
 import uk.gov.ch.service.psc.PersonsWithSignificantControlService;
 
-import java.util.List;
-
 @Service
-public class PersonsWithSignificantControlServiceImpl implements PersonsWithSignificantControlService {
+public class PersonsWithSignificantControlServiceImpl implements
+        PersonsWithSignificantControlService {
 
     @Autowired
     private PersonsWithSignificantControlRepository personsWithSignificantControlRepository;
 
     @Override
-    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber, Pageable pageable) {
+    public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber,
+            Pageable pageable) {
         Page<PersonWithSignificantControl> pscPage = personsWithSignificantControlRepository
                 .findPersonsWithSignificantControl(companyNumber, pageable);
         return pscPage.getContent();

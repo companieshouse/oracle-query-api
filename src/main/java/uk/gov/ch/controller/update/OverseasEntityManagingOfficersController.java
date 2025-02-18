@@ -1,11 +1,11 @@
 package uk.gov.ch.controller.update;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.ManagingOfficerCountNotFoundException;
@@ -15,15 +15,13 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 import uk.gov.companieshouse.logging.util.DataMap;
 
-import java.util.List;
-
 @RestController
 public class OverseasEntityManagingOfficersController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
     @Autowired
     private OverseasEntityManagingOfficersService overseasEntityManagingOfficersService;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
 
     @GetMapping("/overseas-entity/{companyNumber}/managing-officers")
     public ResponseEntity<List<OverseasEntityManagingOfficerData>> getOverseasEntityManagingOfficers(
@@ -40,7 +38,8 @@ public class OverseasEntityManagingOfficersController {
             List<OverseasEntityManagingOfficerData> details = overseasEntityManagingOfficersService
                     .getOverseasEntityManagingOfficers(companyNumber);
             LOGGER.infoContext(companyNumber,
-                    String.format("Returning managing officers for company number %s", companyNumber),
+                    String.format("Returning managing officers for company number %s",
+                            companyNumber),
                     dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.OK).body(details);
         } catch (ManagingOfficerCountNotFoundException e) {

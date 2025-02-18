@@ -5,34 +5,34 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ServiceAddress {
-    
+
     @JsonProperty("address_line_1")
     private String addressLine1;
-    
+
     @JsonProperty("address_line_2")
     private String addressLine2;
-    
+
     @JsonProperty("postal_code")
     private String postalCode;
-    
+
     @JsonProperty("care_of_name")
     private String careOfName;
-    
+
     @JsonProperty("country")
     private String country;
-    
+
     @JsonProperty("locality")
     private String locality;
-    
+
     @JsonProperty("po_box")
     private String poBox;
-    
+
     @JsonProperty("premises")
     private String premises;
-    
+
     @JsonProperty("region")
     private String region;
-    
+
     @JsonProperty("usual_country_of_residence")
     private String usualCountryOfResidence;
 

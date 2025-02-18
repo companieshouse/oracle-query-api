@@ -5,9 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
-
 import uk.gov.ch.model.corporatebody.sqldatamodels.CompanyProfileModel;
 import uk.gov.ch.model.corporatebody.sqldatamodels.ConfirmationStatementDates;
 import uk.gov.ch.model.corporatebody.sqldatamodels.PreviousCompanyNames;
@@ -25,42 +23,53 @@ import uk.gov.companieshouse.api.model.company.account.NextAccountsApi;
 
 @Component
 public class CorporateBodyTransformer {
-    
-    private static final List<String> COMPANY_STATUS_DETAIL = Arrays.asList("5", "Q", "R", "X", "Z", "AA", "AB");
+
+    private static final List<String> COMPANY_STATUS_DETAIL = Arrays.asList("5", "Q", "R", "X", "Z",
+            "AA", "AB");
     private static final String ARD_DEFAULT_STRING = "99";
 
     public CompanyProfileApi convert(CompanyProfileModel model) {
         CompanyProfileApi companyProfileApi = new CompanyProfileApi();
         companyProfileApi.setCompanyName(model.getCompanyName());
         companyProfileApi.setCompanyNumber(model.getCompanyNumber());
-        companyProfileApi.setCompanyStatus(CompanyStatusEnum.fromString(model.getStatus()).getDescription());
-        if(COMPANY_STATUS_DETAIL.contains(model.getStatus().toUpperCase())) {
-            companyProfileApi.setCompanyStatusDetail(CompanyStatusDetailEnum.fromString(model.getStatus()).getDescription());
+        companyProfileApi.setCompanyStatus(
+                CompanyStatusEnum.fromString(model.getStatus()).getDescription());
+        if (COMPANY_STATUS_DETAIL.contains(model.getStatus().toUpperCase())) {
+            companyProfileApi.setCompanyStatusDetail(
+                    CompanyStatusDetailEnum.fromString(model.getStatus()).getDescription());
         }
         companyProfileApi.setDateOfCreation(getLocalDateFromString(model.getCreationDate()));
-        if(model.getDateOfDissolution() != null) {            
-            companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getDateOfDissolution()));
-        } else if(model.getClosureDate() != null) {
+        if (model.getDateOfDissolution() != null) {
+            companyProfileApi.setDateOfCessation(
+                    getLocalDateFromString(model.getDateOfDissolution()));
+        } else if (model.getClosureDate() != null) {
             companyProfileApi.setDateOfCessation(getLocalDateFromString(model.getClosureDate()));
         }
         companyProfileApi.setCommunityInterestCompany(getBooleanFromString(model.getCicInd()));
-        companyProfileApi.setHasInsolvencyHistory(getBooleanFromString(model.getHasInsolvencyHistory()));
+        companyProfileApi.setHasInsolvencyHistory(
+                getBooleanFromString(model.getHasInsolvencyHistory()));
         if (model.getPreviousCompanyNames() != null) {
-            companyProfileApi.setPreviousCompanyNames(getPreviousCompanyNames(model.getPreviousCompanyNames()));
+            companyProfileApi.setPreviousCompanyNames(
+                    getPreviousCompanyNames(model.getPreviousCompanyNames()));
         }
-        companyProfileApi.setType(CorporateBodyTypeEnum.fromString(model.getType()).getDescription());
+        companyProfileApi.setType(
+                CorporateBodyTypeEnum.fromString(model.getType()).getDescription());
         if (model.getRegisteredOfficeAddress() != null) {
             companyProfileApi
-                    .setRegisteredOfficeAddress(getRegisteredOfficeAddress(model.getRegisteredOfficeAddress()));
+                    .setRegisteredOfficeAddress(
+                            getRegisteredOfficeAddress(model.getRegisteredOfficeAddress()));
         }
-        companyProfileApi.setRegisteredOfficeIsInDispute(getBooleanFromString(model.getRegisteredOfficeIsInDispute()));
+        companyProfileApi.setRegisteredOfficeIsInDispute(
+                getBooleanFromString(model.getRegisteredOfficeIsInDispute()));
         companyProfileApi.setUndeliverableRegisteredOfficeAddress(
                 getBooleanFromString(model.getUndeliverableRegisteredOfficeAddress()));
-        companyProfileApi.setJurisdiction(JurisdictionEnum.fromString(model.getJurisdiction()).getDescription());
+        companyProfileApi.setJurisdiction(
+                JurisdictionEnum.fromString(model.getJurisdiction()).getDescription());
         if (model.getConfirmationStatementDates() != null) {
             companyProfileApi
-                    .setConfirmationStatement(getConfirmationStatementDates(model.getConfirmationStatementDates(),
-                            getBooleanFromString(model.getConfirmationStatementOverdue())));
+                    .setConfirmationStatement(
+                            getConfirmationStatementDates(model.getConfirmationStatementDates(),
+                                    getBooleanFromString(model.getConfirmationStatementOverdue())));
         }
         if (model.getAnnualReturnDates() != null) {
             companyProfileApi.setAnnualReturn(getAnnualReturn(model));
@@ -70,7 +79,8 @@ public class CorporateBodyTransformer {
             companyProfileApi.setSicCodes(getSicCodes(model.getSicCodes()));
         }
         companyProfileApi.setHasCharges(getBooleanFromString(model.getHasMortgages()));
-        companyProfileApi.setLastFullMembersListDate(getLocalDateFromString(model.getFullMembersListDate()));
+        companyProfileApi.setLastFullMembersListDate(
+                getLocalDateFromString(model.getFullMembersListDate()));
         return companyProfileApi;
     }
 
@@ -83,13 +93,14 @@ public class CorporateBodyTransformer {
     }
 
     private boolean getBooleanFromString(String boolString) {
-        if(boolString != null) {            
+        if (boolString != null) {
             return boolString.equals("1");
         }
         return false;
     }
 
-    private List<PreviousCompanyNamesApi> getPreviousCompanyNames(List<PreviousCompanyNames> originalList) {
+    private List<PreviousCompanyNamesApi> getPreviousCompanyNames(
+            List<PreviousCompanyNames> originalList) {
         List<PreviousCompanyNamesApi> previousNames = new ArrayList<>();
         for (PreviousCompanyNames name : originalList) {
             PreviousCompanyNamesApi previousCompanyName = new PreviousCompanyNamesApi();
@@ -101,7 +112,8 @@ public class CorporateBodyTransformer {
         return previousNames;
     }
 
-    private RegisteredOfficeAddressApi getRegisteredOfficeAddress(RegisteredOfficeAddress registeredOfficeAddress) {
+    private RegisteredOfficeAddressApi getRegisteredOfficeAddress(
+            RegisteredOfficeAddress registeredOfficeAddress) {
         RegisteredOfficeAddressApi registeredOfficeAddressApi = new RegisteredOfficeAddressApi();
         registeredOfficeAddressApi.setAddressLine1(registeredOfficeAddress.getAddressLine1());
         registeredOfficeAddressApi.setAddressLine2(registeredOfficeAddress.getAddressLine2());
@@ -115,7 +127,8 @@ public class CorporateBodyTransformer {
         return registeredOfficeAddressApi;
     }
 
-    private ConfirmationStatementApi getConfirmationStatementDates(ConfirmationStatementDates csDates,
+    private ConfirmationStatementApi getConfirmationStatementDates(
+            ConfirmationStatementDates csDates,
             boolean overdue) {
         ConfirmationStatementApi confirmationStatementApi = new ConfirmationStatementApi();
         confirmationStatementApi.setNextDue(getLocalDateFromString(csDates.getNextDue()));
@@ -127,35 +140,44 @@ public class CorporateBodyTransformer {
 
     private CompanyAccountApi getAccounts(CompanyProfileModel model) {
         CompanyAccountApi companyAccountApi = new CompanyAccountApi();
-        if(model.getAccRefDate() != null && !model.getAccRefDate().isEmpty()) {
-            if(model.getAccRefDate().substring(0,2).equalsIgnoreCase(ARD_DEFAULT_STRING) ||
+        if (model.getAccRefDate() != null && !model.getAccRefDate().isEmpty()) {
+            if (model.getAccRefDate().substring(0, 2).equalsIgnoreCase(ARD_DEFAULT_STRING) ||
                     model.getAccRefDate().substring(2).equalsIgnoreCase(ARD_DEFAULT_STRING)) {
                 companyAccountApi.setAccountingReferenceDate(null);
-            } else {                
+            } else {
                 AccountingReferenceDateApi accountingReferenceDateApi = new AccountingReferenceDateApi();
-                accountingReferenceDateApi.setDay(model.getAccRefDate().substring(0,2));
+                accountingReferenceDateApi.setDay(model.getAccRefDate().substring(0, 2));
                 accountingReferenceDateApi.setMonth(model.getAccRefDate().substring(2));
                 companyAccountApi.setAccountingReferenceDate(accountingReferenceDateApi);
             }
         }
         if (model.getAccountingDates() != null) {
-            companyAccountApi.setNextDue(getLocalDateFromString(model.getAccountingDates().getNextDue()));
-            companyAccountApi.setNextMadeUpTo(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+            companyAccountApi.setNextDue(
+                    getLocalDateFromString(model.getAccountingDates().getNextDue()));
+            companyAccountApi.setNextMadeUpTo(
+                    getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
 
             LastAccountsApi lastAccountApi = new LastAccountsApi();
-            lastAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getLastPeriodStartOn()));
-            lastAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
-            lastAccountApi.setMadeUpTo(getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
+            lastAccountApi.setPeriodStartOn(
+                    getLocalDateFromString(model.getAccountingDates().getLastPeriodStartOn()));
+            lastAccountApi.setPeriodEndOn(
+                    getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
+            lastAccountApi.setMadeUpTo(
+                    getLocalDateFromString(model.getAccountingDates().getLastPeriodEndOn()));
             if (model.getAccountType() != null && !model.getAccountType().equals("0")) {
-                lastAccountApi.setType(CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription());
+                lastAccountApi.setType(
+                        CompanyAccountTypeEnum.fromString(model.getAccountType()).getDescription());
             }
             companyAccountApi.setLastAccounts(lastAccountApi);
 
             NextAccountsApi nextAccountApi = new NextAccountsApi();
-            nextAccountApi.setPeriodStartOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodStartOn()));
-            nextAccountApi.setPeriodEndOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+            nextAccountApi.setPeriodStartOn(
+                    getLocalDateFromString(model.getAccountingDates().getNextPeriodStartOn()));
+            nextAccountApi.setPeriodEndOn(
+                    getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
             nextAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
-            nextAccountApi.setDueOn(getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
+            nextAccountApi.setDueOn(
+                    getLocalDateFromString(model.getAccountingDates().getNextPeriodEndOn()));
             companyAccountApi.setNextAccounts(nextAccountApi);
         }
         companyAccountApi.setOverdue(getBooleanFromString(model.getAccountOverdue()));
@@ -165,7 +187,8 @@ public class CorporateBodyTransformer {
     private AnnualReturnApi getAnnualReturn(CompanyProfileModel model) {
         AnnualReturnApi annualReturnApi = new AnnualReturnApi();
         annualReturnApi.setOverdue(getBooleanFromString(model.getAnnualReturnOverdue()));
-        annualReturnApi.setLastMadeUpTo(getLocalDateFromString(model.getAnnualReturnDates().getLatestMadeUpTo()));
+        annualReturnApi.setLastMadeUpTo(
+                getLocalDateFromString(model.getAnnualReturnDates().getLatestMadeUpTo()));
         return annualReturnApi;
     }
 

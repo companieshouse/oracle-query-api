@@ -7,6 +7,7 @@ import uk.gov.ch.model.update.trusts.CorporateTrusteeData;
 
 public interface CorporateTrusteesRepository extends
         PagingAndSortingRepository<CorporateTrusteeData, Long> {
+
     @Query(value = "SELECT t.trustee_id, "
             + "       t.trustee_type_id, "
             + "       t.appointment_date, "

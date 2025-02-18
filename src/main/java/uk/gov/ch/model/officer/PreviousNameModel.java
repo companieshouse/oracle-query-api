@@ -7,13 +7,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PreviousNameModel {
-    
+
     @JsonProperty("previous_surname")
     private String previousSurname;
-    
+
     @JsonProperty("previous_forename")
     private String previousForename;
-    
+
     @JsonProperty("previous_timestamp")
     private String previousTimestamp;
 
