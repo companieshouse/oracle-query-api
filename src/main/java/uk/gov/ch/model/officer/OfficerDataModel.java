@@ -1,10 +1,9 @@
 package uk.gov.ch.model.officer;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,58 +11,58 @@ public class OfficerDataModel {
 
     @JsonProperty("kind")
     private String kind;
-    
+
     @JsonProperty("internal_id")
     private String internalId;
-    
+
     @JsonProperty("appointment_date")
     private String appointmentDate;
-    
+
     @JsonProperty("resignation_date")
     private String resignationDate;
-    
+
     @JsonProperty("appt_date_prefix")
     private String apptDatePrefix;
-    
+
     @JsonProperty("corporate_ind")
     private String corporateInd;
-    
+
     @JsonProperty("forename")
     private String forename;
-    
+
     @JsonProperty("middle_name")
     private String middleName;
-    
+
     @JsonProperty("surname")
     private String surname;
-    
+
     @JsonProperty("title")
     private String title;
-    
+
     @JsonProperty("date_of_birth")
     private String dateOfBirth;
-    
+
     @JsonProperty("service_address_same_as_registered_office")
     private String serviceAddressSameAsRegisteredOffice;
-    
+
     @JsonProperty("nationality")
     private String nationality;
-    
+
     @JsonProperty("occupation")
     private String occupation;
-    
+
     @JsonProperty("officer_id")
     private String officerId;
-    
+
     @JsonProperty("officer_detail_id")
     private String officerDetailId;
-    
+
     @JsonProperty("service_address")
     private ServiceAddress serviceAddress;
-    
+
     @JsonProperty("identification")
     private Identification identification;
-    
+
     @JsonProperty("previous_name_array")
     private List<PreviousNameModel> previousNameArray;
 
@@ -159,7 +158,8 @@ public class OfficerDataModel {
         return serviceAddressSameAsRegisteredOffice;
     }
 
-    public void setServiceAddressSameAsRegisteredOffice(String serviceAddressSameAsRegisteredOffice) {
+    public void setServiceAddressSameAsRegisteredOffice(
+            String serviceAddressSameAsRegisteredOffice) {
         this.serviceAddressSameAsRegisteredOffice = serviceAddressSameAsRegisteredOffice;
     }
 

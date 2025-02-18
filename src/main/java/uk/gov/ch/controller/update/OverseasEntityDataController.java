@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.update;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,26 +16,27 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 import uk.gov.companieshouse.logging.util.DataMap;
 
-import javax.validation.constraints.Pattern;
-
 @RestController
 @Validated
 public class OverseasEntityDataController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
     @Autowired
     private OverseasOverseasEntityDataServiceImpl entityDataService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-
     @GetMapping("/overseas-entity/{companyNumber}/entity-data")
     public ResponseEntity<OverseasEntityDataJson> getEntityEmail(@PathVariable("companyNumber")
-                                                                 @Pattern(regexp = "^OE\\d{6}$", message = "Invalid overseas entity number") String companyNumber) {
+    @Pattern(regexp = "^OE\\d{6}$", message = "Invalid overseas entity number") String companyNumber) {
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
         try {
             return ResponseEntity.ok(entityDataService.getEntityEmail(companyNumber));
         } catch (CorporateBodyDetailsEmailAddressNotFoundException e) {
-            LOGGER.errorContext("The overseas entity email address could not be found for: " + companyNumber, e, dataMap.getLogMap());
+            LOGGER.errorContext(
+                    "The overseas entity email address could not be found for: " + companyNumber, e,
+                    dataMap.getLogMap());
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

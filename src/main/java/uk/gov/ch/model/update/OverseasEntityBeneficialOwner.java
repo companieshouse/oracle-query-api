@@ -1,15 +1,15 @@
 package uk.gov.ch.model.update;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
 import uk.gov.companieshouse.api.model.common.Address;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Entity
 public class OverseasEntityBeneficialOwner {
+
     @Id
     @Column(name = "CORPORATE_BODY_APPOINTMENT_ID")
     @JsonProperty("id")

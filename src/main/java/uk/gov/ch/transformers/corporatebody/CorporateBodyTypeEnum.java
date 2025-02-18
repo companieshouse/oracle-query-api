@@ -2,9 +2,9 @@ package uk.gov.ch.transformers.corporatebody;
 
 public enum CorporateBodyTypeEnum {
 
-    PRIVATE_UNLIMITED("1", "private-unlimited"), 
+    PRIVATE_UNLIMITED("1", "private-unlimited"),
     PRIVATE_LIMITED("2", "ltd"),
-    PUBLIC_LIMITED_COMPANY("3", "plc"), 
+    PUBLIC_LIMITED_COMPANY("3", "plc"),
     OLD_PUBLIC_COMPANY("4", "old-public-company"),
     PRIVATE_LIMITED_BY_GUARANTEE_LIMITED_EXEMPTION("5",
             "private-limited-guarant-nsc-limited-exemption"),
@@ -13,7 +13,7 @@ public enum CorporateBodyTypeEnum {
     CONVERTED_CLOSED("8", "converted-or-closed"),
     PRIVATE_UNLIMITED_NO_SHARE_CAPITAL("9", "private-unlimited-nsc"),
     PRIVATE_LIMITED_BY_SHARES_SECTION_30("10", "private-limited-shares-section-30-exemption"),
-    ASSURANCE_COMPANY("11", "assurance-company"), 
+    ASSURANCE_COMPANY("11", "assurance-company"),
     OVERSEA_COMPANY("12", "oversea-company"),
     EUROPEAN_ECONOMIC_INTEREST_GROUPING_ESTABLISHMENT("13", "eeig"),
     INVESTMENT_COMPANY_VARIABLE_CAPITAL_SECURITIES("14", "icvc-securities"),
@@ -33,20 +33,21 @@ public enum CorporateBodyTypeEnum {
     PROTECTED_CELL_COMPANY("29", "protected-cell-company"),
     SCOTTISH_PARTNERSHIP("30", "scottish-partnership"),
     CHARITABLE_INCORPORATED_ORGANISATION("31", "charitable-incorporated-organisation"),
-    SCOTTISH_CHARITABLE_INCORPORATED_ORGANISATION("32", "scottish-charitable-incorporated-organisation"),
-    FURTHER_EDUCATION_SIXTH_FORM_COLLEGE("33","further-education-or-sixth-form-college-corporation"),
+    SCOTTISH_CHARITABLE_INCORPORATED_ORGANISATION("32",
+            "scottish-charitable-incorporated-organisation"),
+    FURTHER_EDUCATION_SIXTH_FORM_COLLEGE("33",
+            "further-education-or-sixth-form-college-corporation"),
     EUROPEAN_PUBLIC_LIMITED_LIABILITY_COMPANY("34", "european-public-limited-liability-company-se"),
     EUROPEAN_ECONOMIC_INTEREST_GROUPING("35", "eeig)"),
     UNITED_KINGDOM_ECONOMIC_INTEREST_GROUPING("36", "United Lingdom Economic Interest Grouping");
-    
 
+
+    private final String id;
+    private final String description;
     CorporateBodyTypeEnum(String id, String description) {
         this.id = id;
         this.description = description;
     }
-
-    private String id;
-    private String description;
 
     public static CorporateBodyTypeEnum fromString(String id) {
         for (CorporateBodyTypeEnum cbte : CorporateBodyTypeEnum.values()) {

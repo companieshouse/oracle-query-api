@@ -3,19 +3,19 @@ package uk.gov.ch.model.corporatebody.sqldatamodels;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AccountingDates {
-    
+
     @JsonProperty("next_period_start_on")
     private String nextPeriodStartOn;
-    
+
     @JsonProperty("next_period_end_on")
     private String nextPeriodEndOn;
-    
+
     @JsonProperty("next_due")
     private String nextDue;
-    
+
     @JsonProperty("last_period_start_on")
     private String lastPeriodStartOn;
-    
+
     @JsonProperty("last_period_end_on")
     private String lastPeriodEndOn;
 

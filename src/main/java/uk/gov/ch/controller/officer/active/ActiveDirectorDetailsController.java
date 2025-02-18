@@ -19,26 +19,30 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 @RestController
 public class ActiveDirectorDetailsController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(
+            OracleQueryApplication.APPLICATION_NAME_SPACE);
     @Autowired
     private ActiveDirectorDetailsService service;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
-
     @GetMapping("/company/{companyNumber}/director/active")
-    public ResponseEntity<ActiveDirectorDetails> getActiveDirectorDetails(@PathVariable String companyNumber,
+    public ResponseEntity<ActiveDirectorDetails> getActiveDirectorDetails(
+            @PathVariable String companyNumber,
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
         Pageable pageable = PageRequest.of(startIndex, itemsPerPage);
 
-        LOGGER.info("Calling service to retrieve active director for company number " + companyNumber);
+        LOGGER.info(
+                "Calling service to retrieve active director for company number " + companyNumber);
 
         try {
-            ActiveDirectorDetails details = service.getActiveDirectorDetails(companyNumber, pageable);
+            ActiveDirectorDetails details = service.getActiveDirectorDetails(companyNumber,
+                    pageable);
             LOGGER.info("Returning active director for company number " + companyNumber);
             return ResponseEntity.status(HttpStatus.OK).body(details);
         } catch (InvalidActiveOfficersCountFoundException e) {
-            LOGGER.info("More than one or Zero active directors could be found for company number " + companyNumber);
+            LOGGER.info("More than one or Zero active directors could be found for company number "
+                    + companyNumber);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }

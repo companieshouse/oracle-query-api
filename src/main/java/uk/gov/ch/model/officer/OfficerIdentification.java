@@ -5,16 +5,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OfficerIdentification {
-    
+
     @JsonProperty("place_registered")
     private String placeRegistered;
-    
+
     @JsonProperty("registration_number")
     private String registrationNumber;
-    
+
     @JsonProperty("legal_form")
     private String legalForm;
-    
+
     @JsonProperty("legal_authority")
     private String legalAuthority;
 

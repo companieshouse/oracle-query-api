@@ -10,6 +10,7 @@ public class RegisteredEmailAddressJson {
     public String getRegisteredEmailAddress() {
         return registeredEmailAddress;
     }
+
     public void setRegisteredEmailAddress(String registeredEmailAddress) {
         this.registeredEmailAddress = registeredEmailAddress;
     }

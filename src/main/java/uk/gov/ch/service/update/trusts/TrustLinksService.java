@@ -7,5 +7,6 @@ import uk.gov.ch.model.update.trusts.TrustLinkData;
 
 @Service
 public interface TrustLinksService {
+
     List<TrustLinkData> getTrustLinkData(String oeNumber) throws TrustDataCountNotFoundException;
 }

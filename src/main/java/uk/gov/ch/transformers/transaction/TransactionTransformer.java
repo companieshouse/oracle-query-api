@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.stereotype.Component;
-
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
 import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
@@ -22,13 +20,15 @@ public class TransactionTransformer {
     public Gaz2Transaction convert(Gaz2TransactionDataModel gaz2TransactionDataModel) {
         Gaz2Transaction gaz2Transaction = new Gaz2Transaction();
         gaz2Transaction.setId(gaz2TransactionDataModel.getTransactionId().toString());
-        gaz2Transaction.setStatusType(gaz2TransactionDataModel.getTransactionStatusTypeId().toString());
+        gaz2Transaction.setStatusType(
+                gaz2TransactionDataModel.getTransactionStatusTypeId().toString());
         gaz2Transaction.setType(gaz2TransactionDataModel.getTransactionTypeId().toString());
 
         return gaz2Transaction;
     }
 
-    public FilingHistoryApi convertToFilingHistoryApi(List<FilingHistoryTransaction> filingHistoryTransactions) {
+    public FilingHistoryApi convertToFilingHistoryApi(
+            List<FilingHistoryTransaction> filingHistoryTransactions) {
         List<FilingApi> filingApiList = new ArrayList<>();
         FilingHistoryApi filingHistoryApi = new FilingHistoryApi();
 
@@ -42,11 +42,11 @@ public class TransactionTransformer {
             filingHistoryApi.setTotalCount((long) filingApiList.size());
         } else {
             filingHistoryApi.setItems(filingApiList);
-            filingHistoryApi.setItemsPerPage(0l);
+            filingHistoryApi.setItemsPerPage(0L);
             filingHistoryApi.setFilingHistoryStatus("filing-history-unavailable");
-            filingHistoryApi.setTotalCount(0l);
+            filingHistoryApi.setTotalCount(0L);
         }
-        filingHistoryApi.setStartIndex(0l);
+        filingHistoryApi.setStartIndex(0L);
         filingHistoryApi.setKind("filing-history");
         return filingHistoryApi;
     }
@@ -55,22 +55,24 @@ public class TransactionTransformer {
         FilingApi filingApi = new FilingApi();
         filingApi.setDescription("legacy");
         Map<String, Object> descriptionValues = new HashMap<>();
-        if(filingHistoryTransaction.getDescription() == null) {
+        if (filingHistoryTransaction.getDescription() == null) {
             descriptionValues.put("description", "");
-        } else {            
+        } else {
             descriptionValues.put("description", filingHistoryTransaction.getDescription());
         }
         filingApi.setDescriptionValues(descriptionValues);
         filingApi.setType(filingHistoryTransaction.getFormType());
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
-        LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(), dateTimeFormatter);
+        LocalDate receivedDate = LocalDate.parse(filingHistoryTransaction.getReceiveDate(),
+                dateTimeFormatter);
         filingApi.setActionDate(receivedDate);
         filingApi.setDate(receivedDate);
         // if the barcode starts with an X OR the 4th character in the document id is an
         // X then it is
         // electronically filed
-        if (filingHistoryTransaction.getBarcode() == null || (!filingHistoryTransaction.getBarcode().startsWith("X")
-                && (filingHistoryTransaction.getDocumentId() != null
+        if (filingHistoryTransaction.getBarcode() == null || (
+                !filingHistoryTransaction.getBarcode().startsWith("X")
+                        && (filingHistoryTransaction.getDocumentId() != null
                         && filingHistoryTransaction.getDocumentId().charAt(3) != 'X'))) {
             filingApi.setPaperFiled(true);
         }

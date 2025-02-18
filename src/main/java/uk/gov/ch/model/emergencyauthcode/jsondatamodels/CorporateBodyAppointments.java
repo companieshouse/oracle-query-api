@@ -1,7 +1,6 @@
 package uk.gov.ch.model.emergencyauthcode.jsondatamodels;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.List;
 
 public class CorporateBodyAppointments {
