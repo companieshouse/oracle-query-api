@@ -10,7 +10,6 @@ dependency_check_assembly_analyzer_enabled := false
 dependency_check_suppressions_repo_url:=git@github.com:companieshouse/dependency-check-suppressions.git
 suppressions_file := target/suppressions.xml
 
-
 .PHONY: dependency-check
 dependency-check:
 	@ if [ -d "$(DEPENDENCY_CHECK_SUPPRESSIONS_HOME)" ]; then \
