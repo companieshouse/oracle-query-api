@@ -1,6 +1,5 @@
 # Define all hardcoded local variable and local variables looked up from data resources
 
-
 locals {
   stack_name                 = "utility" # this must match the stack name the service deploys into
   name_prefix                = "${local.stack_name}-${var.environment}"
@@ -11,7 +10,7 @@ locals {
   docker_repo                = "oracle-query-api"
   kms_alias                  = "alias/${var.aws_profile}/environment-services-kms"
   lb_listener_rule_priority  = 77
-  lb_listener_paths          = ["/emergency-auth-code/company/*", "/company/*/action-code", "/company/*/director/active", "/company/*/officers/active", "/company/*/register/location", "/company/*/gaz2-requested", "/officer-search/scottish-bankrupt-officers", "/officer-search/scottish-bankrupt-officers/*", "/company/*/traded-status", "/company/*/shareholders", "/company/*/statement-of-capital", "/company/*/corporate-body-appointments/persons-of-significant-control", "/company/*/confirmation-statement/paid", "/company/*/registered-email-address"]
+  lb_listener_paths          = ["/emergency-auth-code/company/*", "/company/*/action-code", "/company/*/director/active", "/company/*/officers/active", "/company/*/register/location", "/company/*/gaz2-requested", "/officer-search/scottish-bankrupt-officers", "/officer-search/scottish-bankrupt-officers/*", "/company/*/traded-status", "/company/*/shareholders", "/company/*/statement-of-capital", "/company/*/corporate-body-appointments/persons-of-significant-control", "/company/*/confirmation-statement/paid", "/company/*/registered-email-address", "/company/*/shareholders/count", "/company/*/filing-history", "/overseas-entity/*/beneficial-owners", "/overseas-entity/*/trusts/details", "/overseas-entity/trusts/*/individual-trustees", "/overseas-entity/trusts/*/individual-trustees", "/overseas-entity/*/trusts/beneficial-owners/links", "/overseas-entity/*/managing-officers", "/overseas-entity/trusts/*/corporate-trustees"]
   healthcheck_path           = "/oracle-query-api/healthcheck" #healthcheck path for the oracle-query-api service
   healthcheck_matcher        = "200"
   app_environment_filename   = "oracle-query-api.env"
