@@ -1,6 +1,5 @@
 # Define all hardcoded local variable and local variables looked up from data resources
 
-
 locals {
   stack_name                 = "utility" # this must match the stack name the service deploys into
   name_prefix                = "${local.stack_name}-${var.environment}"
