@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -47,18 +48,22 @@ class AppointmentVerificationStateControllerFeatureEnabledTest {
         Assertions.assertThat(testController).isNotNull();
     }
 
-    @Test
-    @DisplayName("Should return 200 status with full record data")
-    void getIndividualPSC() throws Exception {
-        when(appointmentVerificationStateService.findAppointmentVerificationState(APPOINTMENT_ID)).thenReturn(
-            createVerificationState());
+    @Nested
+    @DisplayName("Should return 200 status")
+    class QueryResultsFound {
 
-        final String requestBody = """
+        @Test
+        @DisplayName("with verification_status when not null")
+        void shouldReturn200WhenDataFound() throws Exception {
+            when(appointmentVerificationStateService.findAppointmentVerificationState(APPOINTMENT_ID)).thenReturn(
+                createVerificationState(VerificationStatusType.UNVERIFIED));
+
+            final String requestBody = """
             {
                 "appointment_id" : %d
             }
             """.formatted(APPOINTMENT_ID);
-        final String expectedData = """
+            final String expectedData = """
             {
               "verification_status": "UNVERIFIED",
               "verification_start_date": "2025-04-20",
@@ -66,16 +71,48 @@ class AppointmentVerificationStateControllerFeatureEnabledTest {
             }
             """;
 
-        mockMvc.perform(post(GET_VERIFICATION_STATE_URL).header("ERIC-Identity", ERIC_IDENTITY)
-                .header("ERIC-Identity-Type", ERIC_IDENTITY_TYPE)
-                .contentType(APPLICATION_JSON)
-                .content(requestBody)
-                .header("x-request-id", X_REQUEST_ID)
-                .header("ERIC-Authorised-Key-Roles", ERIC_PRIVILEGES)
-                .header("ERIC-Authorised-Key-Privileges", ERIC_AUTH_INTERNAL))
-            .andExpect(status().isOk())
-            .andDo(print())
-            .andExpect(content().json(expectedData, JsonCompareMode.STRICT));
+            mockMvc.perform(post(GET_VERIFICATION_STATE_URL).header("ERIC-Identity", ERIC_IDENTITY)
+                    .header("ERIC-Identity-Type", ERIC_IDENTITY_TYPE)
+                    .contentType(APPLICATION_JSON)
+                    .content(requestBody)
+                    .header("x-request-id", X_REQUEST_ID)
+                    .header("ERIC-Authorised-Key-Roles", ERIC_PRIVILEGES)
+                    .header("ERIC-Authorised-Key-Privileges", ERIC_AUTH_INTERNAL))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().json(expectedData, JsonCompareMode.STRICT));
+        }
+
+        @Test
+        @DisplayName("without verification_status when null")
+        void shouldReturn200WithNullStatusWhenNotFound() throws Exception {
+            when(appointmentVerificationStateService.findAppointmentVerificationState(APPOINTMENT_ID)).thenReturn(
+                createVerificationState(null));
+
+            final String requestBody = """
+            {
+                "appointment_id" : %d
+            }
+            """.formatted(APPOINTMENT_ID);
+            final String expectedData = """
+            {
+              "verification_start_date": "2025-04-20",
+              "verification_statement_due_date" : "2025-05-04"
+            }
+            """;
+
+            mockMvc.perform(post(GET_VERIFICATION_STATE_URL).header("ERIC-Identity", ERIC_IDENTITY)
+                    .header("ERIC-Identity-Type", ERIC_IDENTITY_TYPE)
+                    .contentType(APPLICATION_JSON)
+                    .content(requestBody)
+                    .header("x-request-id", X_REQUEST_ID)
+                    .header("ERIC-Authorised-Key-Roles", ERIC_PRIVILEGES)
+                    .header("ERIC-Authorised-Key-Privileges", ERIC_AUTH_INTERNAL))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().json(expectedData, JsonCompareMode.STRICT));
+        }
+
     }
 
     @Test
@@ -102,8 +139,8 @@ class AppointmentVerificationStateControllerFeatureEnabledTest {
     }
 
 
-    private Optional<AppointmentVerificationStateDto> createVerificationState() {
-        return Optional.of(new AppointmentVerificationStateDto(VerificationStatusType.UNVERIFIED, DATE1, DATE2));
+    private Optional<AppointmentVerificationStateDto> createVerificationState(final VerificationStatusType status) {
+        return Optional.of(new AppointmentVerificationStateDto(status, DATE1, DATE2));
     }
 
 }

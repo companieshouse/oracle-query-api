@@ -39,13 +39,13 @@ class AppointmentVerificationStateServiceImplTest {
     @BeforeEach
     void setUp() {
         testService = new AppointmentVerificationStateServiceImpl(repository, mapper);
-        verificationState = createState();
+        verificationState = createState(1L);
     }
 
-    private AppointmentVerificationState createState() {
+    private AppointmentVerificationState createState(final Long longValue) {
         final var state = new AppointmentVerificationState();
 
-        state.setVerificationStatusType(1L);
+        state.setVerificationStatusType(longValue);
         state.setVerificationStartDate(DATE1);
         state.setVerificationStatementDueDate(DATE2);
 
@@ -53,7 +53,7 @@ class AppointmentVerificationStateServiceImplTest {
     }
 
     @Test
-    void findAppointmentVerificationStateWhenFoundAndMapped() {
+    void findAppointmentVerificationStateWhenFoundAndMappedWithStatus() {
         when(repository.findAppointmentVerificationState(APPOINTMENT_ID)).thenReturn(Optional.of(verificationState));
         when(mapper.entityToDto(verificationState)).thenReturn(
             new AppointmentVerificationStateDto(VerificationStatusType.UNVERIFIED, DATE1, DATE2));
@@ -61,6 +61,18 @@ class AppointmentVerificationStateServiceImplTest {
         final var result = testService.findAppointmentVerificationState(APPOINTMENT_ID);
 
         assertThat(result, is(Optional.of(new AppointmentVerificationStateDto(VerificationStatusType.UNVERIFIED, DATE1, DATE2))));
+        verify(mapper).entityToDto(verificationState);
+    }
+
+    @Test
+    void findAppointmentVerificationStateWhenFoundAndMappedWithoutStatus() {
+        verificationState = createState(null);
+        when(repository.findAppointmentVerificationState(APPOINTMENT_ID)).thenReturn(Optional.of(verificationState));
+        when(mapper.entityToDto(verificationState)).thenReturn(new AppointmentVerificationStateDto(null, DATE1, DATE2));
+
+        final var result = testService.findAppointmentVerificationState(APPOINTMENT_ID);
+
+        assertThat(result, is(Optional.of(new AppointmentVerificationStateDto(null, DATE1, DATE2))));
         verify(mapper).entityToDto(verificationState);
     }
 
