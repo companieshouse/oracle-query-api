@@ -47,7 +47,7 @@ class AppointmentVerificationStateServiceImplTest {
 
         state.setVerificationStatusType(longValue);
         state.setVerificationStartDate(DATE1);
-        state.setVerificationStatementDueDate(DATE2);
+        state.setVerificationStatementDue(DATE2);
 
         return state;
     }
