@@ -30,6 +30,8 @@ public class Gaz2RequestedController {
 
         LOGGER.info("Returning gaz2 " + requestedGaz2 + " for company " + companyNumber);
 
-        return ResponseEntity.status(HttpStatus.OK).body(requestedGaz2);
+        HttpStatus status = (requestedGaz2 == null) ? HttpStatus.NO_CONTENT : HttpStatus.OK;
+
+        return ResponseEntity.status(status).body(requestedGaz2);
     }
 }

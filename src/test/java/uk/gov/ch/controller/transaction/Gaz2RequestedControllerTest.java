@@ -36,7 +36,7 @@ class Gaz2RequestedControllerTest {
         ResponseEntity<Gaz2Transaction> controllerResult = gaz2RequestedController.getGaz2Requested(COMPANY_NUMBER);
 
         assertNull(controllerResult.getBody());
-        assertEquals(HttpStatus.OK, controllerResult.getStatusCode());
+        assertEquals(HttpStatus.NO_CONTENT, controllerResult.getStatusCode());
     }
 
     @Test
