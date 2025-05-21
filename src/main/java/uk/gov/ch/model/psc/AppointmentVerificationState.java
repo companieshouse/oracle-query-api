@@ -14,8 +14,8 @@ public class AppointmentVerificationState {
     private Long verificationStatusType;
     @Column(name="IDV_START_DATE")
     private LocalDate verificationStartDate;
-    @Column(name="IDV_VERIFI_STATEMENT_DUE_DATE")
-    private LocalDate verificationStatementDueDate;
+    @Column(name="IDV_VERIFICATION_STATEMENT_DUE")
+    private LocalDate verificationStatementDue;
 
     public Long getCorporateBodyAppointmentId() {
         return corporateBodyAppointmentId;
@@ -41,11 +41,11 @@ public class AppointmentVerificationState {
         this.verificationStartDate = verificationStartDate;
     }
 
-    public LocalDate getVerificationStatementDueDate() {
-        return verificationStatementDueDate;
+    public LocalDate getVerificationStatementDue() {
+        return verificationStatementDue;
     }
 
-    public void setVerificationStatementDueDate(final LocalDate verificationStatementDueDate) {
-        this.verificationStatementDueDate = verificationStatementDueDate;
+    public void setVerificationStatementDue(final LocalDate verificationStatementDue) {
+        this.verificationStatementDue = verificationStatementDue;
     }
 }
