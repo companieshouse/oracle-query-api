@@ -17,7 +17,7 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>3.4.1</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.4.6</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
@@ -202,8 +202,7 @@
                       <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/ci-corretto-build-21:latest</image>
                     </from>
                     <to>
-                      //Once the pipeline is moved to shared services need to update this to image reference from shared services
-                      <image>169942020521.dkr.ecr.eu-west-2.amazonaws.com/oracle-query-api:latest</image>
+                      <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/oracle-query-api:latest</image>
                     </to>
                 </configuration>
             </plugin>
