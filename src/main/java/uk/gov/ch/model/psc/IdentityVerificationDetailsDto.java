@@ -8,5 +8,5 @@ import java.time.LocalDate;
 public record IdentityVerificationDetailsDto(@JsonProperty("appointment_verification_start_on") LocalDate appointmentVerificationStartOn,
     @JsonProperty("appointment_verification_end_on") LocalDate appointmentVerificationEndOn,
     @JsonProperty("appointment_verification_statement_date") LocalDate appointmentVerificationStatementDate,
-    @JsonProperty("appointment_verification_statement_due_date") LocalDate appointmentVerificationStatementDueDate) {
+    @JsonProperty("appointment_verification_statement_due_on") LocalDate appointmentVerificationStatementDueOn) {
 }

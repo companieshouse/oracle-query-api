@@ -71,10 +71,13 @@ class IdentityVerificationDetailsControllerFeatureEnabledTest {
                     """.formatted(APPOINTMENT_ID);
                 final String expectedData = """
                     {
-                        "appointment_verification_start_on": "2025-06-12",
-                        "appointment_verification_end_on" : "9999-12-31",
-                        "appointment_verification_statement_date": "2025-06-01",
-                        "appointment_verification_statement_due_date": "2025-06-15"
+                        "identity_verification_details":
+                        {
+                            "appointment_verification_start_on": "2025-06-12",
+                            "appointment_verification_end_on" : "9999-12-31",
+                            "appointment_verification_statement_date": "2025-06-01",
+                            "appointment_verification_statement_due_on": "2025-06-15"
+                        }
                     }
                     """;
 
@@ -101,8 +104,11 @@ class IdentityVerificationDetailsControllerFeatureEnabledTest {
                     """.formatted(APPOINTMENT_ID);
                 final String expectedData = """
                     {
-                        "appointment_verification_statement_date": "2025-06-01",
-                        "appointment_verification_statement_due_date": "2025-06-15"
+                        "identity_verification_details":
+                        {
+                            "appointment_verification_statement_date": "2025-06-01",
+                            "appointment_verification_statement_due_on": "2025-06-15"
+                        }
                     }
                     """;
 
