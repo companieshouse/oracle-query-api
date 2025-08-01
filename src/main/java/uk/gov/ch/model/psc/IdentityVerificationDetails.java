@@ -17,7 +17,7 @@ public class IdentityVerificationDetails {
     @Column(name = "VERIFICATION_STMT_DATE")
     private LocalDate appointmentVerificationStatementDate;
     @Column(name = "VERIFICATION_STMT_DUE_DATE")
-    private LocalDate appointmentVerificationStatementDueDate;
+    private LocalDate appointmentVerificationStatementDueOn;
 
     public Long getCorporateBodyAppointmentId() {
         return corporateBodyAppointmentId;
@@ -51,12 +51,12 @@ public class IdentityVerificationDetails {
         this.appointmentVerificationStatementDate = appointmentVerificationStatementDate;
     }
 
-    public LocalDate getAppointmentVerificationStatementDueDate() {
-        return appointmentVerificationStatementDueDate;
+    public LocalDate getAppointmentVerificationStatementDueOn() {
+        return appointmentVerificationStatementDueOn;
     }
 
-    public void setAppointmentVerificationStatementDueDate(final LocalDate appointmentVerificationStatementDueDate) {
-        this.appointmentVerificationStatementDueDate = appointmentVerificationStatementDueDate;
+    public void setAppointmentVerificationStatementDueOn(final LocalDate appointmentVerificationStatementDueOn) {
+        this.appointmentVerificationStatementDueOn = appointmentVerificationStatementDueOn;
     }
 }
 

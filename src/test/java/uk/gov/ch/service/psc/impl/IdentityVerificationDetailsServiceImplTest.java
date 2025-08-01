@@ -51,7 +51,7 @@ class IdentityVerificationDetailsServiceImplTest {
 
         details.setCorporateBodyAppointmentId(longValue);
         details.setAppointmentVerificationStatementDate(STATEMENT_DATE);
-        details.setAppointmentVerificationStatementDueDate(STATEMENT_DUE_DATE);
+        details.setAppointmentVerificationStatementDueOn(STATEMENT_DUE_DATE);
         if (hasCurrentVerification) {
             details.setAppointmentVerificationStartOn(START_ON);
             details.setAppointmentVerificationEndOn(END_ON);
