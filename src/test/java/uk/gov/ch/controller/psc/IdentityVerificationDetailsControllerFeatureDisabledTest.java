@@ -17,20 +17,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import uk.gov.ch.service.psc.AppointmentVerificationStateService;
+import uk.gov.ch.service.psc.IdentityVerificationDetailsService;
 
-@WebMvcTest(properties = {"feature.psc_verification_state_get=false"},
-    controllers = AppointmentVerificationStateController.class)
-class AppointmentVerificationStateControllerFeatureDisabledTest {
+@WebMvcTest(properties = {"feature.psc_verification_details_get=false"},
+    controllers = IdentityVerificationDetailsController.class)
+class IdentityVerificationDetailsControllerFeatureDisabledTest {
     private static final Long APPOINTMENT_ID = 9576890767L;
     private static final String ERIC_IDENTITY = "Test-Identity";
     private static final String ERIC_IDENTITY_TYPE = "key";
     private static final String ERIC_PRIVILEGES = "*";
     private static final String ERIC_AUTH_INTERNAL = "internal-app";
-    private static final String GET_VERIFICATION_STATE_URL = "/corporate-body-appointments/persons-of-significant-control/verification-state";
+    private static final String REQUEST_URL = "/corporate-body-appointments/persons-of-significant-control/identity-verification-details";
 
     @MockitoBean
-    private AppointmentVerificationStateService appointmentVerificationStateService;
+    private IdentityVerificationDetailsService identityVerificationDetailsService;
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,16 +38,16 @@ class AppointmentVerificationStateControllerFeatureDisabledTest {
     private ApplicationContext context;
 
     @Nested
-    @DisplayName("When psc_verification_state_get feature flag not enabled")
+    @DisplayName("When psc_verification_details_get feature flag IS NOT enabled")
     class FeatureFlagNotEnabled {
 
         @Test
         @DisplayName("should not create Controller bean")
         void shouldNotCreateControllerBean() {
             final var exception = assertThrows(NoSuchBeanDefinitionException.class,
-                () -> context.getBean(AppointmentVerificationStateController.class));
+                () -> context.getBean(IdentityVerificationDetailsController.class));
 
-            assertThat(exception.getBeanType()).isEqualTo(AppointmentVerificationStateController.class);
+            assertThat(exception.getBeanType()).isEqualTo(IdentityVerificationDetailsController.class);
         }
 
         @Test
@@ -59,7 +59,7 @@ class AppointmentVerificationStateControllerFeatureDisabledTest {
                 }
                 """.formatted(APPOINTMENT_ID);
 
-            mockMvc.perform(post(GET_VERIFICATION_STATE_URL).header("ERIC-Identity", ERIC_IDENTITY)
+            mockMvc.perform(post(REQUEST_URL).header("ERIC-Identity", ERIC_IDENTITY)
                 .header("ERIC-Identity-Type", ERIC_IDENTITY_TYPE)
                 .contentType(APPLICATION_JSON)
                 .header("x-request-id", X_REQUEST_ID)
@@ -67,7 +67,7 @@ class AppointmentVerificationStateControllerFeatureDisabledTest {
                 .header("ERIC-Authorised-Key-Privileges", ERIC_AUTH_INTERNAL)
                 .contentType(APPLICATION_JSON)
                 .content(requestBody)).andExpect(status().isNotFound());
-            verifyNoInteractions(appointmentVerificationStateService);
+            verifyNoInteractions(identityVerificationDetailsService);
         }
     }
 

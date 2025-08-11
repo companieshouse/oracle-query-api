@@ -14,34 +14,36 @@ In order to run the API locally you'll need the following installed on your mach
 
 ### Endpoints
 
-Method    | Path                                                                                  | Description
-:---------|:--------------------------------------------------------------------------------------|:-----------
-**GET**   | `/emergency-auth-code/company/{incorporationNumber}/eligible-officers`                | Calls service to retrieve eligible officers for company number
-**GET**   | `/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}`          | Calls service to retrieve officer for company number
-**GET**   | `/emergency-auth-code/company/{companyNumber}/efiling-status`                         | Calls service to check if company has filed in the past thirty days
-**GET**   | `/company/{companyNumber}/action-code`                                                | Calls service to retrieve the current action code set against the company
-**GET**   | `/company/{companyNumber}/gaz2-requested`                                             | Calls service to check if a gaz2 is requested for the company
-**GET**   | `/company/{companyNumber}/traded-status`                                              | Calls service to retrieve the current traded status for the company
-**GET**   | `/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}`                  | Calls service to view the details for a Scottish bankrupt officer
-**POST**  | `/officer-search/scottish-bankrupt-officers`                                          | Calls service to search for a Scottish bankrupt officer
-**GET**   | `/company/{companyNumber}/director/active`                                            | Calls service to retrieve the active director details of a company
-**GET**   | `/company/{companyNumber}/shareholders/count`                                         | Calls service to retrieve the number of active company shareholders
-**GET**   | `/company/{companyNumber}/shareholders`                                               | Calls service to retrieve the list of all active company shareholders
-**GET**   | `/company/{companyNumber}/statement-of-capital`                                       | Calls service to retrieve the statement of capital data for the company
-**GET**   | `/company/{companyNumber}/filing-history`                                             | Calls service to retrieve the filing history transactions
-**GET**   | `/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control` | Calls service to retrieve the psc data for the company
-**POST**   | `/corporate-body-appointments/persons-of-significant-control/verification-state` <sup>[1](#myfootnote1)</sup> | Calls service to retrieve the verification state of an individual psc
-**GET**   | `/company/{companyNumber}/confirmation-statement/paid`                                | Calls service to verify confirmation statement payment has been made for company on due date
-**GET**   | `/company/{companyNumber}/register/location`                                          | Calls service to retrieve the registers locations for a company
-**GET**   | `/company/{companyNumber}/registered-email-address`                                   | Calls service to retrieve the registered email address for a company
-**GET**   | `/overseas-entity/{companyNumber}/managing-officers`                                  | Calls service to retrieve the managing officers for an overseas entity
-**GET**   | `/overseas-entity/{companyNumber}/beneficial-owners`                                  | Calls service to retrieve the beneficial owner data for an overseas entity
-**GET**   | `/overseas-entity/{companyNumber}/trusts/details`                                     | Calls service to retrieve the trust data for an overseas entity
-**GET**   | `/overseas-entity/trusts/{trustId}/individual-trustees`                               | Calls service to retrieve the individual trustee data for a trust
-**GET**   | `/overseas-entity/{oeNumber}/trusts/beneficial-owners/links`                          | Calls service to retrieve the trust link data for an overseas entity
- **GET**  | `/overseas-entity/trusts/{trustId}/corporate-trustees`                                | Calls service to retrieve the Trustee Data when given the ID of a Trust 
+Method    | Path                                                                                                                                        | Description
+:---------|:--------------------------------------------------------------------------------------------------------------------------------------------|:-----------
+**GET**   | `/emergency-auth-code/company/{incorporationNumber}/eligible-officers`                                                                      | Calls service to retrieve eligible officers for company number
+**GET**   | `/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}`                                                                | Calls service to retrieve officer for company number
+**GET**   | `/emergency-auth-code/company/{companyNumber}/efiling-status`                                                                               | Calls service to check if company has filed in the past thirty days
+**GET**   | `/company/{companyNumber}/action-code`                                                                                                      | Calls service to retrieve the current action code set against the company
+**GET**   | `/company/{companyNumber}/gaz2-requested`                                                                                                   | Calls service to check if a gaz2 is requested for the company
+**GET**   | `/company/{companyNumber}/traded-status`                                                                                                    | Calls service to retrieve the current traded status for the company
+**GET**   | `/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}`                                                                        | Calls service to view the details for a Scottish bankrupt officer
+**POST**  | `/officer-search/scottish-bankrupt-officers`                                                                                                | Calls service to search for a Scottish bankrupt officer
+**GET**   | `/company/{companyNumber}/director/active`                                                                                                  | Calls service to retrieve the active director details of a company
+**GET**   | `/company/{companyNumber}/shareholders/count`                                                                                               | Calls service to retrieve the number of active company shareholders
+**GET**   | `/company/{companyNumber}/shareholders`                                                                                                     | Calls service to retrieve the list of all active company shareholders
+**GET**   | `/company/{companyNumber}/statement-of-capital`                                                                                             | Calls service to retrieve the statement of capital data for the company
+**GET**   | `/company/{companyNumber}/filing-history`                                                                                                   | Calls service to retrieve the filing history transactions
+**GET**   | `/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control`                                                       | Calls service to retrieve the psc data for the company
+**POST**   | `/corporate-body-appointments/persons-of-significant-control/identity-verification-details` <sup>[1](#fnote1)</sup> <sup>[2](#fnote2)</sup> | Calls service to retrieve the IDV details of a single Individual PSC
+**GET**   | `/company/{companyNumber}/confirmation-statement/paid`                                                                                      | Calls service to verify confirmation statement payment has been made for company on due date
+**GET**   | `/company/{companyNumber}/register/location`                                                                                                | Calls service to retrieve the registers locations for a company
+**GET**   | `/company/{companyNumber}/registered-email-address`                                                                                         | Calls service to retrieve the registered email address for a company
+**GET**   | `/overseas-entity/{companyNumber}/managing-officers`                                                                                        | Calls service to retrieve the managing officers for an overseas entity
+**GET**   | `/overseas-entity/{companyNumber}/beneficial-owners`                                                                                        | Calls service to retrieve the beneficial owner data for an overseas entity
+**GET**   | `/overseas-entity/{companyNumber}/trusts/details`                                                                                           | Calls service to retrieve the trust data for an overseas entity
+**GET**   | `/overseas-entity/trusts/{trustId}/individual-trustees`                                                                                     | Calls service to retrieve the individual trustee data for a trust
+**GET**   | `/overseas-entity/{oeNumber}/trusts/beneficial-owners/links`                                                                                | Calls service to retrieve the trust link data for an overseas entity
+ **GET**  | `/overseas-entity/trusts/{trustId}/corporate-trustees`                                                                                      | Calls service to retrieve the Trustee Data when given the ID of a Trust 
 
-<a name="myfootnote1">1</a> Requires Feature Flag: `FEATURE_FLAG_PSC_VERIFICATION_STATE_GET_180225 = true` (default: false), with request body: `{ "appointment_id": <CORPORATE_BODY_APPOINTMENT_ID> }`
+<a name="fnote1">1</a> Requires Feature Flag: `FEATURE_FLAG_PSC_VERIFICATION_STATE_GET_180225 = true` (default: false)
+
+<a name="fnote2">2</a> Requires a request body: `{ "appointment_id": <CORPORATE_BODY_APPOINTMENT_ID> }`
 
 ### Query parameters
 Query parameter          | Description
@@ -55,8 +57,7 @@ Key                | Description
 -------------------|------------------------------------------
 `ORACLE_QUERY_API_PORT`| The port of the oracle query api service 
 `HUMAN_LOG`            | For human readable logs                  
-`FEATURE_FLAG_PSC_VERIFICATION_STATE_GET_180225` | For endpoint **POST** `/corporate-body-appointments/persons-of-significant-control/verification-state`
-
+`FEATURE_FLAG_PSC_VERIFICATION_STATE_GET_180225` | `true` to enable endpoint: **POST** /corporate-body-appointments/persons-of-significant-control/identity-verification-details
 
 ## Terraform ECS
 

@@ -18,21 +18,24 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>3.4.6</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.5.3</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
-        <ojdbc11.version>23.6.0.24.10</ojdbc11.version>
+        <ojdbc11.version>23.8.0.25.04</ojdbc11.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
 
         <!-- CH Libraries -->
-        <structured-logging.version>3.0.26</structured-logging.version>
-        <sdk-manager-java.version>3.0.9</sdk-manager-java.version>
-        <api-sdk-java.version>6.0.20</api-sdk-java.version>
+        <structured-logging.version>3.0.37</structured-logging.version>
+        <sdk-manager-java.version>3.0.10</sdk-manager-java.version>
+        <api-sdk-java.version>6.4.1</api-sdk-java.version>
 
         <!-- Maven -->
-        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
-        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
-        <jib-maven-plugin.version>3.4.2</jib-maven-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
+        <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
+
+        <opentelemetry-version>2.14.0</opentelemetry-version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -48,6 +51,13 @@
 
     <dependencyManagement>
         <dependencies>
+          <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-instrumentation-bom</artifactId>
+            <version>${opentelemetry-version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+          </dependency>
           <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
@@ -80,6 +90,10 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
@@ -103,6 +117,12 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!-- Oracle JDBC driver -->
