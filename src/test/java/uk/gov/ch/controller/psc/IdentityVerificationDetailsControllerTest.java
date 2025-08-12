@@ -5,7 +5,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,7 +44,7 @@ class IdentityVerificationDetailsControllerTest {
             new IdentityVerificationDetailsCriteriaDto(APPOINTMENT_ID));
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
-        assertThat(result.getBody(), is(Map.of("identity_verification_details", detailsDto)));
+        assertThat(result.getBody(), is(detailsDto));
     }
 
     @Test
