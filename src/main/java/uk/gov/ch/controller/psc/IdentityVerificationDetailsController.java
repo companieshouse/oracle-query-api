@@ -2,7 +2,6 @@ package uk.gov.ch.controller.psc;
 
 import jakarta.validation.Valid;
 import java.text.MessageFormat;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
@@ -36,16 +35,12 @@ public class IdentityVerificationDetailsController {
      * NOTE: HTTP POST request with a request body containing the appointment ID is needed to prevent exposure of the
      * sensitive internal appointment ID in a path or query parameter.
      * </p>
-     * <p>
-     * Response is a map with a single key "identity_verification_details" and the value being an
-     * {@code IdentityVerificationDetailsDto} object containing the details of the identity verification.
-     * </p>
      *
      * @param queryCriteria Criteria of PSC appointment (the internal appointment ID)
      * @return the {@code IdentityVerificationDetailsDto} data if found
      */
     @PostMapping("/corporate-body-appointments/persons-of-significant-control/identity-verification-details")
-    public ResponseEntity<Map<String, IdentityVerificationDetailsDto>> getIdentityVerificationDetails(
+    public ResponseEntity<IdentityVerificationDetailsDto> getIdentityVerificationDetails(
         @RequestBody @Valid final IdentityVerificationDetailsCriteriaDto queryCriteria) {
         LOGGER.info(MessageFormat.format(
             "Calling service to obtain PSC identity verification details, for ID {0,number,#}",
@@ -57,6 +52,6 @@ public class IdentityVerificationDetailsController {
         LOGGER.info(MessageFormat.format("Found {0,choice,0#no matches|1#one match} for appointment ID {1,number,#}",
             detailsDto.stream().count(), queryCriteria.appointmentId()));
 
-        return ResponseEntity.of(detailsDto.map(dto -> Map.of("identity_verification_details", dto)));
+        return ResponseEntity.of(detailsDto);
     }
 }
