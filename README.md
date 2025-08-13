@@ -67,6 +67,7 @@ The code present in this repository is used to define and deploy a dockerised co
 This is done by calling a [module](https://github.com/companieshouse/terraform-modules/tree/main/aws/ecs) from terraform-modules. Application specific attributes are injected and the service is then deployed using Terraform via the CICD platform 'Concourse'.
 
 
+
 Application specific attributes | Value                              | Description
 :---------|:-----------------------------------------------------------------------------|:-----------
 **ECS Cluster**        |utility                                      | ECS cluster (stack) the service belongs to

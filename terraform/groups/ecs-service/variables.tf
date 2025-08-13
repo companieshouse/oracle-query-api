@@ -47,7 +47,6 @@ variable "required_memory" {
   description = "The required memory for this service"
   default = 512 # defaulted low for node service in dev environments, override for production
 }
-
 variable "eric_cpus" {
   type = number
   description = "The required cpu resource for eric. 1024 here is 1 vCPU"
@@ -58,7 +57,6 @@ variable "eric_memory" {
   description = "The required memory for eric"
   default = 512
 }
-
 variable "use_fargate" {
   type        = bool
   description = "If true, sets the required capabilities for all containers in the task definition to use FARGATE, false uses EC2"
@@ -105,23 +103,19 @@ variable "cloudwatch_alarms_enabled" {
   default     = true
 }
 
-
 # ------------------------------------------------------------------------------
 # Service environment variable configs
 # ------------------------------------------------------------------------------
-
 variable "ssm_version_prefix" {
   type        = string
   description = "String to use as a prefix to the names of the variables containing variables and secrets version."
   default     = "SSM_VERSION_"
 }
-
 variable "use_set_environment_files" {
   type        = bool
   default     = false
   description = "Toggle default global and shared environment files"
 }
-
 variable "oracle_query_api_version" {
   type        = string
   description = "The version of the oracle-query-api container to run."
