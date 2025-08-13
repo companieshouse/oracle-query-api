@@ -237,32 +237,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personsOfSignificantControl'
-  /corporate-body-appointments/persons-of-significant-control/verification-state:
+  /corporate-body-appointments/persons-of-significant-control/identity-verification-details:
     post:
       tags:
         - persons-of-significant-control
       operationId: getPscVerificationState
-      summary: Get the identity verification state of a person of significant control for the company
+      summary: Get the identity verification details of a person of significant control for the company
       requestBody:
-        description: Search criteria for specific individual PSC verification state
+        description: Search criteria for specific individual PSC identity verification details
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/verificationStateCriteria'
+              $ref: '#/components/schemas/identityVerificationDetailsCriteria'
       responses:
         '200':
-          description: 'Person of significant control verification state details'
+          description: 'Person of significant control identity verification details'
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/pscVerificationState'
+                $ref: '#/components/schemas/pscIdentityVerificationDetails'
         '400':
           description: Bad request
         '401':
           description: Unauthorised
         '404':
-          description: No qualifying PSC or no verification state found
+          description: No qualifying PSC or no identity verification details found
   /company/{company_number}/register/location:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
@@ -1121,7 +1121,7 @@ components:
         address:
           type: object
           description: The Usual Residential Address (URA) of the PSC
-    verificationStateCriteria:
+    identityVerificationDetailsCriteria:
       description: Criteria for selecting the person of significant control"
       required:
         - application_id
@@ -1130,29 +1130,33 @@ components:
           type: integer
           format: int64
           example: "1234567890"
-    pscVerificationState:
-      description: The details of the identity verification state
+    pscIdentityVerificationDetails:
+      description: The details of the identity identity verification details
       type: object
       required:
-        - verification_status
-        - verification_start_date
-        - verification_statement_due_date
+        - appointment_verification_statement_date
+        - appointment_verification_statement_due_on
       properties:
-        verification_status:
-          type: string
-          enum: ['null', UNVERIFIED, VERIFIED, PENDING]
-          description: The verification status
-          example: "UNVERIFIED"
-        verification_start_date:
+        appointment_verification_start_on:
           type: string
           format: date
-          description: The start/appointed date assigned
+          description: The date the verification was accepted
           example: "2025-04-20"
-        verification_statement_due_date:
+        appointment_verification_end_on:
           type: string
           format: date
-          description: The date the verification statement is due
-          example: "2025-05-04"
+          description: The date the verification ends/ended
+          example: "9999-12-31"
+        appointment_verification_statement_date:
+          type: string
+          format: date
+          description: The first date the verification statement is due
+          example: "2025-09-04"
+        appointment_verification_statement_due_on:
+          type: string
+          format: date
+          description: The last date the verification statement is due
+          example: "2025-09-24"
     shareholders:
       type: object
       required:
