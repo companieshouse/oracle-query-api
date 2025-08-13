@@ -1,0 +1,16 @@
+{
+    "type": "Service",
+    "name": "oracle-query-api",
+    "description": "API service wrapper for CHIPS Oracle DB queries. This API should be used for all queries from CHS to the CHIPS database.",
+    "owned_by": "Titans",
+    "git_repo": "https://github.com/companieshouse/oracle-query-api",        
+    "users":"internal",    
+    "code_analysis_link": "http://code-analysis.platform.aws.chdev.org:9000/dashboard?id=uk.gov.companieshouse%3Aoracle-query-api#",    
+    "service_area": "Intelligence and Enforcement",
+    "service_component": "Platfrom",
+    "specification":"https://raw.githubusercontent.com/companieshouse/oracle-query-api/master/specs/OracleQueries.yml",
+    "language": "Java",
+    "integration_outgoing": [
+      "oracle,GETS_DATA_FROM"
+    ]
+  }
