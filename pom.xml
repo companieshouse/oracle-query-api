@@ -40,6 +40,7 @@
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
         <sonar.projectKey>uk.gov.companieshouse:oracle-query-api</sonar.projectKey>
+        <sonar.projectName>oracle-query-api</sonar.projectName>
         <sonar.sources>src/main</sonar.sources>
         <sonar.tests>src/test</sonar.tests>
         <sonar.verbose>true</sonar.verbose>
@@ -47,6 +48,10 @@
             ${project.basedir}/target/site/jacoco/jacoco.xml,
             ${project.basedir}/target/site/jacoco-it/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
+        <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
+        <sonar.token>${CODE_ANALYSIS_TOKEN}</sonar.token>
+        <sonar.login/>
+        <sonar.password/>
     </properties>
 
     <dependencyManagement>
