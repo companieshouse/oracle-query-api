@@ -45,7 +45,7 @@ class IdentityVerificationExtensionDetailsServiceImplTest {
     private IdentityVerificationExtensionDetails createDetails(final Long longValue, final boolean hasCurrentVerification) {
         final var details = new IdentityVerificationExtensionDetails();
 
-        details.setExtensionReasonId(EXTENSION_REQUEST_ID);
+        details.setExtensionRequestId(EXTENSION_REQUEST_ID);
         details.setExtensionRequestedDate(EXTENSION_REQUESTED_DATE);
         details.setPreviousAppointmentVerificationStatementDate(STATEMENT_DUE_DATE);
         if (hasCurrentVerification) {
