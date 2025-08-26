@@ -5,28 +5,29 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import uk.gov.ch.model.psc.IdentityVerificationExtensionDetails;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface IdentityVerificationExtensionDetailsRepository extends JpaRepository<IdentityVerificationExtensionDetails, Long> {
-    // TODO : UPDATE WITH CORRECT DB DETAILS
     @Query(value = """
-        select CBA.CORPORATE_BODY_APPOINTMENT_ID
-              ,APV.APPT_VERIFICATION_EFF_DATE
-              ,APV.APPT_VERIFICATION_END_DATE
-              ,APP.VERIFICATION_STMT_DATE
-              ,APP.VERIFICATION_STMT_DUE_DATE
-          from CORPORATE_BODY_APPOINTMENT CBA
-          inner join APPT_VERIFICATION_PERIOD APP
-        on APP.CORPORATE_BODY_APPOINTMENT_ID = CBA.CORPORATE_BODY_APPOINTMENT_ID
-          left join APPT_VERIFICATION APV
-        on APV.CORPORATE_BODY_APPOINTMENT_ID = CBA.CORPORATE_BODY_APPOINTMENT_ID
-           and ( APV.APPT_VERIFICATION_END_DATE >= SYSDATE
-             or APV.APPT_VERIFICATION_END_DATE is null )
-         where CBA.CORPORATE_BODY_APPOINTMENT_ID = ?1
-           and CBA.RESIGNATION_IND = 'N'
-           and CBA.SUPER_SECURE_PSC_IND = 'N'
-           and CBA.APPOINTMENT_TYPE_ID = 5007
+        select ER.EXTENSION_REQUEST_ID
+              ,AVP.CORPORATE_BODY_APPOINTMENT_ID
+              ,ER.EXTENSION_REQUEST_DATE
+              ,EST.EXT_STATUS_TYPE_DESCRIPTION
+              ,ERT.EXTENSION_REASON_TYPE_DESCRIPT
+              ,ER.VERIFICATION_STMT_DUE_DATE_OLD
+              ,ER.VERIFICATION_STMT_DUE_DATE_NEW
+              ,ER.CHS_USER_ID
+          from EXTENSION_REQUEST ER
+          inner join APPT_VERIFICATION_PERIOD AVP
+            on AVP.APPT_VERIFICATION_PERIOD_ID = ER.APPT_VERIFICATION_PERIOD_ID
+          inner join EXTENSION_STATUS_TYPE EST
+            on EST.EXTENSION_STATUS_TYPE_ID = ER.EXTENSION_STATUS_TYPE_ID
+          inner join EXTENSION_REASON_TYPE ERT
+            on ERT.EXTENSION_REASON_TYPE_ID = ER.EXTENSION_REASON_TYPE_ID
+         where AVP.CORPORATE_BODY_APPOINTMENT_ID = ?1
+         order by ER.EXTENSION_REQUEST_DATE desc
         """, nativeQuery = true)
-    Optional<IdentityVerificationExtensionDetails> findExtensionRequest(final Long extensionRequestId);
+    List<IdentityVerificationExtensionDetails> findExtensionRequest(final Long appointmentId);
 }

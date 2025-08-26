@@ -1,8 +1,9 @@
 package uk.gov.ch.service.psc;
 
 import uk.gov.ch.model.psc.IdentityVerificationExtensionDetailsDto;
-import java.util.Optional;
+
+import java.util.List;
 
 public interface IdentityVerificationExtensionDetailsService {
-    Optional<IdentityVerificationExtensionDetailsDto> findExtensionRequest(final Long extensionRequestId);
+    List<IdentityVerificationExtensionDetailsDto> findExtensionRequest(final Long appointmentId);
 }

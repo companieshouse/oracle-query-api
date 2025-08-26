@@ -11,15 +11,18 @@ import uk.gov.ch.model.psc.IdentityVerificationExtensionDetailsDto;
 import uk.gov.ch.service.psc.IdentityVerificationExtensionDetailsService;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class IdentityVerificationExtensionDetailsControllerTest {
-    private static final Long EXTENSION_REQUEST_ID = 9576890767L;
+    private static final Long APPOINTMENT_ID = 9576890767L;
+    private static final Long CHS_USER_ID = 12345L;
     private static final LocalDate EXTENSION_REQUESTED_DATE = LocalDate.parse("9999-12-31");
     private static final LocalDate STATEMENT_DATE = LocalDate.parse("2025-06-01");
     private static final LocalDate STATEMENT_DUE_DATE = LocalDate.parse("2025-06-15");
@@ -33,28 +36,28 @@ class IdentityVerificationExtensionDetailsControllerTest {
     @BeforeEach
     void setUp() {
         testController = new IdentityVerificationExtensionDetailsController(service);
-        detailsDto = new IdentityVerificationExtensionDetailsDto(EXTENSION_REQUESTED_DATE, STATEMENT_DATE, STATEMENT_DUE_DATE);
+        detailsDto = new IdentityVerificationExtensionDetailsDto(EXTENSION_REQUESTED_DATE, STATEMENT_DATE, STATEMENT_DUE_DATE, APPOINTMENT_ID, CHS_USER_ID);
     }
 
     @Test
     void getIdentityVerificationExtensionDetailsWhenFound() {
-        when(service.findExtensionRequest(EXTENSION_REQUEST_ID)).thenReturn(Optional.of(detailsDto));
+        when(service.findExtensionRequest(APPOINTMENT_ID)).thenReturn(List.of(detailsDto));
 
         final var result = testController.getIdentityVerificationExtensionRequestDetails(
-            new IdentityVerificationExtensionDetailsCriteriaDto(EXTENSION_REQUEST_ID));
+            new IdentityVerificationExtensionDetailsCriteriaDto(APPOINTMENT_ID));
 
         assertThat(result.getStatusCode(), is(HttpStatus.OK));
-        assertThat(result.getBody(), is(detailsDto));
+        assertThat(result.getBody(), is(List.of(detailsDto)));
     }
-
     @Test
     void getIdentityVerificationExtensionDetailsWhenNotFound() {
-        when(service.findExtensionRequest(EXTENSION_REQUEST_ID)).thenReturn(Optional.empty());
+        when(service.findExtensionRequest(APPOINTMENT_ID)).thenReturn(Collections.emptyList());
 
         final var result = testController.getIdentityVerificationExtensionRequestDetails(
-            new IdentityVerificationExtensionDetailsCriteriaDto(EXTENSION_REQUEST_ID));
+                new IdentityVerificationExtensionDetailsCriteriaDto(APPOINTMENT_ID));
 
-        assertThat(result.getStatusCode(), is(HttpStatus.NOT_FOUND));
-        assertThat(result.hasBody(), is(false));
+        assertThat(result.getStatusCode(), is(HttpStatus.OK));
+        assertThat(result.getBody(), empty());
     }
+
 }

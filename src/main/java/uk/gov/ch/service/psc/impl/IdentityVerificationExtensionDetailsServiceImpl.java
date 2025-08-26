@@ -8,7 +8,7 @@ import uk.gov.ch.model.psc.IdentityVerificationExtensionDetailsMapper;
 import uk.gov.ch.repository.psc.IdentityVerificationExtensionDetailsRepository;
 import uk.gov.ch.service.psc.IdentityVerificationExtensionDetailsService;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @ConditionalOnProperty(prefix = "feature", name = "psc_extension_details_get", havingValue = "true")
@@ -24,8 +24,8 @@ public class IdentityVerificationExtensionDetailsServiceImpl implements Identity
     }
 
     @Override
-    public Optional<IdentityVerificationExtensionDetailsDto> findExtensionRequest(final Long extensionRequestId) {
-        return identityVerificationExtensionDetailsRepository.findExtensionRequest(extensionRequestId)
-            .map(identityVerificationExtensionDetailsMapper::entityToDto);
+    public List<IdentityVerificationExtensionDetailsDto> findExtensionRequest(final Long appointmentId) {
+        return identityVerificationExtensionDetailsRepository.findExtensionRequest(appointmentId)
+            .stream().map(identityVerificationExtensionDetailsMapper::entityToDto).toList();
     }
 }

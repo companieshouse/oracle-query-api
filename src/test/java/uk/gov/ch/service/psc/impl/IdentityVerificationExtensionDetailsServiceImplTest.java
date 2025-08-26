@@ -10,26 +10,25 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.model.psc.*;
 import uk.gov.ch.repository.psc.IdentityVerificationExtensionDetailsRepository;
-import uk.gov.ch.service.psc.IdentityVerificationExtensionDetailsService;
 
 import java.time.LocalDate;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
-import static java.util.Optional.of;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class IdentityVerificationExtensionDetailsServiceImplTest {
-    private static final Long EXTENSION_REQUEST_ID = 9576890767L;
+    private static final Long APPOINTMENT_ID = 9576890767L;
+    private static final Long CHS_USER_ID = 12345L;
     private static final LocalDate EXTENSION_REQUESTED_DATE = LocalDate.parse("9999-12-31");
     private static final LocalDate STATEMENT_DATE = LocalDate.parse("2025-06-01");
     private static final LocalDate STATEMENT_DUE_DATE = LocalDate.parse("2025-06-15");
 
-    private IdentityVerificationExtensionDetailsService testService;
+    @Mock
+    private IdentityVerificationExtensionDetailsServiceImpl testService;
 
     @Mock
     private IdentityVerificationExtensionDetailsRepository repository;
@@ -42,15 +41,18 @@ class IdentityVerificationExtensionDetailsServiceImplTest {
         testService = new IdentityVerificationExtensionDetailsServiceImpl(repository, mapper);
     }
 
-    private IdentityVerificationExtensionDetails createDetails(final Long longValue, final boolean hasCurrentVerification) {
+    private IdentityVerificationExtensionDetails createDetails(final Long appointmentId, final long chsUserId, final boolean hasCurrentVerification) {
         final var details = new IdentityVerificationExtensionDetails();
 
-        details.setExtensionRequestId(longValue);
+        details.setCorporateBodyAppointmentId(appointmentId);
+        details.setChsUserId(chsUserId);
         details.setExtensionRequestedDate(EXTENSION_REQUESTED_DATE);
-        details.setPreviousAppointmentVerificationStatementDate(STATEMENT_DUE_DATE);
+
         if (hasCurrentVerification) {
             details.setPreviousAppointmentVerificationStatementDate(STATEMENT_DATE);
             details.setNewAppointmentVerificationStatementDueOn(STATEMENT_DUE_DATE);
+        } else {
+            details.setPreviousAppointmentVerificationStatementDate(STATEMENT_DUE_DATE);
         }
 
         return details;
@@ -58,35 +60,50 @@ class IdentityVerificationExtensionDetailsServiceImplTest {
 
     static Stream<Arguments> verificationExtensionDetailsProvider() {
         return Stream.of(
-            arguments(true, STATEMENT_DATE, STATEMENT_DUE_DATE),
-            arguments(false, null, null)
+                Arguments.arguments(true, STATEMENT_DATE, STATEMENT_DUE_DATE),
+                Arguments.arguments(false, STATEMENT_DUE_DATE, null)
         );
     }
 
     @ParameterizedTest
     @MethodSource("verificationExtensionDetailsProvider")
-    void findIdentityVerificationExtensionDetailsParameterized(boolean hasCurrentVerification, LocalDate extensionRequestDate ) {
-        final var extensionDetails = createDetails(EXTENSION_REQUEST_ID, hasCurrentVerification);
+    void findIdentityVerificationExtensionDetailsParameterized(boolean hasCurrentVerification, LocalDate expectedStatementDate, LocalDate expectedDueDate) {
+        final var extensionDetails = createDetails(APPOINTMENT_ID, CHS_USER_ID, hasCurrentVerification);
+        List<IdentityVerificationExtensionDetails> extensionDetailsList = List.of(extensionDetails);
 
-        when(repository.findExtensionRequest(EXTENSION_REQUEST_ID)).thenReturn(of(extensionDetails));
+        when(repository.findExtensionRequest(APPOINTMENT_ID)).thenReturn(extensionDetailsList);
         when(mapper.entityToDto(extensionDetails)).thenReturn(
-            new IdentityVerificationExtensionDetailsDto(extensionRequestDate, STATEMENT_DATE, STATEMENT_DUE_DATE));
+                new IdentityVerificationExtensionDetailsDto(
+                        EXTENSION_REQUESTED_DATE,
+                        expectedStatementDate,
+                        expectedDueDate,
+                        APPOINTMENT_ID,
+                        CHS_USER_ID
+                )
+        );
 
-        final var result = testService.findExtensionRequest(EXTENSION_REQUEST_ID);
+        final var result = testService.findExtensionRequest(APPOINTMENT_ID);
 
-        assertThat(result,
-            is(of(new IdentityVerificationExtensionDetailsDto(extensionRequestDate, STATEMENT_DATE, STATEMENT_DUE_DATE))));
-        verify(mapper).entityToDto(extensionDetails);
+
+        assertThat(result).containsExactly(
+                new IdentityVerificationExtensionDetailsDto(
+                        EXTENSION_REQUESTED_DATE,
+                        expectedStatementDate,
+                        expectedDueDate,
+                        APPOINTMENT_ID,
+                        CHS_USER_ID
+                )
+        );
+
     }
 
     @Test
     void findIdentityVerificationDetailsWhenNotFound() {
-        when(repository.findExtensionRequest(EXTENSION_REQUEST_ID)).thenReturn(Optional.empty());
+        when(repository.findExtensionRequest(APPOINTMENT_ID)).thenReturn(Collections.emptyList());
 
-        final var result = testService.findExtensionRequest(EXTENSION_REQUEST_ID);
+        final var result = testService.findExtensionRequest(APPOINTMENT_ID);
 
-        assertThat(result.isEmpty(), is(true));
+        assertThat(result).isEmpty();
         verifyNoInteractions(mapper);
     }
-
 }

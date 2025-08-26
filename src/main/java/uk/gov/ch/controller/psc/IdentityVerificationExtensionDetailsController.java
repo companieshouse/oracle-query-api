@@ -15,6 +15,8 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
 import java.text.MessageFormat;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @ConditionalOnProperty(prefix = "feature", name = "psc_verification_details_get", havingValue = "true")
@@ -30,24 +32,24 @@ public class IdentityVerificationExtensionDetailsController {
     }
 
     /**
-     * Retrieves the Identity Verification Extension request Details for a specific Individual PSC.
+     * Retrieves the Identity Verification Extension request details for a specific Individual PSC.
      *
      * @param queryCriteria Criteria of PSC extension request (the internal extension request ID)
      * @return the {@code IdentityVerificationExtensionDetailsDto} data if found
      */
     @PostMapping("/corporate-body-appointments/persons-of-significant-control/identity-verification-extension-details")
-    public ResponseEntity<IdentityVerificationExtensionDetailsDto> getIdentityVerificationExtensionRequestDetails(
+    public ResponseEntity<List<IdentityVerificationExtensionDetailsDto>> getIdentityVerificationExtensionRequestDetails(
         @RequestBody @Valid final IdentityVerificationExtensionDetailsCriteriaDto queryCriteria) {
         LOGGER.info(MessageFormat.format(
             "Calling service to obtain PSC identity verification extension request details, for ID {0,number,#}",
-            queryCriteria.extensionRequestId()));
+            queryCriteria.appointmentId()));
 
         final var detailsDto = identityVerificationExtensionDetailsService.findExtensionRequest(
-            queryCriteria.extensionRequestId());
+            queryCriteria.appointmentId());
 
-        LOGGER.info(MessageFormat.format("Found {0,choice,0#no matches|1#one match} for appointment ID {1,number,#}",
-            detailsDto.stream().count(), queryCriteria.extensionRequestId()));
+        LOGGER.info(MessageFormat.format("Found {0,choice,0#no matches|1#one match} for ID {1,number,#}",
+            detailsDto.stream().count(), queryCriteria.appointmentId()));
 
-        return ResponseEntity.of(detailsDto);
+        return ResponseEntity.of(Optional.of(detailsDto));
     }
 }
