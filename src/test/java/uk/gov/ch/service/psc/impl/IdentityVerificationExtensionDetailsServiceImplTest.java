@@ -26,6 +26,7 @@ class IdentityVerificationExtensionDetailsServiceImplTest {
     private static final LocalDate EXTENSION_REQUESTED_DATE = LocalDate.parse("9999-12-31");
     private static final LocalDate STATEMENT_DATE = LocalDate.parse("2025-06-01");
     private static final LocalDate STATEMENT_DUE_DATE = LocalDate.parse("2025-06-15");
+    private static final String EXTENSION_REASON = "Reason";
 
     @Mock
     private IdentityVerificationExtensionDetailsServiceImpl testService;
@@ -51,6 +52,7 @@ class IdentityVerificationExtensionDetailsServiceImplTest {
         if (hasCurrentVerification) {
             details.setPreviousAppointmentVerificationStatementDate(STATEMENT_DATE);
             details.setNewAppointmentVerificationStatementDueOn(STATEMENT_DUE_DATE);
+            details.setExtensionReasonDescription(EXTENSION_REASON);
         } else {
             details.setPreviousAppointmentVerificationStatementDate(STATEMENT_DUE_DATE);
         }
