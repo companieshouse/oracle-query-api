@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import uk.gov.ch.model.psc.IdentityVerificationExtensionDetails;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface IdentityVerificationExtensionDetailsRepository extends JpaRepository<IdentityVerificationExtensionDetails, Long> {
