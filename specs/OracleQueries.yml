@@ -263,6 +263,32 @@ paths:
           description: Unauthorised
         '404':
           description: No qualifying PSC or no identity verification details found
+  /corporate-body-appointments/persons-of-significant-control/identity-verification-extension-details:
+    post:
+      tags:
+        - persons-of-significant-control
+      operationId: getPscExtensionRequestDetails
+      summary: Get the identity verification extension request details of a person of significant control for the company
+      requestBody:
+        description: Search criteria for specific individual PSC identity verification details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/identityVerificationDetailsCriteria'
+      responses:
+        '200':
+          description: 'Person of significant control identity verification extension request details'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/pscIdentityVerificationExtensionDetails'
+        '400':
+          description: Bad request
+        '401':
+          description: Unauthorised
+        '404':
+          description: No qualifying PSC or no identity verification extension request details found
   /company/{company_number}/register/location:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
