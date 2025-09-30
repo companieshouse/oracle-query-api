@@ -237,32 +237,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/personsOfSignificantControl'
-  /corporate-body-appointments/persons-of-significant-control/identity-verification-details:
-    post:
-      tags:
-        - persons-of-significant-control
-      operationId: getPscVerificationState
-      summary: Get the identity verification details of a person of significant control for the company
-      requestBody:
-        description: Search criteria for specific individual PSC identity verification details
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/identityVerificationDetailsCriteria'
-      responses:
-        '200':
-          description: 'Person of significant control identity verification details'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/pscIdentityVerificationDetails'
-        '400':
-          description: Bad request
-        '401':
-          description: Unauthorised
-        '404':
-          description: No qualifying PSC or no identity verification details found
   /company/{company_number}/register/location:
     parameters:
       - $ref: '#/components/parameters/companyNumber'
