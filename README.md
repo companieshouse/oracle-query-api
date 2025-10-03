@@ -30,7 +30,6 @@ Method    | Path                                                                
 **GET**   | `/company/{companyNumber}/statement-of-capital`                                                                                             | Calls service to retrieve the statement of capital data for the company
 **GET**   | `/company/{companyNumber}/filing-history`                                                                                                   | Calls service to retrieve the filing history transactions
 **GET**   | `/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control`                                                       | Calls service to retrieve the psc data for the company
-**POST**   | `/corporate-body-appointments/persons-of-significant-control/identity-verification-details` <sup>[1](#fnote1)</sup> <sup>[2](#fnote2)</sup> | Calls service to retrieve the IDV details of a single Individual PSC
 **GET**   | `/company/{companyNumber}/confirmation-statement/paid`                                                                                      | Calls service to verify confirmation statement payment has been made for company on due date
 **GET**   | `/company/{companyNumber}/register/location`                                                                                                | Calls service to retrieve the registers locations for a company
 **GET**   | `/company/{companyNumber}/registered-email-address`                                                                                         | Calls service to retrieve the registered email address for a company
@@ -41,9 +40,6 @@ Method    | Path                                                                
 **GET**   | `/overseas-entity/{oeNumber}/trusts/beneficial-owners/links`                                                                                | Calls service to retrieve the trust link data for an overseas entity
  **GET**  | `/overseas-entity/trusts/{trustId}/corporate-trustees`                                                                                      | Calls service to retrieve the Trustee Data when given the ID of a Trust 
 
-<a name="fnote1">1</a> Requires Feature Flag: `FEATURE_FLAG_PSC_VERIFICATION_STATE_GET_180225 = true` (default: false)
-
-<a name="fnote2">2</a> Requires a request body: `{ "appointment_id": <CORPORATE_BODY_APPOINTMENT_ID> }`
 
 ### Query parameters
 Query parameter          | Description
@@ -56,8 +52,7 @@ Query parameter          | Description
 Key                | Description                              
 -------------------|------------------------------------------
 `ORACLE_QUERY_API_PORT`| The port of the oracle query api service 
-`HUMAN_LOG`            | For human readable logs                  
-`FEATURE_FLAG_PSC_VERIFICATION_STATE_GET_180225` | `true` to enable endpoint: **POST** /corporate-body-appointments/persons-of-significant-control/identity-verification-details
+`HUMAN_LOG`            | For human readable logs
 
 ## Terraform ECS
 
