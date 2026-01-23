@@ -21,14 +21,15 @@
         <spring-boot-dependencies.version>3.5.9</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
-        <jakarta.xml.bind-api.version>4.0.2</jakarta.xml.bind-api.version>
+        <jakarta.xml.bind-api.version>4.0.4</jakarta.xml.bind-api.version>
         <ojdbc11.version>23.8.0.25.04</ojdbc11.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
+        <log4j-api.version>2.25.3</log4j-api.version>
 
         <!-- CH Libraries -->
-        <structured-logging.version>3.0.37</structured-logging.version>
+        <structured-logging.version>3.0.47</structured-logging.version>
         <sdk-manager-java.version>3.0.10</sdk-manager-java.version>
-        <api-sdk-java.version>6.4.1</api-sdk-java.version>
+        <api-sdk-java.version>6.6.2</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
@@ -75,6 +76,13 @@
 
     <dependencies>
 
+        <!-- CVE-2025-68161(6.3) -->
+        <!-- override log4j 2.24.3 brought in by spring-boot 3.5.9 -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j-api.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
