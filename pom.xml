@@ -78,7 +78,7 @@
     <dependencies>
 
         <!-- CVE-2025-68161(6.3) -->
-        <!-- override log4j 2.24.3 brought in by spring-boot 3.5.9 -->
+        <!-- override log4j 2.24.3 brought in by spring-boot 3.5.11 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -212,9 +212,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
-                <configuration>
-                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
