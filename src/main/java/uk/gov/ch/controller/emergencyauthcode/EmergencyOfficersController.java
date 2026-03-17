@@ -1,10 +1,12 @@
 package uk.gov.ch.controller.emergencyauthcode;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +20,7 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
 @RestController
+@Validated
 public class EmergencyOfficersController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
@@ -51,8 +54,8 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}")
     public ResponseEntity<CorporateBodyAppointment> getCompanyOfficer(
-            @PathVariable String companyNumber,
-            @PathVariable String officerId) {
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
+            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid officer ID") String officerId) { // NOSONAR really do want 0-9 here not any digit
 
         LOGGER.info("Calling service to retrieve officer " + officerId + " for company number "
                 + companyNumber);
