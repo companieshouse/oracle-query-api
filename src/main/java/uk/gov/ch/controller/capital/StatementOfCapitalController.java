@@ -1,6 +1,5 @@
 package uk.gov.ch.controller.capital;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +19,11 @@ public class StatementOfCapitalController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
-    private StatementOfCapitalService statementOfCapitalService;
+    private final StatementOfCapitalService statementOfCapitalService;
+
+    public StatementOfCapitalController(StatementOfCapitalService statementOfCapitalService) {
+        this.statementOfCapitalService = statementOfCapitalService;
+    }
 
     @GetMapping("/company/{companyNumber}/statement-of-capital")
     public ResponseEntity<StatementOfCapital> getStatementOfCapital(
