@@ -55,7 +55,7 @@ public class EmergencyOfficersController {
     @GetMapping("/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}")
     public ResponseEntity<CorporateBodyAppointment> getCompanyOfficer(
             @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
-            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid officer ID") String officerId) {
+            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid officer ID") String officerId) { // NOSONAR really do want 0-9 here not any digit
 
         LOGGER.info("Calling service to retrieve officer " + officerId + " for company number "
                 + companyNumber);
