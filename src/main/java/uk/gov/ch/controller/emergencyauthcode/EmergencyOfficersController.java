@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.emergencyauthcode;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -51,8 +52,8 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}")
     public ResponseEntity<CorporateBodyAppointment> getCompanyOfficer(
-            @PathVariable String companyNumber,
-            @PathVariable String officerId) {
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
+            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid officer ID") String officerId) {
 
         LOGGER.info("Calling service to retrieve officer " + officerId + " for company number "
                 + companyNumber);
