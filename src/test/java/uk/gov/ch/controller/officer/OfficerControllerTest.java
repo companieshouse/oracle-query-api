@@ -4,12 +4,12 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.Mock;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -21,11 +21,15 @@ import uk.gov.companieshouse.api.model.officers.OfficersApi;
 @ExtendWith(MockitoExtension.class)
 class OfficerControllerTest {
 
-    @InjectMocks
-    private OfficerController controller;
-
     @Mock
     private OfficerService officerService;
+
+    private OfficerController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new OfficerController(officerService);
+    }
 
     private static final String COMP_NO = "12345678";
 

@@ -2,7 +2,6 @@ package uk.gov.ch.controller.officer;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +21,11 @@ public class OfficerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
-    private OfficerService officerService;
+    private final OfficerService officerService;
+
+    public OfficerController(OfficerService officerService) {
+        this.officerService = officerService;
+    }
 
     @GetMapping("/company/{companyNumber}/officers")
     public ResponseEntity<OfficersApi> getOfficers(@PathVariable String companyNumber) {
