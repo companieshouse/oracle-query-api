@@ -21,8 +21,12 @@ public class ActiveDirectorDetailsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
-    @Autowired
-    private ActiveDirectorDetailsService service;
+
+    private final ActiveDirectorDetailsService service;
+
+    public ActiveDirectorDetailsController(ActiveDirectorDetailsService service) {
+        this.service = service;
+    }
 
     @GetMapping("/company/{companyNumber}/director/active")
     public ResponseEntity<ActiveDirectorDetails> getActiveDirectorDetails(
