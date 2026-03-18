@@ -1,7 +1,6 @@
 package uk.gov.ch.service.update.trusts.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
@@ -18,8 +17,11 @@ public class CorporateTrusteesServiceImpl implements CorporateTrusteesService {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private CorporateTrusteesRepository corporateTrusteesRepository;
+
+    public CorporateTrusteesServiceImpl(CorporateTrusteesRepository corporateTrusteesRepository) {
+        this.corporateTrusteesRepository = corporateTrusteesRepository;
+    }
 
     @Override
     public List<CorporateTrusteeData> getCorporateTrusteeData(String trustId)

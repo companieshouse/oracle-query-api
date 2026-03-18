@@ -1,6 +1,5 @@
 package uk.gov.ch.controller.payment;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +12,11 @@ import uk.gov.ch.service.payment.ConfirmationStatementPaymentCheckService;
 @RestController
 public class ConfirmationStatementPaymentCheckController {
 
-    @Autowired
     private ConfirmationStatementPaymentCheckService confirmationStatementPaymentCheckService;
+
+    public ConfirmationStatementPaymentCheckController(ConfirmationStatementPaymentCheckService confirmationStatementPaymentCheckService) {
+        this.confirmationStatementPaymentCheckService = confirmationStatementPaymentCheckService;
+    }
 
     @GetMapping("/company/{companyNumber}/confirmation-statement/paid")
     public ResponseEntity<ConfirmationStatementPaymentJson> isConfirmationStatementPaid(

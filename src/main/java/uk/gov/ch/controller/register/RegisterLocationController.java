@@ -1,6 +1,5 @@
 package uk.gov.ch.controller.register;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -23,8 +22,11 @@ public class RegisterLocationController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private RegisterLocationService registerLocationService;
+
+    public RegisterLocationController(RegisterLocationService registerLocationService) {
+        this.registerLocationService = registerLocationService;
+    }
 
     @GetMapping("/company/{companyNumber}/register/location")
     public ResponseEntity<List<RegisterLocation>> getRegisterLocation(

@@ -1,7 +1,6 @@
 package uk.gov.ch.service.officer.bankrupt.impl;
 
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,11 +23,14 @@ public class ScottishBankruptOfficerServiceImpl implements BankruptOfficerServic
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private ScottishBankruptOfficersRepository scottishBankruptOfficersRepository;
 
-    @Autowired
     private BankruptOfficersTransformer bankruptOfficersTransformer;
+
+    public ScottishBankruptOfficerServiceImpl(ScottishBankruptOfficersRepository scottishBankruptOfficersRepository, BankruptOfficersTransformer bankruptOfficersTransformer) {
+        this.scottishBankruptOfficersRepository =scottishBankruptOfficersRepository;
+        this.bankruptOfficersTransformer = bankruptOfficersTransformer;
+    }
 
     @Override
     public ScottishBankruptOfficerSearchResults getScottishBankruptOfficers(

@@ -1,6 +1,5 @@
 package uk.gov.ch.controller.officer.bankrupt;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,8 +15,11 @@ import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerServiceImp
 @Controller
 public class ScottishBankruptOfficerController {
 
-    @Autowired
     private ScottishBankruptOfficerServiceImpl scottishBankruptOfficerServiceImpl;
+
+    public ScottishBankruptOfficerController(ScottishBankruptOfficerServiceImpl scottishBankruptOfficerServiceImpl) {
+        this.scottishBankruptOfficerServiceImpl = scottishBankruptOfficerServiceImpl;
+    }
 
     @PostMapping("/officer-search/scottish-bankrupt-officers")
     public ResponseEntity<ScottishBankruptOfficerSearchResults> search(

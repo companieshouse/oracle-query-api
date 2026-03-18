@@ -1,7 +1,6 @@
 package uk.gov.ch.service.emergencyauthcode.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,11 +21,14 @@ public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private EmergencyAuthCodeEligibleOfficersRepository emergencyAuthCodeEligibleOfficersRepository;
 
-    @Autowired
     private EmergencyOfficersTransformer emergencyOfficersTransformer;
+
+    public EmergencyOfficersServiceImpl(EmergencyAuthCodeEligibleOfficersRepository emergencyAuthCodeEligibleOfficersRepository, EmergencyOfficersTransformer emergencyOfficersTransformer) {
+        this.emergencyAuthCodeEligibleOfficersRepository = emergencyAuthCodeEligibleOfficersRepository;
+        this.emergencyOfficersTransformer = emergencyOfficersTransformer;
+    }
 
     public CorporateBodyAppointments getEligibleOfficersEmergencyAuthCode(
             String incorporationNumber, Pageable pageable) {

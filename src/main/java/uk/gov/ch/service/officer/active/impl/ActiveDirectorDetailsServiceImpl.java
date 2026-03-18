@@ -1,7 +1,6 @@
 package uk.gov.ch.service.officer.active.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
@@ -20,8 +19,11 @@ public class ActiveDirectorDetailsServiceImpl implements ActiveDirectorDetailsSe
 
     private static final String WRONG_OFFICER_COUNT_MESSAGE = "Incorrect number of officers found must be single active director company.";
 
-    @Autowired
     private ActiveDirectorDetailsRepository activeDirectorDetailsRepository;
+
+    public ActiveDirectorDetailsServiceImpl(ActiveDirectorDetailsRepository activeDirectorDetailsRepository) {
+        this.activeDirectorDetailsRepository = activeDirectorDetailsRepository;
+    }
 
     @Override
     public ActiveDirectorDetails getActiveDirectorDetails(String companyNumber, Pageable pageable)

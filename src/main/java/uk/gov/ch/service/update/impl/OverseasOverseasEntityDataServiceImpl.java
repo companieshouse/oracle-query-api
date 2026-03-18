@@ -1,7 +1,6 @@
 package uk.gov.ch.service.update.impl;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
@@ -19,8 +18,11 @@ public class OverseasOverseasEntityDataServiceImpl implements OverseasEntityData
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Contact email not found for overseas entity: ";
-    @Autowired
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
+
+    public OverseasOverseasEntityDataServiceImpl(CorporateBodyDetailsRepository corporateBodyDetailsRepository) {
+        this.corporateBodyDetailsRepository = corporateBodyDetailsRepository;
+    }
 
     @Override
     public OverseasEntityDataJson getEntityEmail(String companyNumber)

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.NoOfficersExistingException;
@@ -28,14 +27,17 @@ public class OfficerServiceImpl implements OfficerService {
     private static final String COMPANY_NOT_FOUND = "Company Not Found";
     private static final String NO_OFFICER_STRING = "], \"CreatedTime\":";
 
-    @Autowired
     OfficersRepository officersRepository;
 
-    @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
     private OfficersApiTransformer transformer;
+
+    public OfficerServiceImpl(OfficersRepository officersRepository, ObjectMapper objectMapper, OfficersApiTransformer transformer) {
+        this.officersRepository = officersRepository;
+        this.objectMapper = objectMapper;
+        this.transformer = transformer;
+    }
 
     @Override
     public OfficersApi getOfficers(String companyNumber)

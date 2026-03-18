@@ -1,7 +1,6 @@
 package uk.gov.ch.service.register.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,8 +11,11 @@ import uk.gov.ch.service.register.RegisterLocationService;
 @Service
 public class RegisterLocationServiceImpl implements RegisterLocationService {
 
-    @Autowired
     private RegisterLocationRepository registerLocationRepository;
+
+    public RegisterLocationServiceImpl(RegisterLocationRepository registerLocationRepository) {
+        this.registerLocationRepository = registerLocationRepository;
+    }
 
     @Override
     public List<RegisterLocation> getRegisterLocation(String companyNumber, Pageable pageable) {

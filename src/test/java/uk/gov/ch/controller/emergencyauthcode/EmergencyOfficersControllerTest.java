@@ -6,11 +6,10 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -30,7 +29,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @WebMvcTest(EmergencyOfficersController.class)
 class EmergencyOfficersControllerTest {
 
@@ -40,8 +38,12 @@ class EmergencyOfficersControllerTest {
     @MockitoBean
     EmergencyOfficersService mockEmergencyOfficersService;
 
-    @InjectMocks
-    EmergencyOfficersController controller;
+    private EmergencyOfficersController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new EmergencyOfficersController(mockEmergencyOfficersService);
+    }
 
     private static final String INCORPORATION_NUMBER = "12345678";
     private static final String INVALID_INCORPORATION_NUMBER = "12345678!";

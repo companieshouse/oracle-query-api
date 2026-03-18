@@ -8,7 +8,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TransactionMappingException;
@@ -29,14 +28,17 @@ public class TransactionServiceImpl implements TransactionService {
     private static final String COMPANY_HAS_NO_TRANSACTIONS = "Company has no transactions";
     private static final String COMPANY_NOT_FOUND = "Company Not Found";
 
-    @Autowired
     private TransactionRepository transactionRepository;
 
-    @Autowired
     private TransactionTransformer transactionTransformer;
 
-    @Autowired
     private ObjectMapper objectMapper;
+
+    public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionTransformer transactionTransformer, ObjectMapper objectMapper) {
+        this.transactionRepository = transactionRepository;
+        this.transactionTransformer = transactionTransformer;
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public FilingHistoryApi getTransactions(String companyNumber)

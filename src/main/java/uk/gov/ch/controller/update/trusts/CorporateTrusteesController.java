@@ -1,7 +1,6 @@
 package uk.gov.ch.controller.update.trusts;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,12 @@ public class CorporateTrusteesController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
-    @Autowired
+
     private CorporateTrusteesService corporateTrusteesService;
+
+    public CorporateTrusteesController(CorporateTrusteesService corporateTrusteesService) {
+        this.corporateTrusteesService = corporateTrusteesService;
+    }
 
     @GetMapping("/overseas-entity/trusts/{trustId}/corporate-trustees")
     public ResponseEntity<List<CorporateTrusteeData>> getCorporateTrusteeData(
