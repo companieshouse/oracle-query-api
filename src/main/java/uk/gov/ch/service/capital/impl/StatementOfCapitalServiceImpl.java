@@ -1,7 +1,6 @@
 package uk.gov.ch.service.capital.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.ServiceException;
@@ -19,8 +18,11 @@ public class StatementOfCapitalServiceImpl implements StatementOfCapitalService 
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Statement of capital result was returned but empty";
 
-    @Autowired
     private StatementOfCapitalRepository statementOfCapitalRepository;
+
+    public StatementOfCapitalServiceImpl(StatementOfCapitalRepository statementOfCapitalRepository) {
+        this.statementOfCapitalRepository = statementOfCapitalRepository;
+    }
 
     @Override
     public StatementOfCapital getStatementOfCapital(String incorporationNumber)
