@@ -14,14 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 class ActiveDirectorDetailsTest {
 
     private ActiveDirectorDetails director;
-    private String URA_LINE_1 = "123 Street";
-    private String URA_POST_TOWN = "Town";
-    private String URA_POST_CODE = "POST CODE";
-    private String UNFORMATTED_DOB = "1962-01-29 00:00:00.0";
-    private String UNFORMATTED_DOA = "2009-01-29 00:00:00.0";
-    private String FORMATTED_DOB = "29 January 1962";
-    private String COUNTRY_OF_RESIDENCE = "Country";
-    private String SECURE_DIRECTOR_URA_LINE_1 = "Companies House Cannot Disclose this Home Address";
+    private static final String URA_LINE_1 = "123 Street";
+    private static final String URA_POST_TOWN = "Town";
+    private static final String URA_POST_CODE = "POST CODE";
+    private static final String UNFORMATTED_DOB = "1962-01-29 00:00:00.0";
+    private static final String UNFORMATTED_DOA = "2009-01-29 00:00:00.0";
+    private static final String FORMATTED_DOB = "29 January 1962";
+    private static final String COUNTRY_OF_RESIDENCE = "Country";
+    private static final String SECURE_DIRECTOR_URA_LINE_1 = "Companies House Cannot Disclose this Home Address";
 
     @BeforeEach
     void beforeEach() {
