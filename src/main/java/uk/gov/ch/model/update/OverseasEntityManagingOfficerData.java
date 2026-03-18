@@ -71,6 +71,7 @@ public class OverseasEntityManagingOfficerData {
     private String contactEmailAddress;
 
     public OverseasEntityManagingOfficerData() {
+        // Explicit no-arg constructor
     }
 
     public String getManagingOfficerAppointmentId() {
