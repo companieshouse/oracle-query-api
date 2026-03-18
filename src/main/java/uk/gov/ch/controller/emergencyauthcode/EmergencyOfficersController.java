@@ -26,8 +26,11 @@ public class EmergencyOfficersController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
-    private EmergencyOfficersService emergencyOfficersService;
+    private final EmergencyOfficersService emergencyOfficersService;
+
+    public EmergencyOfficersController(EmergencyOfficersService emergencyOfficersService) {
+        this.emergencyOfficersService = emergencyOfficersService;
+    }
 
     @GetMapping("/emergency-auth-code/company/{incorporationNumber}/eligible-officers")
     public ResponseEntity<CorporateBodyAppointments> getListOfEligibleCompanyOfficers(
