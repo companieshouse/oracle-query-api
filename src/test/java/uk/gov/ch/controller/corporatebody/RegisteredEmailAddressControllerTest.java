@@ -1,13 +1,13 @@
 package uk.gov.ch.controller.corporatebody;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +32,15 @@ class RegisteredEmailAddressControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private CorporateBodyServiceImpl corporateBodyDetailsService;
 
-    @InjectMocks
     private CorporateBodyController corporateBodyController;
+
+    @BeforeEach
+    void setUp() {
+        corporateBodyController = new CorporateBodyController(corporateBodyDetailsService);
+    }
 
     private static final String VALID_COMPANY_NUMBER = "OE123456";
 

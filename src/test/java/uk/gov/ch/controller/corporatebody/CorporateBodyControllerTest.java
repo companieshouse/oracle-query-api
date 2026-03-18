@@ -1,13 +1,13 @@
 package uk.gov.ch.controller.corporatebody;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
@@ -19,14 +19,17 @@ import uk.gov.ch.service.corporatebody.CorporateBodyService;
 import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
 
 @ExtendWith(MockitoExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CorporateBodyControllerTest {
 
     @Mock
     CorporateBodyService corporateBodyService;
 
-    @InjectMocks
-    CorporateBodyController controller;
+    private CorporateBodyController controller;
+
+    @BeforeEach
+    void setUp() {
+        controller = new CorporateBodyController(corporateBodyService);
+    }
 
     private static final String INCORPORATION_NUMBER = "12345678";
 

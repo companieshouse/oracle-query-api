@@ -2,7 +2,6 @@ package uk.gov.ch.controller.corporatebody;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +24,11 @@ public class CorporateBodyController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
-    private CorporateBodyService corporateBodyService;
+    private final CorporateBodyService corporateBodyService;
+
+    public CorporateBodyController(CorporateBodyService corporateBodyService) {
+        this.corporateBodyService = corporateBodyService;
+    }
 
     @GetMapping("/company/{companyNumber}/action-code")
     public ResponseEntity<Long> getActionCode(@PathVariable String companyNumber) {
