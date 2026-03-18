@@ -1,7 +1,6 @@
 package uk.gov.ch.controller.officer.active;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,11 @@ public class ActiveOfficerDetailsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
-    @Autowired
     private ActiveOfficerDetailsService service;
+
+    public ActiveOfficerDetailsController(ActiveOfficerDetailsService service) {
+        this.service = service;
+    }
 
     @GetMapping("/company/{companyNumber}/officers/active")
     public ResponseEntity<List<ActiveOfficerDetails>> getActiveOfficersDetails(
