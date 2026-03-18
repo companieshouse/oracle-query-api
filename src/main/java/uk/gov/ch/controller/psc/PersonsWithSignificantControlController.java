@@ -1,7 +1,6 @@
 package uk.gov.ch.controller.psc;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,8 +21,11 @@ public class PersonsWithSignificantControlController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private PersonsWithSignificantControlService personsWithSignificantControlService;
+
+    public PersonsWithSignificantControlController(PersonsWithSignificantControlService personsWithSignificantControlService) {
+        this.personsWithSignificantControlService = personsWithSignificantControlService;
+    }
 
     @GetMapping("/company/{companyNumber}/corporate-body-appointments/persons-of-significant-control")
     public ResponseEntity<List<PersonWithSignificantControl>> getPeopleWithSignificantControl(

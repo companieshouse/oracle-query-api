@@ -1,7 +1,6 @@
 package uk.gov.ch.controller.update;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +19,12 @@ public class OverseasEntityBeneficialOwnerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
-    @Autowired
+
     private OverseasEntityBeneficialOwnerService overseasEntityBeneficialOwnerService;
+
+    public OverseasEntityBeneficialOwnerController(OverseasEntityBeneficialOwnerService overseasEntityBeneficialOwnerService) {
+        this.overseasEntityBeneficialOwnerService = overseasEntityBeneficialOwnerService;
+    }
 
     @GetMapping("/overseas-entity/{companyNumber}/beneficial-owners")
     public ResponseEntity<List<OverseasEntityBeneficialOwner>> getOverseasEntityBeneficialOwners(

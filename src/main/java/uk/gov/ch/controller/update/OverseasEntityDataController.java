@@ -1,7 +1,6 @@
 package uk.gov.ch.controller.update;
 
 import jakarta.validation.constraints.Pattern;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -22,8 +21,12 @@ public class OverseasEntityDataController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
-    @Autowired
+
     private OverseasOverseasEntityDataServiceImpl entityDataService;
+
+    public OverseasEntityDataController(OverseasOverseasEntityDataServiceImpl entityDataService) {
+        this.entityDataService = entityDataService;
+    }
 
     @GetMapping("/overseas-entity/{companyNumber}/entity-data")
     public ResponseEntity<OverseasEntityDataJson> getEntityEmail(@PathVariable("companyNumber")

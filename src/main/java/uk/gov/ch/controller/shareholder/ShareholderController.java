@@ -2,7 +2,6 @@ package uk.gov.ch.controller.shareholder;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -24,8 +23,11 @@ public class ShareholderController {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private ShareholderService shareholderService;
+
+    public ShareholderController(ShareholderService shareholderService) {
+        this.shareholderService = shareholderService;
+    }
 
     @GetMapping("/company/{companyNumber}/shareholders/count")
     public ResponseEntity<Integer> getShareholdersCount(@PathVariable String companyNumber) {
