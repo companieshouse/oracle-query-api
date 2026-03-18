@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CompanyProfileMappingException;
@@ -31,14 +30,17 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
-    @Autowired
     private CorporateBodyRepository corporateBodyRepository;
-    @Autowired
     private ObjectMapper objectMapper;
-    @Autowired
     private CorporateBodyTransformer corporateBodyTransformer;
-    @Autowired
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
+
+    public CorporateBodyServiceImpl(CorporateBodyRepository corporateBodyRepository, ObjectMapper objectMapper, CorporateBodyTransformer corporateBodyTransformer, CorporateBodyDetailsRepository corporateBodyDetailsRepository) {
+        this.corporateBodyRepository = corporateBodyRepository;
+        this.objectMapper = objectMapper;
+        this.corporateBodyTransformer = corporateBodyTransformer;
+        this.corporateBodyDetailsRepository = corporateBodyDetailsRepository;
+    }
 
     @Override
     public Long getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
