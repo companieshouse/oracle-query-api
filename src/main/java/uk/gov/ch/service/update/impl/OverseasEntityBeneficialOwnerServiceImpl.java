@@ -1,7 +1,6 @@
 package uk.gov.ch.service.update.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.BeneficialOwnerCountNotFoundException;
@@ -19,8 +18,11 @@ public class OverseasEntityBeneficialOwnerServiceImpl implements
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private OverseasEntityBeneficialOwnerRepository beneficialOwnerDataRepository;
+
+    public OverseasEntityBeneficialOwnerServiceImpl(OverseasEntityBeneficialOwnerRepository beneficialOwnerDataRepository) {
+        this.beneficialOwnerDataRepository = beneficialOwnerDataRepository;
+    }
 
     @Override
     public List<OverseasEntityBeneficialOwner> getBeneficialOwners(String companyNumber)

@@ -1,7 +1,6 @@
 package uk.gov.ch.service.payment.impl;
 
 import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.model.payment.ConfirmationStatementPayment;
@@ -18,8 +17,11 @@ public class ConfirmationStatementPaymentCheckServiceImpl implements
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
 
-    @Autowired
     private ConfirmationStatementPaymentCheckRepository confirmationStatementPaymentCheckRepository;
+
+    public ConfirmationStatementPaymentCheckServiceImpl(ConfirmationStatementPaymentCheckRepository confirmationStatementPaymentCheckRepository) {
+        this.confirmationStatementPaymentCheckRepository = confirmationStatementPaymentCheckRepository;
+    }
 
     @Override
     public ConfirmationStatementPaymentJson isConfirmationStatementPaid(String companyNumber,

@@ -1,7 +1,6 @@
 package uk.gov.ch.service.psc.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,11 @@ import uk.gov.ch.service.psc.PersonsWithSignificantControlService;
 public class PersonsWithSignificantControlServiceImpl implements
         PersonsWithSignificantControlService {
 
-    @Autowired
     private PersonsWithSignificantControlRepository personsWithSignificantControlRepository;
+
+    public PersonsWithSignificantControlServiceImpl(PersonsWithSignificantControlRepository personsWithSignificantControlRepository) {
+        this.personsWithSignificantControlRepository = personsWithSignificantControlRepository;
+    }
 
     @Override
     public List<PersonWithSignificantControl> getPersonsWithSignificantControl(String companyNumber,

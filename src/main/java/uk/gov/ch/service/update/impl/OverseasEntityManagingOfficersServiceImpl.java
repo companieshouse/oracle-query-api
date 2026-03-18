@@ -1,7 +1,6 @@
 package uk.gov.ch.service.update.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.ManagingOfficerCountNotFoundException;
@@ -21,8 +20,11 @@ public class OverseasEntityManagingOfficersServiceImpl implements
 
     private static final String NO_MANAGING_OFFICERS_FOUND_MESSAGE = "No managing officers were found for this overseas entity";
 
-    @Autowired
     private OverseasEntityManagingOfficersRepository overseasEntityManagingOfficersRepository;
+
+    public OverseasEntityManagingOfficersServiceImpl(OverseasEntityManagingOfficersRepository overseasEntityManagingOfficersRepository) {
+        this.overseasEntityManagingOfficersRepository = overseasEntityManagingOfficersRepository;
+    }
 
     @Override
     public List<OverseasEntityManagingOfficerData> getOverseasEntityManagingOfficers(
