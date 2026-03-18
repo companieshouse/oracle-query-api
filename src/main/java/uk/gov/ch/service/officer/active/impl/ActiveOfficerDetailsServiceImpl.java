@@ -1,7 +1,6 @@
 package uk.gov.ch.service.officer.active.impl;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import uk.gov.ch.OracleQueryApplication;
@@ -20,8 +19,11 @@ public class ActiveOfficerDetailsServiceImpl implements ActiveOfficerDetailsServ
 
     private static final String NO_OFFICERS_FOUND_MESSAGE = "No active officers were found.";
 
-    @Autowired
     private ActiveOfficersDetailsRepository activeOfficersDetailsRepository;
+
+    public ActiveOfficerDetailsServiceImpl(ActiveOfficersDetailsRepository activeOfficersDetailsRepository) {
+        this.activeOfficersDetailsRepository = activeOfficersDetailsRepository;
+    }
 
     @Override
     public List<ActiveOfficerDetails> getActiveOfficersDetails(String companyNumber,
