@@ -35,7 +35,7 @@ class PersonsWithSignificantControlControllerTest {
 
     @Test
     @DisplayName("Get persons with significant control controller")
-    void testGetPeopleWithSignificantControl() throws ServiceException {
+    void testGetPeopleWithSignificantControl() {
         Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
         List<PersonWithSignificantControl> testPscs = new ArrayList<>();
         when(personsWithSignificantControlService.
