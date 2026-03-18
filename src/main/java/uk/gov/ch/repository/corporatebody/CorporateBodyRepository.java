@@ -1,6 +1,5 @@
 package uk.gov.ch.repository.corporatebody;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,8 +20,11 @@ public class CorporateBodyRepository {
 
     private static final String GET_COMPANY_PROFILE_SQL = "SELECT PKG_CHS_GET_DATA.F_GET_COMPANY_DATA(?) from dual";
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    public CorporateBodyRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public Long getActionCode(String companyNumber) throws CorporateBodyNotFoundException {
         try {

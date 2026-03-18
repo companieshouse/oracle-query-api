@@ -1,7 +1,6 @@
 package uk.gov.ch.repository.capital;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,8 +30,12 @@ public class StatementOfCapitalRepository {
                     + "WHERE soc.is_current_ind = 'Y' and cb.incorporation_number = ?";
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
-    @Autowired
+
     private JdbcTemplate jdbcTemplate;
+
+    public StatementOfCapitalRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public List<StatementOfCapital> getStatementOfCapital(String incorporationNumber)
             throws StatementOfCapitalNotFoundException {
