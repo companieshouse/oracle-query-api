@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.model.psc.PersonWithSignificantControl;
 import uk.gov.ch.service.psc.PersonsWithSignificantControlService;
 
