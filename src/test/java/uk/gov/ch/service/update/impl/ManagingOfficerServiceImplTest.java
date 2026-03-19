@@ -50,10 +50,8 @@ class ManagingOfficerServiceImplTest {
     private static final String PRINCIPAL_PREMISES = "principal_premises";
     private static final String PRINCIPAL_ADDRESS_LINE_1 = "principal_address_line_1";
     private static final String PRINCIPAL_ADDRESS_LINE_2 = "principal_address_line_2";
-    private static final String PRINCIPAL_LOCALITY = "principal_locality";
     private static final String PRINCIPAL_REGION = "principal_region";
     private static final String PRINCIPAL_COUNTRY = "principal_country";
-    private static final String PRINCIPAL_POST_TOWN = "principal_post_town";
     private static final String PRINCIPAL_POSTAL_CODE = "principal_postal_code";
     private static final String PRINCIPAL_PO_BOX = "principal_po_box";
     private static final String PRINCIPAL_CARE_OF = "principal_care_of";
@@ -96,7 +94,7 @@ class ManagingOfficerServiceImplTest {
 
     @Test
     @DisplayName("Get managing officers - no managing officers returned")
-    void testGetManagingOfficerDataNoData() throws ManagingOfficerCountNotFoundException {
+    void testGetManagingOfficerDataNoData() {
         List<OverseasEntityManagingOfficerData> expectedList = getMockManagingOfficerRepo(0);
         when(managingOfficerDataRepository.getOverseasEntityManagingOfficers(INCORPORATION_NUMBER))
                 .thenReturn(expectedList);
