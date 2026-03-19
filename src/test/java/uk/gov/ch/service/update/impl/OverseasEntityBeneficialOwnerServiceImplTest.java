@@ -46,7 +46,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
         assertEquals("1990/01/01", result.get(0).getDateBecameRegistrable());
         assertEquals("1985/01/01", result.get(0).getDateOfBirth());
         assertEquals("N", result.get(0).getIsServiceAddressSameAsUsualAddress());
-        
+
         assertEquals(testAddress.getAddressLine1(), result.get(0).getUsualResidentialAddress().getAddressLine1());
         assertEquals(testAddress.getAddressLine2(), result.get(0).getUsualResidentialAddress().getAddressLine2());
         assertEquals(testAddress.getCareOf(), result.get(0).getUsualResidentialAddress().getCareOf());
@@ -56,7 +56,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
         assertEquals(testAddress.getPostalCode(), result.get(0).getUsualResidentialAddress().getPostalCode());
         assertEquals(testAddress.getPremises(), result.get(0).getUsualResidentialAddress().getPremises());
         assertEquals(testAddress.getRegion(), result.get(0).getUsualResidentialAddress().getRegion());
-        
+
         assertEquals(testAddress.getAddressLine1(), result.get(0).getPrincipalAddress().getAddressLine1());
         assertEquals(testAddress.getAddressLine2(), result.get(0).getPrincipalAddress().getAddressLine2());
         assertEquals(testAddress.getCareOf(), result.get(0).getPrincipalAddress().getCareOf());
@@ -70,7 +70,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
 
     @Test
     @DisplayName("Get beneficial owners - no beneficial owners returned")
-    void testGetBeneficialOwnersNoData() throws BeneficialOwnerCountNotFoundException {
+    void testGetBeneficialOwnersNoData() {
         List<OverseasEntityBeneficialOwner> expectedList = getMockBeneficialOwners(0);
         when(overseasEntityBeneficialOwnerRepository.getBeneficialOwners(COMPANY_NUMBER)).thenReturn(expectedList);
 
@@ -85,7 +85,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
             bo.setId("1");
             bo.setDateBecameRegistrable("1990/01/01");
             bo.setDateOfBirth("1985/01/01");
-            
+
             bo.setIsServiceAddressSameAsUsualAddress("N");
             bo.setResidentialAddressLine1("TEST LINE 1");
             bo.setResidentialAddressLine2("TEST LINE 2");
@@ -96,7 +96,7 @@ class OverseasEntityBeneficialOwnerServiceImplTest {
             bo.setResidentialAddressPostCode("TEST POST CODE");
             bo.setResidentialAddressHouseNameNumber("TEST HOUSE NAME NUMBER");
             bo.setResidentialAddressRegion("TEST REGION");
-            
+
             bo.setPrincipalAddressLine1("TEST LINE 1");
             bo.setPrincipalAddressLine2("TEST LINE 2");
             bo.setPrincipalAddressCareOf("TEST CARE OF");
