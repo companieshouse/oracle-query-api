@@ -62,8 +62,7 @@ class StatementOfCapitalRepositoryTest {
 
     @Test
     @DisplayName("Get statement of capital empty data access result")
-    void getStatementOfCapitalTestEmptyDataAccessResult() throws StatementOfCapitalNotFoundException {
-        List<StatementOfCapital> expectedList = new ArrayList<StatementOfCapital>();
+    void getStatementOfCapitalTestEmptyDataAccessResult() {
 
         when(jdbcTemplate.query(eq(StatementOfCapitalRepository.STATEMENT_OF_CAPITAL_SQL),
                 any(PreparedStatementSetter.class), any(BeanPropertyRowMapper.class))).thenThrow(EmptyResultDataAccessException.class);
