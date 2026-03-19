@@ -18,8 +18,8 @@ import static org.mockito.Mockito.when;
 class ConfirmationStatementPaymentCheckServiceImplTest {
 
     private static final Long PAID_BY_TRANSACTION_ID = 01234L;
-    private static String COMPANY_NUMBER = "01234567";
-    private static String MADE_UP_TO_DATE = "2022-01-01";
+    private static final String COMPANY_NUMBER = "01234567";
+    private static final String MADE_UP_TO_DATE = "2022-01-01";
 
     @InjectMocks
     private ConfirmationStatementPaymentCheckServiceImpl confirmationStatementPaymentCheckServiceImpl;

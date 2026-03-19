@@ -34,13 +34,13 @@ class CorporateBodyServiceImplTest {
 
     @Mock
     private CorporateBodyRepository repository;
-    
+
     @Mock
     private ObjectMapper mockObjectMapper;
-    
+
     @Mock
     private CorporateBodyTransformer mockTransformer;
-    
+
     @Mock
     private JsonNode mockJsonNode;
 
@@ -80,46 +80,46 @@ class CorporateBodyServiceImplTest {
 
         assertThrows(CorporateBodyNotFoundException.class, () -> corporateBodyService.getTradedStatus(INCORPORATION_NUMBER));
     }
-    
+
     @Test
     @DisplayName("Get company profile - company profile successfully returned")
-    void testGetCompanyProfileFound() throws JsonMappingException, JsonProcessingException, CorporateBodyNotFoundException, CompanyProfileMappingException {
+    void testGetCompanyProfileFound() throws JsonProcessingException, CorporateBodyNotFoundException, CompanyProfileMappingException {
         CompanyProfileApi companyProfileApi = new CompanyProfileApi();
         companyProfileApi.setCompanyNumber(INCORPORATION_NUMBER);
         String resultString = "{\"company_number\":\"" + INCORPORATION_NUMBER + "\"}";
         CompanyProfileModel model = new CompanyProfileModel();
         model.setCompanyNumber(INCORPORATION_NUMBER);
-        
+
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(resultString);
         when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenReturn(mockJsonNode);
         when(mockObjectMapper.convertValue(any(JsonNode.class),
                 ArgumentMatchers.<TypeReference<CompanyProfileModel>>any())).thenReturn(model);
         when(mockTransformer.convert(model)).thenReturn(companyProfileApi);
-        
+
         CompanyProfileApi result = corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER);
         assertNotNull(result);
         assertEquals(companyProfileApi.getCompanyNumber(), result.getCompanyNumber());
     }
-    
+
     @Test
     @DisplayName("String returned from repository includes Company Not Found")
     void testGetCompanyProfileNotFound() {
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn("{ 12345678 Company Not Found }");
         assertThrows(CorporateBodyNotFoundException.class, () -> corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER));
     }
-    
+
     @Test
     @DisplayName("Get company profile has a json mapping exception, returns a CompanyProfileMappingException")
-    void testGetCompanyProfileJsonMappingException() throws JsonMappingException, JsonProcessingException {
+    void testGetCompanyProfileJsonMappingException() throws JsonProcessingException {
         String resultString = "{\"company_number\":\"" + INCORPORATION_NUMBER + "\"}";
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(resultString);
         when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonMappingException.class);
         assertThrows(CompanyProfileMappingException.class, () -> corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER));
     }
-    
+
     @Test
     @DisplayName("Get company profile has a json mapping exception, returns a CompanyProfileMappingException")
-    void testGetCompanyProfileJsonProcessingException() throws JsonMappingException, JsonProcessingException {
+    void testGetCompanyProfileJsonProcessingException() throws JsonProcessingException {
         String resultString = "{\"company_number\":\"" + INCORPORATION_NUMBER + "\"}";
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(resultString);
         when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonProcessingException.class);

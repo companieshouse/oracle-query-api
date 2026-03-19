@@ -49,7 +49,6 @@ import java.util.Optional;
     private static final String FROM_DATE_OF_BIRTH = "2020-01-01";
     private static final String TO_DATE_OF_BIRTH = "2020-02-01";
     private static final String ALIAS = "alias";
-    private static final String DATE_OF_BIRTH = "2020-01-01";
     private static final String POSTCODE = "postcode";
     private static final String EPHEMERAL_KEY = "0123456";
 

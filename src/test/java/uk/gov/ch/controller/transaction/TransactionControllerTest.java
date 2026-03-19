@@ -30,7 +30,7 @@ class TransactionControllerTest {
     @InjectMocks
     TransactionController transactionController;
 
-    private final static String COMPANY_NUMBER = "12345678";
+    private static final String COMPANY_NUMBER = "12345678";
 
     @Test
     @DisplayName("Get transaction history returns a 200 and a list of FilingApi")
@@ -78,7 +78,7 @@ class TransactionControllerTest {
         ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
-    
+
     @Test
     @DisplayName("Get transaction history items array null returns a Http Not Found")
     void testGetTransactionHistoryNullItemsReturnsNotFound() throws Exception {

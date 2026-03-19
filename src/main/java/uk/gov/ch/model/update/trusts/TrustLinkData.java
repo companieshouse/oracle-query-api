@@ -11,7 +11,7 @@ public class TrustLinkData {
 
     @Id
     @Column(name = "ROWNUM")
-    private Long Id;
+    private Long id;
 
     @Column(name = "TRUST_ID")
     @JsonProperty("trustId")
