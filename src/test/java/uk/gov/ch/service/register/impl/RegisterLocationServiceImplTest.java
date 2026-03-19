@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import uk.gov.ch.model.psc.PersonWithSignificantControl;
 import uk.gov.ch.model.register.RegisterLocation;
 import uk.gov.ch.repository.register.RegisterLocationRepository;
 
