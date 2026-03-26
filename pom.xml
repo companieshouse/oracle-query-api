@@ -54,10 +54,6 @@
         <sonar.token>${CODE_ANALYSIS_TOKEN}</sonar.token>
         <sonar.login/>
         <sonar.password/>
-        <!-- suppress duplicate code warnings for boilerplate getters and setters -->
-        <sonar.duplications.exclusions>
-            **/model/**/*.java
-        </sonar.duplications.exclusions>
     </properties>
 
     <dependencyManagement>
