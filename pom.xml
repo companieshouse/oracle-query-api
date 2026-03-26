@@ -18,7 +18,7 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>3.5.12</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.0.4</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <jakarta.xml.bind-api.version>4.0.5</jakarta.xml.bind-api.version>
@@ -77,13 +77,6 @@
 
     <dependencies>
 
-        <!-- CVE-2025-68161(6.3) -->
-        <!-- override log4j 2.24.3 brought in by spring-boot 3.5.12 -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>${log4j-api.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -156,6 +149,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
