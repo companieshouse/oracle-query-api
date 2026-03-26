@@ -1,7 +1,7 @@
 package uk.gov.ch.model.officer.active;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
@@ -79,7 +79,7 @@ class ActiveDirectorDetailsTest {
     @Description("Should not contain the secure indicator in the json of a non-secure director")
     void nonSecureActiveDirectorDetailsSecureIndicatorTest() throws JsonProcessingException {
         director.setSecureIndicator("N");
-        String json = new ObjectMapper().writeValueAsString(director);
+        String json = new JsonMapper().writeValueAsString(director);
         assertFalse(json.contains("secure"));
         assertFalse(json.contains("\"N\""));
     }
@@ -88,7 +88,7 @@ class ActiveDirectorDetailsTest {
     @Description("Should not contain the secure indicator in the json of a secure director")
     void secureActiveDirectorDetailsSecureIndicatorTest() throws JsonProcessingException {
         director.setSecureIndicator("Y");
-        String json = new ObjectMapper().writeValueAsString(director);
+        String json = new JsonMapper().writeValueAsString(director);
         assertFalse(json.contains("secure"));
         assertFalse(json.contains("\"Y\""));
     }

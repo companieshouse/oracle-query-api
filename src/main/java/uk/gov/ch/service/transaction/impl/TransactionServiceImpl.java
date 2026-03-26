@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +32,12 @@ public class TransactionServiceImpl implements TransactionService {
 
     private TransactionTransformer transactionTransformer;
 
-    private ObjectMapper objectMapper;
+    private JsonMapper jsonMapper;
 
-    public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionTransformer transactionTransformer, ObjectMapper objectMapper) {
+    public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionTransformer transactionTransformer, JsonMapper jsonMapper) {
         this.transactionRepository = transactionRepository;
         this.transactionTransformer = transactionTransformer;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
     }
 
     @Override
@@ -58,9 +58,9 @@ public class TransactionServiceImpl implements TransactionService {
         List<FilingHistoryTransaction> filingHistoryTransactions = null;
 
         try {
-            JsonNode filingHistoryJson = objectMapper.readValue(result, JsonNode.class);
+            JsonNode filingHistoryJson = jsonMapper.readValue(result, JsonNode.class);
             JsonNode filingHistoryNode = filingHistoryJson.get("filing_history");
-            filingHistoryTransactions = objectMapper.convertValue(filingHistoryNode,
+            filingHistoryTransactions = jsonMapper.convertValue(filingHistoryNode,
                     new TypeReference<List<FilingHistoryTransaction>>() {
                     });
             response = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactions);

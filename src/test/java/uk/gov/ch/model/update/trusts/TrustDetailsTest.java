@@ -1,7 +1,7 @@
 package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ class TrustDetailsTest {
     @Test
     @DisplayName("TrustDetails Serialisation Test")
     void serialisationTest() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
+        JsonMapper mapper = new JsonMapper();
 
         String output = mapper.writeValueAsString(trustDetails);
         assertEquals(JSON_STRING, output);
@@ -39,7 +39,7 @@ class TrustDetailsTest {
     @Test
     @DisplayName("TrustDetails Deserialisation Test")
     void deserialisationTest() throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
+        JsonMapper mapper = new JsonMapper();
 
         TrustDetails output = mapper.readValue(JSON_STRING, TrustDetails.class);
 
