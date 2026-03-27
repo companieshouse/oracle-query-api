@@ -3,7 +3,7 @@ package uk.gov.ch.service.officer.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,13 +29,13 @@ public class OfficerServiceImpl implements OfficerService {
 
     OfficersRepository officersRepository;
 
-    private ObjectMapper objectMapper;
+    private JsonMapper jsonMapper;
 
     private OfficersApiTransformer transformer;
 
-    public OfficerServiceImpl(OfficersRepository officersRepository, ObjectMapper objectMapper, OfficersApiTransformer transformer) {
+    public OfficerServiceImpl(OfficersRepository officersRepository, JsonMapper jsonMapper, OfficersApiTransformer transformer) {
         this.officersRepository = officersRepository;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
         this.transformer = transformer;
     }
 
@@ -54,9 +54,9 @@ public class OfficerServiceImpl implements OfficerService {
         }
 
         try {
-            JsonNode officersJson = objectMapper.readValue(result, JsonNode.class);
+            JsonNode officersJson = jsonMapper.readValue(result, JsonNode.class);
             JsonNode officersNode = officersJson.get("officers");
-            List<OfficerDataModel> officerDataModels = objectMapper.convertValue(officersNode,
+            List<OfficerDataModel> officerDataModels = jsonMapper.convertValue(officersNode,
                     new TypeReference<List<OfficerDataModel>>() {
                     });
             return transformer.convert(officerDataModels);

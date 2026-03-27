@@ -1,7 +1,7 @@
 package uk.gov.ch.model.officer.active;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
@@ -80,7 +80,7 @@ class ActiveOfficerDetailsTest {
     @Description("Should not contain the secure indicator in the json of a non-secure officer")
     void nonSecureActiveOfficerDetailsSecureIndicatorTest() throws JsonProcessingException {
         officer.setSecureIndicator("N");
-        String json = new ObjectMapper().writeValueAsString(officer);
+        String json = new JsonMapper().writeValueAsString(officer);
         assertFalse(json.contains("secure"));
         assertFalse(json.contains("\"N\""));
     }
@@ -89,7 +89,7 @@ class ActiveOfficerDetailsTest {
     @Description("Should not contain the secure indicator in the json of a secure officer")
     void secureActiveOfficerDetailsSecureIndicatorTest() throws JsonProcessingException {
         officer.setSecureIndicator("Y");
-        String json = new ObjectMapper().writeValueAsString(officer);
+        String json = new JsonMapper().writeValueAsString(officer);
         assertFalse(json.contains("secure"));
         assertFalse(json.contains("\"Y\""));
     }

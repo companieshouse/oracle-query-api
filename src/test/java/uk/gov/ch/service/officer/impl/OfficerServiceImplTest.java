@@ -22,7 +22,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import uk.gov.ch.exception.NoOfficersExistingException;
 import uk.gov.ch.exception.OfficersMappingException;
@@ -38,7 +38,7 @@ class OfficerServiceImplTest {
     private OfficerServiceImpl officerServiceImpl;
 
     @Mock
-    private ObjectMapper mockObjectMapper;
+    private JsonMapper mockJsonMapper;
 
     @Mock
     private OfficersApiTransformer mockTransformer;
@@ -69,7 +69,7 @@ class OfficerServiceImplTest {
     void testGetOfficersJsonProcessingExceptionThrown() throws Exception {
         String resultString = "this is the result string";
         when(mockRepository.getOfficers(COMP_NO)).thenReturn(resultString);
-        when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonProcessingException.class);
+        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonProcessingException.class);
         assertThrows(OfficersMappingException.class, () -> {
             officerServiceImpl.getOfficers(COMP_NO);
         });
@@ -81,9 +81,9 @@ class OfficerServiceImplTest {
         String resultString = "this is the result string";
         List<OfficerDataModel> officerDataModelList = new ArrayList<>();
         when(mockRepository.getOfficers(COMP_NO)).thenReturn(resultString);
-        when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenReturn(mockNode);
+        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenReturn(mockNode);
         when(mockNode.get("officers")).thenReturn(mockNode);
-        when(mockObjectMapper.convertValue(any(JsonNode.class),
+        when(mockJsonMapper.convertValue(any(JsonNode.class),
                 ArgumentMatchers.<TypeReference<List<OfficerDataModel>>>any())).thenReturn(officerDataModelList);
         when(mockTransformer.convert(officerDataModelList)).thenReturn(new OfficersApi());
         assertNotNull(officerServiceImpl.getOfficers(COMP_NO));

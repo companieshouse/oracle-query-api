@@ -19,7 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
@@ -36,7 +36,7 @@ class CorporateBodyServiceImplTest {
     private CorporateBodyRepository repository;
 
     @Mock
-    private ObjectMapper mockObjectMapper;
+    private JsonMapper mockJsonMapper;
 
     @Mock
     private CorporateBodyTransformer mockTransformer;
@@ -91,8 +91,8 @@ class CorporateBodyServiceImplTest {
         model.setCompanyNumber(INCORPORATION_NUMBER);
 
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(resultString);
-        when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenReturn(mockJsonNode);
-        when(mockObjectMapper.convertValue(any(JsonNode.class),
+        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenReturn(mockJsonNode);
+        when(mockJsonMapper.convertValue(any(JsonNode.class),
                 ArgumentMatchers.<TypeReference<CompanyProfileModel>>any())).thenReturn(model);
         when(mockTransformer.convert(model)).thenReturn(companyProfileApi);
 
@@ -113,7 +113,7 @@ class CorporateBodyServiceImplTest {
     void testGetCompanyProfileJsonMappingException() throws JsonProcessingException {
         String resultString = "{\"company_number\":\"" + INCORPORATION_NUMBER + "\"}";
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(resultString);
-        when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonMappingException.class);
+        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonMappingException.class);
         assertThrows(CompanyProfileMappingException.class, () -> corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER));
     }
 
@@ -122,7 +122,7 @@ class CorporateBodyServiceImplTest {
     void testGetCompanyProfileJsonProcessingException() throws JsonProcessingException {
         String resultString = "{\"company_number\":\"" + INCORPORATION_NUMBER + "\"}";
         when(repository.getCompanyProfile(INCORPORATION_NUMBER)).thenReturn(resultString);
-        when(mockObjectMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonProcessingException.class);
+        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonProcessingException.class);
         assertThrows(CompanyProfileMappingException.class, () -> corporateBodyService.getCompanyProfile(INCORPORATION_NUMBER));
     }
 }

@@ -27,7 +27,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
@@ -46,7 +46,7 @@ class TransactionServiceImplTest {
     TransactionTransformer transactionTransformer;
 
     @Mock
-    ObjectMapper objectMapper;
+    JsonMapper jsonMapper;
 
     @Mock
     JsonNode mockJsonNode;
@@ -62,9 +62,9 @@ class TransactionServiceImplTest {
         List<FilingHistoryTransaction> transactionList = getFilingHistoryTransactionList();
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
-        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenReturn(mockJsonNode);
+        when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenReturn(mockJsonNode);
         when(mockJsonNode.get("filing_history")).thenReturn(mockJsonNode);
-        when(objectMapper.convertValue(any(JsonNode.class),
+        when(jsonMapper.convertValue(any(JsonNode.class),
                 ArgumentMatchers.<TypeReference<List<FilingHistoryTransaction>>>any()))
                 .thenReturn(transactionList);
         when(transactionTransformer.convertToFilingHistoryApi(transactionList)).thenReturn(
@@ -114,7 +114,7 @@ class TransactionServiceImplTest {
     void testGetTransactionThrowsJsonMappingException() throws Exception {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
-        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
+        when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
                 JsonMappingException.class);
         assertThrows(TransactionMappingException.class, () ->
                 transactionService.getTransactions(COMPANY_NUMBER)
@@ -126,7 +126,7 @@ class TransactionServiceImplTest {
     void testGetTransactionThrowsJsonProcessingException() throws Exception {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
-        when(objectMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
+        when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
                 JsonProcessingException.class);
         assertThrows(TransactionMappingException.class, () ->
                 transactionService.getTransactions(COMPANY_NUMBER)

@@ -3,7 +3,7 @@ package uk.gov.ch.service.corporatebody.impl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -31,13 +31,13 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
     private CorporateBodyRepository corporateBodyRepository;
-    private ObjectMapper objectMapper;
+    private JsonMapper jsonMapper;
     private CorporateBodyTransformer corporateBodyTransformer;
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 
-    public CorporateBodyServiceImpl(CorporateBodyRepository corporateBodyRepository, ObjectMapper objectMapper, CorporateBodyTransformer corporateBodyTransformer, CorporateBodyDetailsRepository corporateBodyDetailsRepository) {
+    public CorporateBodyServiceImpl(CorporateBodyRepository corporateBodyRepository, JsonMapper jsonMapper, CorporateBodyTransformer corporateBodyTransformer, CorporateBodyDetailsRepository corporateBodyDetailsRepository) {
         this.corporateBodyRepository = corporateBodyRepository;
-        this.objectMapper = objectMapper;
+        this.jsonMapper = jsonMapper;
         this.corporateBodyTransformer = corporateBodyTransformer;
         this.corporateBodyDetailsRepository = corporateBodyDetailsRepository;
     }
@@ -69,8 +69,8 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
         }
 
         try {
-            JsonNode companyProfileNode = objectMapper.readValue(resultJson, JsonNode.class);
-            CompanyProfileModel companyProfileModel = objectMapper.convertValue(companyProfileNode,
+            JsonNode companyProfileNode = jsonMapper.readValue(resultJson, JsonNode.class);
+            CompanyProfileModel companyProfileModel = jsonMapper.convertValue(companyProfileNode,
                     new TypeReference<CompanyProfileModel>() {
                     });
             return corporateBodyTransformer.convert(companyProfileModel);
