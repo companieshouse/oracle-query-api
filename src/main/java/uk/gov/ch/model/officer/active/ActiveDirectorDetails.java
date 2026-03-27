@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import uk.gov.companieshouse.api.model.common.Address;
 
-@SuppressWarnings("java:S1192") // Duplicated code block
 @Entity
 public class ActiveDirectorDetails {
 
