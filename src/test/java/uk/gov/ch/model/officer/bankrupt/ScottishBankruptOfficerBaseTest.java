@@ -94,6 +94,20 @@ class ScottishBankruptOfficerBaseTest {
     }
 
     @Test
+    void testAliasGetterAndSetter() {
+        final String alias = "alias";
+        scottishBankruptOfficerBaseUnderTest.setAlias(alias);
+        assertEquals(scottishBankruptOfficerBaseUnderTest.getAlias(),alias);
+    }
+
+    @Test
+    void testCaseReferenceGetterAndSetter() {
+        final String caseReference = "caseReference";
+        scottishBankruptOfficerBaseUnderTest.setCaseReference(caseReference);
+        assertEquals(scottishBankruptOfficerBaseUnderTest.getCaseReference(),caseReference);
+    }
+
+    @Test
     void testCaseTypeGetterAndSetter() {
         final String caseType = "caseType";
         scottishBankruptOfficerBaseUnderTest.setCaseType(caseType);
@@ -101,9 +115,30 @@ class ScottishBankruptOfficerBaseTest {
     }
 
     @Test
+    void testBankruptcyTypeGetterAndSetter() {
+        final String bankruptcyType = "bankruptcyType";
+        scottishBankruptOfficerBaseUnderTest.setBankruptcyType(bankruptcyType);
+        assertEquals(scottishBankruptOfficerBaseUnderTest.getBankruptcyType(),bankruptcyType);
+    }
+
+    @Test
+    void testStartDateGetterAndSetter() {
+        final LocalDate startDate = LocalDate.of(2020, 1, 1);
+        scottishBankruptOfficerBaseUnderTest.setStartDate(startDate);
+        assertEquals(scottishBankruptOfficerBaseUnderTest.getStartDate(),startDate);
+    }
+
+    @Test
     void testDebtorDischargeDateGetterAndSetter() {
         final LocalDate debtorDischargeDate = LocalDate.of(2020, 1, 1);
         scottishBankruptOfficerBaseUnderTest.setDebtorDischargeDate(debtorDischargeDate);
         assertEquals(scottishBankruptOfficerBaseUnderTest.getDebtorDischargeDate(),debtorDischargeDate);
+    }
+
+    @Test
+    void testTrusteeDischargeDateGetterAndSetter() {
+        final LocalDate trusteeDischargeDate = LocalDate.of(2020, 1, 1);
+        scottishBankruptOfficerBaseUnderTest.setTrusteeDischargeDate(trusteeDischargeDate);
+        assertEquals(scottishBankruptOfficerBaseUnderTest.getTrusteeDischargeDate(),trusteeDischargeDate);
     }
 }
