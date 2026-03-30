@@ -27,11 +27,11 @@ public class ScottishBankruptOfficerDataModel {
     @Column(name = "ADDRESS_LINE_3")
     private String addressLine3;
     @Column(name = "ADDRESS_TOWN")
-    private String addressTown;
+    private String town;
     @Column(name = "ADDRESS_COUNTY")
-    private String addressCounty;
+    private String county;
     @Column(name = "ADDRESS_POSTCODE")
-    private String addressPostcode;
+    private String postcode;
     @Column(name = "DATE_OF_BIRTH")
     private LocalDate dateOfBirth;
     @Column(name = "ALIAS")
@@ -106,27 +106,27 @@ public class ScottishBankruptOfficerDataModel {
     }
 
     public String getAddressTown() {
-        return addressTown;
+        return town;
     }
 
-    public void setAddressTown(String addressTown) {
-        this.addressTown = addressTown;
+    public void setAddressTown(String town) {
+        this.town = town;
     }
 
     public String getAddressCounty() {
-        return addressCounty;
+        return county;
     }
 
-    public void setAddressCounty(String addressCounty) {
-        this.addressCounty = addressCounty;
+    public void setAddressCounty(String county) {
+        this.county = county;
     }
 
     public String getAddressPostcode() {
-        return addressPostcode;
+        return postcode;
     }
 
-    public void setAddressPostcode(String addressPostcode) {
-        this.addressPostcode = addressPostcode;
+    public void setAddressPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     public LocalDate getDateOfBirth() {
