@@ -20,8 +20,13 @@ public abstract class ScottishBankruptOfficerBase {
     private String county;
     private String postcode;
     private LocalDate dateOfBirth;
+    private String alias;
+    private String caseReference;
     private String caseType;
+    private String bankruptcyType;
+    private LocalDate startDate;
     private LocalDate debtorDischargeDate;
+    private LocalDate trusteeDischargeDate;
 
     public String getEphemeralKey() {
         return ephemeralKey;
@@ -111,12 +116,44 @@ public abstract class ScottishBankruptOfficerBase {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public String getCaseReference() {
+        return caseReference;
+    }
+
+    public void setCaseReference(String caseReference) {
+        this.caseReference = caseReference;
+    }
+
     public String getCaseType() {
         return caseType;
     }
 
     public void setCaseType(String caseType) {
         this.caseType = caseType;
+    }
+
+    public String getBankruptcyType() {
+        return bankruptcyType;
+    }
+
+    public void setBankruptcyType(String bankruptcyType) {
+        this.bankruptcyType = bankruptcyType;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDate getDebtorDischargeDate() {
@@ -127,4 +164,11 @@ public abstract class ScottishBankruptOfficerBase {
         this.debtorDischargeDate = debtorDischargeDate;
     }
 
+    public LocalDate getTrusteeDischargeDate() {
+        return trusteeDischargeDate;
+    }
+
+    public void setTrusteeDischargeDate(LocalDate trusteeDischargeDate) {
+        this.trusteeDischargeDate = trusteeDischargeDate;
+    }
 }
