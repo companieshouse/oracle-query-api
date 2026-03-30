@@ -4,7 +4,6 @@ import static uk.gov.ch.OracleQueryApplication.APPLICATION_NAME_SPACE;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,7 +26,7 @@ public class LoggingInterceptor implements RequestLogger, AsyncHandlerIntercepto
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
-            @Nullable ModelAndView modelAndView) {
+            ModelAndView modelAndView) {
 
         logEndRequestProcessing(request, response, LOGGER);
     }
