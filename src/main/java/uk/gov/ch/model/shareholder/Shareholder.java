@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import uk.gov.ch.model.common.NameBase;
 
 @Entity
-public class Shareholder {
+public class Shareholder extends NameBase {
 
     @Id
     @Column(name = "shareholder_id")
@@ -35,30 +36,6 @@ public class Shareholder {
 
     public void setShareholderId(Long shareholderId) {
         this.shareholderId = shareholderId;
-    }
-
-    public String getForename1() {
-        return forename1;
-    }
-
-    public void setForename1(String forename1) {
-        this.forename1 = forename1;
-    }
-
-    public String getForename2() {
-        return forename2;
-    }
-
-    public void setForename2(String forename2) {
-        this.forename2 = forename2;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public long getShares() {

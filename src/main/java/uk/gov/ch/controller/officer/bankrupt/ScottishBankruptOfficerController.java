@@ -40,7 +40,6 @@ public class ScottishBankruptOfficerController {
         if (officer == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-        System.out.println("NSDBG "+officer);
         return ResponseEntity.status(HttpStatus.OK).body(officer);
     }
 
