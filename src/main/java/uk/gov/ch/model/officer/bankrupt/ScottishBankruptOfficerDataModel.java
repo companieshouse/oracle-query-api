@@ -105,27 +105,27 @@ public class ScottishBankruptOfficerDataModel {
         this.addressLine3 = addressLine3;
     }
 
-    public String getAddressTown() {
+    public String getTown() {
         return town;
     }
 
-    public void setAddressTown(String town) {
+    public void setTown(String town) {
         this.town = town;
     }
 
-    public String getAddressCounty() {
+    public String getCounty() {
         return county;
     }
 
-    public void setAddressCounty(String county) {
+    public void setCounty(String county) {
         this.county = county;
     }
 
-    public String getAddressPostcode() {
+    public String getPostcode() {
         return postcode;
     }
 
-    public void setAddressPostcode(String postcode) {
+    public void setPostcode(String postcode) {
         this.postcode = postcode;
     }
 
