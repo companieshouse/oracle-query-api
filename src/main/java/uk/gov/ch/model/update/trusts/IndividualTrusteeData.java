@@ -1,6 +1,7 @@
 package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,7 +10,21 @@ import java.util.Objects;
 import uk.gov.companieshouse.api.model.common.Address;
 
 @Entity
-public class IndividualTrusteeData {
+@JsonPropertyOrder({
+    "trusteeId",
+    "trusteeForename1",
+    "trusteeForename2",
+    "trusteeSurname",
+    "dateOfBirth",
+    "nationality",
+    "corporateIndicator",
+    "trusteeTypeId",
+    "appointmentDate",
+    "ceasedDate",
+    "serviceAddress",
+    "usualResidentialAddress"
+})
+public class IndividualTrusteeData extends TrusteeDataBase {
 
     @Id
     @Column(name = "TRUSTEE_ID")
@@ -40,39 +55,6 @@ public class IndividualTrusteeData {
     @JsonProperty("corporateIndicator")
     private String corporateIndicator;
 
-    @Column(name = "TRUSTEE_TYPE_ID")
-    @JsonProperty("trusteeTypeId")
-    private String trusteeTypeId;
-
-    @Column(name = "APPOINTMENT_DATE")
-    @JsonProperty("appointmentDate")
-    private String appointmentDate;
-
-    @Column(name = "CEASED_DATE")
-    @JsonProperty("ceasedDate")
-    private String ceasedDate;
-
-    @Column(name = "SERV_ADDR_NAME_NUMBER")
-    private String serviceAddressHouseNameNumber;
-
-    @Column(name = "SERV_ADDR_STREET")
-    private String serviceAddressStreet;
-
-    @Column(name = "SERV_ADDR_AREA")
-    private String serviceAddressArea;
-
-    @Column(name = "SERV_ADDR_POST_TOWN")
-    private String serviceAddressPostTown;
-
-    @Column(name = "SERV_ADDR_REGION")
-    private String serviceAddressRegion;
-
-    @Column(name = "SERV_ADDR_COUNTRY_NAME")
-    private String serviceAddressCountryName;
-
-    @Column(name = "SERV_ADDR_POST_CODE")
-    private String serviceAddressPostCode;
-
     @Column(name = "RES_ADDR_NAME_NUMBER")
     private String residentialAddressHouseNameNumber;
 
@@ -95,37 +77,8 @@ public class IndividualTrusteeData {
     private String residentialAddressPostCode;
 
     @Transient
-    @JsonProperty("serviceAddress")
-    private Address serviceAddress;
-
-    @Transient
     @JsonProperty("usualResidentialAddress")
     private Address usualResidentialAddress;
-
-
-    public Address getServiceAddress() {
-        this.serviceAddress = new Address();
-        this.serviceAddress.setPremises(serviceAddressHouseNameNumber);
-        this.serviceAddress.setAddressLine1(serviceAddressStreet);
-        this.serviceAddress.setAddressLine2(serviceAddressArea);
-        this.serviceAddress.setLocality(serviceAddressPostTown);
-        this.serviceAddress.setRegion(serviceAddressRegion);
-        this.serviceAddress.setCountry(serviceAddressCountryName);
-        this.serviceAddress.setPostalCode(serviceAddressPostCode);
-        return this.serviceAddress;
-    }
-
-    public void setServiceAddress(Address serviceAddress) {
-        if (serviceAddress != null) {
-            this.serviceAddressHouseNameNumber = serviceAddress.getPremises();
-            this.serviceAddressStreet = serviceAddress.getAddressLine1();
-            this.serviceAddressArea = serviceAddress.getAddressLine2();
-            this.serviceAddressPostTown = serviceAddress.getLocality();
-            this.serviceAddressRegion = serviceAddress.getRegion();
-            this.serviceAddressCountryName = serviceAddress.getCountry();
-            this.serviceAddressPostCode = serviceAddress.getPostalCode();
-        }
-    }
 
     public Address getUsualResidentialAddress() {
         this.usualResidentialAddress = new Address();
@@ -208,30 +161,6 @@ public class IndividualTrusteeData {
         this.corporateIndicator = corporateIndicator;
     }
 
-    public String getTrusteeTypeId() {
-        return trusteeTypeId;
-    }
-
-    public void setTrusteeTypeId(String trusteeTypeId) {
-        this.trusteeTypeId = trusteeTypeId;
-    }
-
-    public String getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(String appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public String getCeasedDate() {
-        return ceasedDate;
-    }
-
-    public void setCeasedDate(String ceasedDate) {
-        this.ceasedDate = ceasedDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -241,38 +170,58 @@ public class IndividualTrusteeData {
             return false;
         }
         IndividualTrusteeData that = (IndividualTrusteeData) o;
-        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(trusteeForename1,
-                that.trusteeForename1) && Objects.equals(trusteeForename2, that.trusteeForename2)
-                && Objects.equals(trusteeSurname, that.trusteeSurname) && Objects.equals(
-                dateOfBirth, that.dateOfBirth) && Objects.equals(nationality, that.nationality)
-                && Objects.equals(corporateIndicator, that.corporateIndicator) && Objects.equals(
-                trusteeTypeId, that.trusteeTypeId) && Objects.equals(appointmentDate,
-                that.appointmentDate) && Objects.equals(ceasedDate, that.ceasedDate)
-                && Objects.equals(serviceAddressHouseNameNumber, that.serviceAddressHouseNameNumber)
-                && Objects.equals(serviceAddressStreet, that.serviceAddressStreet)
-                && Objects.equals(serviceAddressArea, that.serviceAddressArea) && Objects.equals(
-                serviceAddressPostTown, that.serviceAddressPostTown) && Objects.equals(
-                serviceAddressRegion, that.serviceAddressRegion) && Objects.equals(
-                serviceAddressCountryName, that.serviceAddressCountryName) && Objects.equals(
-                serviceAddressPostCode, that.serviceAddressPostCode) && Objects.equals(
-                residentialAddressHouseNameNumber, that.residentialAddressHouseNameNumber)
-                && Objects.equals(residentialAddressStreet, that.residentialAddressStreet)
-                && Objects.equals(residentialAddressArea, that.residentialAddressArea)
-                && Objects.equals(residentialAddressPostTown, that.residentialAddressPostTown)
-                && Objects.equals(residentialAddressRegion, that.residentialAddressRegion)
-                && Objects.equals(residentialAddressCountryName, that.residentialAddressCountryName)
-                && Objects.equals(residentialAddressPostCode, that.residentialAddressPostCode);
+	return Objects.equals(trusteeId, that.trusteeId)
+		&& Objects.equals(trusteeForename1,that.trusteeForename1)
+		&& Objects.equals(trusteeForename2,that.trusteeForename2)
+		&& Objects.equals(trusteeSurname,that.trusteeSurname)
+		&& Objects.equals(dateOfBirth,that.dateOfBirth)
+		&& Objects.equals(nationality,that.nationality)
+		&& Objects.equals(corporateIndicator,that.corporateIndicator)
+        && Objects.equals(trusteeTypeId,that.trusteeTypeId)
+        && Objects.equals(appointmentDate,that.appointmentDate)
+        && Objects.equals(ceasedDate,that.ceasedDate)
+	    && Objects.equals(serviceAddressHouseNameNumber,that.serviceAddressHouseNameNumber)
+	    && Objects.equals(serviceAddressStreet,that.serviceAddressStreet)
+	    && Objects.equals(serviceAddressArea,that.serviceAddressArea)
+	    && Objects.equals(serviceAddressPostTown,that.serviceAddressPostTown)
+	    && Objects.equals(serviceAddressRegion,that.serviceAddressRegion)
+	    && Objects.equals(serviceAddressCountryName,that.serviceAddressCountryName)
+	    && Objects.equals(serviceAddressPostCode,that.serviceAddressPostCode)
+		&& Objects.equals(residentialAddressHouseNameNumber,that.residentialAddressHouseNameNumber)
+		&& Objects.equals(residentialAddressStreet,that.residentialAddressStreet)
+		&& Objects.equals(residentialAddressArea,that.residentialAddressArea)
+		&& Objects.equals(residentialAddressPostTown,that.residentialAddressPostTown)
+		&& Objects.equals(residentialAddressRegion,that.residentialAddressRegion)
+		&& Objects.equals(residentialAddressCountryName,that.residentialAddressCountryName)
+		&& Objects.equals(residentialAddressPostCode,that.residentialAddressPostCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trusteeId, trusteeForename1, trusteeForename2, trusteeSurname,
-                dateOfBirth, nationality, corporateIndicator, trusteeTypeId, appointmentDate,
-                ceasedDate, serviceAddressHouseNameNumber, serviceAddressStreet, serviceAddressArea,
-                serviceAddressPostTown, serviceAddressRegion, serviceAddressCountryName,
-                serviceAddressPostCode, residentialAddressHouseNameNumber, residentialAddressStreet,
-                residentialAddressArea, residentialAddressPostTown, residentialAddressRegion,
-                residentialAddressCountryName, residentialAddressPostCode);
+	    return Objects.hash(trusteeId,
+			    trusteeForename1,
+			    trusteeForename2,
+			    trusteeSurname,
+			    dateOfBirth,
+			    nationality,
+			    corporateIndicator,
+			    trusteeTypeId,
+			    appointmentDate,
+                ceasedDate,
+                serviceAddressHouseNameNumber,
+                serviceAddressStreet,
+                serviceAddressArea,
+                serviceAddressPostTown,
+                serviceAddressRegion,
+                serviceAddressCountryName,
+                serviceAddressPostCode,
+			    residentialAddressHouseNameNumber,
+			    residentialAddressStreet,
+			    residentialAddressArea,
+			    residentialAddressPostTown,
+			    residentialAddressRegion,
+			    residentialAddressCountryName,
+			    residentialAddressPostCode);
     }
 
 }

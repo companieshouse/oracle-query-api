@@ -230,9 +230,9 @@ class BankruptOfficersTransformerTest {
         dataModel.setAddressLine1(ADDRESS_LINE1);
         dataModel.setAddressLine2(ADDRESS_LINE2);
         dataModel.setAddressLine3(ADDRESS_LINE3);
-        dataModel.setAddressTown(ADDRESS_TOWN);
-        dataModel.setAddressCounty(ADDRESS_COUNTY);
-        dataModel.setAddressPostcode(ADDRESS_POSTCODE);
+        dataModel.setTown(ADDRESS_TOWN);
+        dataModel.setCounty(ADDRESS_COUNTY);
+        dataModel.setPostcode(ADDRESS_POSTCODE);
         dataModel.setDateOfBirth(DATE_OF_BIRTH);
         dataModel.setAlias(ALIAS);
         dataModel.setCaseReference(CASE_REFERENCE);
