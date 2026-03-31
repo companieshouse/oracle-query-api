@@ -1,6 +1,7 @@
 package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -9,7 +10,23 @@ import java.util.Objects;
 import uk.gov.companieshouse.api.model.common.Address;
 
 @Entity
-public class CorporateTrusteeData {
+@JsonPropertyOrder({
+    "trusteeId",
+    "trusteeName",
+    "registerLocation",
+    "registrationNumber",
+    "lawGoverned",
+    "legalForm",
+    "country",
+    "onRegisterInCountryFormed",
+    "corporateIndicator",
+    "trusteeTypeId",
+    "appointmentDate",
+    "ceasedDate",
+    "serviceAddress",
+    "registeredOfficeAddress"
+})
+public class CorporateTrusteeData extends TrusteeDataBase {
 
     @Id
     @Column(name = "TRUSTEE_ID")
@@ -44,43 +61,9 @@ public class CorporateTrusteeData {
     @JsonProperty("onRegisterInCountryFormed")
     private Boolean onRegisterInCountryFormed;
 
-
     @Column(name = "CORPORATE_IND")
     @JsonProperty("corporateIndicator")
     private String corporateInd;
-
-    @Column(name = "TRUSTEE_TYPE_ID")
-    @JsonProperty("trusteeTypeId")
-    private String trusteeTypeId;
-
-    @Column(name = "APPOINTMENT_DATE")
-    @JsonProperty("appointmentDate")
-    private String appointmentDate;
-
-    @Column(name = "CEASED_DATE")
-    @JsonProperty("ceasedDate")
-    private String ceasedDate;
-
-    @Column(name = "SERV_ADDR_NAME_NUMBER")
-    private String serviceAddressHouseNameNumber;
-
-    @Column(name = "SERV_ADDR_STREET")
-    private String serviceAddressStreet;
-
-    @Column(name = "SERV_ADDR_AREA")
-    private String serviceAddressArea;
-
-    @Column(name = "SERV_ADDR_POST_TOWN")
-    private String serviceAddressPostTown;
-
-    @Column(name = "SERV_ADDR_REGION")
-    private String serviceAddressRegion;
-
-    @Column(name = "SERV_ADDR_COUNTRY_NAME")
-    private String serviceAddressCountryName;
-
-    @Column(name = "SERV_ADDR_POST_CODE")
-    private String serviceAddressPostCode;
 
     @Column(name = "RES_OFFICE_NAME_NUMBER")
     private String registeredOfficeHouseNameNumber;
@@ -104,37 +87,8 @@ public class CorporateTrusteeData {
     private String registeredOfficePostCode;
 
     @Transient
-    @JsonProperty("serviceAddress")
-    private Address serviceAddress;
-
-    @Transient
     @JsonProperty("registeredOfficeAddress")
     private Address registeredOfficeAddress;
-
-
-    public Address getServiceAddress() {
-        this.serviceAddress = new Address();
-        this.serviceAddress.setPremises(serviceAddressHouseNameNumber);
-        this.serviceAddress.setAddressLine1(serviceAddressStreet);
-        this.serviceAddress.setAddressLine2(serviceAddressArea);
-        this.serviceAddress.setLocality(serviceAddressPostTown);
-        this.serviceAddress.setRegion(serviceAddressRegion);
-        this.serviceAddress.setCountry(serviceAddressCountryName);
-        this.serviceAddress.setPostalCode(serviceAddressPostCode);
-        return this.serviceAddress;
-    }
-
-    public void setServiceAddress(Address serviceAddress) {
-        if (serviceAddress != null) {
-            this.serviceAddressHouseNameNumber = serviceAddress.getPremises();
-            this.serviceAddressStreet = serviceAddress.getAddressLine1();
-            this.serviceAddressArea = serviceAddress.getAddressLine2();
-            this.serviceAddressPostTown = serviceAddress.getLocality();
-            this.serviceAddressRegion = serviceAddress.getRegion();
-            this.serviceAddressCountryName = serviceAddress.getCountry();
-            this.serviceAddressPostCode = serviceAddress.getPostalCode();
-        }
-    }
 
     public Address getRegisteredOfficeAddress() {
         this.registeredOfficeAddress = new Address();
@@ -159,7 +113,6 @@ public class CorporateTrusteeData {
             this.registeredOfficePostCode = registeredOfficeAddress.getPostalCode();
         }
     }
-
 
     public String getTrusteeId() {
         return trusteeId;
@@ -233,30 +186,6 @@ public class CorporateTrusteeData {
         this.corporateInd = corporateInd;
     }
 
-    public String getTrusteeTypeId() {
-        return trusteeTypeId;
-    }
-
-    public void setTrusteeTypeId(String trusteeTypeId) {
-        this.trusteeTypeId = trusteeTypeId;
-    }
-
-    public String getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(String appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public String getCeasedDate() {
-        return ceasedDate;
-    }
-
-    public void setCeasedDate(String ceasedDate) {
-        this.ceasedDate = ceasedDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -266,40 +195,62 @@ public class CorporateTrusteeData {
             return false;
         }
         CorporateTrusteeData that = (CorporateTrusteeData) o;
-        return Objects.equals(trusteeId, that.trusteeId) && Objects.equals(trusteeName,
-                that.trusteeName) && Objects.equals(registerLocation, that.registerLocation)
-                && Objects.equals(registrationNumber, that.registrationNumber) && Objects.equals(
-                lawGoverned, that.lawGoverned) && Objects.equals(legalForm, that.legalForm)
-                && Objects.equals(country, that.country) && Objects.equals(
-                onRegisterInCountryFormed, that.onRegisterInCountryFormed) && Objects.equals(
-                corporateInd, that.corporateInd) && Objects.equals(trusteeTypeId,
-                that.trusteeTypeId) && Objects.equals(appointmentDate, that.appointmentDate)
-                && Objects.equals(ceasedDate, that.ceasedDate) && Objects.equals(
-                serviceAddressHouseNameNumber, that.serviceAddressHouseNameNumber)
-                && Objects.equals(serviceAddressStreet, that.serviceAddressStreet)
-                && Objects.equals(serviceAddressArea, that.serviceAddressArea) && Objects.equals(
-                serviceAddressPostTown, that.serviceAddressPostTown) && Objects.equals(
-                serviceAddressRegion, that.serviceAddressRegion) && Objects.equals(
-                serviceAddressCountryName, that.serviceAddressCountryName) && Objects.equals(
-                serviceAddressPostCode, that.serviceAddressPostCode) && Objects.equals(
-                registeredOfficeHouseNameNumber, that.registeredOfficeHouseNameNumber)
-                && Objects.equals(registeredOfficeStreet, that.registeredOfficeStreet)
-                && Objects.equals(registeredOfficeArea, that.registeredOfficeArea)
-                && Objects.equals(registeredOfficePostTown, that.registeredOfficePostTown)
-                && Objects.equals(registeredOfficeRegion, that.registeredOfficeRegion)
-                && Objects.equals(registeredOfficeCountryName, that.registeredOfficeCountryName)
-                && Objects.equals(registeredOfficePostCode, that.registeredOfficePostCode);
+        return Objects.equals(trusteeId, that.trusteeId)
+            && Objects.equals(trusteeName,that.trusteeName)
+            && Objects.equals(registerLocation,that.registerLocation)
+            && Objects.equals(registrationNumber,that.registrationNumber)
+            && Objects.equals(lawGoverned,that.lawGoverned)
+            && Objects.equals(legalForm,that.legalForm)
+            && Objects.equals(country,that.country)
+            && Objects.equals(onRegisterInCountryFormed,that.onRegisterInCountryFormed)
+            && Objects.equals(corporateInd,that.corporateInd)
+            && Objects.equals(trusteeTypeId,that.trusteeTypeId)
+            && Objects.equals(appointmentDate,that.appointmentDate)
+            && Objects.equals(ceasedDate,that.ceasedDate)
+	    && Objects.equals(serviceAddressHouseNameNumber,that.serviceAddressHouseNameNumber)
+	    && Objects.equals(serviceAddressStreet,that.serviceAddressStreet)
+	    && Objects.equals(serviceAddressArea,that.serviceAddressArea)
+	    && Objects.equals(serviceAddressPostTown,that.serviceAddressPostTown)
+	    && Objects.equals(serviceAddressRegion,that.serviceAddressRegion)
+	    && Objects.equals(serviceAddressCountryName,that.serviceAddressCountryName)
+	    && Objects.equals(serviceAddressPostCode,that.serviceAddressPostCode)
+            && Objects.equals(registeredOfficeHouseNameNumber,that.registeredOfficeHouseNameNumber)
+            && Objects.equals(registeredOfficeStreet,that.registeredOfficeStreet)
+            && Objects.equals(registeredOfficeArea,that.registeredOfficeArea)
+            && Objects.equals(registeredOfficePostTown,that.registeredOfficePostTown)
+            && Objects.equals(registeredOfficeRegion,that.registeredOfficeRegion)
+            && Objects.equals(registeredOfficeCountryName,that.registeredOfficeCountryName)
+            && Objects.equals(registeredOfficePostCode,that.registeredOfficePostCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trusteeId, trusteeName, registerLocation, registrationNumber,
-                lawGoverned, legalForm, country, onRegisterInCountryFormed, corporateInd,
-                trusteeTypeId, appointmentDate, ceasedDate, serviceAddressHouseNameNumber,
-                serviceAddressStreet, serviceAddressArea, serviceAddressPostTown,
-                serviceAddressRegion, serviceAddressCountryName, serviceAddressPostCode,
-                registeredOfficeHouseNameNumber, registeredOfficeStreet, registeredOfficeArea,
-                registeredOfficePostTown, registeredOfficeRegion, registeredOfficeCountryName,
+        return Objects.hash(trusteeId,
+                trusteeName,
+                registerLocation,
+                registrationNumber,
+                lawGoverned,
+                legalForm,
+                country,
+                onRegisterInCountryFormed,
+                corporateInd,
+		trusteeTypeId,
+		appointmentDate,
+		ceasedDate,
+		serviceAddressHouseNameNumber,
+		serviceAddressStreet,
+		serviceAddressArea,
+		serviceAddressPostTown,
+		serviceAddressRegion,
+		serviceAddressCountryName,
+		serviceAddressPostCode,
+                registeredOfficeHouseNameNumber,
+                registeredOfficeStreet,
+                registeredOfficeArea,
+                registeredOfficePostTown,
+                registeredOfficeRegion,
+                registeredOfficeCountryName,
                 registeredOfficePostCode);
     }
+
 }
