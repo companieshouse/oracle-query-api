@@ -27,7 +27,7 @@
         <log4j-api.version>2.25.3</log4j-api.version>
 
         <!-- CH Libraries -->
-        <structured-logging.version>3.0.51</structured-logging.version>
+        <structured-logging.version>3.0.52</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
         <api-sdk-java.version>6.6.8</api-sdk-java.version>
 
@@ -143,6 +143,10 @@
             <version>${ojdbc11.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
 
         <!-- Testing Dependencies-->
         <dependency>
