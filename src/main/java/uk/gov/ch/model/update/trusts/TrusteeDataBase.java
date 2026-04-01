@@ -2,11 +2,9 @@ package uk.gov.ch.model.update.trusts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import uk.gov.companieshouse.api.model.common.Address;
 
-@Entity
 public class TrusteeDataBase {
 
     @Column(name = "TRUSTEE_TYPE_ID")

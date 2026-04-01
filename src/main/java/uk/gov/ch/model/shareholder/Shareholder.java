@@ -2,26 +2,22 @@ package uk.gov.ch.model.shareholder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import uk.gov.ch.model.common.NameBase;
 
 @Entity
+@AttributeOverride(name = "forename1", column = @Column(name = "fore_name_1"))
+@AttributeOverride(name = "forename2", column = @Column(name = "fore_name_2"))
+@AttributeOverride(name = "surname", column = @Column(name = "surname"))
 public class Shareholder extends NameBase {
 
     @Id
     @Column(name = "shareholder_id")
     @JsonIgnore
     private Long shareholderId;
-    @Column(name = "fore_name_1")
-    @JsonProperty("fore_name_1")
-    private String forename1;
-    @Column(name = "fore_name_2")
-    @JsonProperty("fore_name_2")
-    private String forename2;
-    @Column(name = "surname")
-    private String surname;
     @Column(name = "shares")
     private long shares;
     @Column(name = "class_of_shares")

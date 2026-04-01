@@ -24,12 +24,12 @@
         <jakarta.xml.bind-api.version>4.0.5</jakarta.xml.bind-api.version>
         <ojdbc11.version>23.26.1.0.0</ojdbc11.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
-        <log4j-api.version>2.25.3</log4j-api.version>
+        <log4j-api.version>2.25.4</log4j-api.version>
 
         <!-- CH Libraries -->
         <structured-logging.version>3.0.52</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>6.6.8</api-sdk-java.version>
+        <api-sdk-java.version>6.6.13</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
@@ -78,6 +78,14 @@
     <dependencies>
 
         <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -94,16 +102,8 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-json</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-spring-boot-starter</artifactId>
         </dependency>
 
         <dependency>
@@ -141,11 +141,6 @@
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc11</artifactId>
             <version>${ojdbc11.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- Testing Dependencies-->
