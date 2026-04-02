@@ -1,5 +1,6 @@
 package uk.gov.ch.model.emergencyauthcode.sqldatamodels;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,20 +12,14 @@ import uk.gov.ch.model.common.NameBase;
 
 @Entity
 @Table(name = "OFFICER_DETAIL")
+@AttributeOverride(name = "forename1", column = @Column(name = "OFFICER_FORENAME_1"))
+@AttributeOverride(name = "forename2", column = @Column(name = "OFFICER_FORENAME_2"))
+@AttributeOverride(name = "surname", column = @Column(name = "OFFICER_SURNAME"))
 public class OfficerDetailDataModel extends NameBase {
 
     @Id
     @Column(name = "OFFICER_DETAIL_ID")
     private Long officerId;
-
-    @Column(name = "OFFICER_FORENAME_1")
-    private String forename1;
-
-    @Column(name = "OFFICER_FORENAME_2")
-    private String forename2;
-
-    @Column(name = "OFFICER_SURNAME")
-    private String surname;
 
     @Column(name = "OFFICER_DATE_OF_BIRTH")
     private LocalDate dateOfBirth;

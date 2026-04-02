@@ -3,6 +3,7 @@ package uk.gov.ch.model.officer.bankrupt;
 import jakarta.persistence.MappedSuperclass;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import uk.gov.ch.model.common.NameBase;
 
@@ -10,139 +11,155 @@ import uk.gov.ch.model.common.NameBase;
 @MappedSuperclass
 public abstract class ScottishBankruptOfficerBase extends NameBase {
 
-    private String ephemeralKey;
-    private String addressLine1;
-    private String addressLine2;
-    private String addressLine3;
-    private String town;
-    private String county;
-    private String postcode;
-    private LocalDate dateOfBirth;
-    private String alias;
-    private String caseReference;
-    private String caseType;
-    private String bankruptcyType;
-    private LocalDate startDate;
-    private LocalDate debtorDischargeDate;
-    private LocalDate trusteeDischargeDate;
+	@Id
+	@Column(name = "EPHEMERAL_KEY")
+	private String ephemeralKey;
+	@Column(name = "ADDRESS_LINE_1")
+	private String addressLine1;
+	@Column(name = "ADDRESS_LINE_2")
+	private String addressLine2;
+	@Column(name = "ADDRESS_LINE_3")
+	private String addressLine3;
+	@Column(name = "ADDRESS_TOWN")
+	private String town;
+	@Column(name = "ADDRESS_COUNTY")
+	private String county;
+	@Column(name = "ADDRESS_POSTCODE")
+	private String postcode;
+	@Column(name = "DATE_OF_BIRTH")
+	private LocalDate dateOfBirth;
+	@Column(name = "ALIAS")
+	private String alias;
+	@Column(name = "CASE_REFERENCE")
+	private String caseReference;
+	@Column(name = "CASE_TYPE")
+	private String caseType;
+	@Column(name = "BANKRUPTCY_TYPE")
+	private String bankruptcyType;
+	@Column(name = "START_DATE")
+	private LocalDate startDate;
+	@Column(name = "DEBTOR_DISCHARGE_DATE")
+	private LocalDate debtorDischargeDate;
+	@Column(name = "TRUSTEE_DISCHARGE_DATE")
+	private LocalDate trusteeDischargeDate;
 
-    public String getEphemeralKey() {
-        return ephemeralKey;
-    }
+	public String getEphemeralKey() {
+		return ephemeralKey;
+	}
 
-    public void setEphemeralKey(String ephemeralKey) {
-        this.ephemeralKey = ephemeralKey;
-    }
+	public void setEphemeralKey(String ephemeralKey) {
+		this.ephemeralKey = ephemeralKey;
+	}
 
-    public String getAddressLine1() {
-        return addressLine1;
-    }
+	public String getAddressLine1() {
+		return addressLine1;
+	}
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
+	public void setAddressLine1(String addressLine1) {
+		this.addressLine1 = addressLine1;
+	}
 
-    public String getAddressLine2() {
-        return addressLine2;
-    }
+	public String getAddressLine2() {
+		return addressLine2;
+	}
 
-    public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
-    }
+	public void setAddressLine2(String addressLine2) {
+		this.addressLine2 = addressLine2;
+	}
 
-    public String getAddressLine3() {
-        return addressLine3;
-    }
+	public String getAddressLine3() {
+		return addressLine3;
+	}
 
-    public void setAddressLine3(String addressLine3) {
-        this.addressLine3 = addressLine3;
-    }
+	public void setAddressLine3(String addressLine3) {
+		this.addressLine3 = addressLine3;
+	}
 
-    public String getTown() {
-        return town;
-    }
+	public String getTown() {
+		return town;
+	}
 
-    public void setTown(String town) {
-        this.town = town;
-    }
+	public void setTown(String town) {
+		this.town = town;
+	}
 
-    public String getCounty() {
-        return county;
-    }
+	public String getCounty() {
+		return county;
+	}
 
-    public void setCounty(String county) {
-        this.county = county;
-    }
+	public void setCounty(String county) {
+		this.county = county;
+	}
 
-    public String getPostcode() {
-        return postcode;
-    }
+	public String getPostcode() {
+		return postcode;
+	}
 
-    public void setPostcode(String postcode) {
-        this.postcode = postcode;
-    }
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 
-    public String getAlias() {
-        return alias;
-    }
+	public String getAlias() {
+		return alias;
+	}
 
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
 
-    public String getCaseReference() {
-        return caseReference;
-    }
+	public String getCaseReference() {
+		return caseReference;
+	}
 
-    public void setCaseReference(String caseReference) {
-        this.caseReference = caseReference;
-    }
+	public void setCaseReference(String caseReference) {
+		this.caseReference = caseReference;
+	}
 
-    public String getCaseType() {
-        return caseType;
-    }
+	public String getCaseType() {
+		return caseType;
+	}
 
-    public void setCaseType(String caseType) {
-        this.caseType = caseType;
-    }
+	public void setCaseType(String caseType) {
+		this.caseType = caseType;
+	}
 
-    public String getBankruptcyType() {
-        return bankruptcyType;
-    }
+	public String getBankruptcyType() {
+		return bankruptcyType;
+	}
 
-    public void setBankruptcyType(String bankruptcyType) {
-        this.bankruptcyType = bankruptcyType;
-    }
+	public void setBankruptcyType(String bankruptcyType) {
+		this.bankruptcyType = bankruptcyType;
+	}
 
-    public LocalDate getStartDate() {
-        return startDate;
-    }
+	public LocalDate getStartDate() {
+		return startDate;
+	}
 
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
+	public void setStartDate(LocalDate startDate) {
+		this.startDate = startDate;
+	}
 
-    public LocalDate getDebtorDischargeDate() {
-        return debtorDischargeDate;
-    }
+	public LocalDate getDebtorDischargeDate() {
+		return debtorDischargeDate;
+	}
 
-    public void setDebtorDischargeDate(LocalDate debtorDischargeDate) {
-        this.debtorDischargeDate = debtorDischargeDate;
-    }
+	public void setDebtorDischargeDate(LocalDate debtorDischargeDate) {
+		this.debtorDischargeDate = debtorDischargeDate;
+	}
 
-    public LocalDate getTrusteeDischargeDate() {
-        return trusteeDischargeDate;
-    }
+	public LocalDate getTrusteeDischargeDate() {
+		return trusteeDischargeDate;
+	}
 
-    public void setTrusteeDischargeDate(LocalDate trusteeDischargeDate) {
-        this.trusteeDischargeDate = trusteeDischargeDate;
-    }
+	public void setTrusteeDischargeDate(LocalDate trusteeDischargeDate) {
+		this.trusteeDischargeDate = trusteeDischargeDate;
+	}
 }

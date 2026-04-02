@@ -28,7 +28,7 @@ module "secrets" {
 }
 
 module "ecs-service" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=1.0.338"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=1.0.370"
 
   # Environmental configuration
   environment             = var.environment
@@ -43,7 +43,7 @@ module "ecs-service" {
   lb_listener_rule_priority = local.lb_listener_rule_priority
   lb_listener_paths         = local.lb_listener_paths
   multilb_setup             = false
-  
+
   # ECS Task container health check
   use_task_container_healthcheck = true
   healthcheck_path               = local.healthcheck_path
