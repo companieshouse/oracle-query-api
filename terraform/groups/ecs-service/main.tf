@@ -70,6 +70,12 @@ module "ecs-service" {
   use_fargate                        = var.use_fargate
   fargate_subnets                    = local.application_subnet_ids
 
+  # Pass health check configuration, including optional startPeriod
+  task_healthcheck_interval     = var.task_healthcheck_interval
+  task_healthcheck_timeout      = var.task_healthcheck_timeout
+  task_healthcheck_retries      = var.task_healthcheck_retries
+  task_healthcheck_start_period = var.task_healthcheck_start_period
+
   # Cloudwatch
   cloudwatch_alarms_enabled = var.cloudwatch_alarms_enabled
 
