@@ -154,3 +154,9 @@ variable "task_healthcheck_start_period" {
   description = "Health check start period configuration for ECS task definitions."
   default = 60
 }
+
+variable "health_check_grace_period_seconds" {
+  type        = number
+  description = "The grace period, in seconds, to ignore failing health checks after a task has started."
+  default = 120
+}

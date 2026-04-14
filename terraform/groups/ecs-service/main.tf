@@ -76,6 +76,9 @@ module "ecs-service" {
   task_healthcheck_retries      = var.task_healthcheck_retries
   task_healthcheck_start_period = var.task_healthcheck_start_period
 
+  # ELB healthcheck grace period
+  health_check_grace_period_seconds = var.health_check_grace_period_seconds
+
   # Cloudwatch
   cloudwatch_alarms_enabled = var.cloudwatch_alarms_enabled
 
