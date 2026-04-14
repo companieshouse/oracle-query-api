@@ -9,3 +9,4 @@ task_healthcheck_interval = 60
 task_healthcheck_timeout = 5
 task_healthcheck_retries = 3
 task_healthcheck_start_period = 60
+health_check_grace_period_seconds = 120
