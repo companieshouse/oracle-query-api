@@ -3,3 +3,9 @@ aws_profile = "live-eu-west-2"
 
 # service configs
 use_set_environment_files = true
+
+# task container healthcheck parameters
+task_healthcheck_interval = 60
+task_healthcheck_timeout = 5
+task_healthcheck_retries = 3
+task_healthcheck_start_period = 60
