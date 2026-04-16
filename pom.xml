@@ -18,7 +18,7 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>4.0.4</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.0.5</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <jakarta.xml.bind-api.version>4.0.5</jakarta.xml.bind-api.version>
@@ -29,7 +29,7 @@
         <!-- CH Libraries -->
         <structured-logging.version>3.0.52</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>6.6.13</api-sdk-java.version>
+        <api-sdk-java.version>6.6.15</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
