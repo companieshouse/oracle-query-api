@@ -28,7 +28,7 @@ public class CorporateTrusteesController {
 
     @GetMapping("/overseas-entity/trusts/{trustId}/corporate-trustees")
     public ResponseEntity<List<CorporateTrusteeData>> getCorporateTrusteeData(
-            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid trust ID") String trustId) {
+            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid trust ID") String trustId) { // NOSONAR really do want 0-9 here not any digit
 
         LOGGER.info("Calling service to retrieve Corporate Trustee Data for Trust Id " + trustId);
 
