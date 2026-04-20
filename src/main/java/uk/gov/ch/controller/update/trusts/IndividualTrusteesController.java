@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.update.trusts;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class IndividualTrusteesController {
 
     @GetMapping("/overseas-entity/trusts/{trustId}/individual-trustees")
     public ResponseEntity<List<IndividualTrusteeData>> getIndividualTrustees(
-            @PathVariable String trustId) {
+            @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid trust ID") String trustId) {
         DataMap dataMap = new DataMap.Builder().build();
         dataMap.getLogMap().put("trust_id", trustId);
         LOGGER.infoContext(trustId,
