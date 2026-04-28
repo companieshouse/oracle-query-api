@@ -18,26 +18,25 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>4.0.5</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.0.6</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <jakarta.xml.bind-api.version>4.0.5</jakarta.xml.bind-api.version>
         <ojdbc11.version>23.26.1.0.0</ojdbc11.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
-        <log4j-api.version>2.25.4</log4j-api.version>
         <tomcat-embed.version>11.0.21</tomcat-embed.version>
 
         <!-- CH Libraries -->
-        <structured-logging.version>3.0.52</structured-logging.version>
+        <structured-logging.version>3.0.55</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>6.6.15</api-sdk-java.version>
+        <api-sdk-java.version>6.6.16</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
 
-        <opentelemetry-version>2.26.1</opentelemetry-version>
+        <opentelemetry-version>2.27.0</opentelemetry-version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
