@@ -10,36 +10,38 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @MappedSuperclass
 public abstract class NameBase {
 
-	@Column(name = "FORENAME_1")
-        @JsonProperty("fore_name_1")
-	private String forename1;
-	@Column(name = "FORENAME_2")
-        @JsonProperty("fore_name_2")
-	private String forename2;
-	@Column(name = "SURNAME")
-	private String surname;
+    @Column(name = "FORENAME_1")
+    @JsonProperty("fore_name_1")
+    private String forename1;
 
-	public String getForename1() {
-		return forename1;
-	}
+    @Column(name = "FORENAME_2")
+    @JsonProperty("fore_name_2")
+    private String forename2;
 
-	public void setForename1(String forename1) {
-		this.forename1 = forename1;
-	}
+    @Column(name = "SURNAME")
+    private String surname;
 
-	public String getForename2() {
-		return forename2;
-	}
+    public String getForename1() {
+        return forename1;
+    }
 
-	public void setForename2(String forename2) {
-		this.forename2 = forename2;
-	}
+    public void setForename1(String forename1) {
+        this.forename1 = forename1;
+    }
 
-	public String getSurname() {
-		return surname;
-	}
+    public String getForename2() {
+        return forename2;
+    }
 
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
+    public void setForename2(String forename2) {
+        this.forename2 = forename2;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 }

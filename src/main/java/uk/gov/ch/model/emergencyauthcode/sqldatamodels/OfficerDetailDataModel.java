@@ -8,14 +8,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import uk.gov.ch.model.common.NameBase;
+import uk.gov.ch.model.common.AltNameBase;
 
 @Entity
 @Table(name = "OFFICER_DETAIL")
 @AttributeOverride(name = "forename1", column = @Column(name = "OFFICER_FORENAME_1"))
 @AttributeOverride(name = "forename2", column = @Column(name = "OFFICER_FORENAME_2"))
 @AttributeOverride(name = "surname", column = @Column(name = "OFFICER_SURNAME"))
-public class OfficerDetailDataModel extends NameBase {
+public class OfficerDetailDataModel extends AltNameBase {
 
     @Id
     @Column(name = "OFFICER_DETAIL_ID")
