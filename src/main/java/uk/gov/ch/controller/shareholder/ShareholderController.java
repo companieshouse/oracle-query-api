@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.shareholder;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +31,9 @@ public class ShareholderController {
     }
 
     @GetMapping("/company/{companyNumber}/shareholders/count")
-    public ResponseEntity<Integer> getShareholdersCount(@PathVariable String companyNumber) {
+    public ResponseEntity<Integer> getShareholdersCount(
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber
+            ) {
 
         LOGGER.info("Calling service to retrieve shareholder count for company number "
                 + companyNumber);
@@ -42,7 +45,8 @@ public class ShareholderController {
     }
 
     @GetMapping("/company/{companyNumber}/shareholders")
-    public ResponseEntity<List<Shareholder>> getShareholders(@PathVariable String companyNumber,
+    public ResponseEntity<List<Shareholder>> getShareholders(
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 

@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.payment;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +21,7 @@ public class ConfirmationStatementPaymentCheckController {
 
     @GetMapping("/company/{companyNumber}/confirmation-statement/paid")
     public ResponseEntity<ConfirmationStatementPaymentJson> isConfirmationStatementPaid(
-            @PathVariable String companyNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
             @RequestParam(name = "payment_period_made_up_to_date", required = true) String paymentPeriodMadeUpToDate) {
         ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckService.isConfirmationStatementPaid(
                 companyNumber, paymentPeriodMadeUpToDate);

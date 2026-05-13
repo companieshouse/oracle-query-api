@@ -33,7 +33,7 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{incorporationNumber}/eligible-officers")
     public ResponseEntity<CorporateBodyAppointments> getListOfEligibleCompanyOfficers(
-            @PathVariable String incorporationNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String incorporationNumber,
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
@@ -76,7 +76,7 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{companyNumber}/efiling-status")
     public ResponseEntity<CorporateBodyEFilingStatus> getHasFiledLastThirtyDays(
-            @PathVariable String companyNumber) {
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) {
         LOGGER.info("Calling service to check if company has filed in the past thirty days: "
                 + companyNumber);
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = emergencyOfficersService.checkIfEFiledLastThirtyDays(
