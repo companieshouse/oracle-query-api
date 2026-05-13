@@ -77,8 +77,8 @@ class ScottishBankruptOfficerDataModelJsonTest {
             assertThat(node.get("debtorDischargeDate").toString()).isEqualTo(toJsonDate(DEBTOR_DISCHARGE_DATE));
             assertThat(node.get("trusteeDischargeDate").toString()).isEqualTo(toJsonDate(TRUSTEE_DISCHARGE_DATE));
         } catch (AssertionError e) {
-                System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
-                throw e;
+            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            throw e;
         }
     }
 
