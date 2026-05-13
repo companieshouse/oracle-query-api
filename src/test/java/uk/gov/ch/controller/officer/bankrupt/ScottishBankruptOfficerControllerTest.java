@@ -3,12 +3,16 @@ package uk.gov.ch.controller.officer.bankrupt;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
@@ -16,21 +20,33 @@ import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
 import uk.gov.ch.service.officer.bankrupt.impl.ScottishBankruptOfficerServiceImpl;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @ExtendWith(MockitoExtension.class)
+@WebMvcTest(ScottishBankruptOfficerController.class)
 class ScottishBankruptOfficerControllerTest {
 
     private static final String EPHEMERAL_KEY = "0123456";
+    private static final String INVALID_EPHEMERAL_OFFICER_ID = "ABC@123!";
 
-    @Mock
-   private ScottishBankruptOfficerServiceImpl service;
+    @Autowired
+    private MockMvc mockMvc;
 
-    @InjectMocks
+    @MockitoBean
+    private ScottishBankruptOfficerServiceImpl service;
+
     private ScottishBankruptOfficerController controller;
 
-
+    @BeforeEach
+    void setUp() {
+        controller = new ScottishBankruptOfficerController(service);
+    }
 
     @Test
     @DisplayName("No officers found")
@@ -87,6 +103,13 @@ class ScottishBankruptOfficerControllerTest {
 
     }
 
+    @Test
+    @DisplayName("Get eligible officer - invalid company number")
+    void testGetEligibleOfficerInvalidCompanyNumber() throws Exception {
+
+        mockMvc.perform(get("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}", INVALID_EPHEMERAL_OFFICER_ID))
+               .andExpect(status().isBadRequest());
+    }
 
 
 }

@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.officer.bankrupt;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -34,7 +35,7 @@ public class ScottishBankruptOfficerController {
 
     @GetMapping("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")
     public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(
-            @PathVariable("ephemeral_officer_key") String ephemeralId) {
+            @PathVariable("ephemeral_officer_key") @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid officer key") String ephemeralId) {
         ScottishBankruptOfficerDetails officer = scottishBankruptOfficerServiceImpl.getScottishBankruptOfficer(
                 ephemeralId);
         if (officer == null) {
