@@ -58,9 +58,9 @@ class ScottishBankruptOfficerSearchResultJsonTest {
 	    assertThat(node.get("town").asText()).isEqualTo(TOWN);
 	    assertThat(node.get("county").asText()).isEqualTo(COUNTY);
 	    assertThat(node.get("postcode").asText()).isEqualTo(POSTCODE);
-	    assertThat(node.get("dateOfBirth").toString()).isEqualTo(toJsonDate(DATE_OF_BIRTH));
+	    assertThat(node.get("dateOfBirth")).hasToString(toJsonDate(DATE_OF_BIRTH));
 	    assertThat(node.get("caseType").asText()).isEqualTo(CASE_TYPE);
-	    assertThat(node.get("debtorDischargeDate").toString()).isEqualTo(toJsonDate(DEBTOR_DISCHARGE_DATE));
+	    assertThat(node.get("debtorDischargeDate")).hasToString(toJsonDate(DEBTOR_DISCHARGE_DATE));
 	} catch (AssertionError e) {
 	    System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
 	    throw e;

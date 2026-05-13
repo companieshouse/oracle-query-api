@@ -40,7 +40,7 @@ class OfficerDetailDataModelJsonTest {
             assertThat(node.get("forename1").asText()).isEqualTo(FORENAME1);
             assertThat(node.get("forename2").asText()).isEqualTo(FORENAME2);
             assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-            assertThat(node.get("dateOfBirth").toString()).isEqualTo(toJsonDate(DATE_OF_BIRTH));
+            assertThat(node.get("dateOfBirth")).hasToString(toJsonDate(DATE_OF_BIRTH));
             assertThat(node.get("officerNationality").asText()).isEqualTo(OFFICER_NATIONALITY);
             assertThat(node.get("usualResidentialCountry").asText()).isEqualTo(USUAL_RESIDENTIAL_COUNTRY);
         } catch (AssertionError e) {

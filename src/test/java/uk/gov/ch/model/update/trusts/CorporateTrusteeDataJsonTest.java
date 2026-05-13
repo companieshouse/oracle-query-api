@@ -3,8 +3,7 @@ package uk.gov.ch.model.update.trusts;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
+import uk.gov.companieshouse.api.model.common.Address;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -57,6 +56,26 @@ class CorporateTrusteeDataJsonTest {
         details.setAppointmentDate(APPOINTMENT_DATE);
         details.setCeasedDate(CEASED_DATE);
 
+        Address serviceOfficeAddress = new Address();
+        serviceOfficeAddress.setPremises(SERVICE_ADDRESS_NAME_NUMBER);
+        serviceOfficeAddress.setAddressLine1(SERVICE_ADDRESS_STREET);
+        serviceOfficeAddress.setAddressLine2(SERVICE_ADDRESS_AREA);
+        serviceOfficeAddress.setLocality(SERVICE_ADDRESS_TOWN);
+        serviceOfficeAddress.setRegion(SERVICE_ADDRESS_REGION);
+        serviceOfficeAddress.setCountry(SERVICE_ADDRESS_COUNTRY);
+        serviceOfficeAddress.setPostalCode(SERVICE_ADDRESS_POSTCODE);
+        details.setServiceAddress(serviceOfficeAddress);
+
+        Address registeredOfficeAddress = new Address();
+        registeredOfficeAddress.setPremises(REGISTERED_OFFICE_NAME_NUMBER);
+        registeredOfficeAddress.setAddressLine1(REGISTERED_OFFICE_STREET);
+        registeredOfficeAddress.setAddressLine2(REGISTERED_OFFICE_AREA);
+        registeredOfficeAddress.setLocality(REGISTERED_OFFICE_TOWN);
+        registeredOfficeAddress.setRegion(REGISTERED_OFFICE_REGION);
+        registeredOfficeAddress.setCountry(REGISTERED_OFFICE_COUNTRY);
+        registeredOfficeAddress.setPostalCode(REGISTERED_OFFICE_POSTCODE);
+        details.setRegisteredOfficeAddress(registeredOfficeAddress);
+
         JsonNode node = objectMapper.valueToTree(details);
 
         try {
@@ -72,15 +91,42 @@ class CorporateTrusteeDataJsonTest {
             assertThat(node.get("trusteeTypeId").asText()).isEqualTo(TRUSTEE_TYPE_ID);
             assertThat(node.get("appointmentDate").asText()).isEqualTo(APPOINTMENT_DATE);
             assertThat(node.get("ceasedDate").asText()).isEqualTo(CEASED_DATE);
-        // } catch (AssertionError e) {
+
+            JsonNode serviceAddressNode = node.get("serviceAddress");
+            JsonNode registeredOfficeAddressNode = node.get("registeredOfficeAddress");
+
+            assertThat(serviceAddressNode).isNotNull();
+            assertThat(registeredOfficeAddressNode).isNotNull();
+
+            assertServiceAddress(serviceAddressNode);
+            assertRegisteredOfficeAddress(registeredOfficeAddressNode);
         } catch (Throwable e) {
             System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
             throw e;
         }
     }
 
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
-    }
+    private void assertServiceAddress(JsonNode serviceAddress) {
+           assertThat(serviceAddress.get("address_line_1").asText()).isEqualTo(SERVICE_ADDRESS_STREET);
+           assertThat(serviceAddress.get("address_line_2").asText()).isEqualTo(SERVICE_ADDRESS_AREA);
+           assertThat(serviceAddress.get("care_of").isNull()).isTrue();
+           assertThat(serviceAddress.get("country").asText()).isEqualTo(SERVICE_ADDRESS_COUNTRY);
+           assertThat(serviceAddress.get("locality").asText()).isEqualTo(SERVICE_ADDRESS_TOWN);
+           assertThat(serviceAddress.get("po_box").isNull()).isTrue();
+           assertThat(serviceAddress.get("postal_code").asText()).isEqualTo(SERVICE_ADDRESS_POSTCODE);
+           assertThat(serviceAddress.get("region").asText()).isEqualTo(SERVICE_ADDRESS_REGION);
+   }
+
+    private void assertRegisteredOfficeAddress(JsonNode registeredOfficeAddress) {
+           assertThat(registeredOfficeAddress.get("address_line_1").asText()).isEqualTo(REGISTERED_OFFICE_STREET);
+           assertThat(registeredOfficeAddress.get("address_line_2").asText()).isEqualTo(REGISTERED_OFFICE_AREA);
+           assertThat(registeredOfficeAddress.get("care_of").isNull()).isTrue();
+           assertThat(registeredOfficeAddress.get("country").asText()).isEqualTo(REGISTERED_OFFICE_COUNTRY);
+           assertThat(registeredOfficeAddress.get("locality").asText()).isEqualTo(REGISTERED_OFFICE_TOWN);
+           assertThat(registeredOfficeAddress.get("po_box").isNull()).isTrue();
+           assertThat(registeredOfficeAddress.get("postal_code").asText()).isEqualTo(REGISTERED_OFFICE_POSTCODE);
+           assertThat(registeredOfficeAddress.get("region").asText()).isEqualTo(REGISTERED_OFFICE_REGION);
+   }
+
 }
 

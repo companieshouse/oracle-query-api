@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ActiveDirectorDetailsJsonTest {
@@ -87,34 +85,16 @@ class ActiveDirectorDetailsJsonTest {
             assertThat(node.get("date_of_birth").asText()).isEqualTo(DATE_OF_BIRTH_FORMATTED);
             assertThat(node.get("date_of_appointment").asText()).isEqualTo(DATE_OF_APPOINTMENT_FORMATTED);
             assertThat(node.get("country_of_residence").asText()).isEqualTo(COUNTRY_OF_RESIDENCE);
-	    assertThat(node.has("secure_indicator")).isFalse();
+            assertThat(node.has("secure_indicator")).isFalse();
 
-	    JsonNode serviceAddress = node.get("service_address");
-	    JsonNode residentialAddress = node.get("residential_address");
+            JsonNode serviceAddress = node.get("service_address");
+            JsonNode residentialAddress = node.get("residential_address");
 
-	    // Verify nested address objects exist
-	    assertThat(serviceAddress).isNotNull();
-	    assertThat(residentialAddress).isNotNull();
+            assertThat(serviceAddress).isNotNull();
+            assertThat(residentialAddress).isNotNull();
 
-	    // Service address assertions
-	    assertThat(serviceAddress.get("address_line_1").asText()).isEqualTo(SERVICE_ADDRESS_LINE_1);
-	    assertThat(serviceAddress.get("address_line_2").asText()).isEqualTo(SERVICE_ADDRESS_LINE_2);
-	    assertThat(serviceAddress.get("care_of").asText()).isEqualTo(SERVICE_ADDRESS_CARE_OF);
-	    assertThat(serviceAddress.get("country").asText()).isEqualTo(SERVICE_ADDRESS_COUNTRY);
-	    assertThat(serviceAddress.get("locality").asText()).isEqualTo(SERVICE_ADDRESS_LOCALITY);
-	    assertThat(serviceAddress.get("po_box").asText()).isEqualTo(SERVICE_ADDRESS_PO_BOX);
-	    assertThat(serviceAddress.get("postal_code").asText()).isEqualTo(SERVICE_ADDRESS_POSTCODE);
-	    assertThat(serviceAddress.get("region").asText()).isEqualTo(SERVICE_ADDRESS_REGION);
-
-	    // Residential address assertions
-	    assertThat(residentialAddress.get("address_line_1").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
-	    assertThat(residentialAddress.get("address_line_2").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
-	    assertThat(residentialAddress.get("care_of").asText()).isEqualTo(RESIDENTIAL_ADDRESS_CARE_OF);
-	    assertThat(residentialAddress.get("country").asText()).isEqualTo(RESIDENTIAL_ADDRESS_COUNTRY);
-	    assertThat(residentialAddress.get("locality").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LOCALITY);
-	    assertThat(residentialAddress.get("po_box").asText()).isEqualTo(RESIDENTIAL_ADDRESS_PO_BOX);
-	    assertThat(residentialAddress.get("postal_code").asText()).isEqualTo(RESIDENTIAL_ADDRESS_POSTCODE);
-	    assertThat(residentialAddress.get("region").asText()).isEqualTo(RESIDENTIAL_ADDRESS_REGION);
+            assertServiceAddress(serviceAddress);
+            assertResidentialAddress(residentialAddress);
 
         } catch (Throwable e) {
             System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
@@ -122,8 +102,26 @@ class ActiveDirectorDetailsJsonTest {
         }
     }
 
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
+    private void assertServiceAddress(JsonNode serviceAddress) {
+            assertThat(serviceAddress.get("address_line_1").asText()).isEqualTo(SERVICE_ADDRESS_LINE_1);
+            assertThat(serviceAddress.get("address_line_2").asText()).isEqualTo(SERVICE_ADDRESS_LINE_2);
+            assertThat(serviceAddress.get("care_of").asText()).isEqualTo(SERVICE_ADDRESS_CARE_OF);
+            assertThat(serviceAddress.get("country").asText()).isEqualTo(SERVICE_ADDRESS_COUNTRY);
+            assertThat(serviceAddress.get("locality").asText()).isEqualTo(SERVICE_ADDRESS_LOCALITY);
+            assertThat(serviceAddress.get("po_box").asText()).isEqualTo(SERVICE_ADDRESS_PO_BOX);
+            assertThat(serviceAddress.get("postal_code").asText()).isEqualTo(SERVICE_ADDRESS_POSTCODE);
+            assertThat(serviceAddress.get("region").asText()).isEqualTo(SERVICE_ADDRESS_REGION);
+    }
+
+    private void assertResidentialAddress(JsonNode residentialAddress) {
+            assertThat(residentialAddress.get("address_line_1").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
+            assertThat(residentialAddress.get("address_line_2").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
+            assertThat(residentialAddress.get("care_of").asText()).isEqualTo(RESIDENTIAL_ADDRESS_CARE_OF);
+            assertThat(residentialAddress.get("country").asText()).isEqualTo(RESIDENTIAL_ADDRESS_COUNTRY);
+            assertThat(residentialAddress.get("locality").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LOCALITY);
+            assertThat(residentialAddress.get("po_box").asText()).isEqualTo(RESIDENTIAL_ADDRESS_PO_BOX);
+            assertThat(residentialAddress.get("postal_code").asText()).isEqualTo(RESIDENTIAL_ADDRESS_POSTCODE);
+            assertThat(residentialAddress.get("region").asText()).isEqualTo(RESIDENTIAL_ADDRESS_REGION);
     }
 }
 

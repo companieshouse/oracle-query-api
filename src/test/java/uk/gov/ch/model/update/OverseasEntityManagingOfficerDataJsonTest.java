@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class OverseasEntityManagingOfficerDataJsonTest {
@@ -68,7 +66,6 @@ class OverseasEntityManagingOfficerDataJsonTest {
 
         JsonNode node = objectMapper.valueToTree(details);
 
-	// RAW JSON: {"managingOfficerAppointmentId":"managing officer appointment id","residential_address":{"address_line_1":"residential address line 1","address_line_2":"residential address line 2","care_of":"residential care of name","country":"residential country","locality":"residential town","po_box":"residential po box","postal_code":"residential postcode","premises":"residential premises","region":"residential care of name"},"principal_address":{"address_line_1":"principal address line 1","address_line_2":"principal address line 2","care_of":"principal care of name","country":"principal country","locality":"principal town","po_box":"principal po box","postal_code":"principal postcode","premises":"principal premises","region":"principal care of name"},"date_of_birth":"date of birth","contact_name_full":"contact name full","contact_email_address":"contact email address"}
         try {
             JsonNode residentialAddress = node.get("residential_address");
             JsonNode principalAddress = node.get("principal_address");
@@ -78,11 +75,9 @@ class OverseasEntityManagingOfficerDataJsonTest {
             assertThat(node.get("contact_email_address").asText()).isEqualTo(CONTACT_EMAIL_ADDRESS);
             assertThat(node.get("date_of_birth").asText()).isEqualTo(DATE_OF_BIRTH);
 
-            // Verify nested objects exist
             assertThat(residentialAddress).isNotNull();
             assertThat(principalAddress).isNotNull();
 
-            // Residential address assertions
             assertThat(residentialAddress.get("premises").asText()).isEqualTo(RESIDENTIAL_PREMISES);
             assertThat(residentialAddress.get("address_line_1").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
             assertThat(residentialAddress.get("address_line_2").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
@@ -93,7 +88,6 @@ class OverseasEntityManagingOfficerDataJsonTest {
             assertThat(residentialAddress.get("po_box").asText()).isEqualTo(RESIDENTIAL_PO_BOX);
             assertThat(residentialAddress.get("care_of").asText()).isEqualTo(RESIDENTIAL_CARE_OF);
 
-            // Principal address assertions (add constants for these)
             assertThat(principalAddress.get("premises").asText()).isEqualTo(PRINCIPAL_PREMISES);
             assertThat(principalAddress.get("address_line_1").asText()).isEqualTo(PRINCIPAL_ADDRESS_LINE_1);
             assertThat(principalAddress.get("address_line_2").asText()).isEqualTo(PRINCIPAL_ADDRESS_LINE_2);
@@ -104,14 +98,9 @@ class OverseasEntityManagingOfficerDataJsonTest {
             assertThat(principalAddress.get("po_box").asText()).isEqualTo(PRINCIPAL_PO_BOX);
             assertThat(principalAddress.get("care_of").asText()).isEqualTo(PRINCIPAL_CARE_OF);
         } catch (Throwable e) {
-        // } catch (AssertionError e) {
             System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
             throw e;
         }
-    }
-
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
     }
 }
 

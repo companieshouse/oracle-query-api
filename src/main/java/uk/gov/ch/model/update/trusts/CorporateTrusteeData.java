@@ -207,13 +207,13 @@ public class CorporateTrusteeData extends TrusteeDataBase {
             && Objects.equals(trusteeTypeId,that.trusteeTypeId)
             && Objects.equals(appointmentDate,that.appointmentDate)
             && Objects.equals(ceasedDate,that.ceasedDate)
-	    && Objects.equals(serviceAddressHouseNameNumber,that.serviceAddressHouseNameNumber)
-	    && Objects.equals(serviceAddressStreet,that.serviceAddressStreet)
-	    && Objects.equals(serviceAddressArea,that.serviceAddressArea)
-	    && Objects.equals(serviceAddressPostTown,that.serviceAddressPostTown)
-	    && Objects.equals(serviceAddressRegion,that.serviceAddressRegion)
-	    && Objects.equals(serviceAddressCountryName,that.serviceAddressCountryName)
-	    && Objects.equals(serviceAddressPostCode,that.serviceAddressPostCode)
+            && Objects.equals(serviceAddressHouseNameNumber,that.serviceAddressHouseNameNumber)
+            && Objects.equals(serviceAddressStreet,that.serviceAddressStreet)
+            && Objects.equals(serviceAddressArea,that.serviceAddressArea)
+            && Objects.equals(serviceAddressPostTown,that.serviceAddressPostTown)
+            && Objects.equals(serviceAddressRegion,that.serviceAddressRegion)
+            && Objects.equals(serviceAddressCountryName,that.serviceAddressCountryName)
+            && Objects.equals(serviceAddressPostCode,that.serviceAddressPostCode)
             && Objects.equals(registeredOfficeHouseNameNumber,that.registeredOfficeHouseNameNumber)
             && Objects.equals(registeredOfficeStreet,that.registeredOfficeStreet)
             && Objects.equals(registeredOfficeArea,that.registeredOfficeArea)
@@ -234,16 +234,16 @@ public class CorporateTrusteeData extends TrusteeDataBase {
                 country,
                 onRegisterInCountryFormed,
                 corporateInd,
-		trusteeTypeId,
-		appointmentDate,
-		ceasedDate,
-		serviceAddressHouseNameNumber,
-		serviceAddressStreet,
-		serviceAddressArea,
-		serviceAddressPostTown,
-		serviceAddressRegion,
-		serviceAddressCountryName,
-		serviceAddressPostCode,
+                trusteeTypeId,
+                appointmentDate,
+                ceasedDate,
+                serviceAddressHouseNameNumber,
+                serviceAddressStreet,
+                serviceAddressArea,
+                serviceAddressPostTown,
+                serviceAddressRegion,
+                serviceAddressCountryName,
+                serviceAddressPostCode,
                 registeredOfficeHouseNameNumber,
                 registeredOfficeStreet,
                 registeredOfficeArea,

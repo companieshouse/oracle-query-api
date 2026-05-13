@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ShareholderJsonTest {
@@ -47,10 +45,6 @@ class ShareholderJsonTest {
             System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
             throw e;
         }
-    }
-
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
     }
 }
 

@@ -4,8 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RegisteredOfficeAddressJsonTest {
@@ -49,15 +47,10 @@ class RegisteredOfficeAddressJsonTest {
             assertThat(node.get("po_box").asText()).isEqualTo(PO_BOX);
             assertThat(node.get("premises").asText()).isEqualTo(PREMISES);
             assertThat(node.get("region").asText()).isEqualTo(REGION);
-        // } catch (AssertionError e) {
         } catch (Throwable e) {
             System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
             throw e;
         }
-    }
-
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
     }
 }
 

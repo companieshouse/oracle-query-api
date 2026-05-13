@@ -68,14 +68,14 @@ class ScottishBankruptOfficerDataModelJsonTest {
             assertThat(node.get("addressTown").asText()).isEqualTo(TOWN);
             assertThat(node.get("addressCounty").asText()).isEqualTo(COUNTY);
             assertThat(node.get("addressPostcode").asText()).isEqualTo(POSTCODE);
-            assertThat(node.get("dateOfBirth").toString()).isEqualTo(toJsonDate(DATE_OF_BIRTH));
+            assertThat(node.get("dateOfBirth")).hasToString(toJsonDate(DATE_OF_BIRTH));
             assertThat(node.get("alias").asText()).isEqualTo(ALIAS);
             assertThat(node.get("caseReference").asText()).isEqualTo(CASE_REFERENCE);
             assertThat(node.get("caseType").asText()).isEqualTo(CASE_TYPE);
             assertThat(node.get("bankruptcyType").asText()).isEqualTo(BANKRUPTCY_TYPE);
-            assertThat(node.get("startDate").toString()).isEqualTo(toJsonDate(START_DATE));
-            assertThat(node.get("debtorDischargeDate").toString()).isEqualTo(toJsonDate(DEBTOR_DISCHARGE_DATE));
-            assertThat(node.get("trusteeDischargeDate").toString()).isEqualTo(toJsonDate(TRUSTEE_DISCHARGE_DATE));
+            assertThat(node.get("startDate")).hasToString(toJsonDate(START_DATE));
+            assertThat(node.get("debtorDischargeDate")).hasToString(toJsonDate(DEBTOR_DISCHARGE_DATE));
+            assertThat(node.get("trusteeDischargeDate")).hasToString(toJsonDate(TRUSTEE_DISCHARGE_DATE));
         } catch (AssertionError e) {
             System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
             throw e;
