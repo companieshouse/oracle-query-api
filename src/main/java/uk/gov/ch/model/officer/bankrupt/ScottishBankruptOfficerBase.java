@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import jakarta.persistence.*;
 import java.time.LocalDate;
-import uk.gov.ch.model.common.NameBase;
+import uk.gov.ch.model.common.AltNameBase;
 
 @JsonInclude(Include.NON_NULL)
 @MappedSuperclass
-public abstract class ScottishBankruptOfficerBase extends NameBase {
+public abstract class ScottishBankruptOfficerBase extends AltNameBase {
 
 	@Id
 	@Column(name = "EPHEMERAL_KEY")
