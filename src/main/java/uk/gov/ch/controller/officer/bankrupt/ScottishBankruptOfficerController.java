@@ -35,7 +35,7 @@ public class ScottishBankruptOfficerController {
 
     @GetMapping("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}")
     public ResponseEntity<ScottishBankruptOfficerDetails> getOfficerById(
-            @PathVariable("ephemeral_officer_key") @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid officer key") String ephemeralId) {
+            @PathVariable("ephemeral_officer_key") @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid officer key") String ephemeralId) { // NOSONAR really do want 0-9 here not any digit
         ScottishBankruptOfficerDetails officer = scottishBankruptOfficerServiceImpl.getScottishBankruptOfficer(
                 ephemeralId);
         if (officer == null) {

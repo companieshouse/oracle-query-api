@@ -104,8 +104,8 @@ class ScottishBankruptOfficerControllerTest {
     }
 
     @Test
-    @DisplayName("Get eligible officer - invalid company number")
-    void testGetEligibleOfficerInvalidCompanyNumber() throws Exception {
+    @DisplayName("Get eligible officer - invalid officer key")
+    void testGetEligibleOfficerInvalidOfficerKey() throws Exception {
 
         mockMvc.perform(get("/officer-search/scottish-bankrupt-officers/{ephemeral_officer_key}", INVALID_EPHEMERAL_OFFICER_ID))
                .andExpect(status().isBadRequest());

@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.officer;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,8 @@ public class OfficerController {
     }
 
     @GetMapping("/company/{companyNumber}/officers")
-    public ResponseEntity<OfficersApi> getOfficers(@PathVariable String companyNumber) {
+    public ResponseEntity<OfficersApi> getOfficers(
+        @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
         Map<String, Object> debugMap = new HashMap<>();
         debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling service to retrieve all company officers", debugMap);

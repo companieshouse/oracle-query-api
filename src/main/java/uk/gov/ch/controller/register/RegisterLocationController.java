@@ -31,7 +31,7 @@ public class RegisterLocationController {
 
     @GetMapping("/company/{companyNumber}/register/location")
     public ResponseEntity<List<RegisterLocation>> getRegisterLocation(
-            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber, // NOSONAR really do want 0-9 here not any digit
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 

@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.corporatebody;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,8 @@ public class CorporateBodyController {
     }
 
     @GetMapping("/company/{companyNumber}/action-code")
-    public ResponseEntity<Long> getActionCode(@PathVariable String companyNumber) {
+    public ResponseEntity<Long> getActionCode(
+		    @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
 
         LOGGER.info("Calling service to retrieve action code for company number " + companyNumber);
 
@@ -49,7 +51,8 @@ public class CorporateBodyController {
     }
 
     @GetMapping("/company/{companyNumber}/traded-status")
-    public ResponseEntity<Long> getTradedStatus(@PathVariable String companyNumber) {
+    public ResponseEntity<Long> getTradedStatus(
+		    @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
         LOGGER.info(
                 "Calling service to retrieve a traded status for company number " + companyNumber);
 
@@ -68,7 +71,8 @@ public class CorporateBodyController {
     }
 
     @GetMapping("/company/{companyNumber}")
-    public ResponseEntity<CompanyProfileApi> getCompanyProfile(@PathVariable String companyNumber) {
+    public ResponseEntity<CompanyProfileApi> getCompanyProfile(
+		    @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
         Map<String, Object> debugMap = new HashMap<>();
         debugMap.put("company_number", companyNumber);
         LOGGER.info("Calling service to retrieve basic company information", debugMap);
@@ -87,7 +91,7 @@ public class CorporateBodyController {
 
     @GetMapping("/company/{companyNumber}/registered-email-address")
     public ResponseEntity<RegisteredEmailAddressJson> getRegisteredEmailAddress(
-            @PathVariable("companyNumber") String companyNumber) {
+            @PathVariable("companyNumber") @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 

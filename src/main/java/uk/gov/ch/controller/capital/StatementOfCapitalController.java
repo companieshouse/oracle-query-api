@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.capital;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,7 @@ public class StatementOfCapitalController {
 
     @GetMapping("/company/{companyNumber}/statement-of-capital")
     public ResponseEntity<StatementOfCapital> getStatementOfCapital(
-            @PathVariable String companyNumber) {
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
 
         LOGGER.info("Calling service to retrieve statement of capital for company number "
                 + companyNumber);

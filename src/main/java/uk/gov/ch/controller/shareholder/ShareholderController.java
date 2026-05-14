@@ -32,7 +32,7 @@ public class ShareholderController {
 
     @GetMapping("/company/{companyNumber}/shareholders/count")
     public ResponseEntity<Integer> getShareholdersCount(
-            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber // NOSONAR really do want 0-9 here not any digit
             ) {
 
         LOGGER.info("Calling service to retrieve shareholder count for company number "
@@ -46,7 +46,7 @@ public class ShareholderController {
 
     @GetMapping("/company/{companyNumber}/shareholders")
     public ResponseEntity<List<Shareholder>> getShareholders(
-            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber, // NOSONAR really do want 0-9 here not any digit
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 

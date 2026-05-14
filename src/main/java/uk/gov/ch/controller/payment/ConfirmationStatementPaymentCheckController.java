@@ -21,7 +21,7 @@ public class ConfirmationStatementPaymentCheckController {
 
     @GetMapping("/company/{companyNumber}/confirmation-statement/paid")
     public ResponseEntity<ConfirmationStatementPaymentJson> isConfirmationStatementPaid(
-            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber, // NOSONAR really do want 0-9 here not any digit
             @RequestParam(name = "payment_period_made_up_to_date", required = true) String paymentPeriodMadeUpToDate) {
         ConfirmationStatementPaymentJson confirmationStatementPaymentJson = confirmationStatementPaymentCheckService.isConfirmationStatementPaid(
                 companyNumber, paymentPeriodMadeUpToDate);
