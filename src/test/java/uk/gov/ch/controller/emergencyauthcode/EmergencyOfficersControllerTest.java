@@ -74,6 +74,15 @@ class EmergencyOfficersControllerTest {
     }
 
     @Test
+    @DisplayName("Get eligible officers - invalid company number")
+    void testGetEligibleOfficersInvalidCompanyNumber() throws Exception {
+
+        mockMvc.perform(get("/emergency-auth-code/company/{companyNumber}/eligible-officers",
+                           INVALID_INCORPORATION_NUMBER))
+               .andExpect(status().isBadRequest());
+    }
+
+    @Test
     @DisplayName("Get list of eligible officers - success path")
     void testGetEligibleOfficersForCompanySuccess() {
 
@@ -144,6 +153,15 @@ class EmergencyOfficersControllerTest {
         ResponseEntity<CorporateBodyEFilingStatus> returnedFilingHistory = controller.getHasFiledLastThirtyDays(INCORPORATION_NUMBER);
         assertEquals(HttpStatus.OK, returnedFilingHistory.getStatusCode());
         assertEquals(true, returnedFilingHistory.getBody().getEfilingFoundInPeriod());
+    }
+
+    @Test
+    @DisplayName("Get filing history - invalid company number")
+    void testGetFilingHistoryInvalidCompanyNumber() throws Exception {
+
+        mockMvc.perform(get("/emergency-auth-code/company/{companyNumber}/efiling-status",
+                           INVALID_INCORPORATION_NUMBER))
+               .andExpect(status().isBadRequest());
     }
 
     private CorporateBodyAppointments corporateBodyAppointments() {

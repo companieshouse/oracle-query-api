@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.transaction;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class TransactionController {
 
     @GetMapping("/company/{companyNumber}/filing-history")
     public ResponseEntity<FilingHistoryApi> getTransactionHistory(
-            @PathVariable String companyNumber) {
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
         Map<String, Object> logMap = new HashMap<>();
         logMap.put("company_number", companyNumber);
         LOGGER.info("Getting transaction history for " + companyNumber, logMap);

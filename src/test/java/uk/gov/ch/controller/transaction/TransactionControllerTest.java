@@ -7,14 +7,22 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.service.transaction.TransactionService;
@@ -22,15 +30,24 @@ import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
 import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 
 @ExtendWith(MockitoExtension.class)
+@WebMvcTest(TransactionController.class)
 class TransactionControllerTest {
 
-    @Mock
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockitoBean
     TransactionService transactionService;
 
-    @InjectMocks
     TransactionController transactionController;
 
     private static final String COMPANY_NUMBER = "12345678";
+    private static final String INVALID_COMPANY_NUMBER = "123#5678!";
+
+    @BeforeEach
+    void setUp() {
+        transactionController = new TransactionController(transactionService);
+    }
 
     @Test
     @DisplayName("Get transaction history returns a 200 and a list of FilingApi")
@@ -87,4 +104,13 @@ class TransactionControllerTest {
         ResponseEntity<FilingHistoryApi> response = transactionController.getTransactionHistory(COMPANY_NUMBER);
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
+
+    @Test
+    @DisplayName("Get transaction history - invalid company number")
+    void testGetTransactionHistoryInvalidCompanyNumber() throws Exception {
+
+        mockMvc.perform(get("/company/{companyNumber}/filing-history", INVALID_COMPANY_NUMBER))
+            .andExpect(status().isBadRequest());
+    }
+
 }

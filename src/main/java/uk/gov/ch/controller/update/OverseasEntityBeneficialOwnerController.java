@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.update;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class OverseasEntityBeneficialOwnerController {
 
     @GetMapping("/overseas-entity/{companyNumber}/beneficial-owners")
     public ResponseEntity<List<OverseasEntityBeneficialOwner>> getOverseasEntityBeneficialOwners(
-            @PathVariable String companyNumber) {
+            @PathVariable @Pattern(regexp = "^OE[0-9]{6}$", message = "Invalid overseas entity number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
         LOGGER.infoContext(companyNumber,
                 String.format(

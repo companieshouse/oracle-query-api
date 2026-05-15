@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.update.trusts;
 
+import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,8 @@ public class TrustDetailsController {
     }
 
     @GetMapping("/overseas-entity/{companyNumber}/trusts/details")
-    public ResponseEntity<List<TrustDetails>> getTrustDetails(@PathVariable String companyNumber) {
+    public ResponseEntity<List<TrustDetails>> getTrustDetails(
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid overseas entity number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
         LOGGER.infoContext(companyNumber,
                 String.format("Calling service to retrieve trust information for company number %s",

@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.officer.active;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class ActiveDirectorDetailsController {
 
     @GetMapping("/company/{companyNumber}/director/active")
     public ResponseEntity<ActiveDirectorDetails> getActiveDirectorDetails(
-            @PathVariable String companyNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber, // NOSONAR really do want 0-9 here not any digit
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 

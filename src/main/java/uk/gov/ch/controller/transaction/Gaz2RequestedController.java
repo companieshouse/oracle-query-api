@@ -1,5 +1,6 @@
 package uk.gov.ch.controller.transaction;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,9 @@ public class Gaz2RequestedController {
     }
 
     @GetMapping("/company/{companyNumber}/gaz2-requested")
-    public ResponseEntity<Gaz2Transaction> getGaz2Requested(@PathVariable String companyNumber) {
+    public ResponseEntity<Gaz2Transaction> getGaz2Requested(
+        @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber // NOSONAR really do want 0-9 here not any digit
+	) {
 
         LOGGER.info("Checking if Gaz2 requested for: " + companyNumber);
 

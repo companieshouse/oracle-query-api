@@ -33,7 +33,7 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{incorporationNumber}/eligible-officers")
     public ResponseEntity<CorporateBodyAppointments> getListOfEligibleCompanyOfficers(
-            @PathVariable String incorporationNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String incorporationNumber, // NOSONAR really do want 0-9 here not any digit
             @RequestParam(name = "start_index", defaultValue = "0", required = false) int startIndex,
             @RequestParam(name = "items_per_page", defaultValue = "15", required = false) int itemsPerPage) {
 
@@ -56,7 +56,7 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{companyNumber}/eligible-officers/{officerId}")
     public ResponseEntity<CorporateBodyAppointment> getCompanyOfficer(
-            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber,
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber, // NOSONAR really do want 0-9 here not any digit
             @PathVariable @Pattern(regexp = "^[0-9]+$", message = "Invalid officer ID") String officerId) { // NOSONAR really do want 0-9 here not any digit
 
         LOGGER.info("Calling service to retrieve officer " + officerId + " for company number "
@@ -76,7 +76,7 @@ public class EmergencyOfficersController {
 
     @GetMapping("/emergency-auth-code/company/{companyNumber}/efiling-status")
     public ResponseEntity<CorporateBodyEFilingStatus> getHasFiledLastThirtyDays(
-            @PathVariable String companyNumber) {
+            @PathVariable @Pattern(regexp = "^[A-Z0-9]+$", message = "Invalid company number") String companyNumber) {
         LOGGER.info("Calling service to check if company has filed in the past thirty days: "
                 + companyNumber);
         CorporateBodyEFilingStatus corporateBodyEFilingStatus = emergencyOfficersService.checkIfEFiledLastThirtyDays(

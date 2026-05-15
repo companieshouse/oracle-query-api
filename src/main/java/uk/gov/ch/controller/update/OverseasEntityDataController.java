@@ -30,7 +30,7 @@ public class OverseasEntityDataController {
 
     @GetMapping("/overseas-entity/{companyNumber}/entity-data")
     public ResponseEntity<OverseasEntityDataJson> getEntityEmail(@PathVariable("companyNumber")
-    @Pattern(regexp = "^OE\\d{6}$", message = "Invalid overseas entity number") String companyNumber) {
+    @Pattern(regexp = "^OE[0-9]{6}$", message = "Invalid overseas entity number") String companyNumber) { // NOSONAR really do want 0-9 here not any digit
 
         DataMap dataMap = new DataMap.Builder().companyNumber(companyNumber).build();
 
