@@ -3,9 +3,11 @@ package uk.gov.ch.model.update.trusts;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
+import jakarta.persistence.MappedSuperclass;
 import uk.gov.companieshouse.api.model.common.Address;
 
-public class TrusteeDataBase {
+@MappedSuperclass
+public abstract class TrusteeDataBase {
 
     @Column(name = "TRUSTEE_TYPE_ID")
     @JsonProperty("trusteeTypeId")
