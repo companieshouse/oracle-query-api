@@ -33,7 +33,7 @@ public class ActiveDirectorDetailsServiceImpl implements ActiveDirectorDetailsSe
         if (list.size() == 1) {
             return list.get(0);
         } else {
-            LOGGER.info(WRONG_OFFICER_COUNT_MESSAGE + companyNumber);
+            LOGGER.info(WRONG_OFFICER_COUNT_MESSAGE + "  Company: " + companyNumber + ".  Number of officers found: " + list.size());
             throw new InvalidActiveOfficersCountFoundException(WRONG_OFFICER_COUNT_MESSAGE);
         }
     }

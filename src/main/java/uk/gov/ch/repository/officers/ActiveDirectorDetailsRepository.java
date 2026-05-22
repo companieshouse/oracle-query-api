@@ -9,7 +9,7 @@ import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 public interface ActiveDirectorDetailsRepository extends
         PagingAndSortingRepository<ActiveDirectorDetails, Long> {
 
-    @Query(value = "select * from ( SELECT "
+    @Query(value = "SELECT "
             + "cba.officer_detail_id, "
             + "cba.officer_forename_1 AS fore_name_1, "
             + "cba.officer_forename_2 AS fore_name_2, "
@@ -40,7 +40,7 @@ public interface ActiveDirectorDetailsRepository extends
             + "inner join officer_detail od on od.officer_detail_id=cba.officer_detail_id "
             + "inner join address adr on cba.service_address_id = adr.address_id "
             + "inner join usual_residential_address ura on ura.usual_residential_address_id = od.usual_residential_address_id "
-            + "WHERE cb.incorporation_number = ? AND cba.resignation_ind = 'N' AND cba.appointment_type_id = 2 "
+            + "WHERE cb.incorporation_number = ?1 AND cba.resignation_ind = 'N' AND cba.appointment_type_id = 2 "
             + "group by "
             + "cba.officer_detail_id, "
             + "cba.officer_forename_1, "
@@ -67,9 +67,12 @@ public interface ActiveDirectorDetailsRepository extends
             + "ura.PO_BOX, "
             + "ura.POST_CODE, "
             + "ura.REGION, "
-            + "od.secure_director_service_ind "
-            + "having count(1)=1 "
-            + ")", nativeQuery = true)
+            + "od.secure_director_service_ind",
+        countQuery = "SELECT COUNT(*) " +
+            "FROM corporate_body cb " +
+            "INNER JOIN corporate_body_appointment cba ON cba.corporate_body_id=cb.corporate_body_id " +
+            "WHERE cb.incorporation_number = ?1 AND cba.resignation_ind = 'N' AND cba.appointment_type_id = 2 ",
+            nativeQuery = true)
     Page<ActiveDirectorDetails> getActiveDirectorDetails(String incorporationNumber,
             Pageable pageable);
 
