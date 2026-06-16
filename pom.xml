@@ -18,25 +18,24 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>4.0.6</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.1.0</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
-        <jakarta.xml.bind-api.version>4.0.5</jakarta.xml.bind-api.version>
         <ojdbc11.version>23.26.2.0.0</ojdbc11.version>
-        <commons-lang3.version>3.20.0</commons-lang3.version>
-        <tomcat-embed.version>11.0.22</tomcat-embed.version>
+        <guava.version>32.1.2-jre</guava.version>
+        <errorprone.version>2.41.0</errorprone.version>
 
         <!-- CH Libraries -->
         <structured-logging.version>3.0.57</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>6.6.20</api-sdk-java.version>
+        <api-sdk-java.version>6.6.23</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
 
-        <opentelemetry-version>2.28.0</opentelemetry-version>
+        <opentelemetry-version>2.28.1</opentelemetry-version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -66,31 +65,33 @@
             <scope>import</scope>
           </dependency>
           <dependency>
+              <groupId>io.opentelemetry.instrumentation</groupId>
+              <artifactId>opentelemetry-logback-appender-1.0</artifactId>
+              <version>${opentelemetry-version}-alpha</version>
+          </dependency>
+          <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-dependencies</artifactId>
             <version>${spring-boot-dependencies.version}</version>
             <type>pom</type>
             <scope>import</scope>
           </dependency>
-        </dependencies>
+          <dependency>
+              <groupId>com.google.guava</groupId>
+              <artifactId>guava</artifactId>
+              <version>${guava.version}</version>
+          </dependency>
+          <dependency>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_annotations</artifactId>
+              <version>${errorprone.version}</version>
+          </dependency>
+      </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
 
-        <dependency>
-            <groupId> org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat-embed.version}</version>
-        </dependency>
-        <dependency>
-            <groupId> org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-websocket</artifactId>
-            <version>${tomcat-embed.version}</version>
-        </dependency>
-        <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.opentelemetry.instrumentation</groupId>
             <artifactId>opentelemetry-spring-boot-starter</artifactId>
@@ -101,25 +102,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>${jakarta.xml.bind-api.version}</version>
         </dependency>
 
         <dependency>
@@ -132,6 +119,16 @@
             <artifactId>api-sdk-java</artifactId>
             <version>${api-sdk-java.version}</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.fasterxml.jackson.datatype</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -139,11 +136,11 @@
             <artifactId>mapstruct</artifactId>
             <version>${org.mapstruct.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3.version}</version>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Oracle JDBC driver -->
@@ -158,6 +155,7 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -248,6 +246,25 @@
                       <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/oracle-query-api:latest</image>
                     </to>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>enforce</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <dependencyConvergence/>
+                            </rules>
+                            <failFast>true</failFast>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
