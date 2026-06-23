@@ -3,8 +3,7 @@ API service wrapper for CHIPS Oracle DB queries. This API should be used for all
 
 ## Requirements
 In order to run the API locally you'll need the following installed on your machine:
-
-- [Java 21](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Java 21](https://www.oracle.com/java/technologies/downloads/#java21)
 - [Maven](https://maven.apache.org/download.cgi)
 - [Git](https://git-scm.com/downloads)
 
@@ -38,7 +37,7 @@ Method    | Path                                                                
 **GET**   | `/overseas-entity/{companyNumber}/trusts/details`                                                                                           | Calls service to retrieve the trust data for an overseas entity
 **GET**   | `/overseas-entity/trusts/{trustId}/individual-trustees`                                                                                     | Calls service to retrieve the individual trustee data for a trust
 **GET**   | `/overseas-entity/{oeNumber}/trusts/beneficial-owners/links`                                                                                | Calls service to retrieve the trust link data for an overseas entity
- **GET**  | `/overseas-entity/trusts/{trustId}/corporate-trustees`                                                                                      | Calls service to retrieve the Trustee Data when given the ID of a Trust 
+**GET**   | `/overseas-entity/trusts/{trustId}/corporate-trustees`                                                                                      | Calls service to retrieve the Trustee Data when given the ID of a Trust
 
 
 ### Query parameters
@@ -49,9 +48,9 @@ Query parameter          | Description
 `payment_period_made_up_to_date`| The confirmation statement payment period made up to date to search for against a specified company when verifying payment for confirmation statement. Date must be ISO format yyyy-MM-dd e.g. 2019-03-31
 ### Configuration
 
-Key                | Description                              
+Key                | Description
 -------------------|------------------------------------------
-`ORACLE_QUERY_API_PORT`| The port of the oracle query api service 
+`ORACLE_QUERY_API_PORT`| The port of the oracle query api service
 `HUMAN_LOG`            | For human readable logs
 
 ## Terraform ECS
