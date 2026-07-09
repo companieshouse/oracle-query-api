@@ -28,7 +28,7 @@
         <!-- CH Libraries -->
         <structured-logging.version>3.0.57</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>7.0.4</api-sdk-java.version>
+        <api-sdk-java.version>7.1.0</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
@@ -47,6 +47,9 @@
             ${project.basedir}/target/site/jacoco-it/jacoco.xml
         </sonar.coverage.jacoco.xmlReportPaths>
         <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
+
+        <!-- 11.0.22 brought in by spring-boot 4.1.0 has CVE-2026-50229(6.1), CVE-2026-55276(9.1), CVE-2026-53434(9.1), CVE-2026-55956(6.5), CVE-2026-53404(7.3), CVE-2026-55955(6.5) -->
+        <tomcat-embed.version>11.0.23</tomcat-embed.version>
     </properties>
 
     <dependencyManagement>
@@ -79,6 +82,22 @@
               <groupId>com.google.errorprone</groupId>
               <artifactId>error_prone_annotations</artifactId>
               <version>${errorprone.version}</version>
+          </dependency>
+          <!-- tomcat-embed override may be removable when spring-boot > 4.1.0 is released if it brings in tomcat-embed >= 11.0.23 which has no known CVEs -->
+          <dependency>
+              <groupId>org.apache.tomcat.embed</groupId>
+              <artifactId>tomcat-embed-core</artifactId>
+              <version>${tomcat-embed.version}</version>
+          </dependency>
+          <dependency>
+              <groupId>org.apache.tomcat.embed</groupId>
+              <artifactId>tomcat-embed-websocket</artifactId>
+              <version>${tomcat-embed.version}</version>
+          </dependency>
+          <dependency>
+              <groupId>org.apache.tomcat.embed</groupId>
+              <artifactId>tomcat-embed-el</artifactId>
+              <version>${tomcat-embed.version}</version>
           </dependency>
       </dependencies>
 
