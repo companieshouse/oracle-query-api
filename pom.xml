@@ -99,6 +99,18 @@
               <artifactId>tomcat-embed-el</artifactId>
               <version>${tomcat-embed.version}</version>
           </dependency>
+          <!-- structured-logging 3.0.57 brings in jackson-databind 2.21.4 which has CVE-2026-54515 -->
+          <dependency>
+              <groupId>com.fasterxml.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>2.22.1</version>
+          </dependency>
+          <!-- spring-boot 4.1.0 brings in logback-classic 1.5.34 which has CVE-2026-10532 -->
+          <dependency>
+              <groupId>ch.qos.logback</groupId>
+              <artifactId>logback-classic</artifactId>
+              <version>1.5.37</version>
+          </dependency>
       </dependencies>
 
     </dependencyManagement>
