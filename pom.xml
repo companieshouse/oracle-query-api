@@ -28,7 +28,7 @@
         <!-- CH Libraries -->
         <structured-logging.version>3.0.57</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>7.1.0</api-sdk-java.version>
+        <api-sdk-java.version>7.1.1</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
