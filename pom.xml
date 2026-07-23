@@ -28,7 +28,7 @@
         <!-- CH Libraries -->
         <structured-logging.version>3.0.57</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
-        <api-sdk-java.version>7.1.1</api-sdk-java.version>
+        <api-sdk-java.version>7.2.1</api-sdk-java.version>
 
         <!-- Maven -->
         <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
@@ -49,7 +49,9 @@
         <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
 
         <!-- 11.0.22 brought in by spring-boot 4.1.0 has CVE-2026-50229(6.1), CVE-2026-55276(9.1), CVE-2026-53434(9.1), CVE-2026-55956(6.5), CVE-2026-53404(7.3), CVE-2026-55955(6.5) -->
-        <tomcat-embed.version>11.0.23</tomcat-embed.version>
+        <tomcat-embed.version>11.0.24</tomcat-embed.version>
+
+        <log4j-api.version>2.26.1</log4j-api.version>
     </properties>
 
     <dependencyManagement>
@@ -116,6 +118,17 @@
               <groupId>ch.qos.logback</groupId>
               <artifactId>logback-core</artifactId>
               <version>1.5.37</version>
+          </dependency>
+          <!-- spring-boot-starter-actuator 4.1.0 brings in log4j-api 2.25.4 which has CVE-2026-49844 -->
+          <dependency>
+              <groupId>org.apache.logging.log4j</groupId>
+              <artifactId>log4j-api</artifactId>
+              <version>${log4j-api.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-to-slf4j</artifactId>
+            <version>${log4j-api.version}</version>
           </dependency>
       </dependencies>
 
