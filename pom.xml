@@ -52,6 +52,7 @@
         <tomcat-embed.version>11.0.24</tomcat-embed.version>
 
         <log4j-api.version>2.26.1</log4j-api.version>
+        <jackson.version>3.2.1</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -129,6 +130,17 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-to-slf4j</artifactId>
             <version>${log4j-api.version}</version>
+          </dependency>
+          <!-- spring-boot 4.1.0 brings in jackson-databind/jackson-core 3.1.4 which has CVE-2026-59889 overriding the api-sdk-java version of 3.2.1 -->
+          <dependency>
+              <groupId>tools.jackson.core</groupId>
+              <artifactId>jackson-core</artifactId>
+              <version>${jackson.version}</version>
+          </dependency>
+          <dependency>
+              <groupId>tools.jackson.core</groupId>
+              <artifactId>jackson-databind</artifactId>
+              <version>${jackson.version}</version>
           </dependency>
       </dependencies>
 
