@@ -24,7 +24,7 @@
         <hamcrest.version>3.0</hamcrest.version>
         <!-- Source: https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
-        <!-- Source: https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11 -->
+        <!-- Source: https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc17 -->
         <ojdbc17.version>23.26.3.0.0</ojdbc17.version>
         <!-- Source: https://mvnrepository.com/artifact/com.google.guava/guava -->
         <guava.version>33.7.1-jre</guava.version>
