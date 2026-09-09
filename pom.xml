@@ -18,7 +18,7 @@
     <properties>
         <java.version>21</java.version>
 
-        <spring-boot-dependencies.version>4.1.0</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.1.1</spring-boot-dependencies.version>
         <hamcrest.version>3.0</hamcrest.version>
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <ojdbc11.version>23.26.2.0.0</ojdbc11.version>
@@ -26,7 +26,7 @@
         <errorprone.version>2.41.0</errorprone.version>
 
         <!-- CH Libraries -->
-        <structured-logging.version>3.0.57</structured-logging.version>
+        <structured-logging.version>4.0.3</structured-logging.version>
         <sdk-manager-java.version>3.0.14</sdk-manager-java.version>
         <api-sdk-java.version>7.2.1</api-sdk-java.version>
 
@@ -35,7 +35,7 @@
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <jib-maven-plugin.version>3.4.6</jib-maven-plugin.version>
 
-        <opentelemetry-version>2.29.0</opentelemetry-version>
+        <opentelemetry.version>2.31.1</opentelemetry.version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -49,122 +49,128 @@
         <sonar-maven-plugin.version>4.0.0.4121</sonar-maven-plugin.version>
 
         <!-- 11.0.22 brought in by spring-boot 4.1.0 has CVE-2026-50229(6.1), CVE-2026-55276(9.1), CVE-2026-53434(9.1), CVE-2026-55956(6.5), CVE-2026-53404(7.3), CVE-2026-55955(6.5) -->
-        <tomcat-embed.version>11.0.24</tomcat-embed.version>
+        <tomcat-embed.version>11.0.25</tomcat-embed.version>
 
-        <log4j-api.version>2.26.1</log4j-api.version>
+        <log4j2.version>2.26.1</log4j2.version>
         <jackson.version>3.2.1</jackson.version>
+        <!-- Source: https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
-          <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-instrumentation-bom</artifactId>
-            <version>${opentelemetry-version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-          </dependency>
-          <dependency>
-              <groupId>io.opentelemetry.instrumentation</groupId>
-              <artifactId>opentelemetry-logback-appender-1.0</artifactId>
-              <version>${opentelemetry-version}-alpha</version>
-          </dependency>
-          <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${spring-boot-dependencies.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-          </dependency>
-          <dependency>
-              <groupId>com.google.guava</groupId>
-              <artifactId>guava</artifactId>
-              <version>${guava.version}</version>
-          </dependency>
-          <dependency>
-              <groupId>com.google.errorprone</groupId>
-              <artifactId>error_prone_annotations</artifactId>
-              <version>${errorprone.version}</version>
-          </dependency>
-          <!-- tomcat-embed override may be removable when spring-boot > 4.1.0 is released if it brings in tomcat-embed >= 11.0.23 which has no known CVEs -->
-          <dependency>
-              <groupId>org.apache.tomcat.embed</groupId>
-              <artifactId>tomcat-embed-core</artifactId>
-              <version>${tomcat-embed.version}</version>
-          </dependency>
-          <dependency>
-              <groupId>org.apache.tomcat.embed</groupId>
-              <artifactId>tomcat-embed-websocket</artifactId>
-              <version>${tomcat-embed.version}</version>
-          </dependency>
-          <dependency>
-              <groupId>org.apache.tomcat.embed</groupId>
-              <artifactId>tomcat-embed-el</artifactId>
-              <version>${tomcat-embed.version}</version>
-          </dependency>
-          <!-- structured-logging 3.0.57 brings in jackson-databind 2.21.4 which has CVE-2026-54515 -->
-          <dependency>
-              <groupId>com.fasterxml.jackson.core</groupId>
-              <artifactId>jackson-databind</artifactId>
-              <version>2.22.1</version>
-          </dependency>
-          <dependency>
-              <groupId>com.fasterxml.jackson.core</groupId>
-              <artifactId>jackson-annotations</artifactId>
-              <version>2.22</version>
-          </dependency>
-          <dependency>
-              <groupId>com.fasterxml.jackson.core</groupId>
-              <artifactId>jackson-core</artifactId>
-              <version>2.22.1</version>
-          </dependency>
-          <!-- spring-boot 4.1.0 brings in logback-classic 1.5.34 which has CVE-2026-10532 -->
-          <dependency>
-              <groupId>ch.qos.logback</groupId>
-              <artifactId>logback-classic</artifactId>
-              <version>1.5.37</version>
-          </dependency>
-          <!-- spring-boot 4.1.0 brings in logback-core 1.5.34 which has CVE-2026-10532 -->
-          <dependency>
-              <groupId>ch.qos.logback</groupId>
-              <artifactId>logback-core</artifactId>
-              <version>1.5.37</version>
-          </dependency>
-          <!-- spring-boot-starter-actuator 4.1.0 brings in log4j-api 2.25.4 which has CVE-2026-49844 -->
-          <dependency>
-              <groupId>org.apache.logging.log4j</groupId>
-              <artifactId>log4j-api</artifactId>
-              <version>${log4j-api.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-            <version>${log4j-api.version}</version>
-          </dependency>
-          <!-- spring-boot 4.1.0 brings in jackson-databind/jackson-core 3.1.4 which has CVE-2026-59889 overriding the api-sdk-java version of 3.2.1 -->
-          <dependency>
-              <groupId>tools.jackson.core</groupId>
-              <artifactId>jackson-core</artifactId>
-              <version>${jackson.version}</version>
-          </dependency>
-          <dependency>
-              <groupId>tools.jackson.core</groupId>
-              <artifactId>jackson-databind</artifactId>
-              <version>${jackson.version}</version>
-          </dependency>
-      </dependencies>
+            <dependency>
+                <groupId>io.opentelemetry.instrumentation</groupId>
+                <artifactId>opentelemetry-instrumentation-bom</artifactId>
+                <version>${opentelemetry.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- structured-logging 4.0.3 transitively brings in opentelemetry-logback-appender-1.0 2.30.0-alpha, -->
+            <!-- which conflicts with the version pulled in by the opentelemetry-instrumentation-bom import. -->
+            <!-- Pin explicitly to satisfy the DependencyConvergence enforcer rule. -->
+            <dependency>
+                <groupId>io.opentelemetry.instrumentation</groupId>
+                <artifactId>opentelemetry-logback-appender-1.0</artifactId>
+                <version>${opentelemetry.version}-alpha</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat-embed.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat-embed.version}</version>
+            </dependency>
+
+            <!-- structured-logging 3.0.57 brings in jackson-databind 2.21.4 which has CVE-2026-54515 -->
+            <!-- Source: https://mvnrepository.com/artifact/com.fasterxml.jackson/jackson-bom -->
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>2.22.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- spring-boot-starter-actuator 4.1.0 brings in log4j-api 2.25.4 which has CVE-2026-49844 -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-bom</artifactId>
+                <version>${log4j2.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- spring-boot 4.1.0 brings in jackson-databind/jackson-core 3.1.4 which has CVE-2026-59889 overriding the api-sdk-java version of 3.2.1 -->
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- Source: https://mvnrepository.com/artifact/net.ttddyy.observation/datasource-micrometer-bom -->
+            <dependency>
+                <groupId>net.ttddyy.observation</groupId>
+                <artifactId>datasource-micrometer-bom</artifactId>
+                <version>2.2.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.google.errorprone</groupId>
+                <artifactId>error_prone_annotations</artifactId>
+                <version>${errorprone.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
 
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
-            <groupId>io.opentelemetry.instrumentation</groupId>
-            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-opentelemetry</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>net.ttddyy.observation</groupId>
+            <artifactId>datasource-micrometer-spring-boot</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.ttddyy.observation</groupId>
+            <artifactId>datasource-micrometer-opentelemetry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-logback-appender-1.0</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-jackson2</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -310,10 +316,10 @@
                         <expandClasspathDependencies>true</expandClasspathDependencies>
                     </container>
                     <from>
-                      <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/ci-corretto-build-21:latest</image>
+                        <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/ci-corretto-build-21:latest</image>
                     </from>
                     <to>
-                      <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/oracle-query-api:latest</image>
+                        <image>416670754337.dkr.ecr.eu-west-2.amazonaws.com/oracle-query-api:latest</image>
                     </to>
                 </configuration>
             </plugin>
