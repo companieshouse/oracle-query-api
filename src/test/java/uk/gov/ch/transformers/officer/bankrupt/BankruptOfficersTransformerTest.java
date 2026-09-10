@@ -1,22 +1,21 @@
 package uk.gov.ch.transformers.officer.bankrupt;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
+import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResult;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearchResults;
-
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class BankruptOfficersTransformerTest {
 
@@ -45,7 +44,7 @@ class BankruptOfficersTransformerTest {
 
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         transformer = new BankruptOfficersTransformer();
 
     }

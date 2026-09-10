@@ -1,13 +1,13 @@
 package uk.gov.ch.model.update.trusts;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TrustLinkDataTest {
 
@@ -20,7 +20,7 @@ class TrustLinkDataTest {
     private TrustLinkData trustLinkData;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         trustLinkData = new TrustLinkData();
         trustLinkData.setTrustId("1");
         trustLinkData.setCorporateBodyAppointmentId("123");

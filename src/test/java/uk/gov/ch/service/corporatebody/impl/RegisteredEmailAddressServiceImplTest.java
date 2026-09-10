@@ -10,8 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
-import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
 import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
+import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
 import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

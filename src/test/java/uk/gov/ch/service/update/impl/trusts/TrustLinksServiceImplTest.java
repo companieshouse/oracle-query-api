@@ -1,12 +1,5 @@
 package uk.gov.ch.service.update.impl.trusts;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,6 +10,14 @@ import uk.gov.ch.exception.TrustDataCountNotFoundException;
 import uk.gov.ch.model.update.trusts.TrustLinkData;
 import uk.gov.ch.repository.update.trusts.TrustLinksRepository;
 import uk.gov.ch.service.update.trusts.impl.TrustLinksServiceImpl;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class TrustLinksServiceImplTest {

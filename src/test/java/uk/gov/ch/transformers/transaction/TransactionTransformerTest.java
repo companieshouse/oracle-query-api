@@ -1,14 +1,5 @@
 package uk.gov.ch.transformers.transaction;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,13 +7,21 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
 import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
 import uk.gov.companieshouse.api.model.filinghistory.AssociatedFilingsApi;
 import uk.gov.companieshouse.api.model.filinghistory.FilingApi;
 import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class TransactionTransformerTest {
@@ -169,7 +168,7 @@ class TransactionTransformerTest {
         assertEquals(0L, filingHistoryApi.getTotalCount());
         assertEquals("filing-history", filingHistoryApi.getKind());
     }
-    
+
     @Test
     @DisplayName("Transform where the description on the FilingHistoryTransaction is null")
     void convertFilingHistoryWithNullDescription() {
@@ -179,7 +178,7 @@ class TransactionTransformerTest {
         assertEquals(filingHistoryTransaction.getFormType(), filingApi.getType());
         assertEquals("legacy", filingApi.getDescription());
         assertEquals("", filingApi.getDescriptionValues().get("description"));
-        
+
     }
 
     private void assertFilingHistoryApi(FilingHistoryTransaction filingHistoryTransaction, FilingApi filingApi) {

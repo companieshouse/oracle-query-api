@@ -21,7 +21,7 @@ class TrustDetailsTest {
     private TrustDetails trustDetails;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         trustDetails = new TrustDetails();
         trustDetails.setTrustId("123");
         trustDetails.setTrustName("My trust");

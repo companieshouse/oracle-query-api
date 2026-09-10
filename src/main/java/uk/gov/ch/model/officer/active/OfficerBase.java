@@ -5,9 +5,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Transient;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import uk.gov.companieshouse.api.model.common.Address;
 
 @MappedSuperclass
@@ -253,10 +254,14 @@ public class OfficerBase {
         if (dateString == null) {
             return null;
         }
-        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatFrom.parse(dateString);
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMMMM yyyy");
-        return simpleDateFormat.format(date);
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd[ HH:mm:ss[.S]]");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
+        try {
+            LocalDate date = LocalDate.parse(dateString, inputFormatter);
+            return date.format(outputFormatter);
+        } catch (DateTimeParseException ex) {
+            throw new ParseException(ex.getParsedString(), ex.getErrorIndex());
+        }
     }
 
 }
