@@ -254,7 +254,6 @@ public class OfficerBase {
         if (dateString == null) {
             return null;
         }
-//        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd[ HH:mm:ss[.S]]");
         DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("uuuu-MM-dd[ HH:mm:ss[.S]]")
                 .withResolverStyle(java.time.format.ResolverStyle.STRICT);
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy");
