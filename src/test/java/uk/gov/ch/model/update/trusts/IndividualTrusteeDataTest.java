@@ -1,13 +1,13 @@
 package uk.gov.ch.model.update.trusts;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uk.gov.companieshouse.api.model.common.Address;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class IndividualTrusteeDataTest {
@@ -51,7 +51,7 @@ class IndividualTrusteeDataTest {
     private IndividualTrusteeData individualTrusteeData;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         individualTrusteeData = new IndividualTrusteeData();
         individualTrusteeData.setTrusteeId("123");
         individualTrusteeData.setTrusteeForename1("Bob");

@@ -1,10 +1,5 @@
 package uk.gov.ch.transformers.officer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,9 +16,15 @@ import uk.gov.companieshouse.api.model.officers.FormerNamesApi;
 import uk.gov.companieshouse.api.model.officers.IdentificationApi;
 import uk.gov.companieshouse.api.model.officers.OfficersApi;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @ExtendWith(MockitoExtension.class)
 class OfficerApiTransformerTest {
-    
+
     private static final String ADDRESS_LINE_1 = "Address line 1";
     private static final String ADDRESS_LINE_2 = "Address line 2";
     private static final String APPOINTMENT_DATE = "20200101";
@@ -64,13 +65,13 @@ class OfficerApiTransformerTest {
     private static final String REGION_WHITE_SPACE = " Region ";
     private static final String USUAL_COUNTRY_WHITE_SPACE = " Usual Country ";
 
-    
+
     private OfficersApiTransformer transformer;
-    
+
     @BeforeEach
     void setUp() {
         transformer = new OfficersApiTransformer();
-    }   
+    }
 
     @Test
     @DisplayName("Test conversion with human and EEA corporate officer")
@@ -80,15 +81,15 @@ class OfficerApiTransformerTest {
         corporateOfficer.getIdentification().setNonEea(null);
         corporateOfficer.getIdentification().setUkLimitedCompany(null);
         corporateOfficer.getIdentification().setOtherCorporateBodyOrFirm(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertGenericValues(officersApi);
         assertEquals(2, officersApi.getResignedCount());
-        
+
         // assert Human Officer Values
         assertHumanValues(officersApi.getItems().get(0));
         assertServiceAddress(officersApi.getItems().get(0).getAddress());
@@ -108,15 +109,15 @@ class OfficerApiTransformerTest {
         corporateOfficer.getIdentification().setEea(null);
         corporateOfficer.getIdentification().setUkLimitedCompany(null);
         corporateOfficer.getIdentification().setOtherCorporateBodyOrFirm(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertGenericValues(officersApi);
         assertEquals(2, officersApi.getResignedCount());
-        
+
         // assert Human Officer Values
         assertHumanValues(officersApi.getItems().get(0));
         assertServiceAddress(officersApi.getItems().get(0).getAddress());
@@ -127,7 +128,7 @@ class OfficerApiTransformerTest {
         assertServiceAddress(officersApi.getItems().get(1).getAddress());
         assertIdentification(NON_EEA, officersApi.getItems().get(1).getIdentification());
     }
-    
+
     @Test
     @DisplayName("Test conversion with human and UK limited corporate officer")
     void testConvertWithHumanAndUkLimitedCorporateOfficer() {
@@ -136,15 +137,15 @@ class OfficerApiTransformerTest {
         corporateOfficer.getIdentification().setEea(null);
         corporateOfficer.getIdentification().setNonEea(null);
         corporateOfficer.getIdentification().setOtherCorporateBodyOrFirm(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertGenericValues(officersApi);
         assertEquals(2, officersApi.getResignedCount());
-        
+
         // assert Human Officer Values
         assertHumanValues(officersApi.getItems().get(0));
         assertServiceAddress(officersApi.getItems().get(0).getAddress());
@@ -155,7 +156,7 @@ class OfficerApiTransformerTest {
         assertServiceAddress(officersApi.getItems().get(1).getAddress());
         assertIdentification(UK_LIMITED_COMPANY, officersApi.getItems().get(1).getIdentification());
     }
-    
+
     @Test
     @DisplayName("Test conversion with human and other corporate firm officer")
     void testConvertWithHumanAndOtherCorporateFirmOfficer() {
@@ -164,15 +165,15 @@ class OfficerApiTransformerTest {
         corporateOfficer.getIdentification().setEea(null);
         corporateOfficer.getIdentification().setNonEea(null);
         corporateOfficer.getIdentification().setUkLimitedCompany(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertGenericValues(officersApi);
         assertEquals(2, officersApi.getResignedCount());
-        
+
         // assert Human Officer Values
         assertHumanValues(officersApi.getItems().get(0));
         assertServiceAddress(officersApi.getItems().get(0).getAddress());
@@ -183,7 +184,7 @@ class OfficerApiTransformerTest {
         assertServiceAddress(officersApi.getItems().get(1).getAddress());
         assertIdentification(OTHER_CORPORATE_BODY_OR_FIRM, officersApi.getItems().get(1).getIdentification());
     }
-    
+
     @Test
     @DisplayName("Test conversion where all identification options are null")
     void testConvertWithCorporateOfficerIdentificationOptionsNull() {
@@ -192,14 +193,14 @@ class OfficerApiTransformerTest {
         corporateOfficer.getIdentification().setNonEea(null);
         corporateOfficer.getIdentification().setUkLimitedCompany(null);
         corporateOfficer.getIdentification().setOtherCorporateBodyOrFirm(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertNull(officersApi.getItems().get(0).getIdentification());
     }
-    
+
     @Test
     @DisplayName("test conversion with corporate officer without identification section")
     void testConvertWithCorporateOfficerNoIdentification() {
@@ -207,14 +208,14 @@ class OfficerApiTransformerTest {
         corporateOfficer.setIdentification(null);
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertCompanyValues(officersApi.getItems().get(0));
         assertServiceAddress(officersApi.getItems().get(0).getAddress());
         assertNull(officersApi.getItems().get(0).getIdentification());
-        
+
     }
-    
+
     @Test
     @DisplayName("Test conversion where the service address is null")
     void testConversionWhereAddressIsNull() {
@@ -222,11 +223,11 @@ class OfficerApiTransformerTest {
         humanOfficer.setServiceAddress(null);
         OfficerDataModel corporateOfficer = createCorporateOfficerDataModel();
         corporateOfficer.setServiceAddress(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertNull(officersApi.getItems().get(0).getAddress());
         assertNull(officersApi.getItems().get(1).getAddress());
@@ -298,13 +299,13 @@ class OfficerApiTransformerTest {
         humanOfficer.setPreviousNameArray(null);
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertEquals(1, officersApi.getResignedCount());
         assertNull(officersApi.getItems().get(0).getFormerNames());
-        
+
     }
-    
+
     @Test
     @DisplayName("Test conversion with human officers with null name sections")
     void testConvertWithHumanOfficerNameCombinations() {
@@ -318,13 +319,13 @@ class OfficerApiTransformerTest {
         officerList.add(nullForenameOfficer);
         officerList.add(nullMiddleNameOfficer);
         officerList.add(nullSurnameOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertEquals(MIDDLE_NAME + " " + SURNAME, officersApi.getItems().get(0).getName());
         assertEquals(FORENAME + " " + SURNAME, officersApi.getItems().get(1).getName());
         assertEquals(FORENAME + " " + MIDDLE_NAME, officersApi.getItems().get(2).getName());
     }
-    
+
     @Test
     @DisplayName("Test conversion with human officer null date of birth")
     void testConvertWithHumanOfficersNullDateOfBirth() {
@@ -335,7 +336,7 @@ class OfficerApiTransformerTest {
         OfficersApi officersApi = transformer.convert(officerList);
         assertNull(officersApi.getItems().get(0).getDateOfBirth());
     }
-    
+
     @Test
     @DisplayName("Test conversion with human officer empty string date of birth")
     void testConvertWithHumanOfficersEmptyStringDateOfBirth() {
@@ -346,7 +347,7 @@ class OfficerApiTransformerTest {
         OfficersApi officersApi = transformer.convert(officerList);
         assertNull(officersApi.getItems().get(0).getDateOfBirth());
     }
-    
+
     @Test
     @DisplayName("Test conversion with human officers empty previous names list")
     void testConvertWithHumanOfficerEmptyPreviousNames() {
@@ -358,7 +359,7 @@ class OfficerApiTransformerTest {
         assertEquals(1, officersApi.getResignedCount());
         assertNull(officersApi.getItems().get(0).getFormerNames());
     }
-    
+
     @Test
     @DisplayName("Test conversion where the resignation dates are null")
     void testConvertWithNullResignationDates() {
@@ -366,21 +367,21 @@ class OfficerApiTransformerTest {
         humanOfficer.setResignationDate(null);
         OfficerDataModel corporateOfficer = createCorporateOfficerDataModel();
         corporateOfficer.setResignationDate(null);
-        
+
         List<OfficerDataModel> officerList = new ArrayList<>();
         officerList.add(humanOfficer);
         officerList.add(corporateOfficer);
-        
+
         OfficersApi officersApi = transformer.convert(officerList);
         assertEquals(2, officersApi.getTotalResults());
         assertEquals(0, officersApi.getResignedCount());
         assertEquals(2, officersApi.getItemsPerPage());
-        
+
     }
-    
+
     private void assertCompanyValues(CompanyOfficerApi companyOfficerApi) {
         assertEquals(CORPORATE_OFFICER, companyOfficerApi.getName());
-        
+
     }
 
     private void assertGenericValues(OfficersApi officersApi) {
@@ -389,25 +390,25 @@ class OfficerApiTransformerTest {
         assertEquals(2, officersApi.getTotalResults());
         assertEquals("officer-list", officersApi.getKind());
     }
-    
+
     private void assertHumanValues(CompanyOfficerApi officerApi) {
         assertEquals(NATIONALITY, officerApi.getNationality());
         assertEquals(OCCUPATION, officerApi.getOccupation());
     }
-    
+
     private void assertIdentification(String type, IdentificationApi identification) {
         assertEquals(type, identification.getIdentificationType());
         assertEquals(LEGAL_AUTHORITY, identification.getLegalAuthority());
         assertEquals(LEGAL_FORM, identification.getLegalForm());
         assertEquals(PLACE_REGISTERED, identification.getPlaceRegistered());
-        assertEquals(REGISTRATION_NUMBER, identification.getRegistrationNumber());      
+        assertEquals(REGISTRATION_NUMBER, identification.getRegistrationNumber());
     }
-    
+
     private void assertPreviousNames(List<FormerNamesApi> formerNames) {
         assertEquals(PREVIOUS_FORENAME, formerNames.get(0).getForenames());
         assertEquals(PREVIOUS_SURNAME, formerNames.get(0).getSurname());
     }
-    
+
     private void assertServiceAddress(Address address) {
         assertEquals(ADDRESS_LINE_1, address.getAddressLine1());
         assertEquals(ADDRESS_LINE_2, address.getAddressLine2());
@@ -419,26 +420,26 @@ class OfficerApiTransformerTest {
         assertEquals(PREMISES, address.getPremises());
         assertEquals(REGION, address.getRegion());
     }
-    
+
     private OfficerDataModel createBaseOfficerDataModel() {
         OfficerDataModel officerDataModel = new OfficerDataModel();
         officerDataModel.setAppointmentDate(APPOINTMENT_DATE);
         officerDataModel.setResignationDate(RESIGNATION_DATE);
         officerDataModel.setServiceAddress(createServiceAddress());
-        
+
         return officerDataModel;
     }
-    
+
     private OfficerDataModel createCorporateOfficerDataModel() {
         OfficerDataModel officerDataModel = createBaseOfficerDataModel();
         officerDataModel.setCorporateInd("TRUE ");
         officerDataModel.setSurname(CORPORATE_OFFICER);
         officerDataModel.setIdentification(createIdentification());
-        
+
         return officerDataModel;
-        
+
     }
-    
+
     private OfficerDataModel createHumanOfficerDataModel() {
         OfficerDataModel officerDataModel = createBaseOfficerDataModel();
         officerDataModel.setDateOfBirth(DATE_OF_BIRTH);
@@ -449,10 +450,10 @@ class OfficerApiTransformerTest {
         officerDataModel.setNationality(NATIONALITY);
         officerDataModel.setOccupation(OCCUPATION);
         officerDataModel.setPreviousNameArray(createPreviousNamesList());
-        
+
         return officerDataModel;
     }
-    
+
     private ServiceAddress createServiceAddress() {
         ServiceAddress serviceAddress = new ServiceAddress();
         serviceAddress.setAddressLine1(ADDRESS_LINE_1);
@@ -465,7 +466,7 @@ class OfficerApiTransformerTest {
         serviceAddress.setPremises(PREMISES);
         serviceAddress.setRegion(REGION);
         serviceAddress.setUsualCountryOfResidence("Usual Country");
-        
+
         return serviceAddress;
     }
 
@@ -500,7 +501,7 @@ class OfficerApiTransformerTest {
 
         return serviceAddress;
     }
-    
+
     private Identification createIdentification() {
         Identification identification = new Identification();
         OfficerIdentification officerIdentification = new OfficerIdentification();
@@ -508,15 +509,15 @@ class OfficerApiTransformerTest {
         officerIdentification.setLegalForm(LEGAL_FORM);
         officerIdentification.setPlaceRegistered(PLACE_REGISTERED);
         officerIdentification.setRegistrationNumber(REGISTRATION_NUMBER);
-        
+
         identification.setEea(officerIdentification);
         identification.setNonEea(officerIdentification);
         identification.setOtherCorporateBodyOrFirm(officerIdentification);
         identification.setUkLimitedCompany(officerIdentification);
-        
+
         return identification;
     }
-    
+
     private List<PreviousNameModel> createPreviousNamesList() {
         List<PreviousNameModel> previousNamesList = new ArrayList<>();
         PreviousNameModel previousName1 = new PreviousNameModel();

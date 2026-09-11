@@ -52,7 +52,7 @@ class CorporateTrusteeDataTest {
     private CorporateTrusteeData corporateTrusteeData;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         corporateTrusteeData = new CorporateTrusteeData();
         corporateTrusteeData.setTrusteeId("123");
         corporateTrusteeData.setTrusteeName("Some Corp Name");

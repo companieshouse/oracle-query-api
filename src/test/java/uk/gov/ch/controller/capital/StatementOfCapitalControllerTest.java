@@ -4,8 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -13,17 +11,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import uk.gov.ch.exception.ServiceException;
+import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
+import uk.gov.ch.model.capital.StatementOfCapital;
+import uk.gov.ch.service.capital.StatementOfCapitalService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import uk.gov.ch.exception.ServiceException;
-import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
-import uk.gov.ch.model.capital.StatementOfCapital;
-import uk.gov.ch.service.capital.StatementOfCapitalService;
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(StatementOfCapitalController.class)

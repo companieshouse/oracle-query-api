@@ -1,22 +1,10 @@
 package uk.gov.ch.transformers.corporatebody;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import uk.gov.ch.model.corporatebody.sqldatamodels.AccountingDates;
 import uk.gov.ch.model.corporatebody.sqldatamodels.AnnualReturnDates;
 import uk.gov.ch.model.corporatebody.sqldatamodels.CompanyProfileModel;
@@ -25,6 +13,17 @@ import uk.gov.ch.model.corporatebody.sqldatamodels.PreviousCompanyNames;
 import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredOfficeAddress;
 import uk.gov.ch.model.corporatebody.sqldatamodels.SicCodes;
 import uk.gov.companieshouse.api.model.company.CompanyProfileApi;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
 class CorporateBodyTransformerTest {
@@ -96,7 +95,7 @@ class CorporateBodyTransformerTest {
         assertFalse(result.isHasCharges());
         assertFalse(result.isCommunityInterestCompany());
     }
-    
+
     @Test
     @DisplayName("Test enum conversion where values of 0 are equal to null")
     void testConvertEnumsWithZeroOrEmptyStrings() {
@@ -124,9 +123,9 @@ class CorporateBodyTransformerTest {
         assertConfirmationStattment(model, result);
         assertAddress(model, result);
         assertPreviousNames(model, result);
-        assertSicCodes(model, result);   
+        assertSicCodes(model, result);
     }
-    
+
     @Test
     @DisplayName("Test ARD with null and default values, should return null ARD dates")
     void testConvertWithNullOrDefaultARD() {
@@ -134,23 +133,23 @@ class CorporateBodyTransformerTest {
         model.setAccRefDate(null);
         CompanyProfileApi result = transformer.convert(model);
         assertNull(result.getAccounts().getAccountingReferenceDate());
-        
+
         model.setAccRefDate("9912");
         CompanyProfileApi secondResult = transformer.convert(model);
         assertNull(secondResult.getAccounts().getAccountingReferenceDate());
-        
+
         model.setAccRefDate("1299");
         CompanyProfileApi thirdResult = transformer.convert(model);
         assertNull(thirdResult.getAccounts().getAccountingReferenceDate());
     }
-    
+
     @Test
     @DisplayName("Test where dissolution date is null and closure date is populated")
     void testConvertWithClosureDate() {
         CompanyProfileModel model = setUpModel();
         model.setClosureDate(MID_DATE);
         model.setDateOfDissolution(null);
-        
+
         CompanyProfileApi result = transformer.convert(model);
         assertNotNull(result.getDateOfCessation());
         assertEquals(getLocalDateFromString(model.getClosureDate()), result.getDateOfCessation());
