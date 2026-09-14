@@ -1,9 +1,9 @@
 package uk.gov.ch.model.common;
 
-import jakarta.persistence.MappedSuperclass;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.MappedSuperclass;
 
 @JsonInclude(Include.NON_NULL)
 @MappedSuperclass

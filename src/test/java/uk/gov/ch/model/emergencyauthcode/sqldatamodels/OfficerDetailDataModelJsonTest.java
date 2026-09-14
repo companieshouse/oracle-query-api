@@ -1,14 +1,14 @@
 package uk.gov.ch.model.emergencyauthcode.sqldatamodels;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OfficerDetailDataModelJsonTest {
+class OfficerDetailDataModelJsonTest extends AbstractJsonTest {
 
 
     private static final Long OFFICER_DETAIL_ID = 999L;
@@ -19,11 +19,8 @@ class OfficerDetailDataModelJsonTest {
     private static final String OFFICER_NATIONALITY = "nationality";
     private static final String USUAL_RESIDENTIAL_COUNTRY = "country";
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
-
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         OfficerDetailDataModel details = new OfficerDetailDataModel();
         details.setOfficerId(OFFICER_DETAIL_ID);
         details.setForename1(FORENAME1);
@@ -33,24 +30,20 @@ class OfficerDetailDataModelJsonTest {
         details.setOfficerNationality(OFFICER_NATIONALITY);
         details.setUsualResidentialCountry(USUAL_RESIDENTIAL_COUNTRY);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
-            assertThat(node.get("officerId").asText()).isEqualTo(String.valueOf(OFFICER_DETAIL_ID));
-            assertThat(node.get("forename1").asText()).isEqualTo(FORENAME1);
-            assertThat(node.get("forename2").asText()).isEqualTo(FORENAME2);
-            assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-            assertThat(node.get("dateOfBirth")).hasToString(toJsonDate(DATE_OF_BIRTH));
-            assertThat(node.get("officerNationality").asText()).isEqualTo(OFFICER_NATIONALITY);
-            assertThat(node.get("usualResidentialCountry").asText()).isEqualTo(USUAL_RESIDENTIAL_COUNTRY);
+            assertThat(node.get("officerId").asString()).isEqualTo(String.valueOf(OFFICER_DETAIL_ID));
+            assertThat(node.get("forename1").asString()).isEqualTo(FORENAME1);
+            assertThat(node.get("forename2").asString()).isEqualTo(FORENAME2);
+            assertThat(node.get("surname").asString()).isEqualTo(SURNAME);
+            assertThat(node.get("dateOfBirth").asString()).isEqualTo(DATE_OF_BIRTH.toString());
+            assertThat(node.get("officerNationality").asString()).isEqualTo(OFFICER_NATIONALITY);
+            assertThat(node.get("usualResidentialCountry").asString()).isEqualTo(USUAL_RESIDENTIAL_COUNTRY);
         } catch (AssertionError e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
-    }
-
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
     }
 }
 

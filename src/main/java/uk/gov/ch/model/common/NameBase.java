@@ -1,8 +1,8 @@
 package uk.gov.ch.model.common;
 
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class NameBase {

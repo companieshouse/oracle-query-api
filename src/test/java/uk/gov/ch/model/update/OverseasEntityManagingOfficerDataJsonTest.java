@@ -1,12 +1,12 @@
 package uk.gov.ch.model.update;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class OverseasEntityManagingOfficerDataJsonTest {
+class OverseasEntityManagingOfficerDataJsonTest extends AbstractJsonTest {
 
     private static final String MANAGING_OFFICER_APPOINTMENT_ID = "managing officer appointment id";
     private static final String CONTACT_NAME_FULL = "contact name full";
@@ -32,9 +32,6 @@ class OverseasEntityManagingOfficerDataJsonTest {
     private static final String PRINCIPAL_POSTCODE = "principal postcode";
     private static final String PRINCIPAL_PO_BOX = "principal po box";
     private static final String PRINCIPAL_CARE_OF = "principal care of name";
-
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
     @Test
     void serializesToExpectedJsonStructure() throws Exception {
@@ -64,41 +61,41 @@ class OverseasEntityManagingOfficerDataJsonTest {
         details.setPrincipalPostalCode(PRINCIPAL_POSTCODE);
         details.setPrincipalRegion(PRINCIPAL_REGION);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
             JsonNode residentialAddress = node.get("residential_address");
             JsonNode principalAddress = node.get("principal_address");
 
-            assertThat(node.get("managingOfficerAppointmentId").asText()).isEqualTo(MANAGING_OFFICER_APPOINTMENT_ID);
-            assertThat(node.get("contact_name_full").asText()).isEqualTo(CONTACT_NAME_FULL);
-            assertThat(node.get("contact_email_address").asText()).isEqualTo(CONTACT_EMAIL_ADDRESS);
-            assertThat(node.get("date_of_birth").asText()).isEqualTo(DATE_OF_BIRTH);
+            assertThat(node.get("managingOfficerAppointmentId").asString()).isEqualTo(MANAGING_OFFICER_APPOINTMENT_ID);
+            assertThat(node.get("contact_name_full").asString()).isEqualTo(CONTACT_NAME_FULL);
+            assertThat(node.get("contact_email_address").asString()).isEqualTo(CONTACT_EMAIL_ADDRESS);
+            assertThat(node.get("date_of_birth").asString()).isEqualTo(DATE_OF_BIRTH);
 
             assertThat(residentialAddress).isNotNull();
             assertThat(principalAddress).isNotNull();
 
-            assertThat(residentialAddress.get("premises").asText()).isEqualTo(RESIDENTIAL_PREMISES);
-            assertThat(residentialAddress.get("address_line_1").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
-            assertThat(residentialAddress.get("address_line_2").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
-            assertThat(residentialAddress.get("locality").asText()).isEqualTo(RESIDENTIAL_TOWN);
-            assertThat(residentialAddress.get("region").asText()).isEqualTo(RESIDENTIAL_REGION);
-            assertThat(residentialAddress.get("country").asText()).isEqualTo(RESIDENTIAL_COUNTRY);
-            assertThat(residentialAddress.get("postal_code").asText()).isEqualTo(RESIDENTIAL_POSTCODE);
-            assertThat(residentialAddress.get("po_box").asText()).isEqualTo(RESIDENTIAL_PO_BOX);
-            assertThat(residentialAddress.get("care_of").asText()).isEqualTo(RESIDENTIAL_CARE_OF);
+            assertThat(residentialAddress.get("premises").asString()).isEqualTo(RESIDENTIAL_PREMISES);
+            assertThat(residentialAddress.get("address_line_1").asString()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
+            assertThat(residentialAddress.get("address_line_2").asString()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
+            assertThat(residentialAddress.get("locality").asString()).isEqualTo(RESIDENTIAL_TOWN);
+            assertThat(residentialAddress.get("region").asString()).isEqualTo(RESIDENTIAL_REGION);
+            assertThat(residentialAddress.get("country").asString()).isEqualTo(RESIDENTIAL_COUNTRY);
+            assertThat(residentialAddress.get("postal_code").asString()).isEqualTo(RESIDENTIAL_POSTCODE);
+            assertThat(residentialAddress.get("po_box").asString()).isEqualTo(RESIDENTIAL_PO_BOX);
+            assertThat(residentialAddress.get("care_of").asString()).isEqualTo(RESIDENTIAL_CARE_OF);
 
-            assertThat(principalAddress.get("premises").asText()).isEqualTo(PRINCIPAL_PREMISES);
-            assertThat(principalAddress.get("address_line_1").asText()).isEqualTo(PRINCIPAL_ADDRESS_LINE_1);
-            assertThat(principalAddress.get("address_line_2").asText()).isEqualTo(PRINCIPAL_ADDRESS_LINE_2);
-            assertThat(principalAddress.get("locality").asText()).isEqualTo(PRINCIPAL_TOWN);
-            assertThat(principalAddress.get("region").asText()).isEqualTo(PRINCIPAL_REGION);
-            assertThat(principalAddress.get("country").asText()).isEqualTo(PRINCIPAL_COUNTRY);
-            assertThat(principalAddress.get("postal_code").asText()).isEqualTo(PRINCIPAL_POSTCODE);
-            assertThat(principalAddress.get("po_box").asText()).isEqualTo(PRINCIPAL_PO_BOX);
-            assertThat(principalAddress.get("care_of").asText()).isEqualTo(PRINCIPAL_CARE_OF);
+            assertThat(principalAddress.get("premises").asString()).isEqualTo(PRINCIPAL_PREMISES);
+            assertThat(principalAddress.get("address_line_1").asString()).isEqualTo(PRINCIPAL_ADDRESS_LINE_1);
+            assertThat(principalAddress.get("address_line_2").asString()).isEqualTo(PRINCIPAL_ADDRESS_LINE_2);
+            assertThat(principalAddress.get("locality").asString()).isEqualTo(PRINCIPAL_TOWN);
+            assertThat(principalAddress.get("region").asString()).isEqualTo(PRINCIPAL_REGION);
+            assertThat(principalAddress.get("country").asString()).isEqualTo(PRINCIPAL_COUNTRY);
+            assertThat(principalAddress.get("postal_code").asString()).isEqualTo(PRINCIPAL_POSTCODE);
+            assertThat(principalAddress.get("po_box").asString()).isEqualTo(PRINCIPAL_PO_BOX);
+            assertThat(principalAddress.get("care_of").asString()).isEqualTo(PRINCIPAL_CARE_OF);
         } catch (Throwable e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
     }

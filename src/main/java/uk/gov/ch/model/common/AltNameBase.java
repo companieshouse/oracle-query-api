@@ -1,10 +1,10 @@
 package uk.gov.ch.model.common;
 
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.*;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 
 @JsonInclude(Include.NON_NULL)
 @MappedSuperclass

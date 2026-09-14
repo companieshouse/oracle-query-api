@@ -19,16 +19,15 @@ terraform {
 }
 
 module "secrets" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/secrets?ref=1.0.338"
+  source = "git@github.com:companieshouse/terraform-modules//aws/parameter-store?ref=1.0.425"
 
   name_prefix = "${local.service_name}-${var.environment}"
-  environment = var.environment
   kms_key_id  = data.aws_kms_key.kms_key.id
   secrets     = nonsensitive(local.service_secrets)
 }
 
 module "ecs-service" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=1.0.370"
+  source = "git@github.com:companieshouse/terraform-modules//aws/ecs/ecs-service?ref=1.0.425"
 
   # Environmental configuration
   environment             = var.environment

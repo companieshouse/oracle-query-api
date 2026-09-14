@@ -1,15 +1,14 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ScottishBankruptOfficerSearchResultJsonTest {
-
+class ScottishBankruptOfficerSearchResultJsonTest extends AbstractJsonTest {
 
     private static final String EPHEMERAL_KEY = "key";
     private static final String FORENAME1 = "forename";
@@ -25,50 +24,43 @@ class ScottishBankruptOfficerSearchResultJsonTest {
     private static final String CASE_TYPE = "case type";
     private static final LocalDate DEBTOR_DISCHARGE_DATE = LocalDate.now();
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-	.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
+	@Test
+	void serializesToExpectedJsonStructure() {
+		ScottishBankruptOfficerSearchResult details = new ScottishBankruptOfficerSearchResult();
+		details.setEphemeralKey(EPHEMERAL_KEY);
+		details.setForename1(FORENAME1);
+		details.setForename2(FORENAME2);
+		details.setSurname(SURNAME);
+		details.setAddressLine1(ADDRESS_LINE1);
+		details.setAddressLine2(ADDRESS_LINE2);
+		details.setAddressLine3(ADDRESS_LINE3);
+		details.setTown(TOWN);
+		details.setCounty(COUNTY);
+		details.setPostcode(POSTCODE);
+		details.setDateOfBirth(DATE_OF_BIRTH);
+		details.setCaseType(CASE_TYPE);
+		details.setDebtorDischargeDate(DEBTOR_DISCHARGE_DATE);
 
-    @Test
-    void serializesToExpectedJsonStructure() throws Exception {
-	ScottishBankruptOfficerSearchResult details = new ScottishBankruptOfficerSearchResult();
-	details.setEphemeralKey(EPHEMERAL_KEY);
-	details.setForename1(FORENAME1);
-	details.setForename2(FORENAME2);
-	details.setSurname(SURNAME);
-	details.setAddressLine1(ADDRESS_LINE1);
-	details.setAddressLine2(ADDRESS_LINE2);
-	details.setAddressLine3(ADDRESS_LINE3);
-	details.setTown(TOWN);
-	details.setCounty(COUNTY);
-	details.setPostcode(POSTCODE);
-	details.setDateOfBirth(DATE_OF_BIRTH);
-	details.setCaseType(CASE_TYPE);
-	details.setDebtorDischargeDate(DEBTOR_DISCHARGE_DATE);
+		JsonNode node = jsonMapper.valueToTree(details);
 
-	JsonNode node = objectMapper.valueToTree(details);
-
-	try {
-	    assertThat(node.get("ephemeralKey").asText()).isEqualTo(EPHEMERAL_KEY);
-	    assertThat(node.get("forename1").asText()).isEqualTo(FORENAME1);
-	    assertThat(node.get("forename2").asText()).isEqualTo(FORENAME2);
-	    assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-	    assertThat(node.get("addressLine1").asText()).isEqualTo(ADDRESS_LINE1);
-	    assertThat(node.get("addressLine2").asText()).isEqualTo(ADDRESS_LINE2);
-	    assertThat(node.get("addressLine3").asText()).isEqualTo(ADDRESS_LINE3);
-	    assertThat(node.get("town").asText()).isEqualTo(TOWN);
-	    assertThat(node.get("county").asText()).isEqualTo(COUNTY);
-	    assertThat(node.get("postcode").asText()).isEqualTo(POSTCODE);
-	    assertThat(node.get("dateOfBirth")).hasToString(toJsonDate(DATE_OF_BIRTH));
-	    assertThat(node.get("caseType").asText()).isEqualTo(CASE_TYPE);
-	    assertThat(node.get("debtorDischargeDate")).hasToString(toJsonDate(DEBTOR_DISCHARGE_DATE));
-	} catch (AssertionError e) {
-	    System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
-	    throw e;
-	}
-    }
-
-    static String toJsonDate(LocalDate date) {
-	return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
+		try {
+			assertThat(node.get("ephemeralKey").asString()).isEqualTo(EPHEMERAL_KEY);
+			assertThat(node.get("forename1").asString()).isEqualTo(FORENAME1);
+			assertThat(node.get("forename2").asString()).isEqualTo(FORENAME2);
+			assertThat(node.get("surname").asString()).isEqualTo(SURNAME);
+			assertThat(node.get("addressLine1").asString()).isEqualTo(ADDRESS_LINE1);
+			assertThat(node.get("addressLine2").asString()).isEqualTo(ADDRESS_LINE2);
+			assertThat(node.get("addressLine3").asString()).isEqualTo(ADDRESS_LINE3);
+			assertThat(node.get("town").asString()).isEqualTo(TOWN);
+			assertThat(node.get("county").asString()).isEqualTo(COUNTY);
+			assertThat(node.get("postcode").asString()).isEqualTo(POSTCODE);
+			assertThat(node.get("dateOfBirth").asString()).isEqualTo(DATE_OF_BIRTH.toString());
+			assertThat(node.get("caseType").asString()).isEqualTo(CASE_TYPE);
+			assertThat(node.get("debtorDischargeDate").asString()).isEqualTo(DEBTOR_DISCHARGE_DATE.toString());
+		} catch (AssertionError e) {
+			System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
+			throw e;
+		}
     }
 }
 

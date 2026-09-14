@@ -1,13 +1,11 @@
 package uk.gov.ch.service.corporatebody.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
@@ -24,16 +22,19 @@ import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 import uk.gov.companieshouse.logging.util.DataMap;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class CorporateBodyServiceImpl implements CorporateBodyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
             OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
-    private CorporateBodyRepository corporateBodyRepository;
-    private JsonMapper jsonMapper;
-    private CorporateBodyTransformer corporateBodyTransformer;
-    private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
+    private final CorporateBodyRepository corporateBodyRepository;
+    private final JsonMapper jsonMapper;
+    private final CorporateBodyTransformer corporateBodyTransformer;
+    private final CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 
     public CorporateBodyServiceImpl(CorporateBodyRepository corporateBodyRepository, JsonMapper jsonMapper, CorporateBodyTransformer corporateBodyTransformer, CorporateBodyDetailsRepository corporateBodyDetailsRepository) {
         this.corporateBodyRepository = corporateBodyRepository;
@@ -70,11 +71,9 @@ public class CorporateBodyServiceImpl implements CorporateBodyService {
 
         try {
             JsonNode companyProfileNode = jsonMapper.readValue(resultJson, JsonNode.class);
-            CompanyProfileModel companyProfileModel = jsonMapper.convertValue(companyProfileNode,
-                    new TypeReference<CompanyProfileModel>() {
-                    });
+            CompanyProfileModel companyProfileModel = jsonMapper.convertValue(companyProfileNode, new TypeReference<>() {});
             return corporateBodyTransformer.convert(companyProfileModel);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new CompanyProfileMappingException(
                     "Json Processing exception for " + companyNumber);
         }

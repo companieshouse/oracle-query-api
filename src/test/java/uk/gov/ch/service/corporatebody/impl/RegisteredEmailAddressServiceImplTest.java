@@ -1,18 +1,20 @@
 package uk.gov.ch.service.corporatebody.impl;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.databind.json.JsonMapper;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
 import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
 import uk.gov.ch.model.corporatebody.sqldatamodels.RegisteredEmailAddressJson;
 import uk.gov.ch.repository.corporatebody.CorporateBodyDetailsRepository;
+import uk.gov.ch.repository.corporatebody.CorporateBodyRepository;
+import uk.gov.ch.transformers.corporatebody.CorporateBodyTransformer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -21,16 +23,29 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RegisteredEmailAddressServiceImplTest {
 
-    @InjectMocks
     private CorporateBodyServiceImpl corporateBodyService;
 
     @Mock
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 
+    @Mock
+    private CorporateBodyRepository corporateBodyRepository;
+
+    @Mock
+    private JsonMapper jsonMapper;
+
+    @Mock
+    private CorporateBodyTransformer corporateBodyTransformer;
+
     private static final String COMPANY_NUMBER = "OE12345678";
+
+    @BeforeEach
+    void setUp() {
+        corporateBodyService = new CorporateBodyServiceImpl(corporateBodyRepository, jsonMapper,
+                corporateBodyTransformer, corporateBodyDetailsRepository);
+    }
 
     @Test
     @DisplayName("Get registered email address - email was found")

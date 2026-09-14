@@ -1,10 +1,10 @@
 package uk.gov.ch.model.update.trusts;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 import uk.gov.companieshouse.api.model.common.Address;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -91,7 +91,7 @@ class CorporateTrusteeDataTest {
 
     @Test
     @DisplayName("CorporateTrusteeData Serialisation Test")
-    void serialisationTest() throws JsonProcessingException {
+    void serialisationTest() throws JacksonException {
         JsonMapper mapper = new JsonMapper();
         String output = mapper.writeValueAsString(corporateTrusteeData);
         assertEquals(JSON_STRING, output);
@@ -99,7 +99,7 @@ class CorporateTrusteeDataTest {
 
     @Test
     @DisplayName("CorporateTrusteeData Deserialisation Test")
-    void deserialisationTest() throws JsonProcessingException {
+    void deserialisationTest() throws JacksonException {
         JsonMapper mapper = new JsonMapper();
         CorporateTrusteeData output = mapper.readValue(JSON_STRING, CorporateTrusteeData.class);
         assertEquals(corporateTrusteeData, output);

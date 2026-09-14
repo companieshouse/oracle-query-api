@@ -26,7 +26,7 @@ class ActiveOfficerDetailsServiceImplTest {
     private static final String COMPANY_NUMBER = "123456789";
     private static final int START_INDEX = 0;
     private static final int ITEMS_PER_PAGE = 10;
-    private Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
+    private final Pageable pageable = PageRequest.of(START_INDEX, ITEMS_PER_PAGE);
 
     @Mock
     private ActiveOfficersDetailsRepository activeOfficersDetailsRepository;
