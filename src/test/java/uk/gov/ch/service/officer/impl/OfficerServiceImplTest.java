@@ -64,7 +64,7 @@ class OfficerServiceImplTest {
 
     @Test
     @DisplayName("Test get officers json processing exception thrown")
-    void testGetOfficersJacksonExceptionThrown() throws Exception {
+    void testGetOfficersJacksonExceptionThrown() {
         String resultString = "this is the result string";
         when(mockRepository.getOfficers(COMP_NO)).thenReturn(resultString);
         when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenThrow(JacksonException.class);

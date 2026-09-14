@@ -29,11 +29,7 @@ class CustomTextFormatTest {
 
     @Test
     void formatStandardSentenceNullTextTest() {
-        String nullText = null;
-
-        String result = CustomTextFormat.formatStandardSentence(nullText);
-
-        assertNull(result);
+        assertNull(CustomTextFormat.formatStandardSentence(null));
     }
 
     @Test

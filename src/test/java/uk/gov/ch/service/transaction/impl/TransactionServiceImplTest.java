@@ -109,7 +109,7 @@ class TransactionServiceImplTest {
 
     @Test
     @DisplayName("Test get transaction mapper throws a DatabindException")
-    void testGetTransactionThrowsDatabindException() throws Exception {
+    void testGetTransactionThrowsDatabindException() {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
         when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
@@ -121,7 +121,7 @@ class TransactionServiceImplTest {
 
     @Test
     @DisplayName("Test get transaction mapper throws a JacksonException")
-    void testGetTransactionThrowsJacksonException() throws Exception {
+    void testGetTransactionThrowsJacksonException() {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
         when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(

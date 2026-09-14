@@ -27,7 +27,7 @@ class ActiveDirectorDetailsTest {
     @BeforeEach
     void beforeEach() {
         director = new ActiveDirectorDetails();
-        director.setOfficerDetailId(001L);
+        director.setOfficerDetailId(1L);
         director.setForeName1("JOHN");
         director.setForeName2("MiddleName");
         director.setSurname("DOE");
