@@ -1,12 +1,12 @@
 package uk.gov.ch.model.shareholder;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ShareholderJsonTest {
+class ShareholderJsonTest extends AbstractJsonTest {
 
 
     private static final Long SHAREHOLDER_ID = 999L;
@@ -17,11 +17,8 @@ class ShareholderJsonTest {
     private static final String CLASS_OF_SHARES = "class of shares";
     private static final String CURRENCY = "currency";
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
-
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         Shareholder details = new Shareholder();
         details.setShareholderId(SHAREHOLDER_ID);
         details.setForename1(FORENAME1);
@@ -31,18 +28,18 @@ class ShareholderJsonTest {
         details.setClassOfShares(CLASS_OF_SHARES);
         details.setCurrency(CURRENCY);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
             assertThat(node.has("shareholderId")).isFalse();
-            assertThat(node.get("fore_name_1").asText()).isEqualTo(FORENAME1);
-            assertThat(node.get("fore_name_2").asText()).isEqualTo(FORENAME2);
-            assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-            assertThat(node.get("shares").asText()).isEqualTo(String.valueOf(SHARES));
-            assertThat(node.get("class_of_shares").asText()).isEqualTo(CLASS_OF_SHARES);
-            assertThat(node.get("currency").asText()).isEqualTo(CURRENCY);
+            assertThat(node.get("fore_name_1").asString()).isEqualTo(FORENAME1);
+            assertThat(node.get("fore_name_2").asString()).isEqualTo(FORENAME2);
+            assertThat(node.get("surname").asString()).isEqualTo(SURNAME);
+            assertThat(node.get("shares").asString()).isEqualTo(String.valueOf(SHARES));
+            assertThat(node.get("class_of_shares").asString()).isEqualTo(CLASS_OF_SHARES);
+            assertThat(node.get("currency").asString()).isEqualTo(CURRENCY);
         } catch (AssertionError e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
     }

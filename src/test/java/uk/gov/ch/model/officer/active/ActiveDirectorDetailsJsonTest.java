@@ -1,12 +1,12 @@
 package uk.gov.ch.model.officer.active;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ActiveDirectorDetailsJsonTest {
+class ActiveDirectorDetailsJsonTest extends AbstractJsonTest {
 
     private static final Long OFFICER_DETAIL_ID = 999L;
     private static final String FORENAME1 = "forename1";
@@ -40,9 +40,6 @@ class ActiveDirectorDetailsJsonTest {
 
     private static final String SECURE_INDICATOR = "secure indicator";
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
-
     @Test
     void serializesToExpectedJsonStructure() throws Exception {
         ActiveDirectorDetails details = new ActiveDirectorDetails();
@@ -73,18 +70,18 @@ class ActiveDirectorDetailsJsonTest {
         details.setResidentialAddressPostCode(RESIDENTIAL_ADDRESS_POSTCODE);
         details.setResidentialAddressRegion(RESIDENTIAL_ADDRESS_REGION);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
             assertThat(node.has("officer_detail_id")).isFalse();
-            assertThat(node.get("fore_name_1").asText()).isEqualTo(FORENAME1);
-            assertThat(node.get("fore_name_2").asText()).isEqualTo(FORENAME2);
-            assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-            assertThat(node.get("occupation").asText()).isEqualTo(String.valueOf(OCCUPATION));
-            assertThat(node.get("nationality").asText()).isEqualTo(NATIONALITY);
-            assertThat(node.get("date_of_birth").asText()).isEqualTo(DATE_OF_BIRTH_FORMATTED);
-            assertThat(node.get("date_of_appointment").asText()).isEqualTo(DATE_OF_APPOINTMENT_FORMATTED);
-            assertThat(node.get("country_of_residence").asText()).isEqualTo(COUNTRY_OF_RESIDENCE);
+            assertThat(node.get("fore_name_1").asString()).isEqualTo(FORENAME1);
+            assertThat(node.get("fore_name_2").asString()).isEqualTo(FORENAME2);
+            assertThat(node.get("surname").asString()).isEqualTo(SURNAME);
+            assertThat(node.get("occupation").asString()).isEqualTo(OCCUPATION);
+            assertThat(node.get("nationality").asString()).isEqualTo(NATIONALITY);
+            assertThat(node.get("date_of_birth").asString()).isEqualTo(DATE_OF_BIRTH_FORMATTED);
+            assertThat(node.get("date_of_appointment").asString()).isEqualTo(DATE_OF_APPOINTMENT_FORMATTED);
+            assertThat(node.get("country_of_residence").asString()).isEqualTo(COUNTRY_OF_RESIDENCE);
             assertThat(node.has("secure_indicator")).isFalse();
 
             JsonNode serviceAddress = node.get("service_address");
@@ -97,31 +94,31 @@ class ActiveDirectorDetailsJsonTest {
             assertResidentialAddress(residentialAddress);
 
         } catch (Throwable e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
     }
 
     private void assertServiceAddress(JsonNode serviceAddress) {
-            assertThat(serviceAddress.get("address_line_1").asText()).isEqualTo(SERVICE_ADDRESS_LINE_1);
-            assertThat(serviceAddress.get("address_line_2").asText()).isEqualTo(SERVICE_ADDRESS_LINE_2);
-            assertThat(serviceAddress.get("care_of").asText()).isEqualTo(SERVICE_ADDRESS_CARE_OF);
-            assertThat(serviceAddress.get("country").asText()).isEqualTo(SERVICE_ADDRESS_COUNTRY);
-            assertThat(serviceAddress.get("locality").asText()).isEqualTo(SERVICE_ADDRESS_LOCALITY);
-            assertThat(serviceAddress.get("po_box").asText()).isEqualTo(SERVICE_ADDRESS_PO_BOX);
-            assertThat(serviceAddress.get("postal_code").asText()).isEqualTo(SERVICE_ADDRESS_POSTCODE);
-            assertThat(serviceAddress.get("region").asText()).isEqualTo(SERVICE_ADDRESS_REGION);
+            assertThat(serviceAddress.get("address_line_1").asString()).isEqualTo(SERVICE_ADDRESS_LINE_1);
+            assertThat(serviceAddress.get("address_line_2").asString()).isEqualTo(SERVICE_ADDRESS_LINE_2);
+            assertThat(serviceAddress.get("care_of").asString()).isEqualTo(SERVICE_ADDRESS_CARE_OF);
+            assertThat(serviceAddress.get("country").asString()).isEqualTo(SERVICE_ADDRESS_COUNTRY);
+            assertThat(serviceAddress.get("locality").asString()).isEqualTo(SERVICE_ADDRESS_LOCALITY);
+            assertThat(serviceAddress.get("po_box").asString()).isEqualTo(SERVICE_ADDRESS_PO_BOX);
+            assertThat(serviceAddress.get("postal_code").asString()).isEqualTo(SERVICE_ADDRESS_POSTCODE);
+            assertThat(serviceAddress.get("region").asString()).isEqualTo(SERVICE_ADDRESS_REGION);
     }
 
     private void assertResidentialAddress(JsonNode residentialAddress) {
-            assertThat(residentialAddress.get("address_line_1").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
-            assertThat(residentialAddress.get("address_line_2").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
-            assertThat(residentialAddress.get("care_of").asText()).isEqualTo(RESIDENTIAL_ADDRESS_CARE_OF);
-            assertThat(residentialAddress.get("country").asText()).isEqualTo(RESIDENTIAL_ADDRESS_COUNTRY);
-            assertThat(residentialAddress.get("locality").asText()).isEqualTo(RESIDENTIAL_ADDRESS_LOCALITY);
-            assertThat(residentialAddress.get("po_box").asText()).isEqualTo(RESIDENTIAL_ADDRESS_PO_BOX);
-            assertThat(residentialAddress.get("postal_code").asText()).isEqualTo(RESIDENTIAL_ADDRESS_POSTCODE);
-            assertThat(residentialAddress.get("region").asText()).isEqualTo(RESIDENTIAL_ADDRESS_REGION);
+            assertThat(residentialAddress.get("address_line_1").asString()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_1);
+            assertThat(residentialAddress.get("address_line_2").asString()).isEqualTo(RESIDENTIAL_ADDRESS_LINE_2);
+            assertThat(residentialAddress.get("care_of").asString()).isEqualTo(RESIDENTIAL_ADDRESS_CARE_OF);
+            assertThat(residentialAddress.get("country").asString()).isEqualTo(RESIDENTIAL_ADDRESS_COUNTRY);
+            assertThat(residentialAddress.get("locality").asString()).isEqualTo(RESIDENTIAL_ADDRESS_LOCALITY);
+            assertThat(residentialAddress.get("po_box").asString()).isEqualTo(RESIDENTIAL_ADDRESS_PO_BOX);
+            assertThat(residentialAddress.get("postal_code").asString()).isEqualTo(RESIDENTIAL_ADDRESS_POSTCODE);
+            assertThat(residentialAddress.get("region").asString()).isEqualTo(RESIDENTIAL_ADDRESS_REGION);
     }
 }
 

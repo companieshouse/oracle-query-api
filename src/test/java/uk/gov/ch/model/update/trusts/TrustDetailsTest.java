@@ -1,10 +1,10 @@
 package uk.gov.ch.model.update.trusts;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,16 +29,16 @@ class TrustDetailsTest {
 
     @Test
     @DisplayName("TrustDetails Serialisation Test")
-    void serialisationTest() throws JsonProcessingException {
+    void serialisationTest() throws JacksonException {
         JsonMapper mapper = new JsonMapper();
 
         String output = mapper.writeValueAsString(trustDetails);
-        assertEquals(JSON_STRING, output);
+        assertEquals(mapper.readTree(JSON_STRING), mapper.readTree(output));
     }
 
     @Test
     @DisplayName("TrustDetails Deserialisation Test")
-    void deserialisationTest() throws JsonProcessingException {
+    void deserialisationTest() throws JacksonException {
         JsonMapper mapper = new JsonMapper();
 
         TrustDetails output = mapper.readValue(JSON_STRING, TrustDetails.class);

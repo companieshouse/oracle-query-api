@@ -3,6 +3,7 @@ package uk.gov.ch.util;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class CustomTextFormatTest {
 
@@ -28,11 +29,7 @@ class CustomTextFormatTest {
 
     @Test
     void formatStandardSentenceNullTextTest() {
-        String nullText = null;
-
-        String result = CustomTextFormat.formatStandardSentence(nullText);
-
-        assertEquals(null, result);
+        assertNull(CustomTextFormat.formatStandardSentence(null));
     }
 
     @Test

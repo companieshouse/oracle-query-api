@@ -1,7 +1,8 @@
 package uk.gov.ch.model.officer.bankrupt;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "SCOTTISH_BANKRUPT_OFFICER")

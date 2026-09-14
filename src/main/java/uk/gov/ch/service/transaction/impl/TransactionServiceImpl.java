@@ -1,14 +1,11 @@
 package uk.gov.ch.service.transaction.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
@@ -19,20 +16,23 @@ import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
     private static final String MESSAGE = "message";
     private static final String COMPANY_HAS_NO_TRANSACTIONS = "Company has no transactions";
     private static final String COMPANY_NOT_FOUND = "Company Not Found";
 
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    private TransactionTransformer transactionTransformer;
+    private final TransactionTransformer transactionTransformer;
 
-    private JsonMapper jsonMapper;
+    private final JsonMapper jsonMapper;
 
     public TransactionServiceImpl(TransactionRepository transactionRepository, TransactionTransformer transactionTransformer, JsonMapper jsonMapper) {
         this.transactionRepository = transactionRepository;
@@ -65,11 +65,11 @@ public class TransactionServiceImpl implements TransactionService {
                     });
             response = transactionTransformer.convertToFilingHistoryApi(filingHistoryTransactions);
 
-        } catch (JsonMappingException e) {
+        } catch (DatabindException e) {
             logMap.remove(MESSAGE);
             LOGGER.info("JSON Mapping Exception on response", logMap);
             throw new TransactionMappingException(e.getOriginalMessage());
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             logMap.remove(MESSAGE);
             LOGGER.info("JSON Processing Exception on response", logMap);
             throw new TransactionMappingException(e.getOriginalMessage());
