@@ -18,7 +18,7 @@ class ShareholderJsonTest extends AbstractJsonTest {
     private static final String CURRENCY = "currency";
 
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         Shareholder details = new Shareholder();
         details.setShareholderId(SHAREHOLDER_ID);
         details.setForename1(FORENAME1);

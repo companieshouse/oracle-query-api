@@ -34,7 +34,7 @@ class OverseasEntityManagingOfficerDataJsonTest extends AbstractJsonTest {
     private static final String PRINCIPAL_CARE_OF = "principal care of name";
 
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         OverseasEntityManagingOfficerData details = new OverseasEntityManagingOfficerData();
         details.setManagingOfficerAppointmentId(MANAGING_OFFICER_APPOINTMENT_ID);
         details.setContactNameFull(CONTACT_NAME_FULL);

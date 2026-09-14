@@ -12,7 +12,7 @@ class TrustLinkDataJsonTest extends AbstractJsonTest {
     private static final String CORPORATE_BODY_APPOINTMENT_ID = "corporate-body appointment id";
 
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         TrustLinkData details = new TrustLinkData();
         details.setTrustId(TRUST_ID);
         details.setCorporateBodyAppointmentId(CORPORATE_BODY_APPOINTMENT_ID);

@@ -27,7 +27,7 @@ class ActiveOfficerDetailsTest {
     @BeforeEach
     void beforeEach() {
         officer = new ActiveOfficerDetails();
-        officer.setOfficerDetailId(001L);
+        officer.setOfficerDetailId(1L);
         officer.setForeName1("JOHN");
         officer.setForeName2("MiddleName");
         officer.setSurname("DOE");

@@ -38,7 +38,7 @@ class CorporateTrusteeDataJsonTest extends AbstractJsonTest {
     private static final String SERVICE_ADDRESS_POSTCODE = "service address postcode";
 
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         CorporateTrusteeData details = new CorporateTrusteeData();
         details.setTrusteeId(TRUSTEE_ID);
         details.setTrusteeName(TRUSTEE_NAME);
