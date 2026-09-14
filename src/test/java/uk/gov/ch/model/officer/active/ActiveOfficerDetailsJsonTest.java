@@ -1,12 +1,12 @@
 package uk.gov.ch.model.officer.active;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ActiveOfficerDetailsJsonTest {
+class ActiveOfficerDetailsJsonTest extends AbstractJsonTest {
 
     private static final Long OFFICER_DETAIL_ID = 999L;
     private static final Boolean CORPORATE = true;
@@ -41,9 +41,6 @@ class ActiveOfficerDetailsJsonTest {
 
     private static final String SECURE_INDICATOR = "secure indicator";
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
-
     @Test
     void serializesToExpectedJsonStructure() throws Exception {
         ActiveOfficerDetails details = new ActiveOfficerDetails();
@@ -75,14 +72,14 @@ class ActiveOfficerDetailsJsonTest {
         details.setResidentialAddressPostCode(RESIDENTIAL_ADDRESS_POSTCODE);
         details.setResidentialAddressRegion(RESIDENTIAL_ADDRESS_REGION);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
             assertThat(node.has("officer_detail_id")).isFalse();
             assertThat(node.get("fore_name_1").asText()).isEqualTo(FORENAME1);
             assertThat(node.get("fore_name_2").asText()).isEqualTo(FORENAME2);
             assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-            assertThat(node.get("occupation").asText()).isEqualTo(String.valueOf(OCCUPATION));
+            assertThat(node.get("occupation").asText()).isEqualTo(OCCUPATION);
             assertThat(node.get("nationality").asText()).isEqualTo(NATIONALITY);
             assertThat(node.get("date_of_birth").asText()).isEqualTo(DATE_OF_BIRTH_FORMATTED);
             assertThat(node.get("date_of_appointment").asText()).isEqualTo(DATE_OF_APPOINTMENT_FORMATTED);
@@ -98,7 +95,7 @@ class ActiveOfficerDetailsJsonTest {
             assertResidentialAddress(residentialAddress);
 
         } catch (Throwable e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
     }

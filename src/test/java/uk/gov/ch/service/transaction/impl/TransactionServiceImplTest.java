@@ -1,10 +1,5 @@
 package uk.gov.ch.service.transaction.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,6 +10,11 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.DatabindException;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.repository.transaction.TransactionRepository;
@@ -108,24 +108,24 @@ class TransactionServiceImplTest {
     }
 
     @Test
-    @DisplayName("Test get transaction mapper throws a JsonMappingException")
-    void testGetTransactionThrowsJsonMappingException() throws Exception {
+    @DisplayName("Test get transaction mapper throws a DatabindException")
+    void testGetTransactionThrowsDatabindException() throws Exception {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
         when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
-                JsonMappingException.class);
+                DatabindException.class);
         assertThrows(TransactionMappingException.class, () ->
                 transactionService.getTransactions(COMPANY_NUMBER)
         );
     }
 
     @Test
-    @DisplayName("Test get transaction mapper throws a JsonProcessingException")
-    void testGetTransactionThrowsJsonProcessingException() throws Exception {
+    @DisplayName("Test get transaction mapper throws a JacksonException")
+    void testGetTransactionThrowsJacksonException() throws Exception {
         when(transactionRepository.getTransactionJson(COMPANY_NUMBER)).thenReturn(
                 getResponseJson());
         when(jsonMapper.readValue(getResponseJson(), JsonNode.class)).thenThrow(
-                JsonProcessingException.class);
+                JacksonException.class);
         assertThrows(TransactionMappingException.class, () ->
                 transactionService.getTransactions(COMPANY_NUMBER)
         );

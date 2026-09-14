@@ -1,15 +1,14 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ScottishBankruptOfficerDataModelJsonTest {
-
+class ScottishBankruptOfficerDataModelJsonTest extends AbstractJsonTest {
 
     private static final String EPHEMERAL_KEY = "key";
     private static final String FORENAME1 = "forename";
@@ -30,11 +29,8 @@ class ScottishBankruptOfficerDataModelJsonTest {
     private static final LocalDate DEBTOR_DISCHARGE_DATE = LocalDate.now();
     private static final LocalDate TRUSTEE_DISCHARGE_DATE = LocalDate.now();
 
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
-
     @Test
-    void serializesToExpectedJsonStructure() throws Exception {
+    void serializesToExpectedJsonStructure() {
         ScottishBankruptOfficerDataModel details = new ScottishBankruptOfficerDataModel();
         details.setEphemeralKey(EPHEMERAL_KEY);
         details.setForename1(FORENAME1);
@@ -55,35 +51,31 @@ class ScottishBankruptOfficerDataModelJsonTest {
         details.setDebtorDischargeDate(DEBTOR_DISCHARGE_DATE);
         details.setTrusteeDischargeDate(TRUSTEE_DISCHARGE_DATE);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
-            assertThat(node.get("ephemeralKey").asText()).isEqualTo(EPHEMERAL_KEY);
-            assertThat(node.get("forename1").asText()).isEqualTo(FORENAME1);
-            assertThat(node.get("forename2").asText()).isEqualTo(FORENAME2);
-            assertThat(node.get("surname").asText()).isEqualTo(SURNAME);
-            assertThat(node.get("addressLine1").asText()).isEqualTo(ADDRESS_LINE1);
-            assertThat(node.get("addressLine2").asText()).isEqualTo(ADDRESS_LINE2);
-            assertThat(node.get("addressLine3").asText()).isEqualTo(ADDRESS_LINE3);
-            assertThat(node.get("addressTown").asText()).isEqualTo(TOWN);
-            assertThat(node.get("addressCounty").asText()).isEqualTo(COUNTY);
-            assertThat(node.get("addressPostcode").asText()).isEqualTo(POSTCODE);
-            assertThat(node.get("dateOfBirth")).hasToString(toJsonDate(DATE_OF_BIRTH));
-            assertThat(node.get("alias").asText()).isEqualTo(ALIAS);
-            assertThat(node.get("caseReference").asText()).isEqualTo(CASE_REFERENCE);
-            assertThat(node.get("caseType").asText()).isEqualTo(CASE_TYPE);
-            assertThat(node.get("bankruptcyType").asText()).isEqualTo(BANKRUPTCY_TYPE);
-            assertThat(node.get("startDate")).hasToString(toJsonDate(START_DATE));
-            assertThat(node.get("debtorDischargeDate")).hasToString(toJsonDate(DEBTOR_DISCHARGE_DATE));
-            assertThat(node.get("trusteeDischargeDate")).hasToString(toJsonDate(TRUSTEE_DISCHARGE_DATE));
+            assertThat(node.get("ephemeralKey").asString()).isEqualTo(EPHEMERAL_KEY);
+            assertThat(node.get("forename1").asString()).isEqualTo(FORENAME1);
+            assertThat(node.get("forename2").asString()).isEqualTo(FORENAME2);
+            assertThat(node.get("surname").asString()).isEqualTo(SURNAME);
+            assertThat(node.get("addressLine1").asString()).isEqualTo(ADDRESS_LINE1);
+            assertThat(node.get("addressLine2").asString()).isEqualTo(ADDRESS_LINE2);
+            assertThat(node.get("addressLine3").asString()).isEqualTo(ADDRESS_LINE3);
+            assertThat(node.get("addressTown").asString()).isEqualTo(TOWN);
+            assertThat(node.get("addressCounty").asString()).isEqualTo(COUNTY);
+            assertThat(node.get("addressPostcode").asString()).isEqualTo(POSTCODE);
+            assertThat(node.get("dateOfBirth").asString()).isEqualTo(DATE_OF_BIRTH.toString());
+            assertThat(node.get("alias").asString()).isEqualTo(ALIAS);
+            assertThat(node.get("caseReference").asString()).isEqualTo(CASE_REFERENCE);
+            assertThat(node.get("caseType").asString()).isEqualTo(CASE_TYPE);
+            assertThat(node.get("bankruptcyType").asString()).isEqualTo(BANKRUPTCY_TYPE);
+            assertThat(node.get("startDate").asString()).isEqualTo(START_DATE.toString());
+            assertThat(node.get("debtorDischargeDate").asString()).isEqualTo(DEBTOR_DISCHARGE_DATE.toString());
+            assertThat(node.get("trusteeDischargeDate").asString()).isEqualTo(TRUSTEE_DISCHARGE_DATE.toString());
         } catch (AssertionError e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
-    }
-
-    static String toJsonDate(LocalDate date) {
-        return "[" + date.getYear() + "," + date.getMonthValue() + "," + date.getDayOfMonth() + "]";
     }
 }
 

@@ -1,9 +1,5 @@
 package uk.gov.ch.service.officer.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +10,10 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tools.jackson.core.JacksonException;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 import uk.gov.ch.exception.NoOfficersExistingException;
 import uk.gov.ch.exception.OfficersMappingException;
 import uk.gov.ch.model.officer.OfficerDataModel;
@@ -64,10 +64,10 @@ class OfficerServiceImplTest {
 
     @Test
     @DisplayName("Test get officers json processing exception thrown")
-    void testGetOfficersJsonProcessingExceptionThrown() throws Exception {
+    void testGetOfficersJacksonExceptionThrown() throws Exception {
         String resultString = "this is the result string";
         when(mockRepository.getOfficers(COMP_NO)).thenReturn(resultString);
-        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenThrow(JsonProcessingException.class);
+        when(mockJsonMapper.readValue(resultString, JsonNode.class)).thenThrow(JacksonException.class);
         assertThrows(OfficersMappingException.class, () -> {
             officerServiceImpl.getOfficers(COMP_NO);
         });

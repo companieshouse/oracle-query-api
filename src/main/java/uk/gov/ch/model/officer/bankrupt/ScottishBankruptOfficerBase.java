@@ -1,11 +1,13 @@
 package uk.gov.ch.model.officer.bankrupt;
 
-import jakarta.persistence.MappedSuperclass;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import jakarta.persistence.*;
-import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
 import uk.gov.ch.model.common.AltNameBase;
+
+import java.time.LocalDate;
 
 @JsonInclude(Include.NON_NULL)
 @MappedSuperclass

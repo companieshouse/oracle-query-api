@@ -1,12 +1,12 @@
 package uk.gov.ch.model.corporatebody.sqldatamodels;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.JsonNode;
+import uk.gov.ch.model.AbstractJsonTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class RegisteredOfficeAddressJsonTest {
+class RegisteredOfficeAddressJsonTest extends AbstractJsonTest {
 
 
     private static final String ADDRESS_LINE_1 = "address line 1";
@@ -18,9 +18,6 @@ class RegisteredOfficeAddressJsonTest {
     private static final String PO_BOX = "po box";
     private static final String PREMISES = "premises";
     private static final String REGION = "region";
-
-    private final ObjectMapper objectMapper = new ObjectMapper()
-        .registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
     @Test
     void serializesToExpectedJsonStructure() throws Exception {
@@ -35,20 +32,20 @@ class RegisteredOfficeAddressJsonTest {
         details.setPremises(PREMISES);
         details.setRegion(REGION);
 
-        JsonNode node = objectMapper.valueToTree(details);
+        JsonNode node = jsonMapper.valueToTree(details);
 
         try {
-            assertThat(node.get("address_line_1").asText()).isEqualTo(ADDRESS_LINE_1);
-            assertThat(node.get("address_line_2").asText()).isEqualTo(ADDRESS_LINE_2);
-            assertThat(node.get("postal_code").asText()).isEqualTo(POSTCODE);
-            assertThat(node.get("care_of_name").asText()).isEqualTo(String.valueOf(CARE_OF_NAME));
-            assertThat(node.get("country").asText()).isEqualTo(COUNTRY);
-            assertThat(node.get("locality").asText()).isEqualTo(LOCALITY);
-            assertThat(node.get("po_box").asText()).isEqualTo(PO_BOX);
-            assertThat(node.get("premises").asText()).isEqualTo(PREMISES);
-            assertThat(node.get("region").asText()).isEqualTo(REGION);
+            assertThat(node.get("address_line_1").asString()).isEqualTo(ADDRESS_LINE_1);
+            assertThat(node.get("address_line_2").asString()).isEqualTo(ADDRESS_LINE_2);
+            assertThat(node.get("postal_code").asString()).isEqualTo(POSTCODE);
+            assertThat(node.get("care_of_name").asString()).isEqualTo(CARE_OF_NAME);
+            assertThat(node.get("country").asString()).isEqualTo(COUNTRY);
+            assertThat(node.get("locality").asString()).isEqualTo(LOCALITY);
+            assertThat(node.get("po_box").asString()).isEqualTo(PO_BOX);
+            assertThat(node.get("premises").asString()).isEqualTo(PREMISES);
+            assertThat(node.get("region").asString()).isEqualTo(REGION);
         } catch (Throwable e) {
-            System.out.println("RAW JSON: " + objectMapper.writeValueAsString(details));
+            System.out.println("RAW JSON: " + jsonMapper.writeValueAsString(details));
             throw e;
         }
     }

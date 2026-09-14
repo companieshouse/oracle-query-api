@@ -1,15 +1,16 @@
 package uk.gov.ch.model.officer.active;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ActiveDirectorDetailsTest {
 
@@ -71,13 +72,13 @@ class ActiveDirectorDetailsTest {
     void secureActiveDirectorDetailsUraTest() {
         director.setSecureIndicator("Y");
         assertEquals(SECURE_DIRECTOR_URA_LINE_1, director.getResidentialAddress().getAddressLine1());
-        assertEquals( null, director.getResidentialAddress().getLocality());
-        assertEquals(null, director.getResidentialAddress().getPostalCode());
+        assertNull(director.getResidentialAddress().getLocality());
+        assertNull(director.getResidentialAddress().getPostalCode());
     }
 
     @Test
     @Description("Should not contain the secure indicator in the json of a non-secure director")
-    void nonSecureActiveDirectorDetailsSecureIndicatorTest() throws JsonProcessingException {
+    void nonSecureActiveDirectorDetailsSecureIndicatorTest() throws JacksonException {
         director.setSecureIndicator("N");
         String json = new JsonMapper().writeValueAsString(director);
         assertFalse(json.contains("secure"));
@@ -86,7 +87,7 @@ class ActiveDirectorDetailsTest {
 
     @Test
     @Description("Should not contain the secure indicator in the json of a secure director")
-    void secureActiveDirectorDetailsSecureIndicatorTest() throws JsonProcessingException {
+    void secureActiveDirectorDetailsSecureIndicatorTest() throws JacksonException {
         director.setSecureIndicator("Y");
         String json = new JsonMapper().writeValueAsString(director);
         assertFalse(json.contains("secure"));

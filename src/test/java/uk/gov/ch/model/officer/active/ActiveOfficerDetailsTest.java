@@ -1,15 +1,16 @@
 package uk.gov.ch.model.officer.active;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.Description;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.json.JsonMapper;
 
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ActiveOfficerDetailsTest {
 
@@ -72,13 +73,13 @@ class ActiveOfficerDetailsTest {
     void secureActiveOfficerDetailsUraTest() {
         officer.setSecureIndicator("Y");
         assertEquals(SECURE_DIRECTOR_URA_LINE_1, officer.getResidentialAddress().getAddressLine1());
-        assertEquals( null, officer.getResidentialAddress().getLocality());
-        assertEquals(null, officer.getResidentialAddress().getPostalCode());
+        assertNull(officer.getResidentialAddress().getLocality());
+        assertNull(officer.getResidentialAddress().getPostalCode());
     }
 
     @Test
     @Description("Should not contain the secure indicator in the json of a non-secure officer")
-    void nonSecureActiveOfficerDetailsSecureIndicatorTest() throws JsonProcessingException {
+    void nonSecureActiveOfficerDetailsSecureIndicatorTest() throws JacksonException {
         officer.setSecureIndicator("N");
         String json = new JsonMapper().writeValueAsString(officer);
         assertFalse(json.contains("secure"));
@@ -87,7 +88,7 @@ class ActiveOfficerDetailsTest {
 
     @Test
     @Description("Should not contain the secure indicator in the json of a secure officer")
-    void secureActiveOfficerDetailsSecureIndicatorTest() throws JsonProcessingException {
+    void secureActiveOfficerDetailsSecureIndicatorTest() throws JacksonException {
         officer.setSecureIndicator("Y");
         String json = new JsonMapper().writeValueAsString(officer);
         assertFalse(json.contains("secure"));
