@@ -37,7 +37,7 @@
         <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <log4j2.version>2.26.1</log4j2.version>
         <!-- Source: https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
-        <jackson.version>3.2.2</jackson.version>
+        <jackson.version>3.2.3</jackson.version>
 
         <!-- CH Libraries -->
         <!-- Source: https://github.com/companieshouse/structured-logging/releases -->
