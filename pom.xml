@@ -41,11 +41,11 @@
 
         <!-- CH Libraries -->
         <!-- Source: https://github.com/companieshouse/structured-logging/releases -->
-        <structured-logging.version>4.0.3</structured-logging.version>
+        <structured-logging.version>4.0.4</structured-logging.version>
         <!-- Source: https://github.com/companieshouse/sdk-manager-java/releases -->
         <sdk-manager-java.version>4.0.0</sdk-manager-java.version>
         <!-- Source: https://github.com/companieshouse/api-sdk-java/releases -->
-        <api-sdk-java.version>7.2.3</api-sdk-java.version>
+        <api-sdk-java.version>7.2.7</api-sdk-java.version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -82,7 +82,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- structured-logging 4.0.3 transitively brings in opentelemetry-logback-appender-1.0 2.30.0-alpha, -->
+            <!-- structured-logging 4.0.4 transitively brings in opentelemetry-logback-appender-1.0 2.31.1-alpha, -->
             <!-- which conflicts with the version pulled in by the opentelemetry-instrumentation-bom import. -->
             <!-- Pin explicitly to satisfy the DependencyConvergence enforcer rule. -->
             <dependency>
@@ -142,7 +142,7 @@
             <dependency>
                 <groupId>net.ttddyy.observation</groupId>
                 <artifactId>datasource-micrometer-bom</artifactId>
-                <version>2.2.1</version>
+                <version>2.3.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
