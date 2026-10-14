@@ -6,7 +6,7 @@
     <parent>
         <groupId>uk.gov.companieshouse</groupId>
         <artifactId>companies-house-parent</artifactId>
-        <version>2.1.20</version>
+        <version>3.0.0</version>
         <relativePath/>
     </parent>
 
@@ -27,13 +27,13 @@
         <!-- Source: https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc17 -->
         <ojdbc17.version>23.26.3.0.0</ojdbc17.version>
         <!-- Source: https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <guava.version>33.7.1-jre</guava.version>
+        <guava.version>33.7.2-jre</guava.version>
         <!-- Source: https://mvnrepository.com/artifact/com.google.errorprone/error_prone_core -->
         <errorprone.version>2.50.0</errorprone.version>
         <!-- Source: https://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-instrumentation-bom -->
         <opentelemetry.version>2.31.1</opentelemetry.version>
         <!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
-        <tomcat-embed.version>11.0.25</tomcat-embed.version>
+        <tomcat-embed.version>11.0.27</tomcat-embed.version>
         <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <log4j2.version>2.26.1</log4j2.version>
         <!-- Source: https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
@@ -41,11 +41,11 @@
 
         <!-- CH Libraries -->
         <!-- Source: https://github.com/companieshouse/structured-logging/releases -->
-        <structured-logging.version>4.0.4</structured-logging.version>
+        <structured-logging.version>4.0.6</structured-logging.version>
         <!-- Source: https://github.com/companieshouse/sdk-manager-java/releases -->
         <sdk-manager-java.version>4.0.0</sdk-manager-java.version>
         <!-- Source: https://github.com/companieshouse/api-sdk-java/releases -->
-        <api-sdk-java.version>7.2.7</api-sdk-java.version>
+        <api-sdk-java.version>7.2.8</api-sdk-java.version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -67,7 +67,7 @@
         <!-- Source: https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <!-- Source: https://mvnrepository.com/artifact/org.sonarsource.scanner.maven/sonar-maven-plugin -->
-        <sonar-maven-plugin.version>5.7.0.6970</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>5.8.0.7211</sonar-maven-plugin.version>
 
     </properties>
 
