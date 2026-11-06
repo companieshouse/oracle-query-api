@@ -19,17 +19,17 @@
         <java.version>21</java.version>
 
         <!-- Source: https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies -->
-        <spring-boot-dependencies.version>4.1.1</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>4.1.2</spring-boot-dependencies.version>
         <!-- Source: https://mvnrepository.com/artifact/org.hamcrest/hamcrest -->
         <hamcrest.version>3.0</hamcrest.version>
         <!-- Source: https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
         <org.mapstruct.version>1.6.3</org.mapstruct.version>
         <!-- Source: https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc17 -->
-        <ojdbc17.version>23.26.3.0.0</ojdbc17.version>
+        <ojdbc17.version>23.26.4.0.0</ojdbc17.version>
         <!-- Source: https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <guava.version>33.7.2-jre</guava.version>
+        <guava.version>33.8.0-jre</guava.version>
         <!-- Source: https://mvnrepository.com/artifact/com.google.errorprone/error_prone_core -->
-        <errorprone.version>2.50.0</errorprone.version>
+        <errorprone.version>2.52.0</errorprone.version>
         <!-- Source: https://mvnrepository.com/artifact/io.opentelemetry.instrumentation/opentelemetry-instrumentation-bom -->
         <opentelemetry.version>2.31.1</opentelemetry.version>
         <!-- Source: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core -->
@@ -37,15 +37,15 @@
         <!-- Source: https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <log4j2.version>2.26.1</log4j2.version>
         <!-- Source: https://mvnrepository.com/artifact/tools.jackson.core/jackson-databind -->
-        <jackson.version>3.2.3</jackson.version>
+        <jackson.version>3.2.4</jackson.version>
 
         <!-- CH Libraries -->
         <!-- Source: https://github.com/companieshouse/structured-logging/releases -->
-        <structured-logging.version>4.0.6</structured-logging.version>
+        <structured-logging.version>4.0.7</structured-logging.version>
         <!-- Source: https://github.com/companieshouse/sdk-manager-java/releases -->
-        <sdk-manager-java.version>4.0.0</sdk-manager-java.version>
+        <sdk-manager-java.version>4.0.3</sdk-manager-java.version>
         <!-- Source: https://github.com/companieshouse/api-sdk-java/releases -->
-        <api-sdk-java.version>7.2.8</api-sdk-java.version>
+        <api-sdk-java.version>7.2.9</api-sdk-java.version>
 
         <!-- Sonar dependency -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -59,7 +59,7 @@
 
         <!-- Maven Plugins -->
         <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-        <maven-surefire-plugin.version>3.6.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.6.1</maven-surefire-plugin.version>
         <!-- Source: https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-compiler-plugin -->
         <maven-compiler-plugin.version>3.16.0</maven-compiler-plugin.version>
         <!-- Source: https://mvnrepository.com/artifact/com.google.cloud.tools/jib-maven-plugin -->
