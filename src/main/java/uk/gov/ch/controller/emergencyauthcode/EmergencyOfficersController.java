@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
@@ -23,7 +23,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class EmergencyOfficersController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private final EmergencyOfficersService emergencyOfficersService;
 

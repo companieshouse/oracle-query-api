@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.shareholder.Shareholder;
 import uk.gov.ch.service.shareholder.ShareholderService;
 import uk.gov.companieshouse.logging.Logger;
@@ -22,7 +22,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class ShareholderController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private ShareholderService shareholderService;
 

@@ -3,7 +3,7 @@ package uk.gov.ch.service.officer.active.impl;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 import uk.gov.ch.repository.officers.ActiveOfficersDetailsRepository;
@@ -15,7 +15,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class ActiveOfficerDetailsServiceImpl implements ActiveOfficerDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private static final String NO_OFFICERS_FOUND_MESSAGE = "No active officers were found.";
 

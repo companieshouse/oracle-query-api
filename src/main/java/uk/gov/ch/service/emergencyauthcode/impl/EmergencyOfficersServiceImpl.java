@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointment;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyAppointments;
 import uk.gov.ch.model.emergencyauthcode.jsondatamodels.CorporateBodyEFilingStatus;
@@ -19,7 +19,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class EmergencyOfficersServiceImpl implements EmergencyOfficersService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private EmergencyAuthCodeEligibleOfficersRepository emergencyAuthCodeEligibleOfficersRepository;
 

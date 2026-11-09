@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
 import uk.gov.companieshouse.logging.Logger;
@@ -28,7 +28,7 @@ public class StatementOfCapitalRepository {
             + "LEFT JOIN soc_share_class_entry ssce ON ssc.soc_share_class_id = ssce.soc_share_class_id "
             + "WHERE soc.is_current_ind = 'Y' and cb.incorporation_number = ?";
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private JdbcTemplate jdbcTemplate;
 

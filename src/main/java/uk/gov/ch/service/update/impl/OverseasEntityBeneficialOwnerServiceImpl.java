@@ -2,7 +2,7 @@ package uk.gov.ch.service.update.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.BeneficialOwnerCountNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityBeneficialOwner;
 import uk.gov.ch.repository.update.OverseasEntityBeneficialOwnerRepository;
@@ -16,7 +16,7 @@ public class OverseasEntityBeneficialOwnerServiceImpl implements
         OverseasEntityBeneficialOwnerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private OverseasEntityBeneficialOwnerRepository beneficialOwnerDataRepository;
 

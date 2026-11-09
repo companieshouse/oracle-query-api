@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDataModel;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerDetails;
 import uk.gov.ch.model.officer.bankrupt.ScottishBankruptOfficerSearch;
@@ -21,7 +21,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class ScottishBankruptOfficerServiceImpl implements BankruptOfficerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private ScottishBankruptOfficersRepository scottishBankruptOfficersRepository;
 

@@ -3,8 +3,8 @@ package uk.gov.ch.repository.corporatebody;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import uk.gov.ch.OracleQueryApplication;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
+import uk.gov.ch.util.Constants;
 import uk.gov.companieshouse.logging.Logger;
 import uk.gov.companieshouse.logging.LoggerFactory;
 
@@ -12,7 +12,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class CorporateBodyRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private static final String GET_TRADED_STATUS_SQL = "SELECT COMPANY_TRADED_TYPE_ID FROM corporate_body WHERE incorporation_number = ?";
 

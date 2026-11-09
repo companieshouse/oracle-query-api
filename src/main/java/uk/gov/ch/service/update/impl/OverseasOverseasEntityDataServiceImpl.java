@@ -2,7 +2,7 @@ package uk.gov.ch.service.update.impl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
 import uk.gov.ch.model.corporatebody.sqldatamodels.CorporateBodyDetails;
 import uk.gov.ch.model.update.OverseasEntityDataJson;
@@ -16,7 +16,7 @@ import uk.gov.companieshouse.logging.util.DataMap;
 public class OverseasOverseasEntityDataServiceImpl implements OverseasEntityDataService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Contact email not found for overseas entity: ";
     private CorporateBodyDetailsRepository corporateBodyDetailsRepository;
 

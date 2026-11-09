@@ -11,8 +11,6 @@ import uk.gov.ch.interceptor.LoggingInterceptor;
 @SpringBootApplication
 public class OracleQueryApplication implements WebMvcConfigurer {
 
-    public static final String APPLICATION_NAME_SPACE = "oracle-query-api";
-
     private final LoggingInterceptor loggingInterceptor;
 
     @Autowired
