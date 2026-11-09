@@ -2,7 +2,7 @@ package uk.gov.ch.service.update.trusts.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
 import uk.gov.ch.model.update.trusts.IndividualTrusteeData;
 import uk.gov.ch.repository.update.trusts.IndividualTrusteesRepository;
@@ -15,7 +15,7 @@ import uk.gov.companieshouse.logging.util.DataMap;
 public class IndividualTrusteesServiceImpl implements IndividualTrusteesService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
     private IndividualTrusteesRepository individualTrusteesRepository;
 
     public IndividualTrusteesServiceImpl(IndividualTrusteesRepository individualTrusteesRepository) {

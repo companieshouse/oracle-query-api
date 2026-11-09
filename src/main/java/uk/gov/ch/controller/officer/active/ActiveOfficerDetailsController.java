@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
 import uk.gov.ch.model.officer.active.ActiveOfficerDetails;
 import uk.gov.ch.service.officer.active.ActiveOfficerDetailsService;
@@ -21,7 +21,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class ActiveOfficerDetailsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
     private ActiveOfficerDetailsService service;
 
     public ActiveOfficerDetailsController(ActiveOfficerDetailsService service) {

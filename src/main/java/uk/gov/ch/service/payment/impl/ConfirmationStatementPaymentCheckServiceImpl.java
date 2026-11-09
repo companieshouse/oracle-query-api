@@ -2,7 +2,7 @@ package uk.gov.ch.service.payment.impl;
 
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.payment.ConfirmationStatementPayment;
 import uk.gov.ch.model.payment.ConfirmationStatementPaymentJson;
 import uk.gov.ch.repository.payment.ConfirmationStatementPaymentCheckRepository;
@@ -15,7 +15,7 @@ public class ConfirmationStatementPaymentCheckServiceImpl implements
         ConfirmationStatementPaymentCheckService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private ConfirmationStatementPaymentCheckRepository confirmationStatementPaymentCheckRepository;
 

@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.ServiceException;
 import uk.gov.ch.exception.StatementOfCapitalNotFoundException;
 import uk.gov.ch.model.capital.StatementOfCapital;
@@ -18,7 +18,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class StatementOfCapitalController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private final StatementOfCapitalService statementOfCapitalService;
 

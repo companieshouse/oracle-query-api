@@ -2,7 +2,7 @@ package uk.gov.ch.service.update.trusts.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
 import uk.gov.ch.model.update.trusts.TrustLinkData;
 import uk.gov.ch.repository.update.trusts.TrustLinksRepository;
@@ -15,7 +15,7 @@ import uk.gov.companieshouse.logging.util.DataMap;
 public class TrustLinksServiceImpl implements TrustLinksService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
     private TrustLinksRepository trustLinksRepository;
 
     public TrustLinksServiceImpl(TrustLinksRepository trustLinksRepository) {

@@ -2,7 +2,7 @@ package uk.gov.ch.service.transaction.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
 import uk.gov.ch.model.transaction.sqldatamodels.Gaz2TransactionDataModel;
 import uk.gov.ch.repository.transaction.Gaz2TransactionRepository;
@@ -15,7 +15,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class Gaz2RequestedServiceImpl implements Gaz2RequestedService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private final Gaz2TransactionRepository gaz2TransactionRepository;
     private final TransactionTransformer transactionTransformer;

@@ -5,7 +5,7 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.NoOfficersExistingException;
 import uk.gov.ch.exception.OfficersMappingException;
 import uk.gov.ch.model.officer.OfficerDataModel;
@@ -24,7 +24,7 @@ import java.util.Map;
 public class OfficerServiceImpl implements OfficerService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
     private static final String COMPANY_NOT_FOUND = "Company Not Found";
     private static final String NO_OFFICER_STRING = "], \"CreatedTime\":";
 

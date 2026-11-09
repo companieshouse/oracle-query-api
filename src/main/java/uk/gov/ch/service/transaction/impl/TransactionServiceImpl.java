@@ -6,7 +6,7 @@ import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.DatabindException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.model.transaction.jsondatamodels.FilingHistoryTransaction;
 import uk.gov.ch.repository.transaction.TransactionRepository;
@@ -23,7 +23,7 @@ import java.util.Map;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(OracleQueryApplication.APPLICATION_NAME_SPACE);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Constants.APPLICATION_NAME_SPACE);
     private static final String MESSAGE = "message";
     private static final String COMPANY_HAS_NO_TRANSACTIONS = "Company has no transactions";
     private static final String COMPANY_NOT_FOUND = "Company Not Found";

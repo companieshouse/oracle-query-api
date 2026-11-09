@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.TrustDataCountNotFoundException;
 import uk.gov.ch.model.update.trusts.TrustDetails;
 import uk.gov.ch.service.update.trusts.TrustDetailsService;
@@ -19,7 +19,7 @@ import uk.gov.companieshouse.logging.util.DataMap;
 public class TrustDetailsController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private TrustDetailsService trustDetailsService;
 

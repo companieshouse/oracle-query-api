@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.model.transaction.jsondatamodels.Gaz2Transaction;
 import uk.gov.ch.service.transaction.Gaz2RequestedService;
 import uk.gov.companieshouse.logging.Logger;
@@ -16,7 +16,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class Gaz2RequestedController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private Gaz2RequestedService gaz2RequestedService;
 

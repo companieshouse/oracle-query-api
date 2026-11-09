@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.TransactionMappingException;
 import uk.gov.ch.service.transaction.TransactionService;
 import uk.gov.companieshouse.api.model.filinghistory.FilingHistoryApi;
@@ -19,7 +19,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class TransactionController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private TransactionService transactionService;
 

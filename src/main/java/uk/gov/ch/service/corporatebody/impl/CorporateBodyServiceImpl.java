@@ -6,7 +6,7 @@ import tools.jackson.core.JacksonException;
 import tools.jackson.core.type.TypeReference;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.CompanyProfileMappingException;
 import uk.gov.ch.exception.CorporateBodyDetailsEmailAddressNotFoundException;
 import uk.gov.ch.exception.CorporateBodyNotFoundException;
@@ -29,7 +29,7 @@ import java.util.Map;
 public class CorporateBodyServiceImpl implements CorporateBodyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
     private static final String NOT_FOUND_MESSAGE = "Email address not found for company: ";
     private final CorporateBodyRepository corporateBodyRepository;
     private final JsonMapper jsonMapper;

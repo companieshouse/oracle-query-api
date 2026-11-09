@@ -2,7 +2,7 @@ package uk.gov.ch.service.update.impl;
 
 import java.util.List;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.ManagingOfficerCountNotFoundException;
 import uk.gov.ch.model.update.OverseasEntityManagingOfficerData;
 import uk.gov.ch.repository.update.OverseasEntityManagingOfficersRepository;
@@ -16,7 +16,7 @@ public class OverseasEntityManagingOfficersServiceImpl implements
         OverseasEntityManagingOfficersService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private static final String NO_MANAGING_OFFICERS_FOUND_MESSAGE = "No managing officers were found for this overseas entity";
 

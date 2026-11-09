@@ -3,7 +3,7 @@ package uk.gov.ch.service.officer.active.impl;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.InvalidActiveOfficersCountFoundException;
 import uk.gov.ch.model.officer.active.ActiveDirectorDetails;
 import uk.gov.ch.repository.officers.ActiveDirectorDetailsRepository;
@@ -15,7 +15,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class ActiveDirectorDetailsServiceImpl implements ActiveDirectorDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+            Constants.APPLICATION_NAME_SPACE);
 
     private static final String WRONG_OFFICER_COUNT_MESSAGE = "Incorrect number of officers found must be single active director company.";
 

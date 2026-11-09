@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import uk.gov.ch.OracleQueryApplication;
+import uk.gov.ch.util.Constants;
 import uk.gov.ch.exception.NoOfficersExistingException;
 import uk.gov.ch.exception.OfficersMappingException;
 import uk.gov.ch.service.officer.OfficerService;
@@ -20,7 +20,7 @@ import uk.gov.companieshouse.logging.LoggerFactory;
 public class OfficerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(
-            OracleQueryApplication.APPLICATION_NAME_SPACE);
+        Constants.APPLICATION_NAME_SPACE);
 
     private final OfficerService officerService;
 
