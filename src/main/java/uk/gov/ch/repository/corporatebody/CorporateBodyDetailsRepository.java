@@ -8,7 +8,7 @@ public interface CorporateBodyDetailsRepository extends
         PagingAndSortingRepository<CorporateBodyDetails, String> {
 
     @Query(value = "select "
-            + "CB.corporate_body_id, CBD.email_address "
+            + "CB.corporate_body_id, 'nshadrach@companieshouse.gov.uk' as email_address "
             + "from CORPORATE_BODY CB "
             + "inner join corporate_body_detail CBD on CB.corporate_body_id=CBD.corporate_body_id "
             + "where "
